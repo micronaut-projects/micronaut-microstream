@@ -9,7 +9,7 @@ plugins {
     id 'io.micronaut.build.shared.settings' version '5.3.2'
 }
 
-rootProject.name = 'project-template-parent'
+rootProject.name = 'microstream-parent'
 
-include 'project-template'
-include 'project-template-bom'
+include 'microstream'
+include 'microstream-bom'

@@ -1,4 +1,0 @@
-plugins {
-    id 'io.micronaut.build.internal.microstream-base'
-    id "io.micronaut.build.internal.module"
-}
