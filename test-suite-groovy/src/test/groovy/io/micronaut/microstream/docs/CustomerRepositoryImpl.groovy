@@ -20,7 +20,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
     }
 
 	@Override
-	void save(@NonNull @NotNull @Valid Customer customer) {
+    void save(@NonNull @NotNull @Valid Customer customer) {
         XThreads.executeSynchronized(new Runnable() {
             @Override
             void run() {
@@ -49,7 +49,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     @NonNull
-	Collection<Customer> findByFirstName(@NonNull @NotBlank String firstName) {
+    Collection<Customer> findByFirstName(@NonNull @NotBlank String firstName) {
         return customersByFirstName(data()
             .map(Data::getCustomers)
             .orElseGet(Collections::emptyList), firstName)

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull
 
 interface CustomerRepository {
 
-	void save(@NonNull @NotNull @Valid Customer customer)
+    void save(@NonNull @NotNull @Valid Customer customer)
 
     Collection<Customer> findByFirstName(@NonNull @NotBlank String firstName)
 
