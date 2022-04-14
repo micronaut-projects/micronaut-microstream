@@ -1,0 +1,7 @@
+[versions]
+managed-microstream='06.01.00-MS-GA'
+
+[libraries]
+
+managed-microstream-storage-embedded-configuration= { module = 'one.microstream:microstream-storage-embedded-configuration', version.ref = 'managed-microstream' }
+
