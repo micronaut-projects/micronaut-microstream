@@ -26,11 +26,9 @@ class CustomerController {
 
     @Post
     HttpResponse<?> save(@NonNull @NotNull @Valid @Body CustomerSave customerSave) {
-        Customer customer = new Customer(UUID.randomUUID().toString(),
-            customerSave.getFirstName(),
-            customerSave.getLastName())
+        Customer customer = new Customer(UUID.randomUUID().toString(), customerSave.firstName, customerSave.lastName)
         repository.save(customer)
-        HttpResponse.created(UriBuilder.of("/customer").path(customer.getId()).build())
+        HttpResponse.created(UriBuilder.of("/customer").path(customer.id).build())
     }
 
     @Get("/{id}")
@@ -41,6 +39,6 @@ class CustomerController {
     @Delete("/{id}")
     @Status(HttpStatus.NO_CONTENT)
     void delete(@PathVariable @NonNull String id) {
-        repository.deleteById(id);
+        repository.deleteById(id)
     }
 }

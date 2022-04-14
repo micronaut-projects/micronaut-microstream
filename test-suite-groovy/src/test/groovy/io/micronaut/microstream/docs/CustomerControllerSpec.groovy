@@ -29,15 +29,17 @@ class CustomerControllerSpec extends Specification {
         given:
         String firstName = "Sergio"
         BlockingHttpClient client = httpClient.toBlocking()
-        
+
         when:
         HttpRequest<?> request = HttpRequest.POST("/customer", Collections.singletonMap("firstName", firstName))
         HttpResponse<?> response = client.exchange(request)
 
         then:
         HttpStatus.CREATED == response.status()
+
         when:
         String location = response.getHeaders().get(HttpHeaders.LOCATION)
+
         then:
         location
 
@@ -66,6 +68,6 @@ class CustomerControllerSpec extends Specification {
 
         then:
         HttpClientResponseException e = thrown()
-        HttpStatus.NOT_FOUND == e.getStatus()
+        HttpStatus.NOT_FOUND == e.status
     }
 }

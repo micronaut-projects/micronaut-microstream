@@ -13,7 +13,7 @@ import java.util.stream.Collectors
 @Singleton
 class CustomerRepositoryImpl implements CustomerRepository {
 
-    private final EmbeddedStorageManager embeddedStorageManager;
+    private final EmbeddedStorageManager embeddedStorageManager
 
     CustomerRepositoryImpl(EmbeddedStorageManager embeddedStorageManager) {
         this.embeddedStorageManager = embeddedStorageManager
@@ -58,7 +58,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
     private static List<Customer> customersByFirstName(@NonNull Collection<Customer> customers,
                                                        @NonNull String firstName) {
         return customers.stream()
-            .filter(c -> c.getFirstName().equals(firstName))
+            .filter(c -> c.firstName == firstName)
             .collect(Collectors.toList())
     }
 
