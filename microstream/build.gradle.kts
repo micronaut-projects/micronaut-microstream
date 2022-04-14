@@ -5,3 +5,9 @@ plugins {
 dependencies {
     api(libs.microstream.storage.embedded.configuration)
 }
+
+micronautBuild {
+    binaryCompatibility {
+        enabled.set(false)
+    }
+}
