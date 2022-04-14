@@ -13,3 +13,4 @@ rootProject.name = 'microstream-parent'
 
 include 'microstream'
 include 'microstream-bom'
+include 'test-suite'
