@@ -18,7 +18,6 @@ package io.micronaut.microstream.conf;
 import io.micronaut.context.annotation.EachBean;
 import io.micronaut.context.annotation.Factory;
 import jakarta.inject.Singleton;
-import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration;
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation;
 
 /**
@@ -31,7 +30,7 @@ public class EmbeddedStorageFoundationFactory {
 
     /**
      *
-     * @param provider A {@link EmbeddedStorageConfiguration#Builder()} provider.
+     * @param provider A {@link one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration#Builder()} provider.
      * @return A {@link one.microstream.storage.embedded.types.EmbeddedStorageFoundation}.
      */
     @EachBean(EmbeddedStorageConfigurationProvider.class)
