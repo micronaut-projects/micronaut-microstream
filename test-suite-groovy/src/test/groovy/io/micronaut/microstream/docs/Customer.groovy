@@ -14,10 +14,10 @@ class Customer {
 
     @NonNull
     @NotBlank
-	String firstName
+    String firstName
 
     @Nullable
-	String lastName
+    String lastName
 
     Customer(@NonNull String id, @NonNull String firstName, @Nullable String lastName) {
         this.id = id
