@@ -1,0 +1,10 @@
+microstream:
+  storage:
+    main:
+      storage-directory: build/microstream
+      channel-count: 4
+    secondary:
+      channel-count: 4
+      channel-directory-prefix: 'channel_'
+      data-file-prefix: 'channel_'
+      data-file-suffix: '.dat'
