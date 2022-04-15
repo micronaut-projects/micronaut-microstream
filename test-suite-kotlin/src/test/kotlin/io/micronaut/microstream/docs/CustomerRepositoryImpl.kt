@@ -10,7 +10,8 @@ import javax.validation.Valid
 import javax.validation.constraints.NotBlank
 
 @Singleton
-class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorageManager) : CustomerRepository {
+class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorageManager) // <1>
+    : CustomerRepository {
     override fun save(customer: @Valid Customer) {
         XThreads.executeSynchronized {
             data.ifPresent { data: Data ->
