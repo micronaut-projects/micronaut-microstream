@@ -16,6 +16,7 @@
 package io.micronaut.microstream.conf;
 
 import io.micronaut.context.BeanContext;
+import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.EachBean;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Parameter;
@@ -52,6 +53,7 @@ public class EmbeddedStorageManagerFactory {
      * @return EmbeddedStorageManager
      */
     @EachBean(EmbeddedStorageFoundation.class)
+    @Bean(preDestroy = "shutdown")
     @Singleton
     public EmbeddedStorageManager createEmbeddedStorageManager(EmbeddedStorageFoundation<?> foundation,
                                                                @Parameter String name) {
