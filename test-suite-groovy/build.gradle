@@ -1,0 +1,30 @@
+plugins {
+    id 'groovy'
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    testCompileOnly("io.micronaut:micronaut-inject-groovy:$micronautVersion")
+
+    testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    testImplementation("io.micronaut:micronaut-validation")
+    testImplementation("org.spockframework:spock-core:${spockVersion}") {
+        exclude module: 'groovy-all'
+    }
+    testImplementation("io.micronaut.test:micronaut-test-spock")
+    testImplementation("io.micronaut:micronaut-http-server-netty")
+    testImplementation("io.micronaut:micronaut-http-client")
+    testImplementation(project(":microstream"))
+
+    testRuntimeOnly("ch.qos.logback:logback-classic")
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("1.8")
+    targetCompatibility = JavaVersion.toVersion("1.8")
+}
