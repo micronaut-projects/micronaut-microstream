@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
+    api(libs.micronaut.aop)
     api(libs.managed.microstream.storage.embedded.configuration)
 }
 
