@@ -13,5 +13,6 @@ rootProject.name = 'microstream-parent'
 
 include 'microstream'
 include 'microstream-bom'
+include 'microstream-metrics'
 include 'test-suite'
 include 'test-suite-groovy'
