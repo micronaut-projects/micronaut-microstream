@@ -208,10 +208,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>createEmbeddedStorageManager</h4>
 <pre>@EachBean(value=one.microstream.storage.embedded.types.EmbeddedStorageFoundation.class)
+ @Bean(preDestroy="shutdown")
  @Singleton
 public&nbsp;one.microstream.storage.embedded.types.EmbeddedStorageManager&nbsp;createEmbeddedStorageManager(one.microstream.storage.embedded.types.EmbeddedStorageFoundation&lt;?&gt;&nbsp;foundation,
-                                                                                                                                                                                                      @Parameter
-                                                                                                                                                                                                      java.lang.String&nbsp;name)</pre>
+                                                                                                                                                                                                                                    @Parameter
+                                                                                                                                                                                                                                    java.lang.String&nbsp;name)</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>foundation</code> - EmbeddedStorageFoundation</dd>
