@@ -35,9 +35,9 @@ class StoreAllFuncSpec extends Specification implements TestPropertyProvider {
         ]
     }
 
-    def "no name specified results in an exception"() {
+    void "no name specified results in an exception"() {
         given:
-        def controller = beanContext.getBean(SpecController)
+        SpecController controller = beanContext.getBean(SpecController)
 
         when:
         controller.store('iris')
@@ -59,7 +59,7 @@ class StoreAllFuncSpec extends Specification implements TestPropertyProvider {
     static class SpecController {
 
         private EmbeddedStorageManager manager
-        def called = false;
+        boolean called = false;
 
         SpecController(EmbeddedStorageManager manager) {
             this.manager = manager
