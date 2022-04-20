@@ -47,7 +47,7 @@ class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorage
     }
 
     private val data: Optional<Data>
-        private get() {
+        get() {
             val root = embeddedStorageManager.root()
             return if (root is Data) {
                 Optional.of(root)
