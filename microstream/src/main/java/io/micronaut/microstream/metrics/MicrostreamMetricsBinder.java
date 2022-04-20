@@ -24,6 +24,7 @@ import io.micronaut.context.BeanContext;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.naming.Named;
+import io.micronaut.core.util.StringUtils;
 import io.micronaut.inject.BeanDefinition;
 import jakarta.inject.Singleton;
 import one.microstream.storage.embedded.types.EmbeddedStorageManager;
@@ -38,7 +39,7 @@ import java.util.function.Supplier;
  */
 @Singleton
 @RequiresMetrics
-@Requires(property = MeterRegistryFactory.MICRONAUT_METRICS_BINDERS + ".microstream.enabled", value = "true", defaultValue = "true")
+@Requires(property = MeterRegistryFactory.MICRONAUT_METRICS_BINDERS + ".microstream.enabled", value = StringUtils.TRUE, defaultValue = StringUtils.TRUE)
 @Requires(classes = MeterBinder.class)
 public class MicrostreamMetricsBinder implements MeterBinder {
 
