@@ -1,6 +1,7 @@
 package io.micronaut.microstream.docs
 
 import io.micronaut.core.annotation.NonNull
+import io.micronaut.microstream.annotation.StoreAll
 import jakarta.inject.Singleton
 import one.microstream.concurrency.XThreads
 import one.microstream.storage.embedded.types.EmbeddedStorageManager
@@ -20,14 +21,9 @@ class CustomerRepositoryImpl implements CustomerRepository {
     }
 
 	@Override
+    @StoreAll
     void save(@NonNull @NotNull @Valid Customer customer) {
-        XThreads.executeSynchronized(new Runnable() {
-            @Override
-            void run() {
-                data().ifPresent(d -> d.add(customer))
-                storeAll()
-            }
-        })
+        data().ifPresent(d -> d.add(customer))
 	}
 
     @Override
@@ -37,14 +33,9 @@ class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
+    @StoreAll
     void deleteById(@NonNull @NotBlank String id) {
-        XThreads.executeSynchronized(new Runnable() {
-            @Override
-            void run() {
-                data().ifPresent(d -> d.remove(id))
-                storeAll()
-            }
-        })
+        data().ifPresent(d -> d.remove(id))
     }
 
     @Override
@@ -60,10 +51,6 @@ class CustomerRepositoryImpl implements CustomerRepository {
         return customers.stream()
             .filter(c -> c.firstName == firstName)
             .collect(Collectors.toList())
-    }
-
-    private void storeAll() {
-        embeddedStorageManager.storeAll()
     }
 
     private Optional<Data> data() {

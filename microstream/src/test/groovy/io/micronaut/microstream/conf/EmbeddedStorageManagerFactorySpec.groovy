@@ -32,12 +32,20 @@ class EmbeddedStorageManagerFactorySpec extends Specification {
     @Singleton
     static class BlueRootInstanceProvider implements RootInstanceProvider<BlueFlowers> {
 
+        final BlueFlowers blueFlowers
+
+        BlueRootInstanceProvider(BlueFlowers blueFlowers) {
+            this.blueFlowers = blueFlowers
+        }
+
         @Override
         BlueFlowers rootInstance() {
-            return new BlueFlowers();
+            return blueFlowers
         }
     }
 
+    @Named("blue")
+    @Singleton
     static class BlueFlowers {
         List<String> flowers = []
     }

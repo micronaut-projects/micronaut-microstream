@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.microstream.annotation.StoreAll;
 import jakarta.inject.Singleton;
 import one.microstream.concurrency.XThreads;
 import one.microstream.storage.embedded.types.EmbeddedStorageManager;
@@ -24,11 +25,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
 	@Override
+    @StoreAll
 	public void save(@NonNull @NotNull @Valid Customer customer) {
-        XThreads.executeSynchronized(() -> {
-            getData().ifPresent(data -> data.add(customer));
-            embeddedStorageManager.storeAll();
-        });
+        getData().ifPresent(data -> data.add(customer));
 	}
 
     @Override
@@ -38,11 +37,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
+    @StoreAll
     public void deleteById(@NonNull @NotBlank String id) {
-        XThreads.executeSynchronized(() -> {
-            getData().ifPresent(data -> data.remove(id));
-            embeddedStorageManager.storeAll();
-        });
+        getData().ifPresent(data -> data.remove(id));
     }
 
     @Override

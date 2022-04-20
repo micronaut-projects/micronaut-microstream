@@ -26,19 +26,40 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- *  This annotation indicates the operation that will be stored using Microstream automatically.
+ * This annotation will wrap the decorated method to ensure thread isolation, and call storeAll on
+ * the updated graph. The return value of the wrapped method will be retained.
+ * <p>
+ * A method such as this:
+ * <pre>
+ * {@literal @StoreAll}
+ *  public String set(){
+ *      root.changeData();
+ *  }
+ * </pre>
+ * <p>
+ * Will be decorated to become:
+ * <pre>
+ * {@literal @StoreAll}
+ *  public String set() {
+ *      XThreads.executeSynchronized(() -> {
+ *          root.changeData();
+ *          manager.storeAll();
+ *      });
+ *  }
+ * </pre>
  *
+ * @see <a href="https://docs.microstream.one/manual/storage/root-instances.html#_shared_mutable_data">Microstream mutable data docs.</a>
  * @since 1.0.0
  */
 @Documented
 @Retention(RUNTIME)
 @Target({ElementType.METHOD})
-@Type(StoreInterceptor.class)
+@Type(StoreAllInterceptor.class)
 @Around
-public @interface Store {
+public @interface StoreAll {
 
     /**
-     * The name qualifier of the store to use.
+     * The optional name qualifier of the store to use. If there is only a single store, this is not required.
      *
      * @return The name of the store
      */

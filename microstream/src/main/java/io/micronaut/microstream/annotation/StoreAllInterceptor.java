@@ -41,8 +41,8 @@ import java.util.stream.Collectors;
  */
 @Requires(beans = EmbeddedStorageManager.class)
 @Singleton
-@InterceptorBean(Store.class)
-public class StoreInterceptor implements MethodInterceptor<Object, Object> {
+@InterceptorBean(StoreAll.class)
+public class StoreAllInterceptor implements MethodInterceptor<Object, Object> {
 
     public static final String MULTIPLE_MANAGERS_WITH_NO_QUALIFIER_MESSAGE = "Multiple storage managers found, but no name was specified.";
 
@@ -51,7 +51,7 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
 
     private final ConcurrentHashMap<String, EmbeddedStorageManager> managerLookup = new ConcurrentHashMap<>();
 
-    public StoreInterceptor(BeanContext beanContext) {
+    public StoreAllInterceptor(BeanContext beanContext) {
         this.beanContext = beanContext;
         this.names = beanContext.getBeanDefinitions(EmbeddedStorageManager.class)
             .stream()
@@ -62,7 +62,7 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
     @Override
     @SuppressWarnings("java:S2142")  // We don't need to bubble the interrupted exception
     public Object intercept(MethodInvocationContext<Object, Object> context) {
-        String name = Optional.ofNullable(context.getAnnotation(Store.class)).flatMap(a -> a.stringValue("name")).orElse(null);
+        String name = Optional.ofNullable(context.getAnnotation(StoreAll.class)).flatMap(a -> a.stringValue("name")).orElse(null);
 
         @SuppressWarnings("resource") // We don't want to close the storage manager
         EmbeddedStorageManager manager = lookupManager(name);

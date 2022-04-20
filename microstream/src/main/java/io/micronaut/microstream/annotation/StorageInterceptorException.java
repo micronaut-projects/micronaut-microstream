@@ -22,6 +22,12 @@ package io.micronaut.microstream.annotation;
  */
 public class StorageInterceptorException extends RuntimeException {
 
+    /**
+     * This is thrown if there is an issue calling storeAll after the intercepted method has been executed.
+     *
+     * @param message The message
+     * @param cause The underlying cause of the exception.
+     */
     public StorageInterceptorException(String message, Throwable cause) {
         super(message, cause);
     }

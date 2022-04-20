@@ -4,6 +4,7 @@ import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.context.annotation.Requires
 import io.micronaut.context.exceptions.NoSuchBeanException
+import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
 import jakarta.inject.Inject
@@ -16,7 +17,7 @@ import spock.lang.TempDir
 
 @MicronautTest(startApplication = false)
 @Property(name = "spec.name", value = "StoreSpec")
-class StoreSpec extends Specification implements TestPropertyProvider {
+class StoreAllSpec extends Specification implements TestPropertyProvider {
 
     @TempDir
     @Shared
@@ -35,10 +36,16 @@ class StoreSpec extends Specification implements TestPropertyProvider {
 
     def "works with happy path"() {
         when:
-        def result = beanContext.getBean(SpecController).store('iris')
+        def controller = beanContext.getBean(SpecController)
+
+        and:
+        def result = controller.store('iris')
 
         then:
         result
+
+        and:
+        beanContext.getBean(EmbeddedStorageManager, Qualifiers.byName("blue")).root().flowers == ['iris']
     }
 
     def "no name specified results in an exception"() {
@@ -46,8 +53,8 @@ class StoreSpec extends Specification implements TestPropertyProvider {
         beanContext.getBean(SpecController).noNameDefined('iris')
 
         then:
-        def e = thrown(IllegalStateException)
-        e.message == StoreInterceptor.MULTIPLE_MANAGERS_WITH_NO_QUALIFIER_MESSAGE
+        IllegalStateException e = thrown()
+        e.message == StoreAllInterceptor.MULTIPLE_MANAGERS_WITH_NO_QUALIFIER_MESSAGE
     }
 
     def "bad name results in an exception"() {
@@ -55,7 +62,7 @@ class StoreSpec extends Specification implements TestPropertyProvider {
         beanContext.getBean(SpecController).badNameDefined('iris')
 
         then:
-        def e = thrown(NoSuchBeanException)
+        NoSuchBeanException e = thrown()
         e.message.startsWith "No bean of type [one.microstream.storage.embedded.types.EmbeddedStorageManager] exists for the given qualifier: @Named('nope')."
     }
 
@@ -69,19 +76,19 @@ class StoreSpec extends Specification implements TestPropertyProvider {
             this.manager = manager
         }
 
-        @Store(name = 'blue')
-        def store(String flower) {
-            manager.store([flower])
+        @StoreAll(name = 'blue')
+        boolean store(String flower) {
+            manager.root().flowers.add(flower)
         }
 
-        @Store
-        def noNameDefined(String flower) {
-            manager.store([flower])
+        @StoreAll
+        boolean noNameDefined(String flower) {
+            manager.root().flowers.add(flower)
         }
 
-        @Store(name = 'nope')
-        def badNameDefined(String flower) {
-            manager.store([flower])
+        @StoreAll(name = 'nope')
+        boolean badNameDefined(String flower) {
+            manager.root().flowers.add(flower)
         }
     }
 }
