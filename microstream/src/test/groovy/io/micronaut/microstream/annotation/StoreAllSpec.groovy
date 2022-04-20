@@ -16,7 +16,7 @@ import spock.lang.Specification
 import spock.lang.TempDir
 
 @MicronautTest(startApplication = false)
-@Property(name = "spec.name", value = "StoreSpec")
+@Property(name = "spec.name", value = "StoreAllSpec")
 class StoreAllSpec extends Specification implements TestPropertyProvider {
 
     @TempDir
@@ -67,12 +67,12 @@ class StoreAllSpec extends Specification implements TestPropertyProvider {
     }
 
     @Singleton
-    @Requires(property = "spec.name", value = "StoreSpec")
+    @Requires(property = "spec.name", value = "StoreAllSpec")
     static class SpecController {
 
         private EmbeddedStorageManager manager
 
-        public SpecController(@Named('blue') EmbeddedStorageManager manager) {
+        SpecController(@Named('blue') EmbeddedStorageManager manager) {
             this.manager = manager
         }
 
