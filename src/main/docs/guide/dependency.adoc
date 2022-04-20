@@ -1,0 +1,3 @@
+To start, add the `micronaut-microstream` dependency to your classpath.
+
+dependency:micronaut-microstream[group="io.micronaut.microstream"]

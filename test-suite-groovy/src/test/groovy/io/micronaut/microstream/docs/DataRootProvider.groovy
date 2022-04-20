@@ -4,7 +4,7 @@ import io.micronaut.microstream.conf.RootInstanceProvider
 import jakarta.inject.Named
 import jakarta.inject.Singleton
 
-@Named("main")
+@Named("one-microstream-instance") // <1>
 @Singleton
 class DataRootProvider implements RootInstanceProvider<Data> {
 
