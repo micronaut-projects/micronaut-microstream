@@ -1,4 +1,4 @@
-package io.micronaut.microstream.metrics
+package metrics
 
 
 import groovy.json.JsonSlurper

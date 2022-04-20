@@ -13,16 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.metrics;
+package metrics;
 
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.binder.MeterBinder;
+import io.micronaut.configuration.metrics.annotation.RequiresMetrics;
+import io.micronaut.configuration.metrics.micrometer.MeterRegistryFactory;
 import io.micronaut.context.BeanContext;
+import io.micronaut.context.annotation.Context;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.naming.Named;
-import io.micronaut.core.util.StringUtils;
 import io.micronaut.inject.BeanDefinition;
 import jakarta.inject.Singleton;
 import one.microstream.storage.embedded.types.EmbeddedStorageManager;
@@ -38,7 +40,9 @@ import static io.micronaut.configuration.metrics.micrometer.MeterRegistryFactory
  * @since 1.0.0
  */
 @Singleton
-@Requires(property = MICRONAUT_METRICS_BINDERS + ".microstream.enabled", notEquals = StringUtils.FALSE)
+@Context
+@RequiresMetrics
+@Requires(property = MeterRegistryFactory.MICRONAUT_METRICS_BINDERS + ".microstream.enabled", value = "true", defaultValue = "true")
 public class MicrostreamMetricsBinder implements MeterBinder {
 
     public static final String MICROSTREAM_METRIC_PREFIX = "microstream.";
