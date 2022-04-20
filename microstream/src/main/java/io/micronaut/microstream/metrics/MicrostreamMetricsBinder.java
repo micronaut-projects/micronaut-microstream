@@ -17,6 +17,7 @@ package io.micronaut.microstream.metrics;
 
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.binder.BaseUnits;
 import io.micrometer.core.instrument.binder.MeterBinder;
 import io.micronaut.configuration.metrics.annotation.RequiresMetrics;
 import io.micronaut.configuration.metrics.micrometer.MeterRegistryFactory;
@@ -48,7 +49,7 @@ public class MicrostreamMetricsBinder implements MeterBinder {
 
     public static final String MICROSTREAM_METRIC_PREFIX = "microstream";
     private static final String SUFFIX_TOTAL_DATA_LENGTH = "totalDataLength";
-    private static final String SUFFIX_FILE_COUNT = "fileCount";
+    private static final String SUFFIX_FILE_COUNT = "globalFileCount";
     private static final String SUFFIX_LIVE_DATA_LENGTH = "liveDataLength";
     private static final String DESCRIPTION_TOTAL_DATA_LENGTH = "Displays total data length. This is the accumulated size of all storage data files.";
     private static final String DESCRIPTION_FILE_COUNT = "Displays the number of storage files.";
@@ -81,15 +82,18 @@ public class MicrostreamMetricsBinder implements MeterBinder {
                                                       @NonNull MeterRegistry registry) {
         gauge(registry, name, SUFFIX_TOTAL_DATA_LENGTH,
             DESCRIPTION_TOTAL_DATA_LENGTH,
-            () -> manager.createStorageStatistics().totalDataLength()
+            () -> manager.createStorageStatistics().totalDataLength(),
+            BaseUnits.BYTES
         );
         gauge(registry, name, SUFFIX_FILE_COUNT,
             DESCRIPTION_FILE_COUNT,
-            () -> manager.createStorageStatistics().fileCount()
+            () -> manager.createStorageStatistics().fileCount(),
+            BaseUnits.FILES
         );
         gauge(registry, name, SUFFIX_LIVE_DATA_LENGTH,
             DESCRIPTION_LIVE_DATA_LENGTH,
-            () -> manager.createStorageStatistics().liveDataLength()
+            () -> manager.createStorageStatistics().liveDataLength(),
+            BaseUnits.BYTES
         );
     }
 
@@ -97,9 +101,11 @@ public class MicrostreamMetricsBinder implements MeterBinder {
                        @NonNull String managerName,
                        @NonNull String suffix,
                        @NonNull String description,
-                       @NonNull Supplier<Number> value) {
+                       @NonNull Supplier<Number> value,
+                       @NonNull String units) {
         Gauge.builder(String.join(DOT, MICROSTREAM_METRIC_PREFIX, managerName, suffix), value)
             .description(description)
+            .baseUnit(units)
             .register(registry);
     }
 }

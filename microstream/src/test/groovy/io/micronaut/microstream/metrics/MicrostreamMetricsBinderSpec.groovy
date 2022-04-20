@@ -50,8 +50,8 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
 
         then:
         response.names.containsAll([
-                'microstream.people.fileCount', 'microstream.people.liveDataLength', 'microstream.people.totalDataLength',
-                'microstream.towns.fileCount', 'microstream.towns.liveDataLength', 'microstream.towns.totalDataLength'
+                'microstream.people.globalFileCount', 'microstream.people.liveDataLength', 'microstream.people.totalDataLength',
+                'microstream.towns.globalFileCount', 'microstream.towns.liveDataLength', 'microstream.towns.totalDataLength'
         ])
 
         when:
