@@ -21,7 +21,6 @@ import io.micrometer.core.instrument.binder.MeterBinder;
 import io.micronaut.configuration.metrics.annotation.RequiresMetrics;
 import io.micronaut.configuration.metrics.micrometer.MeterRegistryFactory;
 import io.micronaut.context.BeanContext;
-import io.micronaut.context.annotation.Context;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.naming.Named;
@@ -38,7 +37,6 @@ import java.util.function.Supplier;
  * @since 1.0.0
  */
 @Singleton
-@Context
 @RequiresMetrics
 @Requires(property = MeterRegistryFactory.MICRONAUT_METRICS_BINDERS + ".microstream.enabled", value = "true", defaultValue = "true")
 @Requires(classes = MeterBinder.class)
