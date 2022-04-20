@@ -41,6 +41,7 @@ import java.util.function.Supplier;
 @Context
 @RequiresMetrics
 @Requires(property = MeterRegistryFactory.MICRONAUT_METRICS_BINDERS + ".microstream.enabled", value = "true", defaultValue = "true")
+@Requires(classes = MeterBinder.class)
 public class MicrostreamMetricsBinder implements MeterBinder {
 
     public static final String MICROSTREAM_METRIC_PREFIX = "microstream.";
