@@ -55,7 +55,9 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#storage"><strong>6</strong><span>Storage</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>7</strong><span>Repository</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#microstreamMetrics"><strong>7</strong><span>Metrics</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>8</strong><span>Repository</span></a></div>
                                 
                             </div>
                         </div>
@@ -98,7 +100,9 @@
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-storage"><a href="#storage"><strong>6</strong><span>Storage</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>7</strong><span>Repository</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-microstreamMetrics"><a href="#microstreamMetrics"><strong>7</strong><span>Metrics</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>8</strong><span>Repository</span></a></div>
         
         </div>
     </div>
@@ -456,7 +460,7 @@ import io.micronaut.microstream.conf.RootInstanceProvider
 import jakarta.inject.Named
 import jakarta.inject.Singleton
 
-@Named("main") // <b class="conum">(1)</b>
+@Named("one-microstream-instance") // <b class="conum">(1)</b>
 @Singleton
 class DataRootProvider : RootInstanceProvider&lt;Data&gt; {
     override fun rootInstance(): Data = Data()
@@ -709,7 +713,23 @@ class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorage
 </table>
 </div>
 
-<h1 id="repository"><a class="anchor" href="#repository"></a>7 Repository</h1>
+<h1 id="microstreamMetrics"><a class="anchor" href="#microstreamMetrics"></a>7 Metrics</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/microstreamMetrics.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>You can enable Microstream Metrics collection by enabling <a href="https://micronaut-projects.github.io/micronaut-micrometer/latest/guide">Micrometer Metrics</a>.</p>
+</div>
+<div class="paragraph">
+<p>If you do not wish to collect Microstream metrics, you can set <code>micronaut.metrics.binders.microstream.enabled</code> to <code>false</code> in <code>application.yml</code>.</p>
+</div>
+
+<h1 id="repository"><a class="anchor" href="#repository"></a>8 Repository</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/repository.adoc"'>
