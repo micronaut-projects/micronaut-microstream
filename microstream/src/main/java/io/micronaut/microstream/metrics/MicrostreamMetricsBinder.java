@@ -44,6 +44,12 @@ import java.util.function.Supplier;
 public class MicrostreamMetricsBinder implements MeterBinder {
 
     public static final String MICROSTREAM_METRIC_PREFIX = "microstream.";
+    private static final String SUFFIX_TOTAL_DATA_LENGTH = "totalDataLength";
+    private static final String SUFFIX_FILE_COUNT = "fileCount";
+    private static final String SUFFIX_LIVE_DATA_LENGTH = "liveDataLength";
+    private static final String DESCRIPTION_TOTAL_DATA_LENGTH = "Displays total data length. This is the accumulated size of all storage data files.";
+    private static final String DESCRIPTION_FILE_COUNT = "Displays the number of storage files.";
+    private static final String DESCRIPTION_LIVE_DATA_LENGTH = "Displays live data length. This is the 'real' size of the stored data.";
 
     private final Collection<BeanDefinition<EmbeddedStorageManager>> storageManagerDefinitions;
 
@@ -60,16 +66,16 @@ public class MicrostreamMetricsBinder implements MeterBinder {
             String name = ((Named) definition.getDeclaredQualifier()).getName();
             EmbeddedStorageManager manager = beanContext.getBean(definition);
 
-            gauge(registry, name, "totalDataLength",
-                "Displays total data length. This is the accumulated size of all storage data files.",
+            gauge(registry, name, SUFFIX_TOTAL_DATA_LENGTH,
+                DESCRIPTION_TOTAL_DATA_LENGTH,
                 () -> manager.createStorageStatistics().totalDataLength()
             );
-            gauge(registry, name, "fileCount",
-                "Displays the number of storage files.",
+            gauge(registry, name, SUFFIX_FILE_COUNT,
+                DESCRIPTION_FILE_COUNT,
                 () -> manager.createStorageStatistics().fileCount()
             );
-            gauge(registry, name, "liveDataLength",
-                "Displays live data length. This is the 'real' size of the stored data.",
+            gauge(registry, name, SUFFIX_LIVE_DATA_LENGTH,
+                DESCRIPTION_LIVE_DATA_LENGTH,
                 () -> manager.createStorageStatistics().liveDataLength()
             );
         }
