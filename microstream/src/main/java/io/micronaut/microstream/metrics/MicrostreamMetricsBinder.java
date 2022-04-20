@@ -38,6 +38,7 @@ import static io.micronaut.microstream.metrics.MicrostreamMetricsBinder.MICROSTR
  * A Micronaut {@link MeterBinder} for Microstream integration.
  *
  * @since 1.0.0
+ * @author Tim Yates
  */
 @Singleton
 @RequiresMetrics

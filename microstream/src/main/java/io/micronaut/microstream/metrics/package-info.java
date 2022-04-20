@@ -15,7 +15,7 @@
  */
 /**
  * Microstream classes related to Metrics.
- * @see <a href="https://micronaut-projects.github.io/micronaut-micrometer/latest/guide/">Micronaut Micrometer</a>.
+ * @see <a href="https://micronaut-projects.github.io/micronaut-micrometer/latest/guide">Micronaut Micrometer</a>
  * @author Sergio del Amo
  * @since 1.0.0
  */
