@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Property(name = "microstream.storage.main.storage-directory", value = "build/microstream")
 @MicronautTest
-public class CustomerControllerTest {
+class CustomerControllerTest {
     @Inject
     @Client("/")
     HttpClient httpClient;
