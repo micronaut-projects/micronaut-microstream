@@ -3,7 +3,6 @@ package io.micronaut.microstream.docs
 import io.micronaut.core.annotation.NonNull
 import io.micronaut.microstream.annotation.StoreAll
 import jakarta.inject.Singleton
-import one.microstream.concurrency.XThreads
 import one.microstream.storage.embedded.types.EmbeddedStorageManager
 
 import javax.validation.Valid

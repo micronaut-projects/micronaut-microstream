@@ -1,22 +1,20 @@
 package io.micronaut.microstream.docs
 
 import io.micronaut.core.annotation.NonNull
+import io.micronaut.microstream.annotation.StoreAll
 import jakarta.inject.Singleton
-import one.microstream.concurrency.XThreads
 import one.microstream.storage.embedded.types.EmbeddedStorageManager
 import java.util.stream.Collectors
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
 
 @Singleton
-class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorageManager) // <1>
+open class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorageManager) // <1>
     : CustomerRepository {
+    @StoreAll
     override fun save(customer: @Valid Customer) {
-        XThreads.executeSynchronized {
-            if (data != null) {
-                data!!.add(customer)
-            }
-            embeddedStorageManager.storeAll()
+        if (data != null) {
+            data!!.add(customer)
         }
     }
 
@@ -25,12 +23,10 @@ class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorage
         return if (data != null) data!!.findById(id) else null
     }
 
+    @StoreAll
     override fun deleteById(id: @NotBlank String) {
-        XThreads.executeSynchronized {
-            if (data != null) {
-                data!!.remove(id)
-            }
-            embeddedStorageManager.storeAll()
+        if (data != null) {
+            data!!.remove(id)
         }
     }
 
