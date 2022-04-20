@@ -98,7 +98,7 @@ public class MicrostreamMetricsBinder implements MeterBinder {
                        @NonNull String suffix,
                        @NonNull String description,
                        @NonNull Supplier<Number> value) {
-        Gauge.builder(String.join(DOT , MICROSTREAM_METRIC_PREFIX, managerName, suffix), value)
+        Gauge.builder(String.join(DOT, MICROSTREAM_METRIC_PREFIX, managerName, suffix), value)
             .description(description)
             .register(registry);
     }
