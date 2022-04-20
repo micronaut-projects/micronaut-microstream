@@ -10,7 +10,6 @@ import io.micronaut.http.annotation.Delete
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.uri.UriBuilder
-import java.util.Optional
 import java.util.UUID
 import javax.validation.Valid
 
@@ -28,7 +27,7 @@ internal class CustomerController(private val repository: CustomerRepository) {
     }
 
     @Get("/{id}")
-    fun show(@PathVariable id: String): Optional<Customer> {
+    fun show(@PathVariable id: String): Customer? {
         return repository.findById(id)
     }
 

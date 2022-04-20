@@ -6,8 +6,8 @@ import java.util.*
 class Data(private val customers: MutableMap<String, Customer> = mutableMapOf()) {
 
     @NonNull
-    fun findById(@NonNull id: String): Optional<Customer> {
-        return Optional.ofNullable(customers[id])
+    fun findById(@NonNull id: String): Customer? {
+        return customers[id]
     }
 
     @NonNull
