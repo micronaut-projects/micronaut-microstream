@@ -1,6 +1,5 @@
 package io.micronaut.microstream.docs
 
-import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpRequest
@@ -22,9 +21,6 @@ class CustomerControllerTest {
     @field:Client("/")
     lateinit var httpClient: HttpClient
 
-    @Inject
-    lateinit var beanContext: BeanContext
-
     @Test
     fun verifyCrudWithMicrostream() {
         val firstName = "Sergio"
@@ -34,12 +30,12 @@ class CustomerControllerTest {
         Assertions.assertEquals(HttpStatus.CREATED, response.status())
         val location = response.headers[HttpHeaders.LOCATION]
         Assertions.assertNotNull(location)
-        val showRequest: HttpRequest<Any> = HttpRequest.GET<Any>(location)
+        val showRequest: HttpRequest<Any> = HttpRequest.GET(location)
         val showResponse = client.exchange(showRequest, Customer::class.java)
         Assertions.assertEquals(HttpStatus.OK, showResponse.status())
         val customer = showResponse.body()
         Assertions.assertNotNull(customer)
-        Assertions.assertEquals(firstName, customer.firstName)
+        Assertions.assertEquals(firstName, customer!!.firstName)
         Assertions.assertNull(customer.lastName)
         val deleteResponse = client.exchange(
             HttpRequest.DELETE<Any>(location),
