@@ -20,6 +20,8 @@ import io.micronaut.aop.MethodInterceptor;
 import io.micronaut.aop.MethodInvocationContext;
 import io.micronaut.context.BeanContext;
 import io.micronaut.context.annotation.Requires;
+import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.naming.Named;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.inject.qualifiers.Qualifiers;
@@ -84,7 +86,8 @@ public class StoreAllInterceptor implements MethodInterceptor<Object, Object> {
         }
     }
 
-    private EmbeddedStorageManager lookupManager(String name) {
+    @NonNull
+    private EmbeddedStorageManager lookupManager(@Nullable String name) {
         if (StringUtils.isNotEmpty(name)) {
             return managerLookup.computeIfAbsent(name, this::getManagerForName);
         } else {
@@ -96,7 +99,8 @@ public class StoreAllInterceptor implements MethodInterceptor<Object, Object> {
         }
     }
 
-    private EmbeddedStorageManager getManagerForName(String name) {
+    @NonNull
+    private EmbeddedStorageManager getManagerForName(@NonNull String name) {
         return beanContext.getBean(EmbeddedStorageManager.class, Qualifiers.byName(name));
     }
 
