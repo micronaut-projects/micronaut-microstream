@@ -88,7 +88,7 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
         private EmbeddedStorageManager townManager
         private EmbeddedStorageManager peopleManager
 
-        public SpecController(
+        SpecController(
                 @Named('towns') EmbeddedStorageManager townManager,
                 @Named('people') EmbeddedStorageManager peopleManager
         ) {
