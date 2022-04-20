@@ -59,20 +59,23 @@ public class MicrostreamMetricsBinder implements MeterBinder {
         for (BeanDefinition<EmbeddedStorageManager> definition : storageManagerDefinitions) {
             String name = ((Named) definition.getDeclaredQualifier()).getName();
             EmbeddedStorageManager manager = beanContext.getBean(definition);
+
             gauge(registry, name, "totalDataLength",
-                () -> manager.createStorageStatistics().totalDataLength(),
-                "Displays total data length. This is the accumulated size of all storage data files."
+                "Displays total data length. This is the accumulated size of all storage data files.",
+                () -> manager.createStorageStatistics().totalDataLength()
             );
             gauge(registry, name, "fileCount",
-                () -> manager.createStorageStatistics().fileCount(),
-                "Displays the number of storage files.");
+                "Displays the number of storage files.",
+                () -> manager.createStorageStatistics().fileCount()
+            );
             gauge(registry, name, "liveDataLength",
-                () -> manager.createStorageStatistics().liveDataLength(),
-                "Displays live data length. This is the 'real' size of the stored data.");
+                "Displays live data length. This is the 'real' size of the stored data.",
+                () -> manager.createStorageStatistics().liveDataLength()
+            );
         }
     }
 
-    private void gauge(MeterRegistry registry, String managerName, String suffix, Supplier<Number> value, String description) {
+    private void gauge(MeterRegistry registry, String managerName, String suffix, String description, Supplier<Number> value) {
         Gauge.builder(MICROSTREAM_METRIC_PREFIX + managerName + "." + suffix, value)
             .description(description)
             .register(registry);
