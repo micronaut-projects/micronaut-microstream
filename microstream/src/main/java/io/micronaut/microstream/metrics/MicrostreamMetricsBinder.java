@@ -32,6 +32,8 @@ import one.microstream.storage.embedded.types.EmbeddedStorageManager;
 import java.util.Collection;
 import java.util.function.Supplier;
 
+import static io.micronaut.microstream.metrics.MicrostreamMetricsBinder.MICROSTREAM_METRIC_PREFIX;
+
 /**
  * A Micronaut {@link MeterBinder} for Microstream integration.
  *
@@ -39,17 +41,19 @@ import java.util.function.Supplier;
  */
 @Singleton
 @RequiresMetrics
-@Requires(property = MeterRegistryFactory.MICRONAUT_METRICS_BINDERS + ".microstream.enabled", value = StringUtils.TRUE, defaultValue = StringUtils.TRUE)
+@Requires(property = MeterRegistryFactory.MICRONAUT_METRICS_BINDERS + "." + MICROSTREAM_METRIC_PREFIX + ".enabled", value = StringUtils.TRUE, defaultValue = StringUtils.TRUE)
 @Requires(classes = MeterBinder.class)
 public class MicrostreamMetricsBinder implements MeterBinder {
 
-    public static final String MICROSTREAM_METRIC_PREFIX = "microstream.";
+    public static final String MICROSTREAM_METRIC_PREFIX = "microstream";
     private static final String SUFFIX_TOTAL_DATA_LENGTH = "totalDataLength";
     private static final String SUFFIX_FILE_COUNT = "fileCount";
     private static final String SUFFIX_LIVE_DATA_LENGTH = "liveDataLength";
     private static final String DESCRIPTION_TOTAL_DATA_LENGTH = "Displays total data length. This is the accumulated size of all storage data files.";
     private static final String DESCRIPTION_FILE_COUNT = "Displays the number of storage files.";
     private static final String DESCRIPTION_LIVE_DATA_LENGTH = "Displays live data length. This is the 'real' size of the stored data.";
+    private static final String DOT = ".";
+
 
     private final Collection<BeanDefinition<EmbeddedStorageManager>> storageManagerDefinitions;
 
@@ -81,8 +85,12 @@ public class MicrostreamMetricsBinder implements MeterBinder {
         }
     }
 
-    private void gauge(MeterRegistry registry, String managerName, String suffix, String description, Supplier<Number> value) {
-        Gauge.builder(MICROSTREAM_METRIC_PREFIX + managerName + "." + suffix, value)
+    private void gauge(@NonNull MeterRegistry registry,
+                       @NonNull String managerName,
+                       @NonNull String suffix,
+                       @NonNull String description,
+                       @NonNull Supplier<Number> value) {
+        Gauge.builder(String.join(DOT , MICROSTREAM_METRIC_PREFIX, managerName, suffix), value)
             .description(description)
             .register(registry);
     }
