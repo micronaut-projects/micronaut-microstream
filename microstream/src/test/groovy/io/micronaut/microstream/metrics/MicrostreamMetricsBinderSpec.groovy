@@ -118,7 +118,7 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
 
         @Override
         Towns rootInstance() {
-            new Towns();
+            new Towns()
         }
     }
 
