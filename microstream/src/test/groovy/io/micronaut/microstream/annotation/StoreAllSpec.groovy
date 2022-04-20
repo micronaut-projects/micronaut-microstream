@@ -62,8 +62,8 @@ class StoreAllSpec extends Specification implements TestPropertyProvider {
         beanContext.getBean(SpecController).badNameDefined('iris')
 
         then:
-        NoSuchBeanException e = thrown()
-        e.message.startsWith "No bean of type [one.microstream.storage.embedded.types.EmbeddedStorageManager] exists for the given qualifier: @Named('nope')."
+        StorageInterceptorException e = thrown()
+        e.message == 'No storage manager found for @StoreAll(name = "nope").'
     }
 
     @Singleton

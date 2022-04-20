@@ -101,7 +101,11 @@ public class StoreAllInterceptor implements MethodInterceptor<Object, Object> {
 
     @NonNull
     private EmbeddedStorageManager getManagerForName(@NonNull String name) {
-        return beanContext.getBean(EmbeddedStorageManager.class, Qualifiers.byName(name));
+        if (beanContext.containsBean(EmbeddedStorageManager.class, Qualifiers.byName(name))) {
+            return beanContext.getBean(EmbeddedStorageManager.class, Qualifiers.byName(name));
+        } else {
+            throw new StorageInterceptorException("No storage manager found for @" + StoreAll.class.getSimpleName() + "(name = \"" + name + "\").");
+        }
     }
 
 }
