@@ -18,6 +18,7 @@ package io.micronaut.microstream.annotation;
 /**
  * Exception thrown when an error occurs during storage interceptor processing.
  *
+ * @author Tim Yates
  * @since 1.0.0
  */
 public class StorageInterceptorException extends RuntimeException {

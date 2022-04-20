@@ -50,6 +50,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *
  * @see <a href="https://docs.microstream.one/manual/storage/root-instances.html#_shared_mutable_data">Microstream mutable data docs.</a>
  * @since 1.0.0
+ * @author Tim Yates
  */
 @Documented
 @Retention(RUNTIME)

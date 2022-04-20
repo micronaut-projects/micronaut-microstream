@@ -38,6 +38,7 @@ import java.util.stream.Collectors;
  * Method interceptor for saving data to the MicroStream store.
  *
  * @since 1.0.0
+ * @author Tim Yates
  */
 @Requires(beans = EmbeddedStorageManager.class)
 @Singleton
