@@ -1,7 +1,9 @@
 introduction:
   title: Introduction
 releaseHistory: Release History
-quickStart:
-  title: Quick Start
+dependency: Dependency
+configuration: Configuration
+rootInstance: Root Instance
+storage: Storage
 repository: Repository
 

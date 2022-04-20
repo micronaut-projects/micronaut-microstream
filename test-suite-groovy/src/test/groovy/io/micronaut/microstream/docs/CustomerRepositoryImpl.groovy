@@ -16,7 +16,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
 
     private final EmbeddedStorageManager embeddedStorageManager
 
-    CustomerRepositoryImpl(EmbeddedStorageManager embeddedStorageManager) {
+    CustomerRepositoryImpl(EmbeddedStorageManager embeddedStorageManager) { // <1>
         this.embeddedStorageManager = embeddedStorageManager
     }
 
