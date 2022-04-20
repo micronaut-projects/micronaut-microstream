@@ -32,8 +32,6 @@ import one.microstream.storage.embedded.types.EmbeddedStorageManager;
 import java.util.Collection;
 import java.util.function.Supplier;
 
-import static io.micronaut.configuration.metrics.micrometer.MeterRegistryFactory.MICRONAUT_METRICS_BINDERS;
-
 /**
  * A Micronaut {@link MeterBinder} for Microstream integration.
  *
