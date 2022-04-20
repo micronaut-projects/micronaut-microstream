@@ -15,7 +15,7 @@ import jakarta.inject.Inject
 import spock.lang.Specification
 import io.micronaut.microstream.conf.RootInstanceProvider
 
-@Property(name = "microstream.storage.main.storage-directory", value = "build/microstream")
+@Property(name = "microstream.storage.one-microstream-instance.storage-directory", value = "build/microstream")
 @MicronautTest
 class CustomerControllerSpec extends Specification {
     @Inject

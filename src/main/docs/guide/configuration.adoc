@@ -9,6 +9,6 @@ with https://docs.micronaut.io/latest/guide/#qualifiers[Name Bean Qualifiers]: `
 [source,yaml]
 .src/main/resources/application.yml
 ----
-include::test-suite/src/test/resources/application-test.yml[]
+include::test-suite/src/test/resources/application-multiple.yml[]
 ----
 
