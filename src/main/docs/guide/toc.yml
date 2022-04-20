@@ -1,8 +1,10 @@
 introduction:
   title: Introduction
 releaseHistory: Release History
-quickStart:
-  title: Quick Start
-microstreamMetrics: Microstream Metrics
+dependency: Dependency
+configuration: Configuration
+rootInstance: Root Instance
+storage: Storage
+microstreamMetrics: Metrics
 repository: Repository
 
