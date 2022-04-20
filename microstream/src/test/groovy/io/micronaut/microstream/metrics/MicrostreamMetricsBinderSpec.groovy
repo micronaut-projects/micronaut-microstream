@@ -1,11 +1,9 @@
 package io.micronaut.microstream.metrics
 
-
 import groovy.json.JsonSlurper
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.context.annotation.Requires
-import io.micronaut.core.util.StringUtils
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.microstream.conf.RootInstanceProvider
@@ -38,7 +36,6 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
     @Override
     Map<String, String> getProperties() {
         [
-                "micronaut.metrics.export.atlas.enabled": StringUtils.FALSE,
                 "microstream.storage.people.storage-directory-in-user-home": new File(tempDir, "people").absolutePath,
                 "microstream.storage.towns.storage-directory-in-user-home" : new File(tempDir, "towns").absolutePath,
         ]
