@@ -28,8 +28,8 @@ import io.micronaut.core.util.StringUtils;
 import io.micronaut.inject.BeanDefinition;
 import jakarta.inject.Singleton;
 import one.microstream.storage.embedded.types.EmbeddedStorageManager;
-
-import java.util.Collection;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 import static io.micronaut.microstream.metrics.MicrostreamMetricsBinder.MICROSTREAM_METRIC_PREFIX;
@@ -54,35 +54,42 @@ public class MicrostreamMetricsBinder implements MeterBinder {
     private static final String DESCRIPTION_LIVE_DATA_LENGTH = "Displays live data length. This is the 'real' size of the stored data.";
     private static final String DOT = ".";
 
+    private final Map<String, EmbeddedStorageManager> embeddedStorageManagerMap = new ConcurrentHashMap<>();
 
-    private final Collection<BeanDefinition<EmbeddedStorageManager>> storageManagerDefinitions;
-
-    private final BeanContext beanContext;
-
+    /**
+     *
+     * @param beanContext Bean Context
+     */
     public MicrostreamMetricsBinder(BeanContext beanContext) {
-        this.beanContext = beanContext;
-        this.storageManagerDefinitions = beanContext.getBeanDefinitions(EmbeddedStorageManager.class);
+        for (BeanDefinition<EmbeddedStorageManager> definition : beanContext.getBeanDefinitions(EmbeddedStorageManager.class)) {
+            if (definition.getDeclaredQualifier() instanceof Named) {
+                EmbeddedStorageManager embeddedStorageManager = beanContext.getBean(definition);
+                embeddedStorageManagerMap.putIfAbsent(((Named) definition.getDeclaredQualifier()).getName(), embeddedStorageManager);
+            }
+        }
     }
 
     @Override
     public void bindTo(@NonNull MeterRegistry registry) {
-        for (BeanDefinition<EmbeddedStorageManager> definition : storageManagerDefinitions) {
-            String name = ((Named) definition.getDeclaredQualifier()).getName();
-            EmbeddedStorageManager manager = beanContext.getBean(definition);
+        embeddedStorageManagerMap.forEach((key, value) ->
+            bindEmbeddedStorageManagerToRegistry(key, value, registry));
+    }
 
-            gauge(registry, name, SUFFIX_TOTAL_DATA_LENGTH,
-                DESCRIPTION_TOTAL_DATA_LENGTH,
-                () -> manager.createStorageStatistics().totalDataLength()
-            );
-            gauge(registry, name, SUFFIX_FILE_COUNT,
-                DESCRIPTION_FILE_COUNT,
-                () -> manager.createStorageStatistics().fileCount()
-            );
-            gauge(registry, name, SUFFIX_LIVE_DATA_LENGTH,
-                DESCRIPTION_LIVE_DATA_LENGTH,
-                () -> manager.createStorageStatistics().liveDataLength()
-            );
-        }
+    private void bindEmbeddedStorageManagerToRegistry(@NonNull String name,
+                                                      @NonNull EmbeddedStorageManager manager,
+                                                      @NonNull MeterRegistry registry) {
+        gauge(registry, name, SUFFIX_TOTAL_DATA_LENGTH,
+            DESCRIPTION_TOTAL_DATA_LENGTH,
+            () -> manager.createStorageStatistics().totalDataLength()
+        );
+        gauge(registry, name, SUFFIX_FILE_COUNT,
+            DESCRIPTION_FILE_COUNT,
+            () -> manager.createStorageStatistics().fileCount()
+        );
+        gauge(registry, name, SUFFIX_LIVE_DATA_LENGTH,
+            DESCRIPTION_LIVE_DATA_LENGTH,
+            () -> manager.createStorageStatistics().liveDataLength()
+        );
     }
 
     private void gauge(@NonNull MeterRegistry registry,
