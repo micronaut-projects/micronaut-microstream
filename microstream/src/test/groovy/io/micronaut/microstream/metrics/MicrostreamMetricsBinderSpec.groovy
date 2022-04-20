@@ -55,20 +55,20 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
         ])
 
         when:
-        def controller = beanContext.getBean(SpecController)
+        SpecController controller = beanContext.getBean(SpecController)
 
         and:
-        def townDataLengthBefore = mostRecentMetric("microstream.towns.liveDataLength")
+        BigDecimal townDataLengthBefore = mostRecentMetric("microstream.towns.liveDataLength")
         controller.storeTown("This is a really long name for a town, I probably made it up")
-        def townDataLengthAfter = mostRecentMetric("microstream.towns.liveDataLength")
+        BigDecimal townDataLengthAfter = mostRecentMetric("microstream.towns.liveDataLength")
 
         then:
         townDataLengthBefore < townDataLengthAfter
 
         when:
-        def peopleDataLengthBefore = mostRecentMetric("microstream.people.liveDataLength")
+        BigDecimal peopleDataLengthBefore = mostRecentMetric("microstream.people.liveDataLength")
         controller.storePerson("Tim")
-        def peopleDataLengthAfter = mostRecentMetric("microstream.people.liveDataLength")
+        BigDecimal peopleDataLengthAfter = mostRecentMetric("microstream.people.liveDataLength")
 
         then:
         peopleDataLengthBefore < peopleDataLengthAfter
@@ -77,8 +77,8 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
         townDataLengthAfter > peopleDataLengthAfter
     }
 
-    private mostRecentMetric(String metricName) {
-        new JsonSlurper().parseText(httpClient.toBlocking().retrieve("/metrics/$metricName")).measurements*.value.head()
+    private BigDecimal mostRecentMetric(String metricName) {
+        new JsonSlurper().parseText(httpClient.toBlocking().retrieve("/metrics/$metricName")).measurements*.value.head() as BigDecimal
     }
 
     @Singleton
