@@ -2,7 +2,10 @@
 managed-microstream='06.01.00-MS-GA'
 
 [libraries]
-managed-microstream-storage-embedded-configuration= { module = 'one.microstream:microstream-storage-embedded-configuration', version.ref = 'managed-microstream' }
+managed-microstream-storage-embedded-configuration = { module = 'one.microstream:microstream-storage-embedded-configuration', version.ref = 'managed-microstream' }
+managed-microstream-storage-embedded = { module = "one.microstream:microstream-storage-embedded", version.ref = 'managed-microstream' }
+managed-microstream-persistence-binary-jdk8 = { module = "one.microstream:microstream-persistence-binary-jdk8", version.ref = 'managed-microstream' }
+managed-microstream-storage-restservice-sparkjava = { module = "one.microstream:microstream-storage-restservice-sparkjava", version.ref = 'managed-microstream' }
 
 micronaut-aop = { module = 'io.micronaut:micronaut-aop' }
 groovy-json = { module = "org.codehaus.groovy:groovy-json" }

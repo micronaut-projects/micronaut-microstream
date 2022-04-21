@@ -20,6 +20,8 @@ dependencies {
 
     testImplementation "io.micronaut:micronaut-http-server-netty:$micronautVersion"
     testImplementation "io.micronaut:micronaut-http-client:$micronautVersion"
+    testImplementation libs.managed.microstream.storage.embedded
+    testImplementation libs.managed.microstream.storage.restservice.sparkjava
     testImplementation project(":microstream")
 }
 
