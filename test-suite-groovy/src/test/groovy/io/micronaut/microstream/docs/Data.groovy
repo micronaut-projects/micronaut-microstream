@@ -22,4 +22,8 @@ class Data {
     void remove(@NonNull String id) {
         this.customers.remove(id)
     }
+
+    Map<String, Customer> getCustomerModel() {
+        return customers;
+    }
 }

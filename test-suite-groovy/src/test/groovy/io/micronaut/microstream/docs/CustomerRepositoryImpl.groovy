@@ -2,6 +2,7 @@ package io.micronaut.microstream.docs
 
 import io.micronaut.core.annotation.NonNull
 import io.micronaut.microstream.annotation.StoreAll
+import io.micronaut.microstream.annotation.StoreReturn
 import jakarta.inject.Singleton
 import one.microstream.storage.embedded.types.EmbeddedStorageManager
 
@@ -20,9 +21,11 @@ class CustomerRepositoryImpl implements CustomerRepository {
     }
 
 	@Override
-    @StoreAll
-    void save(@NonNull @NotNull @Valid Customer customer) {
-        data().ifPresent(d -> d.add(customer))
+    @StoreReturn
+    Map<String, Customer> save(@NonNull @NotNull @Valid Customer customer) {
+        Data data = data().get();
+        data.add(customer);
+        data.customerModel;
 	}
 
     @Override
@@ -32,9 +35,11 @@ class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    @StoreAll
-    void deleteById(@NonNull @NotBlank String id) {
-        data().ifPresent(d -> d.remove(id))
+    @StoreReturn
+    Map<String, Customer> deleteById(@NonNull @NotBlank String id) {
+        Data data = data().get();
+        data.remove(id);
+        data.customerModel;
     }
 
     @Override

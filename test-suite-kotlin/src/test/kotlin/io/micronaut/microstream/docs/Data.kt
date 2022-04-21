@@ -21,4 +21,6 @@ class Data(private val customers: MutableMap<String, Customer> = mutableMapOf())
     fun remove(@NonNull id: String) {
         customers.remove(id)
     }
+
+    val customerModel: Map<String, Customer> get() = customers
 }

@@ -2,6 +2,7 @@ package io.micronaut.microstream.docs
 
 import io.micronaut.core.annotation.NonNull
 import io.micronaut.microstream.annotation.StoreAll
+import io.micronaut.microstream.annotation.StoreReturn
 import jakarta.inject.Singleton
 import one.microstream.storage.embedded.types.EmbeddedStorageManager
 import java.util.stream.Collectors
@@ -11,11 +12,10 @@ import javax.validation.constraints.NotBlank
 @Singleton
 open class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorageManager) // <1>
     : CustomerRepository {
-    @StoreAll
-    override fun save(customer: @Valid Customer) {
-        if (data != null) {
-            data!!.add(customer)
-        }
+    @StoreReturn
+    override fun save(customer: @Valid Customer) = data!!.run{
+        add(customer)
+        customerModel
     }
 
     @NonNull
@@ -23,11 +23,10 @@ open class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedSt
         return if (data != null) data!!.findById(id) else null
     }
 
-    @StoreAll
-    override fun deleteById(id: @NotBlank String) {
-        if (data != null) {
-            data!!.remove(id)
-        }
+    @StoreReturn
+    override fun deleteById(id: @NotBlank String) = data!!.run {
+        remove(id)
+        customerModel
     }
 
     @NonNull
