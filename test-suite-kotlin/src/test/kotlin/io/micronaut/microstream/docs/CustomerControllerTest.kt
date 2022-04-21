@@ -21,83 +21,74 @@ class CustomerControllerTest {
     @Test
     fun verifyCrudWithMicrostream() {
         // Given
-        val (server, client) = startServer(
-            mapOf("microstream.storage.one-microstream-instance.storage-directory" to "build/microstream")
-        )
+        var server = startServer(mapOf("microstream.storage.one-microstream-instance.storage-directory" to "build/microstream"))
         val sergioName = "Sergio"
         val timName = "Tim"
 
         // Create sergio
-        val sergioLocation = createCustomer(client, sergioName)
+        val sergioLocation = createCustomer(server.client, sergioName)
         assertNotNull(sergioLocation)
 
         // Create Tim
-        val timLocation = createCustomer(client, timName)
+        val timLocation = createCustomer(server.client, timName)
         assertNotNull(timLocation)
         assertNotEquals(sergioLocation, timLocation)
 
         // Check sergio exists
-        var customer = getCustomer(client, sergioLocation)
+        var customer = getCustomer(server.client, sergioLocation)
         assertEquals(sergioName, customer.firstName)
         assertNull(customer.lastName)
 
         // Check tim exists
-        customer = getCustomer(client, timLocation)
+        customer = getCustomer(server.client, timLocation)
         assertEquals(timName, customer.firstName)
         assertNull(customer.lastName)
 
         // Restart the server
-        val (server1, client1) = startServer(
-            mapOf("microstream.storage.one-microstream-instance.storage-directory" to "build/microstream"),
-            server,
-            client
-        )
+        server = startServer(mapOf("microstream.storage.one-microstream-instance.storage-directory" to "build/microstream"), server)
 
         // Sergio still exists
-        customer = getCustomer(client1, sergioLocation)
+        customer = getCustomer(server.client, sergioLocation)
         assertEquals(sergioName, customer.firstName)
         assertNull(customer.lastName)
 
         // Delete Sergio
-        deleteCustomer(client1, sergioLocation)
+        deleteCustomer(server.client, sergioLocation)
 
         // Check sergio is gone
-        var e = Executable { client1.exchange(sergioLocation, Customer::class.java) }
+        var e = Executable { server.client.exchange(sergioLocation, Customer::class.java) }
         var thrown = assertThrows(HttpClientResponseException::class.java, e)
         assertEquals(HttpStatus.NOT_FOUND, thrown.status)
 
         // Restart the server one last time
-        val (server2, client2) = startServer(
-            mapOf("microstream.storage.one-microstream-instance.storage-directory" to "build/microstream"),
-            server1,
-            client1
-        )
+        server = startServer(mapOf("microstream.storage.one-microstream-instance.storage-directory" to "build/microstream"), server)
 
         // Check sergio is still gone
-        e = Executable { client2.exchange(sergioLocation, Customer::class.java) }
+        e = Executable { server.client.exchange(sergioLocation, Customer::class.java) }
         thrown = assertThrows(HttpClientResponseException::class.java, e)
         assertEquals(HttpStatus.NOT_FOUND, thrown.status)
 
         // And check tim remains
-        customer = getCustomer(client2, timLocation)
+        customer = getCustomer(server.client, timLocation)
         assertEquals(timName, customer.firstName)
         assertNull(customer.lastName)
 
         // And then cleanup
-        client2.close()
-        server2.close()
+        server.close()
     }
 
-    private fun startServer(
-        properties: Map<String, Any>,
-        existingServer: EmbeddedServer? = null,
-        existingClient: BlockingHttpClient? = null
-    ): Pair<EmbeddedServer, BlockingHttpClient> {
-        existingClient?.close()
-        existingServer?.close()
+    private data class ServerAndClient(val server: EmbeddedServer, val client: BlockingHttpClient): AutoCloseable {
+        override fun close() {
+            server.close()
+            client.close()
+        }
+    }
+
+    private fun startServer(properties: Map<String, Any>, serverAndClient: ServerAndClient? = null): ServerAndClient {
+        serverAndClient?.close()
         val server = ApplicationContext.run(EmbeddedServer::class.java, properties)
         val httpClient = server.applicationContext.createBean(HttpClient::class.java, server.url)
-        return Pair(server, httpClient.toBlocking())
+        return ServerAndClient(server, httpClient.toBlocking())
     }
 
     fun createCustomer(client: BlockingHttpClient, firstName: String): String {
