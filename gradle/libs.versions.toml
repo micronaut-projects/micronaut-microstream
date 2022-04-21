@@ -10,3 +10,5 @@ micronaut-http-client = { module = "io.micronaut:micronaut-http-client" }
 micronaut-http-server-netty = { module = "io.micronaut:micronaut-http-server-netty" }
 micronaut-management = { module = "io.micronaut:micronaut-management" }
 micronaut-micrometer-core = { module = 'io.micronaut.micrometer:micronaut-micrometer-core' }
+
+projectreactor = { module = 'io.projectreactor:reactor-core' }
