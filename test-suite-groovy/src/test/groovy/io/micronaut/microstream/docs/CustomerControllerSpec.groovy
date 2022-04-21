@@ -1,5 +1,6 @@
 package io.micronaut.microstream.docs
 
+import groovy.transform.Canonical
 import io.micronaut.context.ApplicationContext
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpRequest
@@ -13,10 +14,10 @@ import spock.lang.Specification
 
 class CustomerControllerSpec extends Specification {
 
-    void "verify CRUD with Microstream"() {
+    def "verify CRUD with Microstream"() {
         given:
         String storageDirectory = "build/microstream-" + UUID.randomUUID();
-        def (embeddedServer, client) = startServer(
+        def server = startServer(
                 "microstream.storage.one-microstream-instance.storage-directory": storageDirectory
         )
 
@@ -25,20 +26,20 @@ class CustomerControllerSpec extends Specification {
         String timName = "Tim"
 
         when:
-        String sergioLocation = createCustomer(client, sergioName)
+        String sergioLocation = createCustomer(server.client, sergioName)
 
         then:
         sergioLocation
 
         when:
-        String timLocation = createCustomer(client, timName)
+        String timLocation = createCustomer(server.client, timName)
 
         then:
         timLocation
         timLocation != sergioLocation
 
         when:
-        Customer customer = getCustomer(client, sergioLocation)
+        Customer customer = getCustomer(server.client, sergioLocation)
 
         then:
         with(customer) {
@@ -47,7 +48,7 @@ class CustomerControllerSpec extends Specification {
         }
 
         when:
-        customer = getCustomer(client, timLocation)
+        customer = getCustomer(server.client, timLocation)
 
         then:
         with(customer) {
@@ -56,12 +57,12 @@ class CustomerControllerSpec extends Specification {
         }
 
         when: "we restart the server"
-        (embeddedServer, client) = startServer(embeddedServer, client,
+        server = startServer(server,
                 "microstream.storage.one-microstream-instance.storage-directory": storageDirectory,
         )
-
-        and: "fetch Sergio, he still exists"
-        customer = getCustomer(client, sergioLocation)
+//
+//        and: "fetch Sergio, he still exists"
+        customer = getCustomer(server.client, sergioLocation)
 
         then:
         with(customer) {
@@ -70,29 +71,29 @@ class CustomerControllerSpec extends Specification {
         }
 
         when:
-        deleteCustomer(client, sergioLocation)
+        deleteCustomer(server.client, sergioLocation)
 
         and:
-        client.exchange(HttpRequest.GET(sergioLocation))
+        server.client.exchange(HttpRequest.GET(sergioLocation))
 
         then:
         HttpClientResponseException e = thrown()
         HttpStatus.NOT_FOUND == e.status
 
         when: "we restart the server again"
-        (embeddedServer, client) = startServer(embeddedServer, client,
+        server = startServer(server,
                 "microstream.storage.one-microstream-instance.storage-directory": storageDirectory,
         )
 
         and: "try to fetch Sergio"
-        client.exchange(HttpRequest.GET(sergioLocation))
+        server.client.exchange(HttpRequest.GET(sergioLocation))
 
         then: "he is still gone"
         e = thrown(HttpClientResponseException)
         HttpStatus.NOT_FOUND == e.status
 
         when: "we try to get Tim"
-        customer = getCustomer(client, timLocation)
+        customer = getCustomer(server.client, timLocation)
 
         then: "he is still there"
         with(customer) {
@@ -101,16 +102,26 @@ class CustomerControllerSpec extends Specification {
         }
 
         cleanup:
-        client.close()
-        embeddedServer.close()
+        server.close()
     }
 
-    def startServer(Map<String, Object> properties, EmbeddedServer existingServer = null, BlockingHttpClient existingClient = null) {
-        existingClient?.close()
-        existingServer?.close()
+    @Canonical
+    class ServerAndClient implements AutoCloseable {
+        EmbeddedServer server
+        BlockingHttpClient client
+
+        @Override
+        void close() throws Exception {
+            client?.close()
+            server?.close()
+        }
+    }
+
+    def startServer(Map<String, Object> properties, ServerAndClient serverAndClient = null) {
+        serverAndClient?.close()
         EmbeddedServer embeddedServer = ApplicationContext.run(EmbeddedServer.class, properties)
         HttpClient httpClient = embeddedServer.applicationContext.createBean(HttpClient.class, embeddedServer.URL)
-        [embeddedServer, httpClient.toBlocking()]
+        new ServerAndClient(embeddedServer, httpClient.toBlocking())
     }
 
     String createCustomer(BlockingHttpClient client, String firstName) {
