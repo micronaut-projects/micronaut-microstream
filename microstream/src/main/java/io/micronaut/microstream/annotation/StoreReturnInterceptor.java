@@ -49,7 +49,7 @@ public class StoreReturnInterceptor extends BaseStorageInterceptor {
     @Override
     @SuppressWarnings("java:S2142")  // We don't need to bubble the interrupted exception
     public Object intercept(MethodInvocationContext<Object, Object> context) {
-        String name = Optional.ofNullable(context.getAnnotation(StoreAll.class)).flatMap(a -> a.stringValue("name")).orElse(null);
+        String name = Optional.ofNullable(context.getAnnotation(StoreReturn.class)).flatMap(a -> a.stringValue("name")).orElse(null);
 
         @SuppressWarnings("resource") // We don't want to close the storage manager
         EmbeddedStorageManager manager = lookupManager(name);

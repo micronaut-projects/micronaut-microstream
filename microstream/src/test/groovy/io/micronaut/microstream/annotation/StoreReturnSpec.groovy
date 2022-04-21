@@ -15,8 +15,8 @@ import spock.lang.Specification
 import spock.lang.TempDir
 
 @MicronautTest(startApplication = false)
-@Property(name = "spec.name", value = "StoreAllSpec")
-class StoreAllSpec extends Specification implements TestPropertyProvider {
+@Property(name = "spec.name", value = "StoreReturnSpec")
+class StoreReturnSpec extends Specification implements TestPropertyProvider {
 
     @TempDir
     @Shared
@@ -66,7 +66,7 @@ class StoreAllSpec extends Specification implements TestPropertyProvider {
     }
 
     @Singleton
-    @Requires(property = "spec.name", value = "StoreAllSpec")
+    @Requires(property = "spec.name", value = "StoreReturnSpec")
     static class SpecController {
 
         private EmbeddedStorageManager manager
@@ -75,19 +75,28 @@ class StoreAllSpec extends Specification implements TestPropertyProvider {
             this.manager = manager
         }
 
-        @StoreAll(name = 'blue')
-        boolean store(String flower) {
-            manager.root().flowers.add(flower)
+        @StoreReturn(name = 'blue')
+        List<String> store(String flower) {
+            manager.root().with {
+                flowers.add(flower)
+                flowers
+            }
         }
 
-        @StoreAll
-        boolean noNameDefined(String flower) {
-            manager.root().flowers.add(flower)
+        @StoreReturn
+        List<String> noNameDefined(String flower) {
+            manager.root().with {
+                flowers.add(flower)
+                flowers
+            }
         }
 
-        @StoreAll(name = 'nope')
-        boolean badNameDefined(String flower) {
-            manager.root().flowers.add(flower)
+        @StoreReturn(name = 'nope')
+        List<String> badNameDefined(String flower) {
+            manager.root().with {
+                flowers.add(flower)
+                flowers
+            }
         }
     }
 }
