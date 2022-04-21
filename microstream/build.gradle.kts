@@ -6,6 +6,8 @@ dependencies {
     compileOnly(libs.micronaut.micrometer.core)
     api(libs.managed.microstream.storage.embedded.configuration)
 
+    implementation(libs.managed.microstream.persistence.binary.jdk8)
+
     implementation(libs.micronaut.aop)
 
     testImplementation(libs.micronaut.micrometer.core)
@@ -13,7 +15,6 @@ dependencies {
     testImplementation(libs.micronaut.http.server.netty)
     testImplementation(libs.micronaut.http.client)
     testImplementation(libs.groovy.json)
-
 }
 
 micronautBuild {

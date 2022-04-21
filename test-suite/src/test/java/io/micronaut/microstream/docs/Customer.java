@@ -10,14 +10,14 @@ import javax.validation.constraints.NotBlank;
 public class Customer {
     @NonNull
     @NotBlank
-	private String id;
+	private final String id;
 
     @NonNull
     @NotBlank
-	private String firstName;
+	private final String firstName;
 
     @Nullable
-	private String lastName;
+	private final String lastName;
 
     public Customer(@NonNull String id, @NonNull String firstName, @Nullable String lastName) {
         this.id = id;

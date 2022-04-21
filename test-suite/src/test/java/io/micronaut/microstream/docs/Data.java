@@ -2,15 +2,13 @@ package io.micronaut.microstream.docs;
 
 import io.micronaut.core.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 public class Data {
-    private Map<String, Customer> customers = new HashMap<>();
+    private final Map<String, Customer> customers = new HashMap<>();
 
     @NonNull
     public Optional<Customer> findById(@NonNull String id) {
@@ -28,5 +26,9 @@ public class Data {
 
     public void remove(@NonNull String id) {
         this.customers.remove(id);
+    }
+
+    public Map<String, Customer> getCustomerModel() {
+        return customers;
     }
 }

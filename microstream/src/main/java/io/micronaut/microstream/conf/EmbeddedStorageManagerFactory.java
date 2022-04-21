@@ -23,6 +23,7 @@ import io.micronaut.context.annotation.Parameter;
 import io.micronaut.context.exceptions.DisabledBeanException;
 import io.micronaut.inject.qualifiers.Qualifiers;
 import jakarta.inject.Singleton;
+import one.microstream.persistence.binary.jdk8.types.BinaryHandlersJDK8;
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation;
 import one.microstream.storage.embedded.types.EmbeddedStorageManager;
 import org.slf4j.Logger;
@@ -57,6 +58,9 @@ public class EmbeddedStorageManagerFactory {
     @Singleton
     public EmbeddedStorageManager createEmbeddedStorageManager(EmbeddedStorageFoundation<?> foundation,
                                                                @Parameter String name) {
+        // TODO: We need to deal with non-java 8 installations
+        foundation.onConnectionFoundation(BinaryHandlersJDK8::registerJDK8TypeHandlers);
+        @SuppressWarnings("java:S2095") // We don't want to close the storage manager
         EmbeddedStorageManager storageManager = foundation.createEmbeddedStorageManager().start();
         if (storageManager.root() == null) {
             if (LOG.isTraceEnabled()) {

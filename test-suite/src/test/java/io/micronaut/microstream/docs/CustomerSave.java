@@ -10,10 +10,10 @@ public class CustomerSave {
 
     @NonNull
     @NotBlank
-    private String firstName;
+    private final String firstName;
 
     @Nullable
-    private String lastName;
+    private final String lastName;
 
     public CustomerSave(@NonNull String firstName, @Nullable String lastName) {
         this.firstName = firstName;

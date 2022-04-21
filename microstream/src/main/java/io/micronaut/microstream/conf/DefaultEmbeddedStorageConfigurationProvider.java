@@ -29,7 +29,7 @@ import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfi
 @EachProperty("microstream.storage")
 public class DefaultEmbeddedStorageConfigurationProvider implements EmbeddedStorageConfigurationProvider {
     @ConfigurationBuilder
-    EmbeddedStorageConfigurationBuilder builder = EmbeddedStorageConfiguration.Builder();
+    final EmbeddedStorageConfigurationBuilder builder = EmbeddedStorageConfiguration.Builder();
 
     private final String name;
 

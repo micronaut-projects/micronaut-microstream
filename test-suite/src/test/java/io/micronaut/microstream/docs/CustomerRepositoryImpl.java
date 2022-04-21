@@ -1,18 +1,19 @@
 package io.micronaut.microstream.docs;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.microstream.annotation.StoreAll;
+import io.micronaut.microstream.annotation.StoreReturn;
 import jakarta.inject.Singleton;
 import one.microstream.storage.embedded.types.EmbeddedStorageManager;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Singleton
 public class CustomerRepositoryImpl implements CustomerRepository {
@@ -24,9 +25,11 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
 	@Override
-    @StoreAll
-	public void save(@NonNull @NotNull @Valid Customer customer) {
-        getData().ifPresent(data -> data.add(customer));
+    @StoreReturn
+	public Map<String, Customer> save(@NonNull @NotNull @Valid Customer customer) {
+        Data data = getData().get();
+        data.add(customer);
+        return data.getCustomerModel();
 	}
 
     @Override
@@ -36,9 +39,11 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    @StoreAll
-    public void deleteById(@NonNull @NotBlank String id) {
-        getData().ifPresent(data -> data.remove(id));
+    @StoreReturn
+    public Map<String, Customer> deleteById(@NonNull @NotBlank String id) {
+        Data data = getData().get();
+        data.remove(id);
+        return data.getCustomerModel();
     }
 
     @Override

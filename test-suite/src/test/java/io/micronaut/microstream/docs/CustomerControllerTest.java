@@ -1,19 +1,14 @@
 package io.micronaut.microstream.docs;
 
 import io.micronaut.context.ApplicationContext;
-import io.micronaut.context.BeanContext;
-import io.micronaut.context.annotation.Property;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.client.BlockingHttpClient;
 import io.micronaut.http.client.HttpClient;
-import io.micronaut.http.client.annotation.Client;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.runtime.server.EmbeddedServer;
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
-import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -21,7 +16,10 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CustomerControllerTest {
 
@@ -54,13 +52,14 @@ class CustomerControllerTest {
         embeddedServer.close();
 
         EmbeddedServer secondServer = ApplicationContext.run(EmbeddedServer.class, properties);
-        HttpClient secondHttpClient = secondServer.getApplicationContext()
-            .createBean(HttpClient.class, secondServer.getURL());
+        HttpClient secondHttpClient = secondServer.getApplicationContext().createBean(HttpClient.class, secondServer.getURL());
+
         BlockingHttpClient secondClient = secondHttpClient.toBlocking();
 
 
         showResponse = secondClient.exchange(HttpRequest.GET(location), Customer.class);
         assertEquals(HttpStatus.OK, showResponse.status());
+
         customer = showResponse.body();
         assertNotNull(customer);
         assertEquals(firstName, customer.getFirstName());
@@ -68,7 +67,8 @@ class CustomerControllerTest {
 
         HttpResponse<Customer> deleteResponse = secondClient.exchange(HttpRequest.DELETE(location), Customer.class);
         assertEquals(HttpStatus.NO_CONTENT, deleteResponse.status());
-        Executable e = () -> secondClient.exchange(showRequest);
+
+        Executable e = () -> secondClient.exchange(HttpRequest.GET(location), Customer.class);
         HttpClientResponseException thrown = assertThrows(HttpClientResponseException.class, e);
         assertEquals(HttpStatus.NOT_FOUND, thrown.getStatus());
 
