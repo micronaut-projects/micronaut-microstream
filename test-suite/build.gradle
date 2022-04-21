@@ -23,6 +23,9 @@ dependencies {
     testImplementation libs.managed.microstream.storage.embedded
     testImplementation libs.managed.microstream.storage.restservice.sparkjava
     testImplementation project(":microstream")
+    testImplementation(libs.micronaut.micrometer.core)
+    testImplementation(libs.micronaut.management)
+
 }
 
 tasks.named('test') {

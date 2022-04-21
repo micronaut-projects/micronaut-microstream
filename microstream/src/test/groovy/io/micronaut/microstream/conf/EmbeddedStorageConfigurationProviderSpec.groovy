@@ -33,4 +33,9 @@ class EmbeddedStorageConfigurationProviderSpec extends Specification {
         'blue' == blueProvider.name
         blueProvider.builder.buildConfiguration().get("storage-directory").endsWith('Downloads/microstream')
     }
+
+    def cleanupSpec() {
+        new File(System.getProperty('user.home'), "/Documents/microstream").deleteDir()
+        new File(System.getProperty('user.home'), "/Downloads/microstream").deleteDir()
+    }
 }

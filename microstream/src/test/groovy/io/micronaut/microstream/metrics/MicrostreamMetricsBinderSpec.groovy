@@ -36,8 +36,8 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
     @Override
     Map<String, String> getProperties() {
         [
-                "microstream.storage.people.storage-directory-in-user-home": new File(tempDir, "people").absolutePath,
-                "microstream.storage.towns.storage-directory-in-user-home" : new File(tempDir, "towns").absolutePath,
+                "microstream.storage.people.storage-directory": new File(tempDir, "people").absolutePath,
+                "microstream.storage.towns.storage-directory" : new File(tempDir, "towns").absolutePath,
         ]
     }
 

@@ -14,6 +14,7 @@ dependencies {
     testImplementation(libs.micronaut.management)
     testImplementation(libs.micronaut.http.server.netty)
     testImplementation(libs.micronaut.http.client)
+    testImplementation(libs.managed.microstream.storage.embedded)
     testImplementation(libs.groovy.json)
 }
 

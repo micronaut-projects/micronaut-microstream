@@ -31,4 +31,9 @@ class EmbeddedStorageFoundationFactorySpec extends Specification {
         then:
         noExceptionThrown()
     }
+
+    def cleanupSpec() {
+        new File(System.getProperty('user.home'), "/Documents/microstream").deleteDir()
+        new File(System.getProperty('user.home'), "/Downloads/microstream").deleteDir()
+    }
 }
