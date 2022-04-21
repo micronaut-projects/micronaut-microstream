@@ -58,7 +58,6 @@ public class EmbeddedStorageManagerFactory {
     @Singleton
     public EmbeddedStorageManager createEmbeddedStorageManager(EmbeddedStorageFoundation<?> foundation,
                                                                @Parameter String name) {
-        // TODO: We need to deal with non-java 8 installations
         foundation.onConnectionFoundation(BinaryHandlersJDK8::registerJDK8TypeHandlers);
         @SuppressWarnings("java:S2095") // We don't want to close the storage manager
         EmbeddedStorageManager storageManager = foundation.createEmbeddedStorageManager().start();
