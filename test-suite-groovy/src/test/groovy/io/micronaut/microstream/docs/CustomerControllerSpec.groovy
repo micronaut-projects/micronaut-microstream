@@ -1,50 +1,59 @@
 package io.micronaut.microstream.docs
 
-import io.micronaut.context.BeanContext
-import io.micronaut.context.annotation.Property
+import io.micronaut.context.ApplicationContext
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
-import io.micronaut.http.client.annotation.Client
 import io.micronaut.http.client.exceptions.HttpClientResponseException
-import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import jakarta.inject.Inject
+import io.micronaut.runtime.server.EmbeddedServer
 import spock.lang.Specification
 
-@Property(name = "microstream.storage.one-microstream-instance.storage-directory", value = "build/microstream")
-@MicronautTest
 class CustomerControllerSpec extends Specification {
-    @Inject
-    @Client("/")
-    HttpClient httpClient
-
-    @Inject
-    BeanContext beanContext
 
     void "verify CRUD with Microstream"() {
         given:
-        String firstName = "Sergio"
-        BlockingHttpClient client = httpClient.toBlocking()
+        String storageDirectory = "build/microstream-" + UUID.randomUUID();
+        Map<String, Object> properties = Collections.singletonMap(
+                "microstream.storage.one-microstream-instance.storage-directory", storageDirectory);
+        EmbeddedServer embeddedServer = ApplicationContext.run(EmbeddedServer.class, properties);
+        HttpClient httpClient = embeddedServer.getApplicationContext()
+                .createBean(HttpClient.class, embeddedServer.getURL());
+        BlockingHttpClient client = httpClient.toBlocking();
+
+        and:
+        String sergioName = "Sergio"
+        String timName = "Tim"
 
         when:
-        HttpRequest<?> request = HttpRequest.POST("/customer", Collections.singletonMap("firstName", firstName))
-        HttpResponse<?> response = client.exchange(request)
+        HttpResponse<?> response = client.exchange(HttpRequest.POST("/customer", Collections.singletonMap("firstName", sergioName)))
 
         then:
         HttpStatus.CREATED == response.status()
 
         when:
-        String location = response.getHeaders().get(HttpHeaders.LOCATION)
+        String sergioLocation = response.getHeaders().get(HttpHeaders.LOCATION)
 
         then:
-        location
+        sergioLocation
 
         when:
-        HttpRequest<?> showRequest = HttpRequest.GET(location)
-        HttpResponse<Customer> showResponse = client.exchange(showRequest, Customer)
+        response = client.exchange(HttpRequest.POST("/customer", Collections.singletonMap("firstName", timName)))
+
+        then:
+        HttpStatus.CREATED == response.status()
+
+        when:
+        String timLocation = response.getHeaders().get(HttpHeaders.LOCATION)
+
+        then:
+        timLocation
+        timLocation != sergioLocation
+
+        when:
+        HttpResponse<Customer> showResponse = client.exchange(HttpRequest.GET(sergioLocation), Customer)
 
         then:
         HttpStatus.OK == showResponse.status()
@@ -54,19 +63,83 @@ class CustomerControllerSpec extends Specification {
 
         then:
         customer
-        firstName == customer.firstName
+        sergioName == customer.firstName
         !customer.lastName
 
         when:
-        HttpResponse<Customer> deleteResponse = client.exchange(HttpRequest.DELETE(location), Customer)
+        showResponse = client.exchange(HttpRequest.GET(timLocation), Customer)
+
+        then:
+        HttpStatus.OK == showResponse.status()
+
+        when:
+        customer = showResponse.body()
+
+        then:
+        customer
+        timName == customer.firstName
+        !customer.lastName
+
+        when: "we restart the server"
+        httpClient.close();
+        embeddedServer.close();
+        embeddedServer = ApplicationContext.run(EmbeddedServer.class, properties);
+        httpClient = embeddedServer.getApplicationContext().createBean(HttpClient.class, embeddedServer.getURL());
+        client = httpClient.toBlocking();
+
+        and: "fetch Sergio, he still exists"
+        showResponse = client.exchange(HttpRequest.GET(sergioLocation), Customer)
+
+        then:
+        HttpStatus.OK == showResponse.status()
+
+        when:
+        customer = showResponse.body()
+
+        then:
+        customer
+        sergioName == customer.firstName
+        !customer.lastName
+
+        when: "we delete Sergio"
+        HttpResponse<Customer> deleteResponse = client.exchange(HttpRequest.DELETE(sergioLocation), Customer)
+
         then:
         HttpStatus.NO_CONTENT == deleteResponse.status()
 
         when:
-        client.exchange(showRequest)
+        client.exchange(HttpRequest.GET(sergioLocation))
 
         then:
         HttpClientResponseException e = thrown()
         HttpStatus.NOT_FOUND == e.status
+
+        when: "we restart the server again"
+        httpClient.close();
+        embeddedServer.close();
+        embeddedServer = ApplicationContext.run(EmbeddedServer.class, properties);
+        httpClient = embeddedServer.getApplicationContext().createBean(HttpClient.class, embeddedServer.getURL());
+        client = httpClient.toBlocking();
+
+        and: "try to fetch Sergio"
+        client.exchange(HttpRequest.GET(sergioLocation))
+
+        then: "he is still gone"
+        e = thrown(HttpClientResponseException)
+        HttpStatus.NOT_FOUND == e.status
+
+        when: "we try to get Tim"
+        showResponse = client.exchange(HttpRequest.GET(timLocation), Customer)
+
+        then:
+        HttpStatus.OK == showResponse.status()
+
+        when:
+        customer = showResponse.body()
+
+        then: "he is still there"
+        customer
+        timName == customer.firstName
+        !customer.lastName
     }
 }
