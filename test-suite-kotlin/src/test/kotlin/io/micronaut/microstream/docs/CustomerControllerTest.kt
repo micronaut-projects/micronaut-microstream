@@ -18,10 +18,12 @@ import org.junit.jupiter.api.function.Executable
 
 class CustomerControllerTest {
 
+    private val config = mapOf("microstream.storage.one-microstream-instance.storage-directory" to "build/microstream")
+
     @Test
     fun verifyCrudWithMicrostream() {
         // Given
-        var server = startServer(mapOf("microstream.storage.one-microstream-instance.storage-directory" to "build/microstream"))
+        var server = startServer()
         val sergioName = "Sergio"
         val timName = "Tim"
 
@@ -45,7 +47,7 @@ class CustomerControllerTest {
         assertNull(customer.lastName)
 
         // Restart the server
-        server = startServer(mapOf("microstream.storage.one-microstream-instance.storage-directory" to "build/microstream"), server)
+        server = startServer(server)
 
         // Sergio still exists
         customer = getCustomer(server.client, sergioLocation)
@@ -61,7 +63,7 @@ class CustomerControllerTest {
         assertEquals(HttpStatus.NOT_FOUND, thrown.status)
 
         // Restart the server one last time
-        server = startServer(mapOf("microstream.storage.one-microstream-instance.storage-directory" to "build/microstream"), server)
+        server = startServer(server)
 
         // Check sergio is still gone
         e = Executable { server.client.exchange(sergioLocation, Customer::class.java) }
@@ -84,9 +86,9 @@ class CustomerControllerTest {
         }
     }
 
-    private fun startServer(properties: Map<String, Any>, serverAndClient: ServerAndClient? = null): ServerAndClient {
+    private fun startServer(serverAndClient: ServerAndClient? = null): ServerAndClient {
         serverAndClient?.close()
-        val server = ApplicationContext.run(EmbeddedServer::class.java, properties)
+        val server = ApplicationContext.run(EmbeddedServer::class.java, config)
         val httpClient = server.applicationContext.createBean(HttpClient::class.java, server.url)
         return ServerAndClient(server, httpClient.toBlocking())
     }
