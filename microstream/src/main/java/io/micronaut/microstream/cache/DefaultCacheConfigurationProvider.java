@@ -25,26 +25,52 @@ import one.microstream.cache.types.CacheConfiguration;
 import one.microstream.cache.types.CacheConfigurationBuilderConfigurationBased;
 
 /**
+ * @param <K> The key type
+ * @param <V> The value type
  * @author Tim Yates
  * @since 1.0.0
  */
 @EachProperty("microstream.cache")
-public class DefaultCacheConfigurationProvider implements CacheConfigurationProvider {
+public final class DefaultCacheConfigurationProvider<K, V> implements CacheConfigurationProvider<K, V> {
     @ConfigurationBuilder
     CacheConfigurationBuilder builder = new CacheConfigurationBuilder();
 
     private final String name;
     private final BeanContext beanContext;
 
-    public DefaultCacheConfigurationProvider(@Parameter String name, BeanContext beanContext) {
+    private Class<K> keyType;
+    private Class<V> valueType;
+
+    DefaultCacheConfigurationProvider(@Parameter String name, BeanContext beanContext) {
         this.name = name;
         this.beanContext = beanContext;
     }
 
+    private Class<K> getKeyType() {
+        return keyType != null ? keyType : (Class<K>) Object.class;
+    }
+
+    void setKeyType(Class<K> keyType) {
+        this.keyType = keyType;
+    }
+
+    private Class<V> getValueType() {
+        return valueType != null ? valueType : (Class<V>) Object.class;
+    }
+
+    void setValueType(Class<V> valueType) {
+        this.valueType = valueType;
+    }
+
     @Override
     @NonNull
-    public CacheConfiguration.Builder<?, ?> getBuilder() {
-        CacheConfiguration.Builder<?, ?> returnBuilder = CacheConfigurationBuilderConfigurationBased.New().buildCacheConfiguration(builder.buildConfiguration());
+    public CacheConfiguration.Builder<K, V> getBuilder() {
+        CacheConfiguration.Builder<K, V> returnBuilder = CacheConfigurationBuilderConfigurationBased
+            .New()
+            .buildCacheConfiguration(
+                builder.buildConfiguration(),
+                CacheConfiguration.Builder(getKeyType(), getValueType())
+            );
 
         beanContext.findBean(ExpiryPolicyFactory.class, Qualifiers.byName(name)).ifPresent(factory ->
             returnBuilder.expiryPolicyFactory(factory.getFactory())

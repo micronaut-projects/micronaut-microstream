@@ -17,10 +17,16 @@ import javax.cache.expiry.EternalExpiryPolicy
 import javax.cache.expiry.ExpiryPolicy
 
 @Property(name = "spec.name", value = "CacheConfigurationProviderSpec")
+// Properties for first cache
 @Property(name = "microstream.cache.one.key-type", value = "java.lang.Integer")
 @Property(name = "microstream.cache.one.value-type", value = "java.lang.String")
+@Property(name = "microstream.cache.one.statistics-enabled", value = "true")
+// Properties for second cache
 @Property(name = "microstream.cache.two.key-type", value = "java.lang.Character")
 @Property(name = "microstream.cache.two.value-type", value = "java.lang.Float")
+@Property(name = "microstream.cache.two.management-enabled", value = "true")
+// Properties for third cache
+@Property(name = "microstream.cache.three.management-enabled", value = "true")
 @MicronautTest(startApplication = false)
 class CacheConfigurationProviderSpec extends Specification {
 
@@ -29,7 +35,7 @@ class CacheConfigurationProviderSpec extends Specification {
 
     void "you can have multiple beans of type CacheConfigurationProvider"() {
         expect:
-        beanContext.getBeansOfType(CacheConfigurationProvider).size() == 2
+        beanContext.getBeansOfType(CacheConfigurationProvider).size() == 3
 
         when:
         CacheConfigurationProvider oneProvider = beanContext.getBean(CacheConfigurationProvider, Qualifiers.byName("one"))
@@ -42,7 +48,7 @@ class CacheConfigurationProviderSpec extends Specification {
             !readThrough
             !writeThrough
             !managementEnabled
-            !statisticsEnabled
+            statisticsEnabled
             expiryPolicyFactory.create() instanceof EternalExpiryPolicy
         }
 
@@ -56,12 +62,23 @@ class CacheConfigurationProviderSpec extends Specification {
             valueType == Float
             !readThrough
             !writeThrough
-            !managementEnabled
+            managementEnabled
             !statisticsEnabled
             with(expiryPolicyFactory.create()) {
                 it instanceof CreatedExpiryPolicy
                 it.expiryForCreation == Duration.FIVE_MINUTES
             }
+        }
+
+        when:
+        CacheConfigurationProvider threeProvider = beanContext.getBean(CacheConfigurationProvider, Qualifiers.byName("three"))
+
+        then: 'no type specified, so defaults to Object'
+        threeProvider.name == 'three'
+        with(threeProvider.builder.build()) {
+            keyType == Object
+            valueType == Object
+            managementEnabled
         }
     }
 

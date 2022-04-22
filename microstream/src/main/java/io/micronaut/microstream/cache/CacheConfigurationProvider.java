@@ -20,11 +20,13 @@ import io.micronaut.core.naming.Named;
 import one.microstream.cache.types.CacheConfiguration;
 
 /**
+ * @param <K> The key type
+ * @param <V> The value type
  * @author Tim Yates
  * @since 1.0.0
  */
-public interface CacheConfigurationProvider extends Named {
+public interface CacheConfigurationProvider<K, V> extends Named {
 
     @NonNull
-    CacheConfiguration.Builder getBuilder();
+    CacheConfiguration.Builder<K, V> getBuilder();
 }

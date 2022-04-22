@@ -16,6 +16,7 @@
 package io.micronaut.microstream.cache;
 
 import io.micronaut.core.annotation.Internal;
+import io.micronaut.core.util.StringUtils;
 import one.microstream.cache.types.CacheConfigurationPropertyNames;
 import one.microstream.collections.types.XGettingCollection;
 import one.microstream.configuration.types.Configuration;
@@ -37,12 +38,12 @@ class CacheConfigurationBuilder implements Configuration.Builder {
         this.delegate = Configuration.Builder();
     }
 
-    public Configuration.Builder setKeyType(String keyType) {
-        return delegate.set(CacheConfigurationPropertyNames.KEY_TYPE, keyType);
+    public Configuration.Builder setStatisticsEnabled(boolean statisticsEnabled) {
+        return delegate.set(CacheConfigurationPropertyNames.STATISTICS_ENABLED, statisticsEnabled ? StringUtils.TRUE : StringUtils.FALSE);
     }
 
-    public Configuration.Builder setValueType(String valueType) {
-        return delegate.set(CacheConfigurationPropertyNames.VALUE_TYPE, valueType);
+    public Configuration.Builder setManagementEnabled(boolean managementEnabled) {
+        return delegate.set(CacheConfigurationPropertyNames.MANAGEMENT_ENABLED, managementEnabled ? StringUtils.TRUE : StringUtils.FALSE);
     }
 
     @Override
