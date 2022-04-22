@@ -65,53 +65,29 @@ public class MicrostreamHealthIndicator implements HealthIndicator {
                         MICROSTREAM_PREFIX + namedBean.getKey(),
                         namedBean.getValue().isRunning() ? HealthStatus.UP : HealthStatus.DOWN
                     )
-                    .details(new HealthHolder(namedBean.getValue()))
+                    .details(new HealthDetailsJsonHolder(namedBean.getValue()))
                     .build()
             );
     }
 
     @Introspected
-    @SuppressWarnings("unused")
-    static class HealthHolder {
+    @SuppressWarnings({"unused", "checkstyle:VisibilityModifier"})
+    private static class HealthDetailsJsonHolder {
 
-        private final boolean startingUp;
-        private final boolean running;
-        private final boolean active;
-        private final boolean acceptingTasks;
-        private final boolean shuttingDown;
-        private final boolean shutdown;
+        public final boolean startingUp;
+        public final boolean running;
+        public final boolean active;
+        public final boolean acceptingTasks;
+        public final boolean shuttingDown;
+        public final boolean shutdown;
 
-        HealthHolder(EmbeddedStorageManager manager) {
+        HealthDetailsJsonHolder(EmbeddedStorageManager manager) {
             this.startingUp = manager.isStartingUp();
             this.running = manager.isRunning();
             this.active = manager.isActive();
             this.acceptingTasks = manager.isAcceptingTasks();
             this.shuttingDown = manager.isShuttingDown();
             this.shutdown = manager.isShutdown();
-        }
-
-        public boolean isStartingUp() {
-            return startingUp;
-        }
-
-        public boolean isRunning() {
-            return running;
-        }
-
-        public boolean isActive() {
-            return active;
-        }
-
-        public boolean isAcceptingTasks() {
-            return acceptingTasks;
-        }
-
-        public boolean isShuttingDown() {
-            return shuttingDown;
-        }
-
-        public boolean isShutdown() {
-            return shutdown;
         }
     }
 }
