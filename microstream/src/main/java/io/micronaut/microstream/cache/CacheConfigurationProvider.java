@@ -26,5 +26,5 @@ import one.microstream.cache.types.CacheConfiguration;
 public interface CacheConfigurationProvider extends Named {
 
     @NonNull
-    CacheConfiguration.Builder<?,?> getBuilder();
+    CacheConfiguration.Builder<?, ?> getBuilder();
 }

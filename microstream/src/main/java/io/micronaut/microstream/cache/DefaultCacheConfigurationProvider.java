@@ -39,7 +39,7 @@ public class DefaultCacheConfigurationProvider implements CacheConfigurationProv
 
     @Override
     @NonNull
-    public CacheConfiguration.Builder<?,?> getBuilder() {
+    public CacheConfiguration.Builder<?, ?> getBuilder() {
         return CacheConfigurationBuilderConfigurationBased.New().buildCacheConfiguration(builder.buildConfiguration());
     }
 

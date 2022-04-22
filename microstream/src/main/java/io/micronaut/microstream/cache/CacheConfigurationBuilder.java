@@ -23,7 +23,7 @@ import one.microstream.configuration.types.ConfigurationValueMapperProvider;
 import one.microstream.typing.KeyValue;
 
 /**
- * A helper class to load the <a href="https://docs.microstream.one/manual/storage/configuration/properties.html"cache properties</a> from Micronaut configuration.
+ * A helper class to load the <a href="https://docs.microstream.one/manual/storage/configuration/properties.html">cache properties</a> from Micronaut configuration.
  *
  * @author Tim Yates
  * @since 1.0.0
