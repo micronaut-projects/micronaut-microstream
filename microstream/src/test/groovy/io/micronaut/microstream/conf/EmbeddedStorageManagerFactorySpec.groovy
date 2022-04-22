@@ -4,19 +4,32 @@ import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
+import io.micronaut.test.support.TestPropertyProvider
 import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.inject.Singleton
 import one.microstream.storage.embedded.types.EmbeddedStorageManager
+import spock.lang.Shared
 import spock.lang.Specification
+import spock.lang.TempDir
 
-@Property(name = "microstream.storage.orange.storage-directory-in-user-home", value = "Documents/microstream")
-@Property(name = "microstream.storage.blue.storage-directory-in-user-home", value = "Downloads/microstream")
 @MicronautTest(startApplication = false)
-class EmbeddedStorageManagerFactorySpec extends Specification {
+class EmbeddedStorageManagerFactorySpec extends Specification implements TestPropertyProvider {
 
     @Inject
     BeanContext beanContext
+
+    @TempDir
+    @Shared
+    File tempDir
+
+    @Override
+    Map<String, String> getProperties() {
+        [
+                "microstream.storage.orange.storage-directory": new File(tempDir, "orange").absolutePath,
+                "microstream.storage.blue.storage-directory" : new File(tempDir, "blue").absolutePath,
+        ]
+    }
 
     void "you can have multiple beans of type EmbeddedStorageManager"() {
         expect:

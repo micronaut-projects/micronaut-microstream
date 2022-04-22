@@ -1,9 +1,10 @@
 microstream:
   storage:
     one-microstream-instance:
-      storage-directory: build/microstream
+      storage-directory: build/microstream${random.shortuuid}
       channel-count: 4
     another-microstream-instance:
+      storage-directory: build/microstream${random.shortuuid}
       channel-count: 4
       channel-directory-prefix: 'channel_'
       data-file-prefix: 'channel_'
