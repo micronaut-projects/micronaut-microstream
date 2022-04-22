@@ -15,10 +15,12 @@
  */
 package io.micronaut.microstream.cache;
 
+import io.micronaut.context.BeanContext;
 import io.micronaut.context.annotation.ConfigurationBuilder;
 import io.micronaut.context.annotation.EachProperty;
 import io.micronaut.context.annotation.Parameter;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.inject.qualifiers.Qualifiers;
 import one.microstream.cache.types.CacheConfiguration;
 import one.microstream.cache.types.CacheConfigurationBuilderConfigurationBased;
 
@@ -32,15 +34,23 @@ public class DefaultCacheConfigurationProvider implements CacheConfigurationProv
     CacheConfigurationBuilder builder = new CacheConfigurationBuilder();
 
     private final String name;
+    private final BeanContext beanContext;
 
-    public DefaultCacheConfigurationProvider(@Parameter String name) {
+    public DefaultCacheConfigurationProvider(@Parameter String name, BeanContext beanContext) {
         this.name = name;
+        this.beanContext = beanContext;
     }
 
     @Override
     @NonNull
     public CacheConfiguration.Builder<?, ?> getBuilder() {
-        return CacheConfigurationBuilderConfigurationBased.New().buildCacheConfiguration(builder.buildConfiguration());
+        CacheConfiguration.Builder<?, ?> returnBuilder = CacheConfigurationBuilderConfigurationBased.New().buildCacheConfiguration(builder.buildConfiguration());
+
+        beanContext.findBean(ExpiryPolicyFactory.class, Qualifiers.byName(name)).ifPresent(factory ->
+            returnBuilder.expiryPolicyFactory(factory.getFactory())
+        );
+
+        return returnBuilder;
     }
 
     @Override
