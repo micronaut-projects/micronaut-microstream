@@ -57,7 +57,9 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#microstreamMetrics"><strong>7</strong><span>Metrics</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>8</strong><span>Repository</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#storageHealth"><strong>8</strong><span>Health</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>9</strong><span>Repository</span></a></div>
                                 
                             </div>
                         </div>
@@ -102,7 +104,9 @@
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-microstreamMetrics"><a href="#microstreamMetrics"><strong>7</strong><span>Metrics</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>8</strong><span>Repository</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-storageHealth"><a href="#storageHealth"><strong>8</strong><span>Health</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>9</strong><span>Repository</span></a></div>
         
         </div>
     </div>
@@ -729,7 +733,70 @@ class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorage
 <p>If you do not wish to collect Microstream metrics, you can set <code>micronaut.metrics.binders.microstream.enabled</code> to <code>false</code> in <code>application.yml</code>.</p>
 </div>
 
-<h1 id="repository"><a class="anchor" href="#repository"></a>8 Repository</h1>
+<h1 id="storageHealth"><a class="anchor" href="#storageHealth"></a>8 Health</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storageHealth.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p><a href="https://docs.micronaut.io/latest/guide/#healthEndpoint">Health Endpoint</a> exposes the status of the Microstream Instances in your Micronaut Application.</p>
+</div>
+<div class="paragraph">
+<p>After you add the <a href="https://docs.micronaut.io/latest/guide/#management"><code>management</code></a> dependency,
+the <code>/health</code> endpoint of a Micronaut application with one Microstream instance named <code>blue</code> will return:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "name": "application",
+  "status": "UP",
+  "details": {
+    "microstream.blue": {
+      "name": "application",
+      "status": "UP",
+      "details": {
+        "startingUp": false,
+        "running": true,
+        "active": true,
+        "acceptingTasks": true,
+        "shuttingDown": false,
+        "shutdown": false
+      }
+    },
+    ...
+  }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+By default, the details visible above are only shown to authenticated users. See the <a href="https://docs.micronaut.io/latest/guide/#healthEndpoint">Health Endpoint</a> documentation for how to configure that setting.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If you wish to disable the Microstream health check while still using the <code>management</code> dependency you can set the property <code>endpoints.health.microstream.enabled</code> to <code>false</code> in your application configuration.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">endpoints:
+  health:
+    microstream:
+      enabled: false</code></pre>
+</div>
+</div>
+
+<h1 id="repository"><a class="anchor" href="#repository"></a>9 Repository</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/repository.adoc"'>

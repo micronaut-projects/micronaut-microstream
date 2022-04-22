@@ -1,2 +1,3 @@
 io.micronaut.microstream.conf
+io.micronaut.microstream.health
 io.micronaut.microstream.metrics
