@@ -4,8 +4,10 @@ managed-microstream='06.01.00-MS-GA'
 [libraries]
 groovy-json = { module = "org.codehaus.groovy:groovy-json" }
 
-managed-microstream-storage-embedded-configuration= { module = 'one.microstream:microstream-storage-embedded-configuration', version.ref = 'managed-microstream' }
+managed-microstream-storage-embedded-configuration = { module = 'one.microstream:microstream-storage-embedded-configuration', version.ref = 'managed-microstream' }
+managed-microstream-cache = { module = 'one.microstream:microstream-cache', version.ref = 'managed-microstream' }
 
+micronaut-cache-core = { module = 'io.micronaut.cache:micronaut-cache-core'}
 micronaut-http-client = { module = "io.micronaut:micronaut-http-client" }
 micronaut-http-server-netty = { module = "io.micronaut:micronaut-http-server-netty" }
 micronaut-management = { module = "io.micronaut:micronaut-management" }

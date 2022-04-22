@@ -5,6 +5,9 @@ plugins {
 dependencies {
     compileOnly(libs.micronaut.micrometer.core)
     api(libs.managed.microstream.storage.embedded.configuration)
+    api(libs.managed.microstream.cache)
+
+    implementation(libs.micronaut.cache.core)
 
     testImplementation(libs.micronaut.micrometer.core)
     testImplementation(libs.micronaut.management)
