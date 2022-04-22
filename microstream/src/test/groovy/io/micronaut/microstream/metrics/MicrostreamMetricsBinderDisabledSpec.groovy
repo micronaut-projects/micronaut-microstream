@@ -1,6 +1,5 @@
 package io.micronaut.microstream.metrics
 
-import groovy.json.JsonSlurper
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.context.exceptions.NoSuchBeanException
@@ -46,10 +45,10 @@ class MicrostreamMetricsBinderDisabledSpec extends Specification implements Test
         thrown(NoSuchBeanException)
 
         when:
-        def response = new JsonSlurper().parseText(httpClient.toBlocking().retrieve("/metrics"))
+        Map<String, Object> response = httpClient.toBlocking().retrieve("/metrics", Map)
 
         then:
-        ![ 'microstream.people.fileCount',
+        !['microstream.people.fileCount',
           'microstream.people.liveDataLength',
           'microstream.people.totalDataLength',
           'microstream.towns.fileCount',

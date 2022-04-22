@@ -1,6 +1,5 @@
 package io.micronaut.microstream.health
 
-import groovy.json.JsonSlurper
 import io.micronaut.context.ApplicationContext
 import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
@@ -24,7 +23,7 @@ class MicrostreamHealthIndicatorDetailSpec extends Specification {
         BlockingHttpClient client = server.applicationContext.createBean(HttpClient, server.URL).toBlocking()
 
         when:
-        def result = new JsonSlurper().parseText(client.retrieve("/health"))
+        Map<String, Object> result = client.retrieve("/health", Map)
 
         then:
         with(result.details.'microstream.blue') {

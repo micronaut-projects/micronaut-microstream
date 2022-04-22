@@ -13,7 +13,6 @@ dependencies {
     testImplementation(libs.micronaut.management)
     testImplementation(libs.micronaut.http.server.netty)
     testImplementation(libs.micronaut.http.client)
-    testImplementation(libs.groovy.json)
 }
 
 micronautBuild {

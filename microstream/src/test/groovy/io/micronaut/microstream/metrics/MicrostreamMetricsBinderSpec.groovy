@@ -1,9 +1,9 @@
 package io.micronaut.microstream.metrics
 
-import groovy.json.JsonSlurper
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.context.annotation.Requires
+import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.microstream.conf.RootInstanceProvider
@@ -41,9 +41,10 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
         ]
     }
 
+
     void "metrics are added"() {
         when:
-        def response = new JsonSlurper().parseText(httpClient.toBlocking().retrieve("/metrics"))
+        Map<String, Object> response = httpClient.toBlocking().retrieve("/metrics", Map)
 
         then:
         response.names.containsAll([
@@ -75,7 +76,7 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
     }
 
     private BigDecimal mostRecentMetric(String metricName) {
-        new JsonSlurper().parseText(httpClient.toBlocking().retrieve("/metrics/$metricName")).measurements*.value.head() as BigDecimal
+        httpClient.toBlocking().retrieve("/metrics/$metricName", Map).measurements*.value.head() as BigDecimal
     }
 
     @Singleton
