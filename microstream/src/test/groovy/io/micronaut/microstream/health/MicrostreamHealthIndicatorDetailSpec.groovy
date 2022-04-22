@@ -14,7 +14,7 @@ class MicrostreamHealthIndicatorDetailSpec extends Specification {
     @Shared
     File tempDir
 
-    def "details are shown for the health endpoint if requested"() {
+    void "details are shown for the health endpoint if requested"() {
         given:
         EmbeddedServer server = ApplicationContext.run(EmbeddedServer, [
                 "microstream.storage.blue.storage-directory": tempDir.absolutePath,

@@ -23,7 +23,7 @@ class MicrostreamHealthIndicatorFuncSpec extends Specification {
 
     EmbeddedStorageManager mockStorageManager = Mock()
 
-    def "#desc manager is #expectedStatus"() {
+    void "#desc manager is #expectedStatus"() {
         given:
         def healthIndicator = beanContext.getBean(MicrostreamHealthIndicator)
         List<HealthResult> results = []

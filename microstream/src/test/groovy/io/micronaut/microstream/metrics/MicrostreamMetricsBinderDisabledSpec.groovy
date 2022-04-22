@@ -38,7 +38,7 @@ class MicrostreamMetricsBinderDisabledSpec extends Specification implements Test
         ]
     }
 
-    def "metrics are not added"() {
+    void "metrics are not added"() {
         when:
         beanContext.getBean(MicrostreamMetricsBinder)
 

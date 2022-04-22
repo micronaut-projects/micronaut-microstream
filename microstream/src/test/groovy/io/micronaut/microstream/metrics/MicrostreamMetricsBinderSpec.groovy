@@ -41,7 +41,7 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
         ]
     }
 
-    def "metrics are added"() {
+    void "metrics are added"() {
         when:
         def response = new JsonSlurper().parseText(httpClient.toBlocking().retrieve("/metrics"))
 
