@@ -25,7 +25,7 @@ class MicrostreamHealthIndicatorFuncSpec extends Specification {
 
     void "#desc manager is #expectedStatus"() {
         given:
-        def healthIndicator = beanContext.getBean(MicrostreamHealthIndicator)
+        MicrostreamHealthIndicator healthIndicator = beanContext.getBean(MicrostreamHealthIndicator)
         List<HealthResult> results = []
 
         when:
