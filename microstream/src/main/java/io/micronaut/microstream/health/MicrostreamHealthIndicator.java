@@ -71,6 +71,7 @@ public class MicrostreamHealthIndicator implements HealthIndicator {
     }
 
     @Introspected
+    @SuppressWarnings("unused")
     static class HealthHolder {
 
         private final boolean startingUp;
@@ -89,27 +90,27 @@ public class MicrostreamHealthIndicator implements HealthIndicator {
             this.shutdown = manager.isShutdown();
         }
 
-        boolean isStartingUp() {
+        public boolean isStartingUp() {
             return startingUp;
         }
 
-        boolean isRunning() {
+        public boolean isRunning() {
             return running;
         }
 
-        boolean isActive() {
+        public boolean isActive() {
             return active;
         }
 
-        boolean isAcceptingTasks() {
+        public boolean isAcceptingTasks() {
             return acceptingTasks;
         }
 
-        boolean isShuttingDown() {
+        public boolean isShuttingDown() {
             return shuttingDown;
         }
 
-        boolean isShutdown() {
+        public boolean isShutdown() {
             return shutdown;
         }
     }

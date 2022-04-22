@@ -33,8 +33,8 @@ class MicrostreamMetricsBinderDisabledSpec extends Specification implements Test
     Map<String, String> getProperties() {
         [
                 "micronaut.metrics.binders.microstream.enabled": StringUtils.FALSE,
-                "microstream.storage.people.storage-directory-in-user-home": new File(tempDir, "people").absolutePath,
-                "microstream.storage.towns.storage-directory-in-user-home" : new File(tempDir, "towns").absolutePath,
+                "microstream.storage.people.storage-directory": new File(tempDir, "people").absolutePath,
+                "microstream.storage.towns.storage-directory" : new File(tempDir, "towns").absolutePath,
         ]
     }
 
