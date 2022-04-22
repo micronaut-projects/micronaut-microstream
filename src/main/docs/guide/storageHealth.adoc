@@ -1,6 +1,7 @@
-If the `management` dependency is added, then Micronaut's https://docs.micronaut.io/latest/guide/#healthEndpoint[Health Endpoint] can be used to expose the health status of the Kafka streams application.
+https://docs.micronaut.io/latest/guide/#healthEndpoint[Health Endpoint] exposes the status of the Microstream Instances in your Micronaut Application.
 
-For example, visiting the `/health` endpoint with a single Microstream storage named `blue` will return:
+After you add the https://docs.micronaut.io/latest/guide/#management[`management`] dependency,
+the `/health` endpoint of a Micronaut application with one Microstream instance named `blue` will return:
 
 [source,json]
 ----
