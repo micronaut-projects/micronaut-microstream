@@ -9,6 +9,7 @@ dependencies {
     compileOnly(libs.micronaut.management)
     implementation(libs.projectreactor)
 
+    testImplementation(libs.projectreactor.test)
     testImplementation(libs.micronaut.micrometer.core)
     testImplementation(libs.micronaut.management)
     testImplementation(libs.micronaut.http.server.netty)

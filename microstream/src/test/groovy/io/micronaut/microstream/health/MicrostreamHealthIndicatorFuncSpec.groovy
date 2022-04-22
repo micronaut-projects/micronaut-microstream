@@ -10,9 +10,9 @@ import jakarta.inject.Named
 import one.microstream.storage.embedded.types.EmbeddedStorageManager
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
+import reactor.test.StepVerifier
 import spock.lang.Specification
-import spock.util.concurrent.PollingConditions
-
+import spock.lang.Unroll
 import java.util.function.Consumer
 
 @MicronautTest(startApplication = false)
@@ -23,20 +23,14 @@ class MicrostreamHealthIndicatorFuncSpec extends Specification {
 
     EmbeddedStorageManager mockStorageManager = Mock()
 
+    @Unroll
     void "#desc manager is #expectedStatus"() {
-        given:
-        MicrostreamHealthIndicator healthIndicator = beanContext.getBean(MicrostreamHealthIndicator)
-        List<HealthResult> results = []
-
         when:
-        healthIndicator.result.subscribe(new TestSubscriber<HealthResult>({ HealthResult t -> results << t }))
-
+        MicrostreamHealthIndicator healthIndicator = beanContext.getBean(MicrostreamHealthIndicator)
+        StepVerifier.create(healthIndicator.result)
+                .expectNextMatches(t -> t.status == expectedStatus)
+                .verifyComplete()
         then:
-        new PollingConditions().eventually {
-            results.status == [expectedStatus]
-        }
-
-        and:
         _ * mockStorageManager.isRunning() >> isRunning
 
         where:
@@ -49,33 +43,5 @@ class MicrostreamHealthIndicatorFuncSpec extends Specification {
     @Named("mock-manager")
     EmbeddedStorageManager getEmbeddedStorageManager() {
         mockStorageManager
-    }
-
-    private class TestSubscriber<T> implements Subscriber<T> {
-
-        private final Consumer<T> onNext;
-
-        private TestSubscriber(Consumer<T> onNext) {
-            this.onNext = onNext
-        }
-
-        @Override
-        void onSubscribe(Subscription s) {
-            s.request(1)
-        }
-
-        @Override
-        void onNext(T t) {
-            this.onNext.accept(t)
-        }
-
-        @Override
-        void onError(Throwable t) {
-            throw t
-        }
-
-        @Override
-        void onComplete() {
-        }
     }
 }
