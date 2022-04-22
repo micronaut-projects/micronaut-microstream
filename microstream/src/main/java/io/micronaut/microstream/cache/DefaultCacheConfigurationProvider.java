@@ -24,8 +24,6 @@ import io.micronaut.inject.qualifiers.Qualifiers;
 import one.microstream.cache.types.CacheConfiguration;
 import one.microstream.cache.types.CacheConfigurationBuilderConfigurationBased;
 import one.microstream.configuration.types.Configuration;
-import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration;
-import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfigurationBuilder;
 import one.microstream.storage.embedded.types.EmbeddedStorageManager;
 
 /**
@@ -38,9 +36,6 @@ import one.microstream.storage.embedded.types.EmbeddedStorageManager;
 public final class DefaultCacheConfigurationProvider<K, V> implements CacheConfigurationProvider<K, V> {
     @ConfigurationBuilder
     CacheConfigurationBuilder builder = new CacheConfigurationBuilder();
-
-    @ConfigurationBuilder("storage")
-    EmbeddedStorageConfigurationBuilder storageBuilder = EmbeddedStorageConfiguration.Builder();
 
     private final String name;
     private final BeanContext beanContext;
