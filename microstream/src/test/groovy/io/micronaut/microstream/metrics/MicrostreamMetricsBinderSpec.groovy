@@ -1,9 +1,9 @@
 package io.micronaut.microstream.metrics
 
-import groovy.json.JsonSlurper
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.context.annotation.Requires
+import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.microstream.conf.RootInstanceProvider
@@ -36,14 +36,15 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
     @Override
     Map<String, String> getProperties() {
         [
-                "microstream.storage.people.storage-directory-in-user-home": new File(tempDir, "people").absolutePath,
-                "microstream.storage.towns.storage-directory-in-user-home" : new File(tempDir, "towns").absolutePath,
+                "microstream.storage.people.storage-directory": new File(tempDir, "people").absolutePath,
+                "microstream.storage.towns.storage-directory" : new File(tempDir, "towns").absolutePath,
         ]
     }
 
-    def "metrics are added"() {
+
+    void "metrics are added"() {
         when:
-        def response = new JsonSlurper().parseText(httpClient.toBlocking().retrieve("/metrics"))
+        Map<String, Object> response = httpClient.toBlocking().retrieve("/metrics", Map)
 
         then:
         response.names.containsAll([
@@ -75,7 +76,7 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
     }
 
     private BigDecimal mostRecentMetric(String metricName) {
-        new JsonSlurper().parseText(httpClient.toBlocking().retrieve("/metrics/$metricName")).measurements*.value.head() as BigDecimal
+        httpClient.toBlocking().retrieve("/metrics/$metricName", Map).measurements*.value.head() as BigDecimal
     }
 
     @Singleton
