@@ -41,10 +41,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Singleton
 @Requires(classes = HealthIndicator.class)
-@Requires(property = HealthEndpoint.PREFIX + ".microstream.enabled", value = StringUtils.TRUE, defaultValue = StringUtils.TRUE)
+@Requires(property = HealthEndpoint.PREFIX + "." +  MicrostreamHealthIndicator.MICROSTREAM_PREFIX + ".enabled", value = StringUtils.TRUE, defaultValue = StringUtils.TRUE)
 public class MicrostreamHealthIndicator implements HealthIndicator {
 
-    public static final String MICROSTREAM_PREFIX = "microstream.";
+    public static final String MICROSTREAM_PREFIX = "microstream";
     private final Map<String, EmbeddedStorageManager> embeddedStorageManagerMap = new ConcurrentHashMap<>();
 
     public MicrostreamHealthIndicator(BeanContext beanContext) {
