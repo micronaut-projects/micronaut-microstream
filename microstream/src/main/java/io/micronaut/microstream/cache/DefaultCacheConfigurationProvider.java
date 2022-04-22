@@ -23,6 +23,10 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.inject.qualifiers.Qualifiers;
 import one.microstream.cache.types.CacheConfiguration;
 import one.microstream.cache.types.CacheConfigurationBuilderConfigurationBased;
+import one.microstream.configuration.types.Configuration;
+import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration;
+import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfigurationBuilder;
+import one.microstream.storage.embedded.types.EmbeddedStorageManager;
 
 /**
  * @param <K> The key type
@@ -34,6 +38,9 @@ import one.microstream.cache.types.CacheConfigurationBuilderConfigurationBased;
 public final class DefaultCacheConfigurationProvider<K, V> implements CacheConfigurationProvider<K, V> {
     @ConfigurationBuilder
     CacheConfigurationBuilder builder = new CacheConfigurationBuilder();
+
+    @ConfigurationBuilder("storage")
+    EmbeddedStorageConfigurationBuilder storageBuilder = EmbeddedStorageConfiguration.Builder();
 
     private final String name;
     private final BeanContext beanContext;
@@ -65,18 +72,25 @@ public final class DefaultCacheConfigurationProvider<K, V> implements CacheConfi
     @Override
     @NonNull
     public CacheConfiguration.Builder<K, V> getBuilder() {
-        CacheConfiguration.Builder<K, V> returnBuilder = CacheConfigurationBuilderConfigurationBased
-            .New()
-            .buildCacheConfiguration(
-                builder.buildConfiguration(),
-                CacheConfiguration.Builder(getKeyType(), getValueType())
-            );
-
+        Configuration configuration = builder.buildConfiguration();
+        CacheConfiguration.Builder<K, V> configurationBuilder = configuration.opt(CacheConfigurationBuilder.BACKING_STORAGE)
+            .map(this::getStorage)
+            .map(this::getBuilder)
+            .orElseGet(() -> CacheConfiguration.Builder(getKeyType(), getValueType()));
+        CacheConfiguration.Builder<K, V> returnBuilder = CacheConfigurationBuilderConfigurationBased.New().buildCacheConfiguration(configuration, configurationBuilder);
         beanContext.findBean(ExpiryPolicyFactory.class, Qualifiers.byName(name)).ifPresent(factory ->
             returnBuilder.expiryPolicyFactory(factory.getFactory())
         );
 
         return returnBuilder;
+    }
+
+    private EmbeddedStorageManager getStorage(String storageName) {
+        return beanContext.getBean(EmbeddedStorageManager.class, Qualifiers.byName(storageName));
+    }
+
+    private CacheConfiguration.Builder<K, V> getBuilder(EmbeddedStorageManager storage) {
+        return CacheConfiguration.Builder(getKeyType(), getValueType(), name, storage);
     }
 
     @Override

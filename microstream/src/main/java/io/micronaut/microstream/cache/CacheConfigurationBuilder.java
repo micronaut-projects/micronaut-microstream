@@ -32,10 +32,16 @@ import one.microstream.typing.KeyValue;
 @Internal
 class CacheConfigurationBuilder implements Configuration.Builder {
 
+    public static final String BACKING_STORAGE = "backing-storage";
+
     private final Configuration.Builder delegate;
 
     public CacheConfigurationBuilder() {
         this.delegate = Configuration.Builder();
+    }
+
+    public Configuration.Builder setBackingStorage(String storage) {
+        return delegate.set(BACKING_STORAGE, storage);
     }
 
     public Configuration.Builder setStatisticsEnabled(boolean statisticsEnabled) {
