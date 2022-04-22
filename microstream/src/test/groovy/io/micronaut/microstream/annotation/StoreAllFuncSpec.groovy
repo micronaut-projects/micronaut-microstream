@@ -31,7 +31,7 @@ class StoreAllFuncSpec extends Specification implements TestPropertyProvider {
     @Override
     Map<String, String> getProperties() {
         [
-                "microstream.storage.orange.storage-directory-in-user-home": tempDir.absolutePath,
+                "microstream.storage.orange.storage-directory": tempDir.absolutePath,
         ]
     }
 
