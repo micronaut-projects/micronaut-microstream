@@ -17,7 +17,6 @@ package io.micronaut.microstream.health;
 
 import io.micronaut.context.BeanContext;
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.naming.Named;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.health.HealthStatus;
@@ -45,6 +44,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MicrostreamHealthIndicator implements HealthIndicator {
 
     public static final String MICROSTREAM_PREFIX = "microstream";
+    private static final String DOT = ".";
     private final Map<String, EmbeddedStorageManager> embeddedStorageManagerMap = new ConcurrentHashMap<>();
 
     public MicrostreamHealthIndicator(BeanContext beanContext) {
@@ -60,34 +60,18 @@ public class MicrostreamHealthIndicator implements HealthIndicator {
     @Override
     public Publisher<HealthResult> getResult() {
         return Flux.fromIterable(embeddedStorageManagerMap.entrySet())
-            .map(namedBean ->
-                HealthResult.builder(
-                        MICROSTREAM_PREFIX + namedBean.getKey(),
+            .map(namedBean -> {
+                EmbeddedStorageManager manager = namedBean.getValue();
+                return HealthResult.builder(
+                        String.join(DOT, MICROSTREAM_PREFIX, namedBean.getKey()),
                         namedBean.getValue().isRunning() ? HealthStatus.UP : HealthStatus.DOWN
-                    )
-                    .details(new HealthDetailsJsonHolder(namedBean.getValue()))
-                    .build()
-            );
-    }
-
-    @Introspected
-    @SuppressWarnings({"unused", "checkstyle:VisibilityModifier"})
-    private static class HealthDetailsJsonHolder {
-
-        public final boolean startingUp;
-        public final boolean running;
-        public final boolean active;
-        public final boolean acceptingTasks;
-        public final boolean shuttingDown;
-        public final boolean shutdown;
-
-        HealthDetailsJsonHolder(EmbeddedStorageManager manager) {
-            this.startingUp = manager.isStartingUp();
-            this.running = manager.isRunning();
-            this.active = manager.isActive();
-            this.acceptingTasks = manager.isAcceptingTasks();
-            this.shuttingDown = manager.isShuttingDown();
-            this.shutdown = manager.isShutdown();
-        }
+                    ).details(new MicrostreamHealth(manager.isStartingUp(),
+                        manager.isRunning(),
+                        manager.isActive(),
+                        manager.isAcceptingTasks(),
+                        manager.isShuttingDown(),
+                        manager.isShutdown()))
+                    .build();
+            });
     }
 }
