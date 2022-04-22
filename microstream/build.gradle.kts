@@ -6,7 +6,7 @@ dependencies {
     compileOnly(libs.micronaut.micrometer.core)
     api(libs.managed.microstream.storage.embedded.configuration)
 
-    implementation(libs.micronaut.management)
+    compileOnly(libs.micronaut.management)
     implementation(libs.projectreactor)
 
     testImplementation(libs.micronaut.micrometer.core)
