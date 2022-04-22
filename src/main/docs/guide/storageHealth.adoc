@@ -1,0 +1,38 @@
+If the `management` dependency is added, then Micronaut's https://docs.micronaut.io/latest/guide/#healthEndpoint[Health Endpoint] can be used to expose the health status of the Kafka streams application.
+
+For example, visiting the `/health` endpoint with a single Microstream storage named `blue` will return:
+
+[source,json]
+----
+{
+  "name": "application",
+  "status": "UP",
+  "details": {
+    "microstream.blue": {
+      "name": "application",
+      "status": "UP",
+      "details": {
+        "startingUp": false,
+        "running": true,
+        "active": true,
+        "acceptingTasks": true,
+        "shuttingDown": false,
+        "shutdown": false
+      }
+    },
+    ...
+  }
+}
+----
+
+NOTE: By default, the details visible above are only shown to authenticated users. See the https://docs.micronaut.io/latest/guide/#healthEndpoint[Health Endpoint] documentation for how to configure that setting.
+
+If you wish to disable the Microstream health check while still using the `management` dependency you can set the property `endpoints.health.microstream.enabled` to `false` in your application configuration.
+
+[source,yaml]
+----
+endpoints:
+  health:
+    microstream:
+      enabled: false
+----
