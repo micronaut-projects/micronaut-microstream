@@ -13,7 +13,6 @@ import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
-import io.micronaut.microstream.conf.RootInstanceProvider
 
 @Property(name = "microstream.storage.main.root-class", value = "io.micronaut.microstream.docs.Data")
 @Property(name = "microstream.storage.main.storage-directory", value = "build/microstream")
