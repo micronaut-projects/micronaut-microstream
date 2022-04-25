@@ -203,9 +203,10 @@ with <a href="https://docs.micronaut.io/latest/guide/#qualifiers">Name Bean Qual
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
   storage:
     one-microstream-instance:
-      storage-directory: build/microstream
+      storage-directory: build/microstream${random.shortuuid}
       channel-count: 4
     another-microstream-instance:
+      storage-directory: build/microstream${random.shortuuid}
       channel-count: 4
       channel-directory-prefix: 'channel_'
       data-file-prefix: 'channel_'
@@ -329,32 +330,15 @@ data class Customer(
 
 import io.micronaut.core.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class Data {
     private Map&lt;String, Customer&gt; customers = new HashMap&lt;&gt;();
 
     @NonNull
-    public Optional&lt;Customer&gt; findById(@NonNull String id) {
-        return Optional.ofNullable(customers.get(id));
-    }
-
-    @NonNull
-    public Collection&lt;Customer&gt; getCustomers() {
-        return customers.values();
-    }
-
-    public void add(@NonNull Customer customer) {
-        this.customers.put(customer.getId(), customer);
-    }
-
-    public void remove(@NonNull String id) {
-        this.customers.remove(id);
+    public Map&lt;String, Customer&gt; getCustomers() {
+        return this.customers;
     }
 }</code></pre>
 </div>
@@ -363,28 +347,8 @@ public class Data {
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.microstream.docs
 
-import io.micronaut.core.annotation.NonNull
-
 class Data {
-    private Map&lt;String, Customer&gt; customers = new HashMap&lt;&gt;()
-
-    @NonNull
-    Optional&lt;Customer&gt; findById(@NonNull String id) {
-        Optional.ofNullable(customers[id])
-    }
-
-    @NonNull
-    Collection&lt;Customer&gt; getCustomers() {
-        customers.values()
-    }
-
-    void add(@NonNull Customer customer) {
-        this.customers[customer.id] = customer
-    }
-
-    void remove(@NonNull String id) {
-        this.customers.remove(id)
-    }
+    Map&lt;String, Customer&gt; customers = [:]
 }</code></pre>
 </div>
 </div>
@@ -392,28 +356,7 @@ class Data {
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.microstream.docs
 
-import io.micronaut.core.annotation.NonNull
-
-class Data(private val customers: MutableMap&lt;String, Customer&gt; = mutableMapOf()) {
-
-    @NonNull
-    fun findById(@NonNull id: String): Customer? {
-        return customers[id]
-    }
-
-    @NonNull
-    fun getCustomers(): Collection&lt;Customer&gt; {
-        return customers.values
-    }
-
-    fun add(@NonNull customer: Customer) {
-        customers[customer.id] = customer
-    }
-
-    fun remove(@NonNull id: String) {
-        customers.remove(id)
-    }
-}</code></pre>
+data class Data(val customers: MutableMap&lt;String, Customer&gt; = mutableMapOf())</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -493,66 +436,39 @@ reading and writing to this shared object graph must be synchronized.</p>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.microstream.docs;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import io.micronaut.core.annotation.NonNull;
-import jakarta.inject.Singleton;
-import one.microstream.concurrency.XThreads;
-import one.microstream.storage.embedded.types.EmbeddedStorageManager;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-@Singleton
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Singleton
 public class CustomerRepositoryImpl implements CustomerRepository {
 
     private final EmbeddedStorageManager embeddedStorageManager;
 
-    public CustomerRepositoryImpl(EmbeddedStorageManager embeddedStorageManager) {
+    public CustomerRepositoryImpl(EmbeddedStorageManager embeddedStorageManager) { // <b class="conum">(1)</b>
         this.embeddedStorageManager = embeddedStorageManager;
     }
 
 	@Override
 	public void save(@NonNull @NotNull @Valid Customer customer) {
         XThreads.executeSynchronized(() -&gt; {
-            getData().ifPresent(data -&gt; data.add(customer));
-            embeddedStorageManager.storeAll();
+            getData().ifPresent(data -&gt; {
+                data.getCustomers().put(customer.getId(), customer);
+                embeddedStorageManager.store(data.getCustomers()); // <b class="conum">(2)</b>
+            });
         });
 	}
 
     @Override
     @NonNull
     public Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id) {
-        return getData().flatMap(data -&gt; data.findById(id));
+        return getData().flatMap(data -&gt; Optional.ofNullable(data.getCustomers().get(id)));
     }
 
     @Override
     public void deleteById(@NonNull @NotBlank String id) {
         XThreads.executeSynchronized(() -&gt; {
-            getData().ifPresent(data -&gt; data.remove(id));
-            embeddedStorageManager.storeAll();
+            getData().ifPresent(data -&gt; {
+                data.getCustomers().remove(id);
+                embeddedStorageManager.store(data.getCustomers()); // <b class="conum">(2)</b>
+            });
         });
-    }
-
-    @Override
-    @NonNull
-	public Collection&lt;Customer&gt; findByFirstName(@NonNull @NotBlank String firstName) {
-        return customersByFirstName(getData()
-            .map(Data::getCustomers)
-            .orElseGet(Collections::emptyList), firstName);
-	}
-
-    private static List&lt;Customer&gt; customersByFirstName(@NonNull Collection&lt;Customer&gt; customers,
-                                                       @NonNull String firstName) {
-        return customers.stream()
-            .filter(c -&gt; c.getFirstName().equals(firstName))
-            .collect(Collectors.toList());
     }
 
     private Optional&lt;Data&gt; getData() {
@@ -567,19 +483,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.microstream.docs
-
-import io.micronaut.core.annotation.NonNull
-import jakarta.inject.Singleton
-import one.microstream.concurrency.XThreads
-import one.microstream.storage.embedded.types.EmbeddedStorageManager
-
-import javax.validation.Valid
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotNull
-import java.util.stream.Collectors
-
-@Singleton
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">@Singleton
 class CustomerRepositoryImpl implements CustomerRepository {
 
     private final EmbeddedStorageManager embeddedStorageManager
@@ -593,8 +497,10 @@ class CustomerRepositoryImpl implements CustomerRepository {
         XThreads.executeSynchronized(new Runnable() {
             @Override
             void run() {
-                data().ifPresent(d -&gt; d.add(customer))
-                storeAll()
+                data().ifPresent(d -&gt; {
+                    d.customers[customer.id] = customer
+                    store(d.customers) // <b class="conum">(2)</b>
+                })
             }
         })
 	}
@@ -602,7 +508,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
     @Override
     @NonNull
     Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id) {
-        return data().flatMap(data -&gt; data.findById(id))
+        data().flatMap(d -&gt; Optional.ofNullable(d.customers[id]))
     }
 
     @Override
@@ -610,83 +516,52 @@ class CustomerRepositoryImpl implements CustomerRepository {
         XThreads.executeSynchronized(new Runnable() {
             @Override
             void run() {
-                data().ifPresent(d -&gt; d.remove(id))
-                storeAll()
+                data().ifPresent(d -&gt; {
+                    d.customers.remove(id)
+                    store(d.customers) // <b class="conum">(2)</b>
+                })
             }
         })
     }
 
-    @Override
-    @NonNull
-    Collection&lt;Customer&gt; findByFirstName(@NonNull @NotBlank String firstName) {
-        return customersByFirstName(data()
-            .map(Data::getCustomers)
-            .orElseGet(Collections::emptyList), firstName)
-	}
-
-    private static List&lt;Customer&gt; customersByFirstName(@NonNull Collection&lt;Customer&gt; customers,
-                                                       @NonNull String firstName) {
-        return customers.stream()
-            .filter(c -&gt; c.firstName == firstName)
-            .collect(Collectors.toList())
-    }
-
-    private void storeAll() {
-        embeddedStorageManager.storeAll()
+    private void store(Object instance) {
+        embeddedStorageManager.store(instance)
     }
 
     private Optional&lt;Data&gt; data() {
         Object root = embeddedStorageManager.root()
-        if (root instanceof Data) {
-            return Optional.of((Data) root)
-        }
-        return Optional.empty()
+        (root instanceof Data) ? Optional.of((Data) root) : (Optional.empty() as Optional&lt;Data&gt;)
     }
 }</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.microstream.docs
-
-import io.micronaut.core.annotation.NonNull
-import jakarta.inject.Singleton
-import one.microstream.concurrency.XThreads
-import one.microstream.storage.embedded.types.EmbeddedStorageManager
-import java.util.stream.Collectors
-import javax.validation.Valid
-import javax.validation.constraints.NotBlank
-
-@Singleton
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Singleton
 class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorageManager) // <b class="conum">(1)</b>
     : CustomerRepository {
     override fun save(customer: @Valid Customer) {
         XThreads.executeSynchronized {
             if (data != null) {
-                data!!.add(customer)
+                data!!.customers[customer.id] = customer
+                embeddedStorageManager.store(data!!.customers) // <b class="conum">(2)</b>
             }
-            embeddedStorageManager.storeAll()
+
         }
     }
 
     @NonNull
     override fun findById(id: @NotBlank String): Customer? {
-        return if (data != null) data!!.findById(id) else null
+        return if (data != null) data!!.customers[id] else null
     }
 
     override fun deleteById(id: @NotBlank String) {
         XThreads.executeSynchronized {
             if (data != null) {
-                data!!.remove(id)
+                data!!.customers.remove(id)
+                embeddedStorageManager.store(data!!.customers) // <b class="conum">(2)</b>
             }
-            embeddedStorageManager.storeAll()
         }
-    }
-
-    @NonNull
-    override fun findByFirstName(firstName: @NotBlank String): Collection&lt;Customer&gt; {
-        val customers = if (data != null) data!!.getCustomers() else emptyList()
-        return customersByFirstName(customers, firstName)
     }
 
     private val data: Data?
@@ -694,17 +569,6 @@ class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorage
             val root = embeddedStorageManager.root()
             return if (root is Data) root else null
         }
-
-    companion object {
-        private fun customersByFirstName(
-            @NonNull customers: Collection&lt;Customer&gt;,
-            @NonNull firstName: String?
-        ): List&lt;Customer&gt; {
-            return customers.stream()
-                .filter { c: Customer -&gt; c.firstName == firstName }
-                .collect(Collectors.toList())
-        }
-    }
 }</code></pre>
 </div>
 </div>
@@ -713,6 +577,10 @@ class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorage
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
 <td>If your Micronaut application has only a single Microstream Instance, you don&#8217;t need to specify a name qualifier to inject <code>EmbeddedStorageManager</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><a href="https://docs.microstream.one/manual/storage/storing-data/index.html">To store a newly created object, store the "owner" of the object</a>.</td>
 </tr>
 </table>
 </div>
