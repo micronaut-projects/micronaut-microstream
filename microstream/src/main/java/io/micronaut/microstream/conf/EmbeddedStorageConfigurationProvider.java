@@ -26,4 +26,12 @@ import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfi
 public interface EmbeddedStorageConfigurationProvider extends Named {
     @NonNull
     EmbeddedStorageConfigurationBuilder getBuilder();
+
+    /**
+     * Returns the class of the Root Instance.
+     * <a href="https://docs.microstream.one/manual/storage/root-instances.html">Root Instances</a>
+     * @return Class for the Root Instance.
+     */
+    @NonNull
+    Class<?> getRootClass();
 }

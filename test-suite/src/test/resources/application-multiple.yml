@@ -1,9 +1,11 @@
 microstream:
   storage:
-    one-microstream-instance:
+    orange: # <1>
+      root-class: 'io.micronaut.microstream.docs.OneData' # <2>
       storage-directory: build/microstream${random.shortuuid}
       channel-count: 4
-    another-microstream-instance:
+    blue: # <2>
+      root-class: 'io.micronaut.microstream.docs.AnotherData' # <2>
       storage-directory: build/microstream${random.shortuuid}
       channel-count: 4
       channel-directory-prefix: 'channel_'

@@ -85,8 +85,9 @@ class CustomerControllerTest {
 
     private fun startServer(customerRepositoryImplementation: String, serverAndClient: ServerAndClient? = null): ServerAndClient {
         serverAndClient?.close()
-        val config = mapOf("microstream.storage.one-microstream-instance.storage-directory" to "build/microstream",
-            "customer.repository" to  customerRepositoryImplementation)
+        val config = mapOf("microstream.storage.main.storage-directory" to "build/microstream",
+            "customer.repository" to  customerRepositoryImplementation,
+            "microstream.storage.main.root-class" to "io.micronaut.microstream.docs.Data")
         val server = ApplicationContext.run(EmbeddedServer::class.java, config)
         val httpClient = server.applicationContext.createBean(HttpClient::class.java, server.url)
         return ServerAndClient(server, httpClient.toBlocking())

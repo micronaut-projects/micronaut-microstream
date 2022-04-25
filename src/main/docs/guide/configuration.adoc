@@ -4,7 +4,7 @@ Each MicroStream instance represents one coherent entity graph of persistent dat
 https://docs.microstream.one/manual/storage/configuration/index.html[Microstream Configuration]
 
 The following configuration example configures two beans of type api:microstream.conf.EmbeddedStorageConfigurationProvider[]
-with https://docs.micronaut.io/latest/guide/#qualifiers[Name Bean Qualifiers]: `main` and `secondary`.
+with https://docs.micronaut.io/latest/guide/#qualifiers[Name Bean Qualifiers]: `orange` and `blue`.
 
 [source,yaml]
 .src/main/resources/application.yml
@@ -12,3 +12,5 @@ with https://docs.micronaut.io/latest/guide/#qualifiers[Name Bean Qualifiers]: `
 include::test-suite/src/test/resources/application-multiple.yml[]
 ----
 
+<1> Specify a different name qualifier for each Microstream instance
+<2> Specify the class of the entity graph's root.

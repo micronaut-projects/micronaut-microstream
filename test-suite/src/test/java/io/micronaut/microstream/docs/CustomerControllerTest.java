@@ -32,9 +32,11 @@ class CustomerControllerTest {
         // Given
         String storageDirectory = "build/microstream-" + UUID.randomUUID();
         Map<String, Object> properties = CollectionUtils.mapOf(
-            "microstream.storage.one-microstream-instance.storage-directory", storageDirectory,
+            "microstream.storage.main.storage-directory", storageDirectory,
             "customer.repository",
-            customerRepositoryImplementation);
+            customerRepositoryImplementation,
+            "microstream.storage.main.root-class",
+            "io.micronaut.microstream.docs.Data");
         EmbeddedServer embeddedServer = ApplicationContext.run(EmbeddedServer.class, properties);
         HttpClient httpClient = embeddedServer.getApplicationContext()
             .createBean(HttpClient.class, embeddedServer.getURL());

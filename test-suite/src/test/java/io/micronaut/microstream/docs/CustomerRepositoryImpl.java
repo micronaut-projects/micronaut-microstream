@@ -24,10 +24,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
 	@Override
 	public void save(@NonNull @NotNull @Valid Customer customer) {
-        XThreads.executeSynchronized(() -> {
+        XThreads.executeSynchronized(() -> { // <2>
             getData().ifPresent(data -> {
                 data.getCustomers().put(customer.getId(), customer);
-                embeddedStorageManager.store(data.getCustomers()); // <2>
+                embeddedStorageManager.store(data.getCustomers()); // <3>
             });
         });
 	}
@@ -40,10 +40,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public void deleteById(@NonNull @NotBlank String id) {
-        XThreads.executeSynchronized(() -> {
+        XThreads.executeSynchronized(() -> { // <2>
             getData().ifPresent(data -> {
                 data.getCustomers().remove(id);
-                embeddedStorageManager.store(data.getCustomers()); // <2>
+                embeddedStorageManager.store(data.getCustomers()); // <3>
             });
         });
     }

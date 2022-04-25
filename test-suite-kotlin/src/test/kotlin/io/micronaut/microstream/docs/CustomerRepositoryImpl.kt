@@ -14,10 +14,10 @@ import javax.validation.constraints.NotBlank
 class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorageManager) // <1>
     : CustomerRepository {
     override fun save(customer: @Valid Customer) {
-        XThreads.executeSynchronized {
+        XThreads.executeSynchronized { // <2>
             if (data != null) {
                 data!!.customers[customer.id] = customer
-                embeddedStorageManager.store(data!!.customers) // <2>
+                embeddedStorageManager.store(data!!.customers) // <3>
             }
 
         }
@@ -29,10 +29,10 @@ class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorage
     }
 
     override fun deleteById(id: @NotBlank String) {
-        XThreads.executeSynchronized {
+        XThreads.executeSynchronized { // <2>
             if (data != null) {
                 data!!.customers.remove(id)
-                embeddedStorageManager.store(data!!.customers) // <2>
+                embeddedStorageManager.store(data!!.customers) // <3>
             }
         }
     }

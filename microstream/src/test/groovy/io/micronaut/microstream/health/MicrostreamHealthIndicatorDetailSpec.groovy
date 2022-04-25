@@ -1,6 +1,7 @@
 package io.micronaut.microstream.health
 
 import io.micronaut.context.ApplicationContext
+import io.micronaut.core.annotation.Introspected
 import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
 import io.micronaut.runtime.server.EmbeddedServer
@@ -17,6 +18,7 @@ class MicrostreamHealthIndicatorDetailSpec extends Specification {
     void "details are shown for the health endpoint if requested"() {
         given:
         EmbeddedServer server = ApplicationContext.run(EmbeddedServer, [
+                "microstream.storage.blue.root-class": BlueFlowers.class.name,
                 "microstream.storage.blue.storage-directory": tempDir.absolutePath,
                 "endpoints.health.details-visible": "ANONYMOUS",
         ])
@@ -34,5 +36,10 @@ class MicrostreamHealthIndicatorDetailSpec extends Specification {
         cleanup:
         client?.close()
         server?.close()
+    }
+
+    @Introspected
+    static class BlueFlowers {
+        List<String> flowers = []
     }
 }

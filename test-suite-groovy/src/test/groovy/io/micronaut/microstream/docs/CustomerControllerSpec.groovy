@@ -103,7 +103,11 @@ class CustomerControllerSpec extends Specification {
     }
 
     private static Map<String, String> serverProperties(String storageDirectory, String customerRepositoryImplementation) {
-        ["microstream.storage.one-microstream-instance.storage-directory": storageDirectory, "customer.repository": customerRepositoryImplementation]
+        [
+                "microstream.storage.main.storage-directory": storageDirectory,
+                "customer.repository": customerRepositoryImplementation,
+                "microstream.storage.main.root-class": "io.micronaut.microstream.docs.Data",
+        ]
     }
 
     @Canonical
