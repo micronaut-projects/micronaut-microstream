@@ -1,13 +1,11 @@
 package io.micronaut.microstream.conf
 
 import io.micronaut.context.BeanContext
-import io.micronaut.context.annotation.Property
+import io.micronaut.core.annotation.Introspected
 import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
 import jakarta.inject.Inject
-import jakarta.inject.Named
-import jakarta.inject.Singleton
 import one.microstream.storage.embedded.types.EmbeddedStorageManager
 import spock.lang.Shared
 import spock.lang.Specification
@@ -26,14 +24,16 @@ class EmbeddedStorageManagerFactorySpec extends Specification implements TestPro
     @Override
     Map<String, String> getProperties() {
         [
+                "microstream.storage.orange.root-class": BlueFlowers.class.name,
                 "microstream.storage.orange.storage-directory": new File(tempDir, "orange").absolutePath,
                 "microstream.storage.blue.storage-directory" : new File(tempDir, "blue").absolutePath,
+                "microstream.storage.blue.root-class": BlueFlowers.class.name,
         ]
     }
 
     void "you can have multiple beans of type EmbeddedStorageManager"() {
         expect:
-        beanContext.getBeansOfType(EmbeddedStorageManager).size() == 1
+        beanContext.getBeansOfType(EmbeddedStorageManager).size() == 2
 
         when:
         beanContext.getBean(EmbeddedStorageManager, Qualifiers.byName("blue"))
@@ -41,16 +41,7 @@ class EmbeddedStorageManagerFactorySpec extends Specification implements TestPro
         noExceptionThrown()
     }
 
-    @Named("blue")
-    @Singleton
-    static class BlueRootInstanceProvider implements RootInstanceProvider<BlueFlowers> {
-
-        @Override
-        BlueFlowers rootInstance() {
-            return new BlueFlowers();
-        }
-    }
-
+    @Introspected
     static class BlueFlowers {
         List<String> flowers = []
     }

@@ -21,6 +21,7 @@ import io.micronaut.context.annotation.EachBean;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Parameter;
 import io.micronaut.context.exceptions.DisabledBeanException;
+import io.micronaut.core.reflect.InstantiationUtils;
 import io.micronaut.inject.qualifiers.Qualifiers;
 import jakarta.inject.Singleton;
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation;
@@ -62,11 +63,13 @@ public class EmbeddedStorageManagerFactory {
             if (LOG.isTraceEnabled()) {
                 LOG.trace("No data found");
             }
-            if (!beanContext.containsBean(RootInstanceProvider.class, Qualifiers.byName(name))) {
-                throw new DisabledBeanException("Please, define a bean of type " + RootInstanceProvider.class.getSimpleName() + " by name qualifier: " + name);
+
+
+            if (!beanContext.containsBean(EmbeddedStorageConfigurationProvider.class, Qualifiers.byName(name))) {
+                throw new DisabledBeanException("Please, define a bean of type " + EmbeddedStorageConfigurationProvider.class.getSimpleName() + " by name qualifier: " + name);
             }
-            RootInstanceProvider<?> rootInstanceProvider = beanContext.getBean(RootInstanceProvider.class, Qualifiers.byName(name));
-            storageManager.setRoot(rootInstanceProvider.rootInstance());
+            EmbeddedStorageConfigurationProvider configuration = beanContext.getBean(EmbeddedStorageConfigurationProvider.class, Qualifiers.byName(name));
+            storageManager.setRoot(InstantiationUtils.instantiate(configuration.getRootClass()));
             storageManager.storeRoot();
         }
         return storageManager;

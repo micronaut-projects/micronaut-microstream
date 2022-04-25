@@ -14,7 +14,8 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.function.Executable
 
-@Property(name = "microstream.storage.one-microstream-instance.storage-directory", value = "build/microstream")
+@Property(name = "microstream.storage.main.root-class", value = "io.micronaut.microstream.docs.Data")
+@Property(name = "microstream.storage.main.storage-directory", value = "build/microstream")
 @MicronautTest
 class CustomerControllerTest {
     @Inject

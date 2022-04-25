@@ -22,6 +22,8 @@ import io.micronaut.core.annotation.NonNull;
 import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration;
 import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfigurationBuilder;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author Sergio del Amo
  * @since 1.0.0
@@ -30,6 +32,10 @@ import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfi
 public class DefaultEmbeddedStorageConfigurationProvider implements EmbeddedStorageConfigurationProvider {
     @ConfigurationBuilder
     EmbeddedStorageConfigurationBuilder builder = EmbeddedStorageConfiguration.Builder();
+
+    @NonNull
+    @NotNull
+    private Class<?> rootClass;
 
     private final String name;
 
@@ -47,5 +53,20 @@ public class DefaultEmbeddedStorageConfigurationProvider implements EmbeddedStor
     @NonNull
     public String getName() {
         return name;
+    }
+
+    @Override
+    @NonNull
+    public Class<?> getRootClass() {
+        return this.rootClass;
+    }
+
+    /**
+     * Class of the Root Instance.
+     * <a href="https://docs.microstream.one/manual/storage/root-instances.html">Root Instances</a>
+     * @param rootClass Class for the Root Instance.
+     */
+    public void setRootClass(@NonNull Class<?> rootClass) {
+        this.rootClass = rootClass;
     }
 }

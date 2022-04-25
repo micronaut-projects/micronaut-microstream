@@ -19,7 +19,15 @@ class MultipleEmbeddedStorageTest {
     @Test
     void thereAreMultiple() {
         assertEquals(2, beanContext.getBeansOfType(EmbeddedStorageConfigurationProvider.class).size());
-        assertTrue(beanContext.containsBean(EmbeddedStorageConfigurationProvider.class, Qualifiers.byName("one-microstream-instance")));
-        assertTrue(beanContext.containsBean(EmbeddedStorageConfigurationProvider.class, Qualifiers.byName("another-microstream-instance")));
+        assertTrue(beanContext.containsBean(EmbeddedStorageConfigurationProvider.class, Qualifiers.byName("orange")));
+        assertTrue(beanContext.containsBean(EmbeddedStorageConfigurationProvider.class, Qualifiers.byName("blue")));
+
+        EmbeddedStorageConfigurationProvider embeddedStorageConfigurationProvider =
+            beanContext.getBean(EmbeddedStorageConfigurationProvider.class, Qualifiers.byName("orange"));
+        assertEquals(OneData.class, embeddedStorageConfigurationProvider.getRootClass());
+
+        embeddedStorageConfigurationProvider =
+            beanContext.getBean(EmbeddedStorageConfigurationProvider.class, Qualifiers.byName("blue"));
+        assertEquals(AnotherData.class, embeddedStorageConfigurationProvider.getRootClass());
     }
 }

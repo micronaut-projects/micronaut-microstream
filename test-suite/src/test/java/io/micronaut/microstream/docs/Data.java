@@ -1,14 +1,14 @@
 package io.micronaut.microstream.docs;
 
+import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Introspected // <1>
 public class Data {
     private Map<String, Customer> customers = new HashMap<>();
 

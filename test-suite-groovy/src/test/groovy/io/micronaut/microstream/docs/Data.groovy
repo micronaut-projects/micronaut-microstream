@@ -1,7 +1,9 @@
 package io.micronaut.microstream.docs
 
+import io.micronaut.core.annotation.Introspected
 import io.micronaut.core.annotation.NonNull
 
+@Introspected // <1>
 class Data {
     private Map<String, Customer> customers = new HashMap<>()
 

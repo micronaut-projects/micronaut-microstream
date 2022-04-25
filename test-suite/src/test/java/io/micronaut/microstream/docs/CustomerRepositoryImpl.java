@@ -25,7 +25,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
 	@Override
 	public void save(@NonNull @NotNull @Valid Customer customer) {
-        XThreads.executeSynchronized(() -> {
+        XThreads.executeSynchronized(() -> { // <2>
             getData().ifPresent(data -> data.add(customer));
             embeddedStorageManager.storeAll();
         });
@@ -39,7 +39,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public void deleteById(@NonNull @NotBlank String id) {
-        XThreads.executeSynchronized(() -> {
+        XThreads.executeSynchronized(() -> { // <2>
             getData().ifPresent(data -> data.remove(id));
             embeddedStorageManager.storeAll();
         });

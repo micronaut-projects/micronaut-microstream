@@ -3,10 +3,9 @@ package io.micronaut.microstream.metrics
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.context.annotation.Requires
-import io.micronaut.http.client.BlockingHttpClient
+import io.micronaut.core.annotation.Introspected
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
-import io.micronaut.microstream.conf.RootInstanceProvider
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
 import jakarta.inject.Inject
@@ -36,7 +35,9 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
     @Override
     Map<String, String> getProperties() {
         [
+                "microstream.storage.people.root-class": People.class.name,
                 "microstream.storage.people.storage-directory": new File(tempDir, "people").absolutePath,
+                "microstream.storage.towns.root-class": Towns.class.name,
                 "microstream.storage.towns.storage-directory" : new File(tempDir, "towns").absolutePath,
         ]
     }
@@ -109,32 +110,12 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
         }
     }
 
-    @Named("towns")
-    @Singleton
-    @Requires(property = "spec.name", value = "MicrostreamMetricsBinderSpec")
-    static class TownsRootInstanceProvider implements RootInstanceProvider<Towns> {
-
-        @Override
-        Towns rootInstance() {
-            new Towns()
-        }
-    }
-
+    @Introspected
     static class Towns {
         List<String> towns = []
     }
 
-    @Named("people")
-    @Singleton
-    @Requires(property = "spec.name", value = "MicrostreamMetricsBinderSpec")
-    static class PeopleRootInstanceProvider implements RootInstanceProvider<People> {
-
-        @Override
-        People rootInstance() {
-            new People();
-        }
-    }
-
+    @Introspected
     static class People {
         List<String> people = []
     }

@@ -21,7 +21,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
 
 	@Override
     void save(@NonNull @NotNull @Valid Customer customer) {
-        XThreads.executeSynchronized(new Runnable() {
+        XThreads.executeSynchronized(new Runnable() { // <2>
             @Override
             void run() {
                 data().ifPresent(d -> d.add(customer))
@@ -38,7 +38,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     void deleteById(@NonNull @NotBlank String id) {
-        XThreads.executeSynchronized(new Runnable() {
+        XThreads.executeSynchronized(new Runnable() { // <2>
             @Override
             void run() {
                 data().ifPresent(d -> d.remove(id))
