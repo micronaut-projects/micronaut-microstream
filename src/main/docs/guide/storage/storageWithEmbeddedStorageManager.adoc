@@ -1,4 +1,4 @@
-The following example shows how to create a repository which injects the `EmbeddedStorageManager` and retrieve the Root Instance:
+The following example shows how to create a repository which injects the `EmbeddedStorageManager` and retrieves the Root Instance:
 
 snippet::io.micronaut.microstream.docs.CustomerRepositoryImpl[tags="clazz"]
 

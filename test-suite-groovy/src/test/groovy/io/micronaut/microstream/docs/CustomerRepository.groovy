@@ -8,10 +8,13 @@ import javax.validation.constraints.NotNull
 
 interface CustomerRepository {
 
-    void save(@NonNull @NotNull @Valid Customer customer)
+    @NonNull
+    Customer save(@NonNull @NotNull @Valid CustomerSave customer);
+
+    void update(@NonNull @NotNull @Valid Customer customer);
 
     @NonNull
-    Optional<Customer> findById(@NonNull @NotBlank String id)
+    Optional<Customer> findById(@NonNull @NotBlank String id);
 
-    void deleteById(@NonNull @NotBlank String id)
+    void deleteById(@NonNull @NotBlank String id);
 }

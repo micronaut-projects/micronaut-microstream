@@ -2,6 +2,7 @@ package io.micronaut.microstream.docs;
 
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.microstream.annotation.Store;
 import jakarta.inject.Singleton;
 import one.microstream.storage.embedded.types.EmbeddedStorageManager;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Requires(property = "customer.repository", value = "store")
 //tag::clazz[]
@@ -23,44 +25,59 @@ public class CustomerRepositoryStoreImpl implements CustomerRepository {
         this.embeddedStorageManager = embeddedStorageManager;
     }
 
-	@Override
-	public void save(@NonNull @NotNull @Valid Customer customer) {
-        getData().ifPresent(data -> {
-            addCustomer(data.getCustomers(), customer);
-        });
-	}
+    @Override
+    @NonNull
+    public Customer save(@NonNull @NotNull @Valid CustomerSave customerSave) {
+        return addCustomer(data().getCustomers(), customerSave);
+    }
 
-	@Store(parameters = "customers") // <2>
-	protected void addCustomer(@NonNull Map<String, Customer> customers,
-                               @NonNull Customer customer) {
-        customers.put(customer.getId(), customer);
+    @Override
+    public void update(@NonNull @NotNull @Valid Customer customer) {
+        updateCustomer(customer);
     }
 
     @Override
     @NonNull
     public Optional<Customer> findById(@NonNull @NotBlank String id) {
-        return getData().flatMap(data -> Optional.ofNullable(data.getCustomers().get(id)));
+        return Optional.ofNullable(data().getCustomers().get(id));
     }
 
     @Override
     public void deleteById(@NonNull @NotBlank String id) {
-      getData().ifPresent(data -> {
-          removeCustomer(data.getCustomers(), id);
-        });
+        removeCustomer(data().getCustomers(), id);
     }
 
-    @Store(parameters = "customers") // <2>
+    @Store(result = true) // <2>
+    @Nullable
+    protected Customer updateCustomer(@NonNull Customer customer) {
+        Customer c = data().getCustomers().get(customer.getId());
+        if (c != null) {
+            c.setFirstName(customer.getFirstName());
+            c.setLastName(customer.getLastName());
+            return c;
+        }
+        return null;
+    }
+
+    @Store(parameters = "customers") // <3>
+    protected Customer addCustomer(@NonNull Map<String, Customer> customers,
+                                   @NonNull CustomerSave customerSave) {
+        Customer customer = new Customer(UUID.randomUUID().toString(),
+            customerSave.getFirstName(),
+            customerSave.getLastName());
+        customers.put(customer.getId(), customer);
+        return customer;
+    }
+
+    @Store(parameters = "customers") // <3>
     protected void removeCustomer(@NonNull Map<String, Customer> customers,
                                   @NonNull String id) {
         customers.remove(id);
     }
 
-    private Optional<Data> getData() {
-        Object root = embeddedStorageManager.root();
-        if (root instanceof Data) {
-            return Optional.of((Data) root);
-        }
-        return Optional.empty();
+    @NonNull
+    private Data data() {
+        return (Data) embeddedStorageManager.root();
     }
 }
 //end::clazz[]

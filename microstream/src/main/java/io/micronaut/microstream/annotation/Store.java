@@ -82,4 +82,10 @@ public @interface Store {
      * @return parameters name which should be stored in the associated embeddded storage manager.
      */
     String[] parameters() default {};
+
+    /**
+     *
+     * @return Whether to store result.
+     */
+    boolean result() default false;
 }

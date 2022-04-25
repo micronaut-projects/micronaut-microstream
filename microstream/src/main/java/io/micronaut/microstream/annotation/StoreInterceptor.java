@@ -20,7 +20,6 @@ import io.micronaut.aop.InterceptorBean;
 import io.micronaut.aop.MethodInterceptor;
 import io.micronaut.aop.MethodInvocationContext;
 import io.micronaut.context.BeanContext;
-import io.micronaut.context.BeanProvider;
 import io.micronaut.core.annotation.AnnotationValue;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
@@ -54,6 +53,8 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
     public static final String MULTIPLE_MANAGERS_WITH_NO_QUALIFIER_MESSAGE = "Multiple storage managers found, but no name was specified.";
 
     private static final String DEFAULT_SINGLE_MANAGER_KEY = "__default__";
+    private static final String PARAMETERS = "parameters";
+    private static final String RESULT = "result";
 
     private final ConcurrentHashMap<String, EmbeddedStorageManager> managerLookup = new ConcurrentHashMap<>();
     private final BeanContext beanContext;
@@ -76,21 +77,16 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
         switch (interceptedMethod.resultType()) {
             case PUBLISHER:
                 return interceptedMethod.handleResult(Flux.from(interceptedMethod.interceptResultAsPublisher())
-                    .doOnComplete(() -> {
-
-                    })
+                    .doOnNext(o -> store(manager, context, storeAnnotationValue, o))
                 );
             case COMPLETION_STAGE:
                 return interceptedMethod.interceptResultAsCompletionStage()
                     .whenComplete((o, t) -> {
-
+                        store(manager, context, storeAnnotationValue, o);
                     });
             case SYNCHRONOUS:
                 Object result = context.proceed();
-                List<Object> objects = targetParametersValues(context, storeAnnotationValue);
-                if (CollectionUtils.isNotEmpty(objects)) {
-                    store(manager, objects);
-                }
+                store(manager, context, storeAnnotationValue, result);
                 return result;
             default:
                 return interceptedMethod.unsupported();
@@ -98,10 +94,21 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
     }
 
     private void store(@NonNull EmbeddedStorageManager embeddedStorageManager,
+                       @NonNull MethodInvocationContext<Object, Object> context,
+                       @NonNull AnnotationValue<Store> storeAnnotationValue,
+                       @Nullable Object result) {
+        List<Object> objects = targetParametersValues(context, storeAnnotationValue);
+        if (result != null && storeAnnotationValue.booleanValue(RESULT).orElse(false)) {
+            objects.add(result);
+        }
+        if (CollectionUtils.isNotEmpty(objects)) {
+            store(embeddedStorageManager, objects);
+        }
+    }
+
+    private void store(@NonNull EmbeddedStorageManager embeddedStorageManager,
                        @NonNull List<Object> instances) {
-        XThreads.executeSynchronized(() -> {
-           embeddedStorageManager.storeAll(instances);
-        });
+        XThreads.executeSynchronized(() -> embeddedStorageManager.storeAll(instances));
     }
 
     @NonNull
@@ -144,10 +151,10 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
                                                                         @NonNull AnnotationValue<Store> storeAnnotationValue) {
         Map<String, MutableArgumentValue<?>> parameters = context.getParameters();
         Map<String, MutableArgumentValue<?>> targetParameters = new HashMap<>();
-        String[] storeAnnotationValueParameters = storeAnnotationValue.stringValues("parameters");
-        for (String key : parameters.keySet()) {
-            if (Arrays.stream(storeAnnotationValueParameters).anyMatch(it -> it.equalsIgnoreCase(key))) {
-                targetParameters.put(key, parameters.get(key));
+        String[] storeAnnotationValueParameters = storeAnnotationValue.stringValues(PARAMETERS);
+        for (Map.Entry<String, MutableArgumentValue<?>> entry : parameters.entrySet()) {
+            if (Arrays.stream(storeAnnotationValueParameters).anyMatch(it -> it.equalsIgnoreCase(entry.getKey()))) {
+                targetParameters.put(entry.getKey(), entry.getValue());
             }
         }
         return targetParameters;
@@ -158,8 +165,8 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
                                                        @NonNull AnnotationValue<Store> storeAnnotationValue) {
         Map<String, MutableArgumentValue<?>> params = targetParamters(context, storeAnnotationValue);
         List<Object> result = new ArrayList<>();
-        for (String key : params.keySet()) {
-            MutableArgumentValue<?> argumentValue = params.get(key);
+        for (Map.Entry<String, MutableArgumentValue<?>> entry : params.entrySet()) {
+            MutableArgumentValue<?> argumentValue = entry.getValue();
             Object obj = argumentValue.getValue();
             result.add(obj);
         }

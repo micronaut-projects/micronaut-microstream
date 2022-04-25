@@ -8,6 +8,7 @@ import one.microstream.storage.embedded.types.EmbeddedStorageManager
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
+import java.util.function.Supplier
 
 @Requires(property = "customer.repository", value = "embedded-storage-manager")
 //tag::clazz[]
@@ -20,23 +21,38 @@ class CustomerRepositoryImpl implements CustomerRepository {
         this.embeddedStorageManager = embeddedStorageManager
     }
 
-	@Override
-    void save(@NonNull @NotNull @Valid Customer customer) {
+    @Override
+    @NonNull
+    Customer save(@NonNull @NotNull @Valid CustomerSave customerSave) {
+        XThreads.executeSynchronized(new Supplier<Customer>() { // <2>
+            @Override
+            Customer get() {
+                String id = UUID.randomUUID().toString()
+                Customer customer = new Customer(id, customerSave.getFirstName(), customerSave.getLastName())
+                data().getCustomers().put(id, customer)
+                store(data().getCustomers()) // <3>
+                customer
+            }
+        })
+    }
+
+    @Override
+    void update(@NonNull @NotNull @Valid Customer customer) {
         XThreads.executeSynchronized(new Runnable() { // <2>
             @Override
             void run() {
-                data().ifPresent(d -> {
-                    d.customers[customer.id] = customer
-                    store(d.customers) // <3>
-                })
+                Customer c = data().getCustomers().get(customer.getId())
+                c.setFirstName(customer.getFirstName())
+                c.setLastName(customer.getLastName())
+                store(c) // <3>
             }
         })
-	}
+    }
 
     @Override
     @NonNull
     Optional<Customer> findById(@NonNull @NotBlank String id) {
-        data().flatMap(d -> Optional.ofNullable(d.customers[id]))
+        Optional.ofNullable(data().getCustomers().get(id))
     }
 
     @Override
@@ -44,10 +60,8 @@ class CustomerRepositoryImpl implements CustomerRepository {
         XThreads.executeSynchronized(new Runnable() { // <2>
             @Override
             void run() {
-                data().ifPresent(d -> {
-                    d.customers.remove(id)
-                    store(d.customers) // <3>
-                })
+                data().getCustomers().remove(id)
+                store(data().getCustomers()) // <3>
             }
         })
     }
@@ -56,9 +70,8 @@ class CustomerRepositoryImpl implements CustomerRepository {
         embeddedStorageManager.store(instance)
     }
 
-    private Optional<Data> data() {
-        Object root = embeddedStorageManager.root()
-        (root instanceof Data) ? Optional.of((Data) root) : (Optional.empty() as Optional<Data>)
+    private Data data() {
+        (Data) embeddedStorageManager.root()
     }
 }
 //end::clazz[]
