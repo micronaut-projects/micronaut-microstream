@@ -3,6 +3,8 @@ package io.micronaut.microstream.cache
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.context.annotation.Requires
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
 import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
@@ -10,6 +12,7 @@ import jakarta.inject.Named
 import jakarta.inject.Singleton
 import spock.lang.Specification
 
+import javax.cache.Cache
 import javax.cache.configuration.Factory
 import javax.cache.expiry.CreatedExpiryPolicy
 import javax.cache.expiry.Duration
@@ -95,4 +98,21 @@ class CacheConfigurationProviderSpec extends Specification {
             return CreatedExpiryPolicy.factoryOf(Duration.FIVE_MINUTES)
         }
     }
+
+    @Requires(property = "spec.name", value = "CacheConfigurationProviderSpec")
+    @Controller
+    static class CacheConfigurationProviderController {
+
+        private final Cache<Integer, String> cache
+
+        CacheConfigurationProviderController(@Named("one") Cache<Integer, String> cache) {
+            this.cache = cache
+        }
+
+        @Get()
+        def index() {
+            cache.toString()
+        }
+    }
+
 }

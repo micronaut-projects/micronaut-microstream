@@ -14,6 +14,8 @@ dependencies {
     testImplementation(libs.micronaut.http.server.netty)
     testImplementation(libs.micronaut.http.client)
     testImplementation(libs.groovy.json)
+    testImplementation(libs.micronaut.cache.tck)
+    testImplementation(libs.jupiter.api)
 }
 
 micronautBuild {

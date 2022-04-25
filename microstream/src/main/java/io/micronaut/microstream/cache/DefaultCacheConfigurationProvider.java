@@ -15,10 +15,12 @@
  */
 package io.micronaut.microstream.cache;
 
+import io.micronaut.cache.SyncCache;
 import io.micronaut.context.BeanContext;
 import io.micronaut.context.annotation.ConfigurationBuilder;
 import io.micronaut.context.annotation.EachProperty;
 import io.micronaut.context.annotation.Parameter;
+import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.inject.qualifiers.Qualifiers;
 import one.microstream.cache.types.CacheConfiguration;
@@ -33,6 +35,7 @@ import one.microstream.storage.embedded.types.EmbeddedStorageManager;
  * @since 1.0.0
  */
 @EachProperty("microstream.cache")
+@Requires(classes = SyncCache.class)
 public final class DefaultCacheConfigurationProvider<K, V> implements CacheConfigurationProvider<K, V> {
     @ConfigurationBuilder
     CacheConfigurationBuilder builder = new CacheConfigurationBuilder();
