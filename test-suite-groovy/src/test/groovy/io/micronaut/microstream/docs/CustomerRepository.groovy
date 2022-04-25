@@ -10,8 +10,6 @@ interface CustomerRepository {
 
     void save(@NonNull @NotNull @Valid Customer customer)
 
-    Collection<Customer> findByFirstName(@NonNull @NotBlank String firstName)
-
     @NonNull
     Optional<Customer> findById(@NonNull @NotBlank String id)
 

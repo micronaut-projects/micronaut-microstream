@@ -4,7 +4,9 @@ releaseHistory: Release History
 dependency: Dependency
 configuration: Configuration
 rootInstance: Root Instance
-storage: Storage
+storage:
+  title: Storage
+  storageWithEmbeddedStorageManager: Store with Embedded Storage Manager
 microstreamMetrics: Metrics
 storageHealth: Health
 repository: Repository

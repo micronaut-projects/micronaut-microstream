@@ -1,17 +1,18 @@
-For each Microstream instance create a `@Singleton` of type api:microstream.conf.RootInstanceProvider[]
-with a https://docs.micronaut.io/latest/guide/#qualifiers[Name Bean Qualifier].
-
 The following example creates a https://docs.microstream.one/manual/storage/root-instances.html[Root Instance] to store `Customer`s:
-
-snippet::io.micronaut.microstream.docs.Customer[]
-
-A single instance can be registered as the entity graph's root:
 
 snippet::io.micronaut.microstream.docs.Data[]
 
-The implementation of api:microstream.conf.RootInstanceProvider[] must use a https://docs.micronaut.io/latest/guide/#qualifiers[Name Bean Qualifier]:
+<1> Annotate the Root class with https://docs.micronaut.io/latest/api/io/micronaut/core/annotation/Introspected.html[@Introspected] to generate https://docs.micronaut.io/latest/guide/#introspection[BeanIntrospection] metadata at compilation time. This information is used by the Micronaut Framework to instantiate the class without using reflection.
 
-snippet::io.micronaut.microstream.docs.DataRootProvider[]
+snippet::io.micronaut.microstream.docs.Customer[]
 
-<1>The `@Named` annotation must match the same name used in configuration.
+You specify the Root class via configuration:
 
+[source,yaml]
+.src/main/resources/application.yml
+----
+include::test-suite/src/test/resources/application-data.yml[]
+----
+
+<1> Specify a name qualifier for the Microstream instance
+<2> Specify the class of the entity graph's root.
