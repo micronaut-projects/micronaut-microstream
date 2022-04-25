@@ -20,13 +20,10 @@ import javax.cache.expiry.EternalExpiryPolicy
 import javax.cache.expiry.ExpiryPolicy
 
 @Property(name = "spec.name", value = "CacheConfigurationProviderSpec")
-// Storage properties
-@Property(name = "microstream.storage.blue.storage-directory-in-user-home", value = "Downloads/microstream")
 // Properties for first cache
 @Property(name = "microstream.cache.one.key-type", value = "java.lang.Integer")
 @Property(name = "microstream.cache.one.value-type", value = "java.lang.String")
 @Property(name = "microstream.cache.one.statistics-enabled", value = "true")
-@Property(name = "microstream.cache.one.backing-storage", value = "blue")
 // Properties for second cache
 @Property(name = "microstream.cache.two.key-type", value = "java.lang.Character")
 @Property(name = "microstream.cache.two.value-type", value = "java.lang.Float")
@@ -51,8 +48,8 @@ class CacheConfigurationProviderSpec extends Specification {
         with(oneProvider.builder.build()) {
             keyType == Integer
             valueType == String
-            readThrough
-            writeThrough
+            !readThrough
+            !writeThrough
             !managementEnabled
             statisticsEnabled
             expiryPolicyFactory.create() instanceof EternalExpiryPolicy
