@@ -1,73 +1,148 @@
 package io.micronaut.microstream.docs
 
-import io.micronaut.context.BeanContext
-import io.micronaut.context.annotation.Property
+import groovy.transform.Canonical
+import io.micronaut.context.ApplicationContext
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
-import io.micronaut.http.client.annotation.Client
 import io.micronaut.http.client.exceptions.HttpClientResponseException
-import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import jakarta.inject.Inject
+import io.micronaut.runtime.server.EmbeddedServer
 import spock.lang.Specification
+import spock.lang.Unroll
 
-@Property(name = "microstream.storage.main.root-class", value = "io.micronaut.microstream.docs.Data")
-@Property(name = "microstream.storage.main.storage-directory", value = "build/microstream")
-@MicronautTest
 class CustomerControllerSpec extends Specification {
-    @Inject
-    @Client("/")
-    HttpClient httpClient
 
-    @Inject
-    BeanContext beanContext
-
-    void "verify CRUD with Microstream"() {
+    @Unroll
+    void "verify CRUD with Microstream"(String customerRepositoryImplementation) {
         given:
-        String firstName = "Sergio"
-        BlockingHttpClient client = httpClient.toBlocking()
+        String storageDirectory = "build/microstream-" + UUID.randomUUID();
+        ServerAndClient server = startServer(serverProperties(storageDirectory, customerRepositoryImplementation))
+
+        and:
+        String sergioName = "Sergio"
+        String timName = "Tim"
 
         when:
-        HttpRequest<?> request = HttpRequest.POST("/customer", Collections.singletonMap("firstName", firstName))
-        HttpResponse<?> response = client.exchange(request)
+        String sergioLocation = createCustomer(server.client, sergioName)
 
         then:
-        HttpStatus.CREATED == response.status()
+        sergioLocation
 
         when:
-        String location = response.getHeaders().get(HttpHeaders.LOCATION)
+        String timLocation = createCustomer(server.client, timName)
 
         then:
-        location
+        timLocation
+        timLocation != sergioLocation
 
         when:
-        HttpRequest<?> showRequest = HttpRequest.GET(location)
-        HttpResponse<Customer> showResponse = client.exchange(showRequest, Customer)
+        Customer customer = getCustomer(server.client, sergioLocation)
 
         then:
-        HttpStatus.OK == showResponse.status()
+        with(customer) {
+            firstName == sergioName
+            !lastName
+        }
 
         when:
-        Customer customer = showResponse.body()
+        customer = getCustomer(server.client, timLocation)
 
         then:
-        customer
-        firstName == customer.firstName
-        !customer.lastName
+        with(customer) {
+            firstName == timName
+            !lastName
+        }
+
+        when: "we restart the server"
+        server = startServer(serverProperties(storageDirectory, customerRepositoryImplementation), server)
+        customer = getCustomer(server.client, sergioLocation)
+
+        then: "fetch Sergio, he still exists"
+        with(customer) {
+            firstName == sergioName
+            !lastName
+        }
 
         when:
-        HttpResponse<Customer> deleteResponse = client.exchange(HttpRequest.DELETE(location), Customer)
-        then:
-        HttpStatus.NO_CONTENT == deleteResponse.status()
+        deleteCustomer(server.client, sergioLocation)
 
-        when:
-        client.exchange(showRequest)
+        and:
+        server.client.exchange(HttpRequest.GET(sergioLocation))
 
         then:
         HttpClientResponseException e = thrown()
         HttpStatus.NOT_FOUND == e.status
+
+        when: "we restart the server again"
+        server = startServer(serverProperties(storageDirectory, customerRepositoryImplementation), server)
+
+        and: "try to fetch Sergio"
+        server.client.exchange(HttpRequest.GET(sergioLocation))
+
+        then: "he is still gone"
+        e = thrown(HttpClientResponseException)
+        HttpStatus.NOT_FOUND == e.status
+
+        when: "we try to get Tim"
+        customer = getCustomer(server.client, timLocation)
+
+        then: "he is still there"
+        with(customer) {
+            firstName == timName
+            !lastName
+        }
+
+        cleanup:
+        server.close()
+
+        where:
+        customerRepositoryImplementation << ["embedded-storage-manager"]
+    }
+
+    private static Map<String, String> serverProperties(String storageDirectory, String customerRepositoryImplementation) {
+        [
+                "microstream.storage.main.storage-directory": storageDirectory,
+                "customer.repository": customerRepositoryImplementation,
+                "microstream.storage.main.root-class": "io.micronaut.microstream.docs.Data",
+        ]
+    }
+
+    @Canonical
+    class ServerAndClient implements AutoCloseable {
+        EmbeddedServer server
+        BlockingHttpClient client
+
+        @Override
+        void close() throws Exception {
+            client?.close()
+            server?.close()
+        }
+    }
+
+    ServerAndClient startServer(Map<String, Object> properties, ServerAndClient serverAndClient = null) {
+        serverAndClient?.close()
+        EmbeddedServer embeddedServer = ApplicationContext.run(EmbeddedServer.class, properties)
+        HttpClient httpClient = embeddedServer.applicationContext.createBean(HttpClient.class, embeddedServer.URL)
+        new ServerAndClient(embeddedServer, httpClient.toBlocking())
+    }
+
+    String createCustomer(BlockingHttpClient client, String firstName) {
+        HttpResponse<?> response = client.exchange(HttpRequest.POST("/customer", [firstName: firstName]))
+        assert HttpStatus.CREATED == response.status()
+        response.getHeaders().get(HttpHeaders.LOCATION)
+    }
+
+    void deleteCustomer(BlockingHttpClient client, String location) {
+        HttpResponse<Customer> deleteResponse = client.exchange(HttpRequest.DELETE(location), Customer)
+        assert HttpStatus.NO_CONTENT == deleteResponse.status()
+    }
+
+    Customer getCustomer(BlockingHttpClient client, String location) {
+        HttpResponse<Customer> showResponse = client.exchange(HttpRequest.GET(location), Customer)
+        assert HttpStatus.OK == showResponse.status()
+        showResponse.body()
     }
 }

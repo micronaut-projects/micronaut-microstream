@@ -1,10 +1,6 @@
 package io.micronaut.microstream.docs;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 import one.microstream.concurrency.XThreads;
@@ -13,51 +9,43 @@ import one.microstream.storage.embedded.types.EmbeddedStorageManager;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
 
+@Requires(property = "customer.repository", value = "embedded-storage-manager")
+//tag::clazz[]
 @Singleton
 public class CustomerRepositoryImpl implements CustomerRepository {
 
     private final EmbeddedStorageManager embeddedStorageManager;
 
-    public CustomerRepositoryImpl(EmbeddedStorageManager embeddedStorageManager) {
+    public CustomerRepositoryImpl(EmbeddedStorageManager embeddedStorageManager) { // <1>
         this.embeddedStorageManager = embeddedStorageManager;
     }
 
 	@Override
 	public void save(@NonNull @NotNull @Valid Customer customer) {
         XThreads.executeSynchronized(() -> { // <2>
-            getData().ifPresent(data -> data.add(customer));
-            embeddedStorageManager.storeAll();
+            getData().ifPresent(data -> {
+                data.getCustomers().put(customer.getId(), customer);
+                embeddedStorageManager.store(data.getCustomers()); // <3>
+            });
         });
 	}
 
     @Override
     @NonNull
     public Optional<Customer> findById(@NonNull @NotBlank String id) {
-        return getData().flatMap(data -> data.findById(id));
+        return getData().flatMap(data -> Optional.ofNullable(data.getCustomers().get(id)));
     }
 
     @Override
     public void deleteById(@NonNull @NotBlank String id) {
         XThreads.executeSynchronized(() -> { // <2>
-            getData().ifPresent(data -> data.remove(id));
-            embeddedStorageManager.storeAll();
+            getData().ifPresent(data -> {
+                data.getCustomers().remove(id);
+                embeddedStorageManager.store(data.getCustomers()); // <3>
+            });
         });
-    }
-
-    @Override
-    @NonNull
-	public Collection<Customer> findByFirstName(@NonNull @NotBlank String firstName) {
-        return customersByFirstName(getData()
-            .map(Data::getCustomers)
-            .orElseGet(Collections::emptyList), firstName);
-	}
-
-    private static List<Customer> customersByFirstName(@NonNull Collection<Customer> customers,
-                                                       @NonNull String firstName) {
-        return customers.stream()
-            .filter(c -> c.getFirstName().equals(firstName))
-            .collect(Collectors.toList());
     }
 
     private Optional<Data> getData() {
@@ -68,3 +56,4 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return Optional.empty();
     }
 }
+//end::clazz[]
