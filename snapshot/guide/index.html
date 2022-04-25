@@ -102,6 +102,8 @@
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-storage"><a href="#storage"><strong>6</strong><span>Storage</span></a></div>
         
+        <div class="toc-item" style="margin-left:10px" id="toc-item-storageWithEmbeddedStorageManager"><a href="#storageWithEmbeddedStorageManager"><strong>6.1</strong><span>Store with Embedded Storage Manager</span></a></div>
+        
         <div class="toc-item" style="margin-left:0px" id="toc-item-microstreamMetrics"><a href="#microstreamMetrics"><strong>7</strong><span>Metrics</span></a></div>
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-storageHealth"><a href="#storageHealth"><strong>8</strong><span>Health</span></a></div>
@@ -195,23 +197,37 @@ Each MicroStream instance represents one coherent entity graph of persistent dat
 </div>
 <div class="paragraph">
 <p>The following configuration example configures two beans of type <a href="../api/io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html">EmbeddedStorageConfigurationProvider</a>
-with <a href="https://docs.micronaut.io/latest/guide/#qualifiers">Name Bean Qualifiers</a>: <code>main</code> and <code>secondary</code>.</p>
+with <a href="https://docs.micronaut.io/latest/guide/#qualifiers">Name Bean Qualifiers</a>: <code>orange</code> and <code>blue</code>.</p>
 </div>
 <div class="listingblock">
 <div class="title">src/main/resources/application.yml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
   storage:
-    one-microstream-instance:
+    orange: <i class="conum" data-value="1"></i><b>(1)</b>
+      root-class: 'io.micronaut.microstream.docs.OneData' <i class="conum" data-value="2"></i><b>(2)</b>
       storage-directory: build/microstream${random.shortuuid}
       channel-count: 4
-    another-microstream-instance:
+    blue: <i class="conum" data-value="2"></i><b>(2)</b>
+      root-class: 'io.micronaut.microstream.docs.AnotherData' <i class="conum" data-value="2"></i><b>(2)</b>
       storage-directory: build/microstream${random.shortuuid}
       channel-count: 4
       channel-directory-prefix: 'channel_'
       data-file-prefix: 'channel_'
       data-file-suffix: '.dat'</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Specify a different name qualifier for each Microstream instance</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Specify the class of the entity graph&#8217;s root.</td>
+</tr>
+</table>
 </div>
 
 <h1 id="rootInstance"><a class="anchor" href="#rootInstance"></a>5 Root Instance</h1>
@@ -224,11 +240,58 @@ with <a href="https://docs.micronaut.io/latest/guide/#qualifiers">Name Bean Qual
 
 
 <div class="paragraph">
-<p>For each Microstream instance create a <code>@Singleton</code> of type <a href="../api/io/micronaut/microstream/conf/RootInstanceProvider.html">RootInstanceProvider</a>
-with a <a href="https://docs.micronaut.io/latest/guide/#qualifiers">Name Bean Qualifier</a>.</p>
-</div>
-<div class="paragraph">
 <p>The following example creates a <a href="https://docs.microstream.one/manual/storage/root-instances.html">Root Instance</a> to store `Customer`s:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.microstream.docs;
+
+import io.micronaut.core.annotation.Introspected;
+import io.micronaut.core.annotation.NonNull;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Introspected // <b class="conum">(1)</b>
+public class Data {
+    private Map&lt;String, Customer&gt; customers = new HashMap&lt;&gt;();
+
+    @NonNull
+    public Map&lt;String, Customer&gt; getCustomers() {
+        return this.customers;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.microstream.docs
+
+import io.micronaut.core.annotation.Introspected
+
+@Introspected // <b class="conum">(1)</b>
+class Data {
+    Map&lt;String, Customer&gt; customers = [:]
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.microstream.docs
+
+import io.micronaut.core.annotation.Introspected
+
+@Introspected // <b class="conum">(1)</b>
+data class Data(val customers: MutableMap&lt;String, Customer&gt; = mutableMapOf())</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Annotate the Root class with <a href="https://docs.micronaut.io/latest/api/io/micronaut/core/annotation/Introspected.html">@Introspected</a> to generate <a href="https://docs.micronaut.io/latest/guide/#introspection">BeanIntrospection</a> metadata at compilation time. This information is used by the Micronaut Framework to instantiate the class without using reflection.</td>
+</tr>
+</table>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
@@ -322,100 +385,29 @@ data class Customer(
 </div>
 </div>
 <div class="paragraph">
-<p>A single instance can be registered as the entity graph&#8217;s root:</p>
+<p>You specify the Root class via configuration:</p>
 </div>
-<div class="listingblock multi-language-sample">
+<div class="listingblock">
+<div class="title">src/main/resources/application.yml</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.microstream.docs;
-
-import io.micronaut.core.annotation.NonNull;
-
-import java.util.HashMap;
-import java.util.Map;
-
-public class Data {
-    private Map&lt;String, Customer&gt; customers = new HashMap&lt;&gt;();
-
-    @NonNull
-    public Map&lt;String, Customer&gt; getCustomers() {
-        return this.customers;
-    }
-}</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
+  storage:
+    main: <i class="conum" data-value="1"></i><b>(1)</b>
+      root-class: 'io.micronaut.microstream.docs.Data' <i class="conum" data-value="2"></i><b>(2)</b>
+      storage-directory: '/Users/sdelamo/Documents/MicrostreamData'</code></pre>
 </div>
 </div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.microstream.docs
-
-class Data {
-    Map&lt;String, Customer&gt; customers = [:]
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.microstream.docs
-
-data class Data(val customers: MutableMap&lt;String, Customer&gt; = mutableMapOf())</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The implementation of <a href="../api/io/micronaut/microstream/conf/RootInstanceProvider.html">RootInstanceProvider</a> must use a <a href="https://docs.micronaut.io/latest/guide/#qualifiers">Name Bean Qualifier</a>:</p>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.microstream.docs;
-
-import io.micronaut.microstream.conf.RootInstanceProvider;
-import jakarta.inject.Named;
-import jakarta.inject.Singleton;
-
-@Named("one-microstream-instance") // <b class="conum">(1)</b>
-@Singleton
-public class DataRootProvider implements RootInstanceProvider&lt;Data&gt; {
-    @Override
-    public Data rootInstance() {
-        return new Data();
-    }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.microstream.docs
-
-import io.micronaut.microstream.conf.RootInstanceProvider
-import jakarta.inject.Named
-import jakarta.inject.Singleton
-
-@Named("one-microstream-instance") // <b class="conum">(1)</b>
-@Singleton
-class DataRootProvider implements RootInstanceProvider&lt;Data&gt; {
-
-    @Override
-    Data rootInstance() {
-        new Data()
-    }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.microstream.docs
-
-import io.micronaut.microstream.conf.RootInstanceProvider
-import jakarta.inject.Named
-import jakarta.inject.Singleton
-
-@Named("one-microstream-instance") // <b class="conum">(1)</b>
-@Singleton
-class DataRootProvider : RootInstanceProvider&lt;Data&gt; {
-    override fun rootInstance(): Data = Data()
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>&lt;1&gt;The <code>@Named</code> annotation must match the same name used in configuration.</p>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Specify a name qualifier for the Microstream instance</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Specify the class of the entity graph&#8217;s root.</td>
+</tr>
+</table>
 </div>
 
 <h1 id="storage"><a class="anchor" href="#storage"></a>6 Storage</h1>
@@ -428,11 +420,78 @@ class DataRootProvider : RootInstanceProvider&lt;Data&gt; {
 
 
 <div class="paragraph">
-<p>When you are <a href="https://docs.microstream.one/manual/storage/root-instances.html#_shared_mutable_data">working with Microstream technology in a multi-threaded environment</a>,
-reading and writing to this shared object graph must be synchronized.</p>
+<p>The following example shows how to create implementations for this example repository:</p>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.microstream.docs;
+
+import io.micronaut.core.annotation.NonNull;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
+import java.util.Optional;
+
+public interface CustomerRepository {
+
+	void save(@NonNull @NotNull @Valid Customer customer);
+
+    @NonNull
+    Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id);
+
+    void deleteById(@NonNull @NotBlank String id);
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.microstream.docs
+
+import io.micronaut.core.annotation.NonNull
+
+import javax.validation.Valid
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
+
+interface CustomerRepository {
+
+    void save(@NonNull @NotNull @Valid Customer customer)
+
+    @NonNull
+    Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id)
+
+    void deleteById(@NonNull @NotBlank String id)
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.microstream.docs
+
+import javax.validation.Valid
+import javax.validation.constraints.NotBlank
+
+interface CustomerRepository {
+    fun save(customer: @Valid Customer)
+    fun findById(id: @NotBlank String): Customer?
+    fun deleteById(id: @NotBlank String)
+}</code></pre>
+</div>
+</div>
+
+<h2 id="storageWithEmbeddedStorageManager"><a class="anchor" href="#storageWithEmbeddedStorageManager"></a>6.1 Store with Embedded Storage Manager</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storage/storageWithEmbeddedStorageManager.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
 <div class="paragraph">
-<p>The following example shows how to create a repository which uses the Root Instance created in the previous sections:</p>
+<p>The following example shows how to create a repository which injects the <code>EmbeddedStorageManager</code> and retrieve the Root Instance:</p>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
@@ -447,10 +506,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
 	@Override
 	public void save(@NonNull @NotNull @Valid Customer customer) {
-        XThreads.executeSynchronized(() -&gt; {
+        XThreads.executeSynchronized(() -&gt; { // <b class="conum">(2)</b>
             getData().ifPresent(data -&gt; {
                 data.getCustomers().put(customer.getId(), customer);
-                embeddedStorageManager.store(data.getCustomers()); // <b class="conum">(2)</b>
+                embeddedStorageManager.store(data.getCustomers()); // <b class="conum">(3)</b>
             });
         });
 	}
@@ -463,10 +522,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public void deleteById(@NonNull @NotBlank String id) {
-        XThreads.executeSynchronized(() -&gt; {
+        XThreads.executeSynchronized(() -&gt; { // <b class="conum">(2)</b>
             getData().ifPresent(data -&gt; {
                 data.getCustomers().remove(id);
-                embeddedStorageManager.store(data.getCustomers()); // <b class="conum">(2)</b>
+                embeddedStorageManager.store(data.getCustomers()); // <b class="conum">(3)</b>
             });
         });
     }
@@ -494,12 +553,12 @@ class CustomerRepositoryImpl implements CustomerRepository {
 
 	@Override
     void save(@NonNull @NotNull @Valid Customer customer) {
-        XThreads.executeSynchronized(new Runnable() {
+        XThreads.executeSynchronized(new Runnable() { // <b class="conum">(2)</b>
             @Override
             void run() {
                 data().ifPresent(d -&gt; {
                     d.customers[customer.id] = customer
-                    store(d.customers) // <b class="conum">(2)</b>
+                    store(d.customers) // <b class="conum">(3)</b>
                 })
             }
         })
@@ -513,12 +572,12 @@ class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     void deleteById(@NonNull @NotBlank String id) {
-        XThreads.executeSynchronized(new Runnable() {
+        XThreads.executeSynchronized(new Runnable() { // <b class="conum">(2)</b>
             @Override
             void run() {
                 data().ifPresent(d -&gt; {
                     d.customers.remove(id)
-                    store(d.customers) // <b class="conum">(2)</b>
+                    store(d.customers) // <b class="conum">(3)</b>
                 })
             }
         })
@@ -541,10 +600,10 @@ class CustomerRepositoryImpl implements CustomerRepository {
 class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorageManager) // <b class="conum">(1)</b>
     : CustomerRepository {
     override fun save(customer: @Valid Customer) {
-        XThreads.executeSynchronized {
+        XThreads.executeSynchronized { // <b class="conum">(2)</b>
             if (data != null) {
                 data!!.customers[customer.id] = customer
-                embeddedStorageManager.store(data!!.customers) // <b class="conum">(2)</b>
+                embeddedStorageManager.store(data!!.customers) // <b class="conum">(3)</b>
             }
 
         }
@@ -556,10 +615,10 @@ class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorage
     }
 
     override fun deleteById(id: @NotBlank String) {
-        XThreads.executeSynchronized {
+        XThreads.executeSynchronized { // <b class="conum">(2)</b>
             if (data != null) {
                 data!!.customers.remove(id)
-                embeddedStorageManager.store(data!!.customers) // <b class="conum">(2)</b>
+                embeddedStorageManager.store(data!!.customers) // <b class="conum">(3)</b>
             }
         }
     }
@@ -580,6 +639,11 @@ class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorage
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>When you are <a href="https://docs.microstream.one/manual/storage/root-instances.html#_shared_mutable_data">working with Microstream technology in a multi-threaded environment</a>,
+reading and writing to this shared object graph must be synchronized.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
 <td><a href="https://docs.microstream.one/manual/storage/storing-data/index.html">To store a newly created object, store the "owner" of the object</a>.</td>
 </tr>
 </table>

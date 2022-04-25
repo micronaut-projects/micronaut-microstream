@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6};
+var methods = {"i0":6,"i1":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -137,6 +137,12 @@ extends io.micronaut.core.naming.Named</pre>
 <td class="colFirst"><code>one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfigurationBuilder</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html#getBuilder--">getBuilder</a></span>()</code>&nbsp;</td>
 </tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>java.lang.Class&lt;?&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html#getRootClass--">getRootClass</a></span>()</code>
+<div class="block">Returns the class of the Root Instance.</div>
+</td>
+</tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.io.micronaut.core.naming.Named">
@@ -162,11 +168,27 @@ extends io.micronaut.core.naming.Named</pre>
 <a name="getBuilder--">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getBuilder</h4>
 <pre>@NonNull
 one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfigurationBuilder&nbsp;getBuilder()</pre>
+</li>
+</ul>
+<a name="getRootClass--">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getRootClass</h4>
+<pre>@NonNull
+java.lang.Class&lt;?&gt;&nbsp;getRootClass()</pre>
+<div class="block">Returns the class of the Root Instance.
+ <a href="https://docs.microstream.one/manual/storage/root-instances.html">Root Instances</a></div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Class for the Root Instance.</dd>
+</dl>
 </li>
 </ul>
 </li>

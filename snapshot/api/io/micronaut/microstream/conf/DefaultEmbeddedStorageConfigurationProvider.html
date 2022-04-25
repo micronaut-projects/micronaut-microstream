@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -164,6 +164,18 @@ implements <a href="../../../../io/micronaut/microstream/conf/EmbeddedStorageCon
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html#getName--">getName</a></span>()</code>&nbsp;</td>
 </tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>java.lang.Class&lt;?&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html#getRootClass--">getRootClass</a></span>()</code>
+<div class="block">Returns the class of the Root Instance.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html#setRootClass-java.lang.Class-">setRootClass</a></span>(java.lang.Class&lt;?&gt;&nbsp;rootClass)</code>
+<div class="block">Class of the Root Instance.</div>
+</td>
+</tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -221,7 +233,7 @@ public&nbsp;one.microstream.storage.embedded.configuration.types.EmbeddedStorage
 <a name="getName--">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getName</h4>
 <pre>@NonNull
@@ -229,6 +241,41 @@ public&nbsp;java.lang.String&nbsp;getName()</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>getName</code>&nbsp;in interface&nbsp;<code>io.micronaut.core.naming.Named</code></dd>
+</dl>
+</li>
+</ul>
+<a name="getRootClass--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRootClass</h4>
+<pre>@NonNull
+public&nbsp;java.lang.Class&lt;?&gt;&nbsp;getRootClass()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html#getRootClass--">EmbeddedStorageConfigurationProvider</a></code></span></div>
+<div class="block">Returns the class of the Root Instance.
+ <a href="https://docs.microstream.one/manual/storage/root-instances.html">Root Instances</a></div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html#getRootClass--">getRootClass</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html" title="interface in io.micronaut.microstream.conf">EmbeddedStorageConfigurationProvider</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Class for the Root Instance.</dd>
+</dl>
+</li>
+</ul>
+<a name="setRootClass-java.lang.Class-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>setRootClass</h4>
+<pre>public&nbsp;void&nbsp;setRootClass(@NonNull
+                         java.lang.Class&lt;?&gt;&nbsp;rootClass)</pre>
+<div class="block">Class of the Root Instance.
+ <a href="https://docs.microstream.one/manual/storage/root-instances.html">Root Instances</a></div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>rootClass</code> - Class for the Root Instance.</dd>
 </dl>
 </li>
 </ul>
