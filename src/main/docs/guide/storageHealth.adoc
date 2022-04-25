@@ -1,0 +1,39 @@
+https://docs.micronaut.io/latest/guide/#healthEndpoint[Health Endpoint] exposes the status of the Microstream Instances in your Micronaut Application.
+
+After you add the https://docs.micronaut.io/latest/guide/#management[`management`] dependency,
+the `/health` endpoint of a Micronaut application with one Microstream instance named `blue` will return:
+
+[source,json]
+----
+{
+  "name": "application",
+  "status": "UP",
+  "details": {
+    "microstream.blue": {
+      "name": "application",
+      "status": "UP",
+      "details": {
+        "startingUp": false,
+        "running": true,
+        "active": true,
+        "acceptingTasks": true,
+        "shuttingDown": false,
+        "shutdown": false
+      }
+    },
+    ...
+  }
+}
+----
+
+NOTE: By default, the details visible above are only shown to authenticated users. See the https://docs.micronaut.io/latest/guide/#healthEndpoint[Health Endpoint] documentation for how to configure that setting.
+
+If you wish to disable the Microstream health check while still using the `management` dependency you can set the property `endpoints.health.microstream.enabled` to `false` in your application configuration.
+
+[source,yaml]
+----
+endpoints:
+  health:
+    microstream:
+      enabled: false
+----

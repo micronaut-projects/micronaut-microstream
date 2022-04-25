@@ -1,6 +1,5 @@
 package io.micronaut.microstream.metrics
 
-import groovy.json.JsonSlurper
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.context.exceptions.NoSuchBeanException
@@ -33,12 +32,12 @@ class MicrostreamMetricsBinderDisabledSpec extends Specification implements Test
     Map<String, String> getProperties() {
         [
                 "micronaut.metrics.binders.microstream.enabled": StringUtils.FALSE,
-                "microstream.storage.people.storage-directory-in-user-home": new File(tempDir, "people").absolutePath,
-                "microstream.storage.towns.storage-directory-in-user-home" : new File(tempDir, "towns").absolutePath,
+                "microstream.storage.people.storage-directory": new File(tempDir, "people").absolutePath,
+                "microstream.storage.towns.storage-directory" : new File(tempDir, "towns").absolutePath,
         ]
     }
 
-    def "metrics are not added"() {
+    void "metrics are not added"() {
         when:
         beanContext.getBean(MicrostreamMetricsBinder)
 
@@ -46,10 +45,10 @@ class MicrostreamMetricsBinderDisabledSpec extends Specification implements Test
         thrown(NoSuchBeanException)
 
         when:
-        def response = new JsonSlurper().parseText(httpClient.toBlocking().retrieve("/metrics"))
+        Map<String, Object> response = httpClient.toBlocking().retrieve("/metrics", Map)
 
         then:
-        ![ 'microstream.people.fileCount',
+        !['microstream.people.fileCount',
           'microstream.people.liveDataLength',
           'microstream.people.totalDataLength',
           'microstream.towns.fileCount',
