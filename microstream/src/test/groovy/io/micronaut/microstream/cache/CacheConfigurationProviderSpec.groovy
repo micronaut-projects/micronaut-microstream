@@ -1,8 +1,10 @@
 package io.micronaut.microstream.cache
 
+import io.micronaut.cache.SyncCache
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.context.annotation.Requires
+import io.micronaut.core.type.Argument
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.inject.qualifiers.Qualifiers
@@ -20,10 +22,13 @@ import javax.cache.expiry.EternalExpiryPolicy
 import javax.cache.expiry.ExpiryPolicy
 
 @Property(name = "spec.name", value = "CacheConfigurationProviderSpec")
+// Storage properties
+@Property(name = "microstream.storage.one.storage-directory", value = "build/microstream")
 // Properties for first cache
 @Property(name = "microstream.cache.one.key-type", value = "java.lang.Integer")
 @Property(name = "microstream.cache.one.value-type", value = "java.lang.String")
 @Property(name = "microstream.cache.one.statistics-enabled", value = "true")
+@Property(name = "microstream.cache.one.backing-storage", value = "one")
 // Properties for second cache
 @Property(name = "microstream.cache.two.key-type", value = "java.lang.Character")
 @Property(name = "microstream.cache.two.value-type", value = "java.lang.Float")
@@ -48,8 +53,8 @@ class CacheConfigurationProviderSpec extends Specification {
         with(oneProvider.builder.build()) {
             keyType == Integer
             valueType == String
-            !readThrough
-            !writeThrough
+            readThrough
+            writeThrough
             !managementEnabled
             statisticsEnabled
             expiryPolicyFactory.create() instanceof EternalExpiryPolicy
