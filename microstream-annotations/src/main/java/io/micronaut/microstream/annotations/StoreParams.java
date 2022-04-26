@@ -38,7 +38,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * A method such as this:
  * <pre>
  * {@literal @Store(parameters = "customers")}
- * protected Customer addCustomer(Map<String, Customer> customers, CustomerSave customerSave) {
+ * protected Customer addCustomer(Map&lt;String, Customer&gt; customers, CustomerSave customerSave) {
  *     String id = UUID.randomUUID().toString();
  *     Customer customer = new Customer(id, customerSave.getFirstName(), customerSave.getLastName());
  *     customers.put(id, customer);
@@ -49,8 +49,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *
  * Becomes
  * <pre>
- * protected Customer addCustomer(Map<String, Customer> customers, CustomerSave customerSave) {
- *     return XThreads.executeSynchronized(() -> {
+ * protected Customer addCustomer(Map&lt;String, Customer&gt; customers, CustomerSave customerSave) {
+ *     return XThreads.executeSynchronized(() -&gt; {
  *         String id = UUID.randomUUID().toString();
  *         Customer customer = new Customer(id, customerSave.getFirstName(), customerSave.getLastName());
  *         customers.put(id, customer);

@@ -31,5 +31,8 @@ class StoreParamsAnnotationMapperSpec extends Specification {
         StoringStrategy.EAGER == annotationValue.enumValue("strategy", StoringStrategy.class).orElse(StoringStrategy.LAZY)
         ["customers"] == annotationValue.stringValues("parameters")
         !annotationValue.booleanValue("result").orElse(false)
+
+        and:
+        StoreParams.class == mapper.annotationType()
     }
 }

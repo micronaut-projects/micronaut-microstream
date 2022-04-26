@@ -16,7 +16,7 @@
 package io.micronaut.microstream.annotations;
 
 /**
- * Defines the way the instance that will be stored in the {@link one.microstream.storage.types.StorageManager}.
+ * Defines the way the instance that will be stored in the Store Manager.
  * <a href="https://docs.microstream.one/manual/storage/storing-data/lazy-eager-full.html">Lazy and Eager Storing</a>
  * @author Sergio del Amo
  * @since 1.0.0
