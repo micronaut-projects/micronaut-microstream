@@ -36,11 +36,12 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 	}
 
     @Override
-    public void update(@NonNull @NotNull @Valid Customer customer) {
+    public void update(@NonNull @NotBlank String id,
+                       @NonNull @NotNull @Valid CustomerSave customerSave) {
         XThreads.executeSynchronized(() -> { // <2>
-            Customer c = data().getCustomers().get(customer.getId());
-            c.setFirstName(customer.getFirstName());
-            c.setLastName(customer.getLastName());
+            Customer c = data().getCustomers().get(id);
+            c.setFirstName(customerSave.getFirstName());
+            c.setLastName(customerSave.getLastName());
             embeddedStorageManager.store(c); // <3>
         });
     }

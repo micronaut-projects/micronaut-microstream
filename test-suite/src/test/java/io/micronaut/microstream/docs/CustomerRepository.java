@@ -12,9 +12,10 @@ import java.util.UUID;
 public interface CustomerRepository {
 
     @NonNull
-    Customer save(@NonNull @NotNull @Valid CustomerSave customer);
+    Customer save(@NonNull @NotNull @Valid CustomerSave customerSave);
 
-    void update(@NonNull @NotNull @Valid Customer customer);
+    void update(@NonNull @NotBlank String id,
+                @NonNull @NotNull @Valid CustomerSave customerSave);
 
     @NonNull
     Optional<Customer> findById(@NonNull @NotBlank String id);

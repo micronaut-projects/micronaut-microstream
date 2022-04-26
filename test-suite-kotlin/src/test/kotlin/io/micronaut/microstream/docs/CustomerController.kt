@@ -1,14 +1,19 @@
 package io.micronaut.microstream.docs
 
-import io.micronaut.core.annotation.NonNull
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MutableHttpResponse
-import io.micronaut.http.annotation.*
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.Post
+import io.micronaut.http.annotation.Patch
+import io.micronaut.http.annotation.Body
+import io.micronaut.http.annotation.Delete
+import io.micronaut.http.annotation.Status
+import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.uri.UriBuilder
 import javax.validation.Valid
-import javax.validation.constraints.NotNull
 
 @Controller("/customer")
 internal class CustomerController(private val repository: CustomerRepository) {
@@ -24,11 +29,12 @@ internal class CustomerController(private val repository: CustomerRepository) {
     }
 
     @Patch("/{id}")
-    fun update(@Body customer: @Valid Customer): MutableHttpResponse<*>? {
-        repository.update(customer)
+    fun update(@PathVariable id: String,
+               @Body customer: @Valid CustomerSave): MutableHttpResponse<*>? {
+        repository.update(id, customer)
         return HttpResponse.ok<Any>()
             .header(HttpHeaders.LOCATION,
-                UriBuilder.of("/customer").path(customer.id).build().toString())
+                UriBuilder.of("/customer").path(id).build().toString())
     }
 
     @Delete("/{id}")

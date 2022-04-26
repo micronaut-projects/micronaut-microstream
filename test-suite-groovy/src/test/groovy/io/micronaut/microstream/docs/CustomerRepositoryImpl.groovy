@@ -37,13 +37,14 @@ class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    void update(@NonNull @NotNull @Valid Customer customer) {
+    void update(@NonNull @NotBlank String id,
+                @NonNull @NotNull @Valid CustomerSave customerSave) {
         XThreads.executeSynchronized(new Runnable() { // <2>
             @Override
             void run() {
-                Customer c = data().getCustomers().get(customer.getId())
-                c.setFirstName(customer.getFirstName())
-                c.setLastName(customer.getLastName())
+                Customer c = data().getCustomers().get(id)
+                c.setFirstName(customerSave.getFirstName())
+                c.setLastName(customerSave.getLastName())
                 store(c) // <3>
             }
         })

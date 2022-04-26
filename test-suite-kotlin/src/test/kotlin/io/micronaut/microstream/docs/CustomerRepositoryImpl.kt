@@ -16,20 +16,22 @@ class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorage
     override fun save(customerSave: CustomerSave): Customer {
         val id = UUID.randomUUID().toString()
         val customer = Customer(id, customerSave.firstName, customerSave.lastName)
-        XThreads.executeSynchronized {
+        XThreads.executeSynchronized { // <2>
             data.customers[customer.id] = customer
             embeddedStorageManager.store(data.customers) // <3>
         }
         return customer
     }
 
-    override fun update(customer: Customer) {
+    override fun update(id : String, customerSave: CustomerSave) {
         XThreads.executeSynchronized { // <2>
-            val c: Customer? = data.customers[customer.id]
-            if (c != null) {
-                c.firstName = customer.firstName
-                c.lastName = customer.lastName
-                embeddedStorageManager.store(c) // <3>
+            val customer : Customer? = data.customers[id]
+            if (customer != null) {
+                with(customer) {
+                    firstName = customerSave.firstName
+                    lastName = customerSave.lastName
+                }
+                embeddedStorageManager.store(customer) // <3>
             }
         }
     }

@@ -29,8 +29,9 @@ class CustomerRepositoryStoreImpl implements CustomerRepository {
     }
 
     @Override
-    void update(@NonNull @NotNull @Valid Customer customer) {
-        updateCustomer(customer)
+    void update(@NonNull @NotBlank String id,
+                @NonNull @NotNull @Valid CustomerSave customerSave) {
+        updateCustomer(id, customerSave)
     }
 
     @Override
@@ -46,23 +47,26 @@ class CustomerRepositoryStoreImpl implements CustomerRepository {
 
     @Store(result = true) // <2>
     @Nullable
-    protected Customer updateCustomer(@NonNull Customer customer) {
-        Customer c = data().getCustomers().get(customer.getId())
+    protected Customer updateCustomer(@NonNull String id,
+                                      @NonNull CustomerSave customerSave) {
+        Customer c = data().getCustomers().get(id)
         if (c != null) {
-            c.setFirstName(customer.getFirstName())
-            c.setLastName(customer.getLastName())
+            c.with {
+                firstName = customerSave.firstName
+                lastName = customerSave.lastName
+            }
             return c
         }
-        return null
+        null
     }
 
     @Store(parameters = "customers") // <3>
     protected Customer addCustomer(@NonNull Map<String, Customer> customers,
                                    @NonNull CustomerSave customerSave) {
         Customer customer = new Customer(UUID.randomUUID().toString(),
-            customerSave.getFirstName(),
-            customerSave.getLastName())
-        customers.put(customer.getId(), customer)
+            customerSave.firstName,
+            customerSave.lastName)
+        customers[customer.id] = customer
         customer
     }
 

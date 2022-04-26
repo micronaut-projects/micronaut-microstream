@@ -94,7 +94,8 @@ class CustomerControllerTest {
         assertNull(customer.getLastName());
 
         // When
-        HttpResponse<?> patchResponse = secondClient.exchange(HttpRequest.PATCH(sergioLocation, CollectionUtils.mapOf("id", customer.getId(), "firstName", customer.getFirstName(), "lastName", sergioLastName)));
+        HttpResponse<?> patchResponse = secondClient.exchange(HttpRequest.PATCH(sergioLocation,
+            CollectionUtils.mapOf( "firstName", customer.getFirstName(), "lastName", sergioLastName)));
 
         // Then
         assertEquals(HttpStatus.OK, patchResponse.status());

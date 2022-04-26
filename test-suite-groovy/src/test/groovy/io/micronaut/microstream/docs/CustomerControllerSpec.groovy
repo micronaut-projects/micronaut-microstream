@@ -69,7 +69,7 @@ class CustomerControllerSpec extends Specification {
 
         when:
         String sergioLastName = "del Amo"
-        HttpResponse<?> patchResponse = server.client.exchange(HttpRequest.PATCH(sergioLocation, [id: customer.id, firstName: customer.firstName, lastName: sergioLastName]))
+        HttpResponse<?> patchResponse = server.client.exchange(HttpRequest.PATCH(sergioLocation, [firstName: customer.firstName, lastName: sergioLastName]))
 
         then:
         HttpStatus.OK == patchResponse.status()

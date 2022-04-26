@@ -34,11 +34,12 @@ class CustomerController {
     }
 
     @Patch("/{id}")
-    MutableHttpResponse<?> update(@NonNull @NotNull @Valid @Body Customer customer) {
-        repository.update(customer)
+    MutableHttpResponse<?> update(@PathVariable @NonNull String id,
+                                  @NonNull @NotNull @Valid @Body CustomerSave customer) {
+        repository.update(id, customer)
         HttpResponse.ok()
                 .header(HttpHeaders.LOCATION, UriBuilder.of("/customer")
-                        .path(customer.getId())
+                        .path(id)
                         .build()
                         .toString())
     }
