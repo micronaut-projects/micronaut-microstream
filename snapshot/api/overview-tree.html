@@ -71,8 +71,11 @@
 <h1 class="title">Hierarchy For All Packages</h1>
 <span class="packageHierarchyLabel">Package Hierarchies:</span>
 <ul class="horizontal">
+<li><a href="io/micronaut/microstream/package-tree.html">io.micronaut.microstream</a>, </li>
+<li><a href="io/micronaut/microstream/annotations/package-tree.html">io.micronaut.microstream.annotations</a>, </li>
 <li><a href="io/micronaut/microstream/conf/package-tree.html">io.micronaut.microstream.conf</a>, </li>
 <li><a href="io/micronaut/microstream/health/package-tree.html">io.micronaut.microstream.health</a>, </li>
+<li><a href="io/micronaut/microstream/interceptors/package-tree.html">io.micronaut.microstream.interceptors</a>, </li>
 <li><a href="io/micronaut/microstream/metrics/package-tree.html">io.micronaut.microstream.metrics</a></li>
 </ul>
 </div>
@@ -82,11 +85,30 @@
 <li type="circle">java.lang.Object
 <ul>
 <li type="circle">io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html" title="class in io.micronaut.microstream.conf"><span class="typeNameLink">DefaultEmbeddedStorageConfigurationProvider</span></a> (implements io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html" title="interface in io.micronaut.microstream.conf">EmbeddedStorageConfigurationProvider</a>)</li>
+<li type="circle">io.micronaut.microstream.<a href="io/micronaut/microstream/DefaultRootProvider.html" title="class in io.micronaut.microstream"><span class="typeNameLink">DefaultRootProvider</span></a>&lt;T&gt; (implements io.micronaut.microstream.<a href="io/micronaut/microstream/RootProvider.html" title="interface in io.micronaut.microstream">RootProvider</a>&lt;T&gt;)</li>
 <li type="circle">io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/EmbeddedStorageFoundationFactory.html" title="class in io.micronaut.microstream.conf"><span class="typeNameLink">EmbeddedStorageFoundationFactory</span></a></li>
-<li type="circle">io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/EmbeddedStorageManagerFactory.html" title="class in io.micronaut.microstream.conf"><span class="typeNameLink">EmbeddedStorageManagerFactory</span></a></li>
 <li type="circle">io.micronaut.microstream.health.<a href="io/micronaut/microstream/health/MicrostreamHealth.html" title="class in io.micronaut.microstream.health"><span class="typeNameLink">MicrostreamHealth</span></a></li>
 <li type="circle">io.micronaut.microstream.health.<a href="io/micronaut/microstream/health/MicrostreamHealthIndicator.html" title="class in io.micronaut.microstream.health"><span class="typeNameLink">MicrostreamHealthIndicator</span></a> (implements io.micronaut.management.health.indicator.HealthIndicator)</li>
 <li type="circle">io.micronaut.microstream.metrics.<a href="io/micronaut/microstream/metrics/MicrostreamMetricsBinder.html" title="class in io.micronaut.microstream.metrics"><span class="typeNameLink">MicrostreamMetricsBinder</span></a> (implements io.micrometer.core.instrument.binder.MeterBinder)</li>
+<li type="circle">io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/StorageManagerFactory.html" title="class in io.micronaut.microstream.conf"><span class="typeNameLink">StorageManagerFactory</span></a></li>
+<li type="circle">io.micronaut.microstream.annotations.<a href="io/micronaut/microstream/annotations/StoreAnnotationMapperUtils.html" title="class in io.micronaut.microstream.annotations"><span class="typeNameLink">StoreAnnotationMapperUtils</span></a></li>
+<li type="circle">io.micronaut.microstream.interceptors.<a href="io/micronaut/microstream/interceptors/StoreInterceptor.html" title="class in io.micronaut.microstream.interceptors"><span class="typeNameLink">StoreInterceptor</span></a> (implements io.micronaut.aop.MethodInterceptor&lt;T,R&gt;)</li>
+<li type="circle">io.micronaut.microstream.annotations.<a href="io/micronaut/microstream/annotations/StoreParamsAnnotationMapper.html" title="class in io.micronaut.microstream.annotations"><span class="typeNameLink">StoreParamsAnnotationMapper</span></a> (implements io.micronaut.inject.annotation.TypedAnnotationMapper&lt;T&gt;)</li>
+<li type="circle">io.micronaut.microstream.annotations.<a href="io/micronaut/microstream/annotations/StoreReturnAnnotationMapper.html" title="class in io.micronaut.microstream.annotations"><span class="typeNameLink">StoreReturnAnnotationMapper</span></a> (implements io.micronaut.inject.annotation.TypedAnnotationMapper&lt;T&gt;)</li>
+<li type="circle">io.micronaut.microstream.annotations.<a href="io/micronaut/microstream/annotations/StoreRootAnnotationMapper.html" title="class in io.micronaut.microstream.annotations"><span class="typeNameLink">StoreRootAnnotationMapper</span></a> (implements io.micronaut.inject.annotation.TypedAnnotationMapper&lt;T&gt;)</li>
+<li type="circle">java.lang.Throwable (implements java.io.Serializable)
+<ul>
+<li type="circle">java.lang.Exception
+<ul>
+<li type="circle">java.lang.RuntimeException
+<ul>
+<li type="circle">io.micronaut.microstream.interceptors.<a href="io/micronaut/microstream/interceptors/StorageInterceptorException.html" title="class in io.micronaut.microstream.interceptors"><span class="typeNameLink">StorageInterceptorException</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -95,6 +117,26 @@
 <li type="circle">io.micronaut.core.naming.Named
 <ul>
 <li type="circle">io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html" title="interface in io.micronaut.microstream.conf"><span class="typeNameLink">EmbeddedStorageConfigurationProvider</span></a></li>
+</ul>
+</li>
+<li type="circle">io.micronaut.microstream.<a href="io/micronaut/microstream/RootProvider.html" title="interface in io.micronaut.microstream"><span class="typeNameLink">RootProvider</span></a>&lt;T&gt;</li>
+</ul>
+<h2 title="Annotation Type Hierarchy">Annotation Type Hierarchy</h2>
+<ul>
+<li type="circle">io.micronaut.microstream.annotations.<a href="io/micronaut/microstream/annotations/StoreRoot.html" title="annotation in io.micronaut.microstream.annotations"><span class="typeNameLink">StoreRoot</span></a> (implements java.lang.annotation.Annotation)</li>
+<li type="circle">io.micronaut.microstream.annotations.<a href="io/micronaut/microstream/annotations/StoreParams.html" title="annotation in io.micronaut.microstream.annotations"><span class="typeNameLink">StoreParams</span></a> (implements java.lang.annotation.Annotation)</li>
+<li type="circle">io.micronaut.microstream.annotations.<a href="io/micronaut/microstream/annotations/StoreReturn.html" title="annotation in io.micronaut.microstream.annotations"><span class="typeNameLink">StoreReturn</span></a> (implements java.lang.annotation.Annotation)</li>
+<li type="circle">io.micronaut.microstream.annotations.<a href="io/micronaut/microstream/annotations/Store.html" title="annotation in io.micronaut.microstream.annotations"><span class="typeNameLink">Store</span></a> (implements java.lang.annotation.Annotation)</li>
+</ul>
+<h2 title="Enum Hierarchy">Enum Hierarchy</h2>
+<ul>
+<li type="circle">java.lang.Object
+<ul>
+<li type="circle">java.lang.Enum&lt;E&gt; (implements java.lang.Comparable&lt;T&gt;, java.io.Serializable)
+<ul>
+<li type="circle">io.micronaut.microstream.annotations.<a href="io/micronaut/microstream/annotations/StoringStrategy.html" title="enum in io.micronaut.microstream.annotations"><span class="typeNameLink">StoringStrategy</span></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

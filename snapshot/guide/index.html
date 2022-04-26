@@ -102,7 +102,9 @@
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-storage"><a href="#storage"><strong>6</strong><span>Storage</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-storageWithEmbeddedStorageManager"><a href="#storageWithEmbeddedStorageManager"><strong>6.1</strong><span>Store with Embedded Storage Manager</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-storageWithStorageManager"><a href="#storageWithStorageManager"><strong>6.1</strong><span>StorageManager</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-storageWithStore"><a href="#storageWithStore"><strong>6.2</strong><span>Store Annotation</span></a></div>
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-microstreamMetrics"><a href="#microstreamMetrics"><strong>7</strong><span>Metrics</span></a></div>
         
@@ -307,7 +309,7 @@ import javax.validation.constraints.NotBlank;
 public class Customer {
     @NonNull
     @NotBlank
-	private String id;
+	private final String id;
 
     @NonNull
     @NotBlank
@@ -325,6 +327,14 @@ public class Customer {
     @NonNull
     public String getId() {
         return id;
+    }
+
+    public void setFirstName(@NonNull String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(@Nullable String lastName) {
+        this.lastName = lastName;
     }
 
     @NonNull
@@ -375,13 +385,9 @@ class Customer {
 <pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.microstream.docs
 
 import io.micronaut.core.annotation.Introspected
-import javax.validation.constraints.NotBlank
 
 @Introspected
-data class Customer(
-    @field:NotBlank var id: String,
-    @field:NotBlank var firstName: String,
-    var lastName: String?)</code></pre>
+class Customer(val id: String, var firstName: String, var lastName: String?)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -420,7 +426,7 @@ data class Customer(
 
 
 <div class="paragraph">
-<p>The following example shows how to create implementations for this example repository:</p>
+<p>The following example shows how to create implementations for this repository:</p>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
@@ -433,10 +439,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface CustomerRepository {
 
-	void save(@NonNull @NotNull @Valid Customer customer);
+    @NonNull
+    Customer save(@NonNull @NotNull @Valid CustomerSave customerSave);
+
+    void update(@NonNull @NotBlank String id,
+                @NonNull @NotNull @Valid CustomerSave customerSave);
 
     @NonNull
     Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id);
@@ -457,7 +468,11 @@ import javax.validation.constraints.NotNull
 
 interface CustomerRepository {
 
-    void save(@NonNull @NotNull @Valid Customer customer)
+    @NonNull
+    Customer save(@NonNull @NotNull @Valid CustomerSave customer)
+
+    void update(@NonNull @NotBlank String id,
+                @NonNull @NotNull @Valid CustomerSave customer)
 
     @NonNull
     Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id)
@@ -474,68 +489,76 @@ import javax.validation.Valid
 import javax.validation.constraints.NotBlank
 
 interface CustomerRepository {
-    fun save(customer: @Valid Customer)
+    fun save(customerSave: @Valid CustomerSave): Customer
+    fun update(id: @NotBlank String, customerSave: @Valid CustomerSave)
     fun findById(id: @NotBlank String): Customer?
     fun deleteById(id: @NotBlank String)
 }</code></pre>
 </div>
 </div>
 
-<h2 id="storageWithEmbeddedStorageManager"><a class="anchor" href="#storageWithEmbeddedStorageManager"></a>6.1 Store with Embedded Storage Manager</h2>
+<h2 id="storageWithStorageManager"><a class="anchor" href="#storageWithStorageManager"></a>6.1 StorageManager</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storage/storageWithEmbeddedStorageManager.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storage/storageWithStorageManager.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
 
 
 <div class="paragraph">
-<p>The following example shows how to create a repository which injects the <code>EmbeddedStorageManager</code> and retrieve the Root Instance:</p>
+<p>The following example shows how to create a repository which injects the <code>StorageManager</code> and retrieves the Root Instance:</p>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Singleton
 public class CustomerRepositoryImpl implements CustomerRepository {
 
-    private final EmbeddedStorageManager embeddedStorageManager;
+    private final StorageManager storageManager;
 
-    public CustomerRepositoryImpl(EmbeddedStorageManager embeddedStorageManager) { // <b class="conum">(1)</b>
-        this.embeddedStorageManager = embeddedStorageManager;
+    public CustomerRepositoryImpl(StorageManager storageManager) { // <b class="conum">(1)</b>
+        this.storageManager = storageManager;
     }
 
 	@Override
-	public void save(@NonNull @NotNull @Valid Customer customer) {
-        XThreads.executeSynchronized(() -&gt; { // <b class="conum">(2)</b>
-            getData().ifPresent(data -&gt; {
-                data.getCustomers().put(customer.getId(), customer);
-                embeddedStorageManager.store(data.getCustomers()); // <b class="conum">(3)</b>
-            });
+    @NonNull
+	public Customer save(@NonNull @NotNull @Valid CustomerSave customerSave) {
+        return XThreads.executeSynchronized(() -&gt; { // <b class="conum">(2)</b>
+            String id = UUID.randomUUID().toString();
+            Customer customer = new Customer(id, customerSave.getFirstName(), customerSave.getLastName());
+            data().getCustomers().put(id, customer);
+            storageManager.store(data().getCustomers()); // <b class="conum">(3)</b>
+            return customer;
         });
 	}
 
     @Override
+    public void update(@NonNull @NotBlank String id,
+                       @NonNull @NotNull @Valid CustomerSave customerSave) {
+        XThreads.executeSynchronized(() -&gt; { // <b class="conum">(2)</b>
+            Customer c = data().getCustomers().get(id);
+            c.setFirstName(customerSave.getFirstName());
+            c.setLastName(customerSave.getLastName());
+            storageManager.store(c); // <b class="conum">(3)</b>
+        });
+    }
+
+    @Override
     @NonNull
     public Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id) {
-        return getData().flatMap(data -&gt; Optional.ofNullable(data.getCustomers().get(id)));
+        return Optional.ofNullable(data().getCustomers().get(id));
     }
 
     @Override
     public void deleteById(@NonNull @NotBlank String id) {
         XThreads.executeSynchronized(() -&gt; { // <b class="conum">(2)</b>
-            getData().ifPresent(data -&gt; {
-                data.getCustomers().remove(id);
-                embeddedStorageManager.store(data.getCustomers()); // <b class="conum">(3)</b>
-            });
+            data().getCustomers().remove(id);
+            storageManager.store(data().getCustomers()); // <b class="conum">(3)</b>
         });
     }
 
-    private Optional&lt;Data&gt; getData() {
-        Object root = embeddedStorageManager.root();
-        if (root instanceof Data) {
-            return Optional.of((Data) root);
-        }
-        return Optional.empty();
+    private Data data() {
+        return (Data) storageManager.root();
     }
 }</code></pre>
 </div>
@@ -545,29 +568,45 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">@Singleton
 class CustomerRepositoryImpl implements CustomerRepository {
 
-    private final EmbeddedStorageManager embeddedStorageManager
+    private final StorageManager storageManager
 
-    CustomerRepositoryImpl(EmbeddedStorageManager embeddedStorageManager) { // <b class="conum">(1)</b>
-        this.embeddedStorageManager = embeddedStorageManager
+    CustomerRepositoryImpl(StorageManager storageManager) { // <b class="conum">(1)</b>
+        this.storageManager = storageManager
     }
 
-	@Override
-    void save(@NonNull @NotNull @Valid Customer customer) {
+    @Override
+    @NonNull
+    Customer save(@NonNull @NotNull @Valid CustomerSave customerSave) {
+        XThreads.executeSynchronized(new Supplier&lt;Customer&gt;() { // <b class="conum">(2)</b>
+            @Override
+            Customer get() {
+                String id = UUID.randomUUID().toString()
+                Customer customer = new Customer(id, customerSave.getFirstName(), customerSave.getLastName())
+                data().getCustomers().put(id, customer)
+                store(data().getCustomers()) // <b class="conum">(3)</b>
+                customer
+            }
+        })
+    }
+
+    @Override
+    void update(@NonNull @NotBlank String id,
+                @NonNull @NotNull @Valid CustomerSave customerSave) {
         XThreads.executeSynchronized(new Runnable() { // <b class="conum">(2)</b>
             @Override
             void run() {
-                data().ifPresent(d -&gt; {
-                    d.customers[customer.id] = customer
-                    store(d.customers) // <b class="conum">(3)</b>
-                })
+                Customer c = data().getCustomers().get(id)
+                c.setFirstName(customerSave.getFirstName())
+                c.setLastName(customerSave.getLastName())
+                store(c) // <b class="conum">(3)</b>
             }
         })
-	}
+    }
 
     @Override
     @NonNull
     Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id) {
-        data().flatMap(d -&gt; Optional.ofNullable(d.customers[id]))
+        Optional.ofNullable(data().getCustomers().get(id))
     }
 
     @Override
@@ -575,21 +614,18 @@ class CustomerRepositoryImpl implements CustomerRepository {
         XThreads.executeSynchronized(new Runnable() { // <b class="conum">(2)</b>
             @Override
             void run() {
-                data().ifPresent(d -&gt; {
-                    d.customers.remove(id)
-                    store(d.customers) // <b class="conum">(3)</b>
-                })
+                data().getCustomers().remove(id)
+                store(data().getCustomers()) // <b class="conum">(3)</b>
             }
         })
     }
 
     private void store(Object instance) {
-        embeddedStorageManager.store(instance)
+        storageManager.store(instance)
     }
 
-    private Optional&lt;Data&gt; data() {
-        Object root = embeddedStorageManager.root()
-        (root instanceof Data) ? Optional.of((Data) root) : (Optional.empty() as Optional&lt;Data&gt;)
+    private Data data() {
+        (Data) storageManager.root()
     }
 }</code></pre>
 </div>
@@ -597,36 +633,47 @@ class CustomerRepositoryImpl implements CustomerRepository {
 <div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Singleton
-class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorageManager) // <b class="conum">(1)</b>
+class CustomerRepositoryImpl(private val storageManager: StorageManager) // <b class="conum">(1)</b>
     : CustomerRepository {
-    override fun save(customer: @Valid Customer) {
+    override fun save(customerSave: CustomerSave): Customer {
+        val id = UUID.randomUUID().toString()
+        val customer = Customer(id, customerSave.firstName, customerSave.lastName)
         XThreads.executeSynchronized { // <b class="conum">(2)</b>
-            if (data != null) {
-                data!!.customers[customer.id] = customer
-                embeddedStorageManager.store(data!!.customers) // <b class="conum">(3)</b>
-            }
+            data.customers[customer.id] = customer
+            storageManager.store(data.customers) // <b class="conum">(3)</b>
+        }
+        return customer
+    }
 
+    override fun update(id : String, customerSave: CustomerSave) {
+        XThreads.executeSynchronized { // <b class="conum">(2)</b>
+            val customer : Customer? = data.customers[id]
+            if (customer != null) {
+                with(customer) {
+                    firstName = customerSave.firstName
+                    lastName = customerSave.lastName
+                }
+                storageManager.store(customer) // <b class="conum">(3)</b>
+            }
         }
     }
 
     @NonNull
     override fun findById(id: @NotBlank String): Customer? {
-        return if (data != null) data!!.customers[id] else null
+        return data.customers[id]
     }
 
     override fun deleteById(id: @NotBlank String) {
         XThreads.executeSynchronized { // <b class="conum">(2)</b>
-            if (data != null) {
-                data!!.customers.remove(id)
-                embeddedStorageManager.store(data!!.customers) // <b class="conum">(3)</b>
-            }
+            data.customers.remove(id)
+            storageManager.store(data.customers) // <b class="conum">(3)</b>
         }
     }
 
-    private val data: Data?
+    private val data: Data
         get() {
-            val root = embeddedStorageManager.root()
-            return if (root is Data) root else null
+            val root = storageManager.root()
+            return if (root is Data) root else throw RuntimeException("Root is not Data")
         }
 }</code></pre>
 </div>
@@ -635,7 +682,7 @@ class CustomerRepositoryImpl(private val embeddedStorageManager: EmbeddedStorage
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>If your Micronaut application has only a single Microstream Instance, you don&#8217;t need to specify a name qualifier to inject <code>EmbeddedStorageManager</code>.</td>
+<td>If your Micronaut application has only a single Microstream Instance, you don&#8217;t need to specify a name qualifier to inject <code>StorageManager</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -645,6 +692,231 @@ reading and writing to this shared object graph must be synchronized.</td>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
 <td><a href="https://docs.microstream.one/manual/storage/storing-data/index.html">To store a newly created object, store the "owner" of the object</a>.</td>
+</tr>
+</table>
+</div>
+
+<h2 id="storageWithStore"><a class="anchor" href="#storageWithStore"></a>6.2 Store Annotation</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storage/storageWithStore.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The following example shows how an equivalent implementation which leverages the <a href="../api/io/micronaut/microstream/annotation/Store.html">@Store</a> annotation to simplify object storage.</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Singleton
+public class CustomerRepositoryStoreImpl implements CustomerRepository {
+
+    private final RootProvider&lt;Data&gt; rootProvider;
+
+    public CustomerRepositoryStoreImpl(RootProvider&lt;Data&gt; rootProvider) { // <b class="conum">(1)</b>
+        this.rootProvider = rootProvider;
+    }
+
+    @Override
+    @NonNull
+    public Customer save(@NonNull @NotNull @Valid CustomerSave customerSave) {
+        return addCustomer(rootProvider.root().getCustomers(), customerSave);
+    }
+
+    @Override
+    public void update(@NonNull @NotBlank String id,
+                       @NonNull @NotNull @Valid CustomerSave customerSave) {
+        updateCustomer(id, customerSave);
+    }
+
+    @Override
+    @NonNull
+    public Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id) {
+        return Optional.ofNullable(rootProvider.root().getCustomers().get(id));
+    }
+
+    @Override
+    public void deleteById(@NonNull @NotBlank String id) {
+        removeCustomer(rootProvider.root().getCustomers(), id);
+    }
+
+    @StoreReturn // <b class="conum">(2)</b>
+    @Nullable
+    protected Customer updateCustomer(@NonNull String id,
+                                      @NonNull CustomerSave customerSave) {
+        Customer c = rootProvider.root().getCustomers().get(id);
+        if (c != null) {
+            c.setFirstName(customerSave.getFirstName());
+            c.setLastName(customerSave.getLastName());
+            return c;
+        }
+        return null;
+    }
+
+    @StoreParams("customers") // <b class="conum">(3)</b>
+    protected Customer addCustomer(@NonNull Map&lt;String, Customer&gt; customers,
+                                   @NonNull CustomerSave customerSave) {
+        Customer customer = new Customer(UUID.randomUUID().toString(),
+            customerSave.getFirstName(),
+            customerSave.getLastName());
+        customers.put(customer.getId(), customer);
+        return customer;
+    }
+
+    @StoreParams("customers") // <b class="conum">(3)</b>
+    protected void removeCustomer(@NonNull Map&lt;String, Customer&gt; customers,
+                                  @NonNull String id) {
+        customers.remove(id);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">@Singleton
+class CustomerRepositoryStoreImpl implements CustomerRepository {
+
+    private final RootProvider&lt;Data&gt; rootProvider
+
+    CustomerRepositoryStoreImpl(RootProvider&lt;Data&gt; rootProvider) { // <b class="conum">(1)</b>
+        this.rootProvider = rootProvider
+    }
+
+    @Override
+    @NonNull
+    Customer save(@NonNull @NotNull @Valid CustomerSave customerSave) {
+        return addCustomer(rootProvider.root().customers, customerSave)
+    }
+
+    @Override
+    void update(@NonNull @NotBlank String id,
+                @NonNull @NotNull @Valid CustomerSave customerSave) {
+        updateCustomer(id, customerSave)
+    }
+
+    @Override
+    @NonNull
+    Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id) {
+        Optional.ofNullable(rootProvider.root().customers[id])
+    }
+
+    @Override
+    void deleteById(@NonNull @NotBlank String id) {
+        removeCustomer(rootProvider.root().customers, id)
+    }
+
+    @StoreReturn // <b class="conum">(2)</b>
+    @Nullable
+    protected Customer updateCustomer(@NonNull String id,
+                                      @NonNull CustomerSave customerSave) {
+        Customer c = rootProvider.root().customers[id]
+        if (c != null) {
+            c.with {
+                firstName = customerSave.firstName
+                lastName = customerSave.lastName
+            }
+            return c
+        }
+        null
+    }
+
+    @StoreParams("customers") // <b class="conum">(3)</b>
+    protected Customer addCustomer(@NonNull Map&lt;String, Customer&gt; customers,
+                                   @NonNull CustomerSave customerSave) {
+        Customer customer = new Customer(UUID.randomUUID().toString(),
+            customerSave.firstName,
+            customerSave.lastName)
+        customers[customer.id] = customer
+        customer
+    }
+
+    @StoreParams("customers") // <b class="conum">(3)</b>
+    protected void removeCustomer(@NonNull Map&lt;String, Customer&gt; customers,
+                                  @NonNull String id) {
+        customers.remove(id)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Singleton
+open class CustomerRepositoryStoreImpl(private val rootProvider: RootProvider&lt;Data&gt;) // <b class="conum">(1)</b>
+    : CustomerRepository {
+    override fun save(customerSave: @Valid CustomerSave): Customer {
+        return addCustomer(rootProvider.root().customers, customerSave)
+    }
+
+    override fun update(id : @NotBlank String,
+                        customerSave: @Valid CustomerSave) {
+        updateCustomer(id, customerSave)
+    }
+
+    @NonNull
+    override fun findById(id: @NotBlank String): Customer? {
+        return rootProvider.root().customers[id]
+    }
+
+    override fun deleteById(id: @NotBlank String) {
+        removeCustomer(rootProvider.root().customers, id)
+    }
+
+    @StoreReturn // <b class="conum">(2)</b>
+    @Nullable
+    open fun updateCustomer(id: String, customerSave: CustomerSave): Customer? {
+        val c: Customer? = rootProvider.root().customers[id]
+        return if (c != null) {
+            c.firstName = customerSave.firstName
+            c.lastName = customerSave.lastName
+            c
+        } else null
+    }
+
+    @StoreParams("customers") // <b class="conum">(3)</b>
+    open fun addCustomer(customers: MutableMap&lt;String, Customer&gt;, customerSave: CustomerSave): Customer {
+        val customer = Customer(
+            UUID.randomUUID().toString(),
+            customerSave.firstName,
+            customerSave.lastName
+        )
+        customers[customer.id] = customer
+        return customer
+    }
+
+    @StoreParams("customers") // <b class="conum">(3)</b>
+    open fun removeCustomer(customers: MutableMap&lt;String, Customer&gt;, id: String) {
+        customers.remove(id)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>You can also inject an instance of <a href="../api/io/micronaut/microstream/RootProvider.html">RootProvider</a> to easily access the Microstream Root Instance. If your Micronaut application has only a single Microstream Instance, you don&#8217;t need to specify a name qualifier to inject it.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><a href="https://docs.microstream.one/manual/storage/storing-data/index.html">The rule is: "The Object that has been modified has to be stored!"</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><a href="https://docs.microstream.one/manual/storage/storing-data/index.html">To store a newly created object, store the "owner" of the object</a>.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<a href="../api/io/micronaut/microstream/annotation/Store.html">@Store</a> only works for synchronous methods. It does not do any logic for methods returning a <code>Publisher</code> or a <code>CompletableFuture</code>. For those scenarios, use directly the <code>StorageManager</code>.
+</td>
 </tr>
 </table>
 </div>
