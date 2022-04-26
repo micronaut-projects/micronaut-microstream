@@ -233,6 +233,5 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
         if (LOG.isWarnEnabled()) {
             LOG.warn("Store the root it might return performance issue {}", storeId);
         }
-
     }
 }

@@ -33,5 +33,5 @@ public enum StoringStrategy {
      * In eager storing mode referenced instances are stored even if they had been stored before.
      * Contrary to Lazy storing this will also store modified child objects at the cost of performance.
      */
-    EAGER;
+    EAGER
 }

@@ -17,10 +17,9 @@ class EagerTest {
     void testEagerStrategyWithReturn() {
         String storageDirectory = "build/microstream-" + UUID.randomUUID();
         Map<String, Object> properties = CollectionUtils.mapOf(
-            "microstream.storage.main.storage-directory",
-            storageDirectory,
-            "microstream.storage.main.root-class",
-            "io.micronaut.microstream.docs.CRM");
+            "microstream.storage.main.storage-directory", storageDirectory,
+            "microstream.storage.main.root-class", "io.micronaut.microstream.docs.CRM"
+        );
         ApplicationContext ctx = ApplicationContext.run(properties);
         CRM data = (CRM) ctx.getBean(StorageManager.class).root();
         assertTrue(data.getCustomers().getCustomersById().isEmpty());
