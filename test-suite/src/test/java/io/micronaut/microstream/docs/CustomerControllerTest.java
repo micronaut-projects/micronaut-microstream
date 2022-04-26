@@ -105,15 +105,7 @@ class CustomerControllerTest {
         assertEquals(sergioLastName, customer.getLastName());
 
         // When we delete Sergio
-        HttpResponse<Customer> deleteResponse = thirdClient.exchange(HttpRequest.DELETE(sergioLocation), Customer.class);
-
-        // Then
-        assertEquals(HttpStatus.NO_CONTENT, deleteResponse.status());
-
-        // And Sergio is gone
-        Executable e = () -> thirdClient.exchange(HttpRequest.GET(sergioLocation), Customer.class);
-        HttpClientResponseException thrown = assertThrows(HttpClientResponseException.class, e);
-        assertEquals(HttpStatus.NOT_FOUND, thrown.getStatus());
+        delete(thirdClient, sergioLocation);
 
         // When we restart the server
         thirdClient.close();
@@ -123,8 +115,8 @@ class CustomerControllerTest {
         BlockingHttpClient fourthClient = httpClient.toBlocking();
 
         // Then Sergio remains gone
-        e = () -> fourthClient.exchange(HttpRequest.GET(sergioLocation), Customer.class);
-        thrown = assertThrows(HttpClientResponseException.class, e);
+        Executable e = () -> fourthClient.exchange(HttpRequest.GET(sergioLocation), Customer.class);
+        HttpClientResponseException thrown = assertThrows(HttpClientResponseException.class, e);
         assertEquals(HttpStatus.NOT_FOUND, thrown.getStatus());
 
         // But when we get Tim
@@ -136,6 +128,8 @@ class CustomerControllerTest {
         assertNotNull(customer);
         assertEquals(timFirstName, customer.getFirstName());
         assertNull(customer.getLastName());
+
+        delete(fourthClient, timLocation);
 
         fourthClient.close();
         embeddedServer.close();
@@ -150,4 +144,11 @@ class CustomerControllerTest {
         return location;
     }
 
+    private static void delete(BlockingHttpClient client, String location) {
+        HttpResponse<Customer> deleteResponse = client.exchange(HttpRequest.DELETE(location), Customer.class);
+        assertEquals(HttpStatus.NO_CONTENT, deleteResponse.status());
+        Executable e = () -> client.exchange(HttpRequest.GET(location), Customer.class);
+        HttpClientResponseException thrown = assertThrows(HttpClientResponseException.class, e);
+        assertEquals(HttpStatus.NOT_FOUND, thrown.getStatus());
+    }
 }
