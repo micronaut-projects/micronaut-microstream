@@ -2,6 +2,7 @@ package io.micronaut.microstream.docs
 
 import groovy.transform.Canonical
 import io.micronaut.context.ApplicationContext
+import io.micronaut.core.util.CollectionUtils
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
@@ -18,7 +19,7 @@ class CustomerControllerSpec extends Specification {
     @Unroll
     void "verify CRUD with Microstream"(String customerRepositoryImplementation) {
         given:
-        String storageDirectory = "build/microstream-" + UUID.randomUUID();
+        String storageDirectory = "build/microstream-" + UUID.randomUUID()
         ServerAndClient server = startServer(serverProperties(storageDirectory, customerRepositoryImplementation))
 
         and:
@@ -67,6 +68,25 @@ class CustomerControllerSpec extends Specification {
         }
 
         when:
+        String sergioLastName = "del Amo"
+        HttpResponse<?> patchResponse = server.client.exchange(HttpRequest.PATCH(sergioLocation, [firstName: customer.firstName, lastName: sergioLastName]))
+
+        then:
+        HttpStatus.OK == patchResponse.status()
+        patchResponse.getHeaders().get(HttpHeaders.LOCATION)
+        sergioLocation == patchResponse.getHeaders().get(HttpHeaders.LOCATION)
+
+        when: 'When we restart the server and we re-retrieve Sergio'
+        server = startServer(serverProperties(storageDirectory, customerRepositoryImplementation), server)
+        customer = getCustomer(server.client, sergioLocation)
+
+        then: "fetch Sergio, he still exists"
+        with(customer) {
+            firstName == sergioName
+            lastName == sergioLastName
+        }
+
+        when:
         deleteCustomer(server.client, sergioLocation)
 
         and:
@@ -99,7 +119,7 @@ class CustomerControllerSpec extends Specification {
         server.close()
 
         where:
-        customerRepositoryImplementation << ["embedded-storage-manager"]
+        customerRepositoryImplementation << ["embedded-storage-manager", "store"]
     }
 
     private static Map<String, String> serverProperties(String storageDirectory, String customerRepositoryImplementation) {

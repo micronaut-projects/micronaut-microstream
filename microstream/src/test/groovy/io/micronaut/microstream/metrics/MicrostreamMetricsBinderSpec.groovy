@@ -12,7 +12,7 @@ import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.inject.Singleton
 import one.microstream.concurrency.XThreads
-import one.microstream.storage.embedded.types.EmbeddedStorageManager
+import one.microstream.storage.types.StorageManager
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.TempDir
@@ -84,12 +84,12 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
     @Requires(property = "spec.name", value = "MicrostreamMetricsBinderSpec")
     static class SpecController {
 
-        private EmbeddedStorageManager townManager
-        private EmbeddedStorageManager peopleManager
+        private StorageManager townManager
+        private StorageManager peopleManager
 
         SpecController(
-                @Named('towns') EmbeddedStorageManager townManager,
-                @Named('people') EmbeddedStorageManager peopleManager
+                @Named('towns') StorageManager townManager,
+                @Named('people') StorageManager peopleManager
         ) {
             this.townManager = townManager
             this.peopleManager = peopleManager

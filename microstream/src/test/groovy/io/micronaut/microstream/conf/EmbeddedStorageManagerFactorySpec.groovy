@@ -6,13 +6,13 @@ import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
 import jakarta.inject.Inject
-import one.microstream.storage.embedded.types.EmbeddedStorageManager
+import one.microstream.storage.types.StorageManager
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.TempDir
 
 @MicronautTest(startApplication = false)
-class EmbeddedStorageManagerFactorySpec extends Specification implements TestPropertyProvider {
+class StorageManagerFactorySpec extends Specification implements TestPropertyProvider {
 
     @Inject
     BeanContext beanContext
@@ -31,12 +31,12 @@ class EmbeddedStorageManagerFactorySpec extends Specification implements TestPro
         ]
     }
 
-    void "you can have multiple beans of type EmbeddedStorageManager"() {
+    void "you can have multiple beans of type StorageManager"() {
         expect:
-        beanContext.getBeansOfType(EmbeddedStorageManager).size() == 2
+        beanContext.getBeansOfType(StorageManager).size() == 2
 
         when:
-        beanContext.getBean(EmbeddedStorageManager, Qualifiers.byName("blue"))
+        beanContext.getBean(StorageManager, Qualifiers.byName("blue"))
         then:
         noExceptionThrown()
     }

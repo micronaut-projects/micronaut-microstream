@@ -17,6 +17,7 @@ package io.micronaut.microstream.health;
 
 import io.micronaut.context.BeanContext;
 import io.micronaut.context.annotation.Requires;
+import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.naming.Named;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.health.HealthStatus;
@@ -25,7 +26,7 @@ import io.micronaut.management.endpoint.health.HealthEndpoint;
 import io.micronaut.management.health.indicator.HealthIndicator;
 import io.micronaut.management.health.indicator.HealthResult;
 import jakarta.inject.Singleton;
-import one.microstream.storage.embedded.types.EmbeddedStorageManager;
+import one.microstream.storage.types.StorageManager;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 
@@ -33,7 +34,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * A {@link HealthIndicator} that checks the health of all registered {@link EmbeddedStorageManager}s.
+ * A {@link HealthIndicator} that checks the health of all registered {@link StorageManager}s.
  *
  * @since 1.0.0
  * @author Tim Yates
@@ -45,33 +46,38 @@ public class MicrostreamHealthIndicator implements HealthIndicator {
 
     public static final String MICROSTREAM_PREFIX = "microstream";
     private static final String DOT = ".";
-    private final Map<String, EmbeddedStorageManager> embeddedStorageManagerMap = new ConcurrentHashMap<>();
+    private final Map<String, StorageManager> storageManagerMap = new ConcurrentHashMap<>();
 
     public MicrostreamHealthIndicator(BeanContext beanContext) {
-        for (BeanDefinition<EmbeddedStorageManager> definition : beanContext.getBeanDefinitions(EmbeddedStorageManager.class)) {
+        for (BeanDefinition<StorageManager> definition : beanContext.getBeanDefinitions(StorageManager.class)) {
             if (definition.getDeclaredQualifier() instanceof Named) {
                 String name = ((Named) definition.getDeclaredQualifier()).getName();
-                EmbeddedStorageManager embeddedStorageManager = beanContext.getBean(definition);
-                embeddedStorageManagerMap.putIfAbsent(name, embeddedStorageManager);
+                StorageManager storageManager = beanContext.getBean(definition);
+                storageManagerMap.putIfAbsent(name, storageManager);
             }
         }
     }
 
     @Override
     public Publisher<HealthResult> getResult() {
-        return Flux.fromIterable(embeddedStorageManagerMap.entrySet())
+        return Flux.fromIterable(storageManagerMap.entrySet())
             .map(namedBean -> {
-                EmbeddedStorageManager manager = namedBean.getValue();
+                StorageManager manager = namedBean.getValue();
                 return HealthResult.builder(
                         String.join(DOT, MICROSTREAM_PREFIX, namedBean.getKey()),
-                        namedBean.getValue().isRunning() ? HealthStatus.UP : HealthStatus.DOWN
-                    ).details(new MicrostreamHealth(manager.isStartingUp(),
-                        manager.isRunning(),
-                        manager.isActive(),
-                        manager.isAcceptingTasks(),
-                        manager.isShuttingDown(),
-                        manager.isShutdown()))
+                        namedBean.getValue().isRunning() ? HealthStatus.UP : HealthStatus.DOWN)
+                    .details(healthOfManager(manager))
                     .build();
             });
+    }
+
+    @NonNull
+    private static MicrostreamHealth healthOfManager(@NonNull StorageManager manager) {
+        return new MicrostreamHealth(manager.isStartingUp(),
+            manager.isRunning(),
+            manager.isActive(),
+            manager.isAcceptingTasks(),
+            manager.isShuttingDown(),
+            manager.isShutdown());
     }
 }

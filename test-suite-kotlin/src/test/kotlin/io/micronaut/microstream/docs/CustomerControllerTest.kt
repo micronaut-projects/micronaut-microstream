@@ -3,6 +3,7 @@ package io.micronaut.microstream.docs
 import io.micronaut.context.ApplicationContext
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpRequest
+import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
@@ -17,7 +18,7 @@ import org.junit.jupiter.api.function.Executable
 class CustomerControllerTest {
 
     @ParameterizedTest
-    @ValueSource(strings = ["embedded-storage-manager"])
+    @ValueSource(strings = ["embedded-storage-manager", "store"])
     fun verifyCrudWithMicrostream(customerRepositoryImplementation: String) {
         // Given
         var server = startServer(customerRepositoryImplementation)
@@ -50,6 +51,23 @@ class CustomerControllerTest {
         customer = getCustomer(server.client, sergioLocation)
         assertEquals(sergioName, customer.firstName)
         assertNull(customer.lastName)
+
+
+        val sergioLastName = "del Amo"
+        val patchResponse : HttpResponse<Any> = server.client.exchange(HttpRequest.PATCH(sergioLocation,
+            mapOf("firstName" to customer.firstName, "lastName" to sergioLastName)))
+
+        assertEquals(HttpStatus.OK, patchResponse.status())
+        assertNotNull(patchResponse.headers.get(HttpHeaders.LOCATION))
+        assertEquals(sergioLocation, patchResponse.headers.get(HttpHeaders.LOCATION))
+
+        //when: 'When we restart the server and we re-retrieve Sergio'
+        server = startServer(customerRepositoryImplementation, server)
+        customer = getCustomer(server.client, sergioLocation)
+
+        //then: "fetch Sergio, he still exists"
+        assertEquals(sergioName, customer.firstName)
+        assertEquals(sergioLastName, customer.lastName)
 
         // Delete Sergio
         deleteCustomer(server.client, sergioLocation)
@@ -93,19 +111,19 @@ class CustomerControllerTest {
         return ServerAndClient(server, httpClient.toBlocking())
     }
 
-    fun createCustomer(client: BlockingHttpClient, firstName: String): String {
+    private fun createCustomer(client: BlockingHttpClient, firstName: String): String {
         val response = client.exchange(HttpRequest.POST("/customer", mapOf("firstName" to firstName)), Any::class.java)
         assertEquals(HttpStatus.CREATED, response.status())
         return response.headers.get(HttpHeaders.LOCATION)!!
     }
 
-    fun getCustomer(client: BlockingHttpClient, location: String): Customer {
+    private fun getCustomer(client: BlockingHttpClient, location: String): Customer {
         val showResponse = client.exchange(location, Customer::class.java)
         assertEquals(HttpStatus.OK, showResponse.status())
         return showResponse.body()!!
     }
 
-    fun deleteCustomer(client: BlockingHttpClient, location: String) {
+    private fun deleteCustomer(client: BlockingHttpClient, location: String) {
         val exchange = client.exchange(HttpRequest.DELETE<Customer>(location), Customer::class.java)
         assertEquals(HttpStatus.NO_CONTENT, exchange.status())
     }

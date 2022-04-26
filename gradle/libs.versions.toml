@@ -6,6 +6,7 @@ reactor-test = '3.4.15'
 
 managed-microstream-storage-embedded-configuration= { module = 'one.microstream:microstream-storage-embedded-configuration', version.ref = 'managed-microstream' }
 
+micronaut-aop = { module = "io.micronaut:micronaut-aop" }
 micronaut-http-client = { module = "io.micronaut:micronaut-http-client" }
 micronaut-http-server-netty = { module = "io.micronaut:micronaut-http-server-netty" }
 micronaut-management = { module = "io.micronaut:micronaut-management" }

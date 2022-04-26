@@ -7,10 +7,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface CustomerRepository {
 
-	void save(@NonNull @NotNull @Valid Customer customer);
+    @NonNull
+    Customer save(@NonNull @NotNull @Valid CustomerSave customerSave);
+
+    void update(@NonNull @NotBlank String id,
+                @NonNull @NotNull @Valid CustomerSave customerSave);
 
     @NonNull
     Optional<Customer> findById(@NonNull @NotBlank String id);
