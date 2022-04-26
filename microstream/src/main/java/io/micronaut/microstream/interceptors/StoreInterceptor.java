@@ -231,7 +231,7 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
     private static void storeRootObject(final Object root, final PersistenceStoring storing) {
         final long storeId = storing.store(root);
         if (LOG.isWarnEnabled()) {
-            LOG.warn("Store the root it might return performance issue {}", storeId);
+            LOG.warn("Storing the root object may result in performance issues {}", storeId);
         }
     }
 }
