@@ -47,23 +47,9 @@ class CustomerControllerTest {
         String sergioLastName = "del Amo";
         String timFirstName = "Tim";
 
-        // When we create Sergio
-        HttpRequest<?> request = HttpRequest.POST("/customer", Collections.singletonMap("firstName", sergioFirstName));
-        HttpResponse<?> response = client.exchange(request);
-
-        // Then
-        assertEquals(HttpStatus.CREATED, response.status());
-        String sergioLocation = response.getHeaders().get(HttpHeaders.LOCATION);
-        assertNotNull(sergioLocation);
-
-        // When we create Tim
-        request = HttpRequest.POST("/customer", Collections.singletonMap("firstName", timFirstName));
-        response = client.exchange(request);
-        assertEquals(HttpStatus.CREATED, response.status());
-
-        // Then
-        String timLocation = response.getHeaders().get(HttpHeaders.LOCATION);
-        assertNotNull(timLocation);
+        // When we create Sergio and Tim
+        String sergioLocation = create(client, sergioFirstName);
+        String timLocation = create(client, timFirstName);
 
         // When we retrieve Sergio
         HttpRequest<?> showRequest = HttpRequest.GET(sergioLocation);
@@ -155,4 +141,14 @@ class CustomerControllerTest {
         fourthClient.close();
         embeddedServer.close();
     }
+
+    private static String create(BlockingHttpClient client, String firstName) {
+        HttpRequest<?> request = HttpRequest.POST("/customer", Collections.singletonMap("firstName", firstName));
+        HttpResponse<?> response = client.exchange(request);
+        assertEquals(HttpStatus.CREATED, response.status());
+        String location = response.getHeaders().get(HttpHeaders.LOCATION);
+        assertNotNull(location);
+        return location;
+    }
+
 }
