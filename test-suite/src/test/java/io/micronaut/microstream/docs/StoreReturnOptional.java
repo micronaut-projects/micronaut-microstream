@@ -5,7 +5,7 @@ import io.micronaut.core.annotation.Nullable;
 import io.micronaut.microstream.annotation.Store;
 import jakarta.inject.Singleton;
 import one.microstream.concurrency.XThreads;
-import one.microstream.storage.embedded.types.EmbeddedStorageManager;
+import one.microstream.storage.types.StorageManager;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -13,16 +13,16 @@ import java.util.Optional;
 
 @Singleton
 public class StoreReturnOptional {
-    private final EmbeddedStorageManager embeddedStorageManager;
+    private final StorageManager storageManager;
 
-    public StoreReturnOptional(EmbeddedStorageManager embeddedStorageManager) {
-        this.embeddedStorageManager = embeddedStorageManager;
+    public StoreReturnOptional(StorageManager storageManager) {
+        this.storageManager = storageManager;
     }
 
     public void save(@NonNull @NotNull @Valid Customer customer) {
         XThreads.executeSynchronized(() -> {
             data().getCustomers().put(customer.getId(), customer);
-            embeddedStorageManager.store(data().getCustomers());
+            storageManager.store(data().getCustomers());
         });
     }
 
@@ -40,6 +40,6 @@ public class StoreReturnOptional {
     }
 
     Data data() {
-        return (Data) embeddedStorageManager.root();
+        return (Data) storageManager.root();
     }
 }

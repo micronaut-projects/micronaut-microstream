@@ -6,7 +6,7 @@ configuration: Configuration
 rootInstance: Root Instance
 storage:
   title: Storage
-  storageWithEmbeddedStorageManager: Embedded Storage Manager Store
+  storageWithStorageManager: StorageManager
   storageWithStore: Store Annotation
 microstreamMetrics: Metrics
 storageHealth: Health

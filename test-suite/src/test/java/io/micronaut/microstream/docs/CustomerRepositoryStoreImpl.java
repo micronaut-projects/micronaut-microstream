@@ -5,7 +5,7 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.microstream.annotation.Store;
 import jakarta.inject.Singleton;
-import one.microstream.storage.embedded.types.EmbeddedStorageManager;
+import one.microstream.storage.types.StorageManager;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -19,10 +19,10 @@ import java.util.UUID;
 @Singleton
 public class CustomerRepositoryStoreImpl implements CustomerRepository {
 
-    private final EmbeddedStorageManager embeddedStorageManager;
+    private final StorageManager storageManager;
 
-    public CustomerRepositoryStoreImpl(EmbeddedStorageManager embeddedStorageManager) { // <1>
-        this.embeddedStorageManager = embeddedStorageManager;
+    public CustomerRepositoryStoreImpl(StorageManager storageManager) { // <1>
+        this.storageManager = storageManager;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class CustomerRepositoryStoreImpl implements CustomerRepository {
 
     @NonNull
     private Data data() {
-        return (Data) embeddedStorageManager.root();
+        return (Data) storageManager.root();
     }
 }
 //end::clazz[]

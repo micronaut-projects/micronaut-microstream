@@ -2,16 +2,16 @@ package io.micronaut.microstream.docs;
 
 import io.micronaut.microstream.annotation.Store;
 import jakarta.inject.Singleton;
-import one.microstream.storage.embedded.types.EmbeddedStorageManager;
+import one.microstream.storage.types.StorageManager;
 
 import java.util.Map;
 
 @Singleton
 public class StoreNullResult {
-    private final EmbeddedStorageManager embeddedStorageManager;
+    private final StorageManager storageManager;
 
-    public StoreNullResult(EmbeddedStorageManager embeddedStorageManager) {
-        this.embeddedStorageManager = embeddedStorageManager;
+    public StoreNullResult(StorageManager storageManager) {
+        this.storageManager = storageManager;
     }
 
     public void saveNullResult(Customer customer) {
@@ -36,6 +36,6 @@ public class StoreNullResult {
 
 
     Data data() {
-        return (Data) embeddedStorageManager.root();
+        return (Data) storageManager.root();
     }
 }

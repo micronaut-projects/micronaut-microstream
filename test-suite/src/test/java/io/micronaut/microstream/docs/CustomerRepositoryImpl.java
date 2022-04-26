@@ -4,7 +4,7 @@ import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 import one.microstream.concurrency.XThreads;
-import one.microstream.storage.embedded.types.EmbeddedStorageManager;
+import one.microstream.storage.types.StorageManager;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -18,10 +18,10 @@ import java.util.UUID;
 @Singleton
 public class CustomerRepositoryImpl implements CustomerRepository {
 
-    private final EmbeddedStorageManager embeddedStorageManager;
+    private final StorageManager storageManager;
 
-    public CustomerRepositoryImpl(EmbeddedStorageManager embeddedStorageManager) { // <1>
-        this.embeddedStorageManager = embeddedStorageManager;
+    public CustomerRepositoryImpl(StorageManager storageManager) { // <1>
+        this.storageManager = storageManager;
     }
 
 	@Override
@@ -31,7 +31,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             String id = UUID.randomUUID().toString();
             Customer customer = new Customer(id, customerSave.getFirstName(), customerSave.getLastName());
             data().getCustomers().put(id, customer);
-            embeddedStorageManager.store(data().getCustomers()); // <3>
+            storageManager.store(data().getCustomers()); // <3>
             return customer;
         });
 	}
@@ -43,7 +43,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             Customer c = data().getCustomers().get(id);
             c.setFirstName(customerSave.getFirstName());
             c.setLastName(customerSave.getLastName());
-            embeddedStorageManager.store(c); // <3>
+            storageManager.store(c); // <3>
         });
     }
 
@@ -57,12 +57,12 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public void deleteById(@NonNull @NotBlank String id) {
         XThreads.executeSynchronized(() -> { // <2>
             data().getCustomers().remove(id);
-            embeddedStorageManager.store(data().getCustomers()); // <3>
+            storageManager.store(data().getCustomers()); // <3>
         });
     }
 
     private Data data() {
-        return (Data) embeddedStorageManager.root();
+        return (Data) storageManager.root();
     }
 }
 //end::clazz[]

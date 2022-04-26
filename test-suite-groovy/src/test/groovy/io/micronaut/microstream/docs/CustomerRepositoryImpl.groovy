@@ -4,7 +4,8 @@ import io.micronaut.context.annotation.Requires
 import io.micronaut.core.annotation.NonNull
 import jakarta.inject.Singleton
 import one.microstream.concurrency.XThreads
-import one.microstream.storage.embedded.types.EmbeddedStorageManager
+import one.microstream.storage.types.StorageManager
+
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
@@ -15,10 +16,10 @@ import java.util.function.Supplier
 @Singleton
 class CustomerRepositoryImpl implements CustomerRepository {
 
-    private final EmbeddedStorageManager embeddedStorageManager
+    private final StorageManager storageManager
 
-    CustomerRepositoryImpl(EmbeddedStorageManager embeddedStorageManager) { // <1>
-        this.embeddedStorageManager = embeddedStorageManager
+    CustomerRepositoryImpl(StorageManager storageManager) { // <1>
+        this.storageManager = storageManager
     }
 
     @Override
@@ -68,11 +69,11 @@ class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     private void store(Object instance) {
-        embeddedStorageManager.store(instance)
+        storageManager.store(instance)
     }
 
     private Data data() {
-        (Data) embeddedStorageManager.root()
+        (Data) storageManager.root()
     }
 }
 //end::clazz[]

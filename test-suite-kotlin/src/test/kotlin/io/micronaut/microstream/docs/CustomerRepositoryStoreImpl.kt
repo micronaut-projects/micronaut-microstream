@@ -5,8 +5,7 @@ import io.micronaut.core.annotation.NonNull
 import io.micronaut.core.annotation.Nullable
 import io.micronaut.microstream.annotation.Store
 import jakarta.inject.Singleton
-import one.microstream.concurrency.XThreads
-import one.microstream.storage.embedded.types.EmbeddedStorageManager
+import one.microstream.storage.types.StorageManager
 import java.util.*
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
@@ -14,7 +13,7 @@ import javax.validation.constraints.NotBlank
 @Requires(property = "customer.repository", value = "store")
 //tag::clazz[]
 @Singleton
-open class CustomerRepositoryStoreImpl(private val embeddedStorageManager: EmbeddedStorageManager) // <1>
+open class CustomerRepositoryStoreImpl(private val storageManager: StorageManager) // <1>
     : CustomerRepository {
     override fun save(customerSave: @Valid CustomerSave): Customer {
         return addCustomer(data.customers, customerSave)
@@ -63,7 +62,7 @@ open class CustomerRepositoryStoreImpl(private val embeddedStorageManager: Embed
 
     private val data: Data
         get() {
-            val root = embeddedStorageManager.root()
+            val root = storageManager.root()
             return if (root is Data) root else throw RuntimeException("Root is not Data")
         }
 }

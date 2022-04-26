@@ -2,7 +2,7 @@ package io.micronaut.microstream.docs;
 
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.core.util.CollectionUtils;
-import one.microstream.storage.embedded.types.EmbeddedStorageManager;
+import one.microstream.storage.types.StorageManager;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -20,8 +20,8 @@ class StoreReturnOptionalTest {
             "microstream.storage.main.storage-directory", storageDirectory,
             "microstream.storage.main.root-class", "io.micronaut.microstream.docs.Data");
         ApplicationContext ctx = ApplicationContext.run(properties);
-        assertTrue(ctx.getBean(EmbeddedStorageManager.class).root() instanceof Data);
-        Data data = (Data) ctx.getBean(EmbeddedStorageManager.class).root();
+        assertTrue(ctx.getBean(StorageManager.class).root() instanceof Data);
+        Data data = (Data) ctx.getBean(StorageManager.class).root();
 
         // When you start there is no data
         assertTrue(data.getCustomers().isEmpty());
@@ -38,8 +38,8 @@ class StoreReturnOptionalTest {
         ctx = ApplicationContext.run(properties);
 
         // The customer is there after stopping and starting
-        assertTrue(ctx.getBean(EmbeddedStorageManager.class).root() instanceof Data);
-        data = (Data) ctx.getBean(EmbeddedStorageManager.class).root();
+        assertTrue(ctx.getBean(StorageManager.class).root() instanceof Data);
+        data = (Data) ctx.getBean(StorageManager.class).root();
         assertFalse(data.getCustomers().isEmpty());
         Optional<Customer> savedCustomerOptional = data.getCustomers().values().stream().findFirst();
         assertTrue(savedCustomerOptional.isPresent());

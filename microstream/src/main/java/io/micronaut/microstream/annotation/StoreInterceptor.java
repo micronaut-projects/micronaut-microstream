@@ -30,7 +30,8 @@ import io.micronaut.inject.BeanDefinition;
 import io.micronaut.inject.qualifiers.Qualifiers;
 import jakarta.inject.Singleton;
 import one.microstream.concurrency.XThreads;
-import one.microstream.storage.embedded.types.EmbeddedStorageManager;
+import one.microstream.storage.types.StorageManager;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -56,7 +57,7 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
     private static final String PARAMETERS = "parameters";
     private static final String RESULT = "result";
 
-    private final ConcurrentHashMap<String, EmbeddedStorageManager> managerLookup = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, StorageManager> managerLookup = new ConcurrentHashMap<>();
     private final BeanContext beanContext;
 
     public StoreInterceptor(BeanContext beanContext) {
@@ -77,7 +78,7 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
                     return context.proceed();
                 }
                 @SuppressWarnings("resource") // We don't want to close the storage manager
-                EmbeddedStorageManager manager = lookupManager(storeAnnotationValue);
+                StorageManager manager = lookupManager(storeAnnotationValue);
 
                 return XThreads.executeSynchronized(() -> {
                     Object result = context.proceed();
@@ -89,7 +90,7 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
         }
     }
 
-    private void store(@NonNull EmbeddedStorageManager embeddedStorageManager,
+    private void store(@NonNull StorageManager storageManager,
                        @NonNull MethodInvocationContext<Object, Object> context,
                        @NonNull AnnotationValue<Store> storeAnnotationValue,
                        @Nullable Object result) {
@@ -98,24 +99,24 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
             objects.add(result);
         }
         if (CollectionUtils.isNotEmpty(objects)) {
-            store(embeddedStorageManager, objects);
+            store(storageManager, objects);
         }
     }
 
-    private void store(@NonNull EmbeddedStorageManager embeddedStorageManager,
+    private void store(@NonNull StorageManager storageManager,
                        @NonNull List<Object> instances) {
-        embeddedStorageManager.storeAll(instances);
+        storageManager.storeAll(instances);
     }
 
     @NonNull
-    private EmbeddedStorageManager lookupManager(@NonNull AnnotationValue<Store> storeAnnotationValue) {
+    private StorageManager lookupManager(@NonNull AnnotationValue<Store> storeAnnotationValue) {
         String name = Optional.ofNullable(storeAnnotationValue)
             .flatMap(a -> a.stringValue("name")).orElse(null);
         return lookupManager(name);
     }
 
     @NonNull
-    private EmbeddedStorageManager lookupManager(@Nullable String name) {
+    private StorageManager lookupManager(@Nullable String name) {
         if (StringUtils.isNotEmpty(name)) {
             return managerLookup.computeIfAbsent(name, this::getManagerForName);
         } else {
@@ -124,8 +125,8 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
     }
 
     @NonNull
-    private EmbeddedStorageManager getSingleManager() {
-        Collection<BeanDefinition<EmbeddedStorageManager>> beansOfType = beanContext.getBeanDefinitions(EmbeddedStorageManager.class);
+    private StorageManager getSingleManager() {
+        Collection<BeanDefinition<StorageManager>> beansOfType = beanContext.getBeanDefinitions(StorageManager.class);
         if (beansOfType.size() != 1) {
             throw new IllegalStateException(MULTIPLE_MANAGERS_WITH_NO_QUALIFIER_MESSAGE);
         } else {
@@ -134,9 +135,9 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
     }
 
     @NonNull
-    private EmbeddedStorageManager getManagerForName(@NonNull String name) {
-        if (beanContext.containsBean(EmbeddedStorageManager.class, Qualifiers.byName(name))) {
-            return beanContext.getBean(EmbeddedStorageManager.class, Qualifiers.byName(name));
+    private StorageManager getManagerForName(@NonNull String name) {
+        if (beanContext.containsBean(StorageManager.class, Qualifiers.byName(name))) {
+            return beanContext.getBean(StorageManager.class, Qualifiers.byName(name));
         } else {
             throw new StorageInterceptorException("No storage manager found for @" + Store.class.getSimpleName() + "(name = \"" + name + "\").");
         }

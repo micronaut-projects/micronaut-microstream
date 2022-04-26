@@ -26,6 +26,7 @@ import io.micronaut.inject.qualifiers.Qualifiers;
 import jakarta.inject.Singleton;
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation;
 import one.microstream.storage.embedded.types.EmbeddedStorageManager;
+import one.microstream.storage.types.StorageManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +35,8 @@ import org.slf4j.LoggerFactory;
  * @since 1.0.0
  */
 @Factory
-public class EmbeddedStorageManagerFactory {
-    private static final Logger LOG = LoggerFactory.getLogger(EmbeddedStorageManagerFactory.class);
+public class StorageManagerFactory {
+    private static final Logger LOG = LoggerFactory.getLogger(StorageManagerFactory.class);
 
     private final BeanContext beanContext;
 
@@ -43,7 +44,7 @@ public class EmbeddedStorageManagerFactory {
      * Constructor.
      * @param beanContext Bean Context.
      */
-    public EmbeddedStorageManagerFactory(BeanContext beanContext) {
+    public StorageManagerFactory(BeanContext beanContext) {
         this.beanContext = beanContext;
     }
 
@@ -56,8 +57,8 @@ public class EmbeddedStorageManagerFactory {
     @EachBean(EmbeddedStorageFoundation.class)
     @Bean(preDestroy = "shutdown")
     @Singleton
-    public EmbeddedStorageManager createEmbeddedStorageManager(EmbeddedStorageFoundation<?> foundation,
-                                                               @Parameter String name) {
+    public StorageManager createStorageManager(EmbeddedStorageFoundation<?> foundation,
+                                                       @Parameter String name) {
         EmbeddedStorageManager storageManager = foundation.createEmbeddedStorageManager().start();
         if (storageManager.root() == null) {
             if (LOG.isTraceEnabled()) {

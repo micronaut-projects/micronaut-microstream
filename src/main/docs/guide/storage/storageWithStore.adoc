@@ -2,8 +2,8 @@ The following example shows how an equivalent implementation which leverages the
 
 snippet::io.micronaut.microstream.docs.CustomerRepositoryStoreImpl[tags=clazz]
 
-<1> If your Micronaut application has only a single Microstream Instance, you don't need to specify a name qualifier to inject `EmbeddedStorageManager`.
+<1> If your Micronaut application has only a single Microstream Instance, you don't need to specify a name qualifier to inject `StorageManager`.
 <2> https://docs.microstream.one/manual/storage/storing-data/index.html[The rule is: "The Object that has been modified has to be stored!".].
 <3> https://docs.microstream.one/manual/storage/storing-data/index.html[To store a newly created object, store the "owner" of the object].
 
-NOTE: ann:microstream.annotation.Store[] only works for synchronous methods. It does not do any logic for methods returning a `Publisher` or a `CompletableFuture`. For those scenarios, use directly the `EmbeddedStorageManager`.
+NOTE: ann:microstream.annotation.Store[] only works for synchronous methods. It does not do any logic for methods returning a `Publisher` or a `CompletableFuture`. For those scenarios, use directly the `StorageManager`.

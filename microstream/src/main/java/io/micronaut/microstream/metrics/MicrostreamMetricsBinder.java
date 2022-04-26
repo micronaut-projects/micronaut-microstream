@@ -28,7 +28,8 @@ import io.micronaut.core.naming.Named;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.inject.BeanDefinition;
 import jakarta.inject.Singleton;
-import one.microstream.storage.embedded.types.EmbeddedStorageManager;
+import one.microstream.storage.types.StorageManager;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
@@ -56,29 +57,29 @@ public class MicrostreamMetricsBinder implements MeterBinder {
     private static final String DESCRIPTION_LIVE_DATA_LENGTH = "Displays live data length. This is the 'real' size of the stored data.";
     private static final String DOT = ".";
 
-    private final Map<String, EmbeddedStorageManager> embeddedStorageManagerMap = new ConcurrentHashMap<>();
+    private final Map<String, StorageManager> storageManagerMap = new ConcurrentHashMap<>();
 
     /**
      *
      * @param beanContext Bean Context
      */
     public MicrostreamMetricsBinder(BeanContext beanContext) {
-        for (BeanDefinition<EmbeddedStorageManager> definition : beanContext.getBeanDefinitions(EmbeddedStorageManager.class)) {
+        for (BeanDefinition<StorageManager> definition : beanContext.getBeanDefinitions(StorageManager.class)) {
             if (definition.getDeclaredQualifier() instanceof Named) {
-                EmbeddedStorageManager embeddedStorageManager = beanContext.getBean(definition);
-                embeddedStorageManagerMap.putIfAbsent(((Named) definition.getDeclaredQualifier()).getName(), embeddedStorageManager);
+                StorageManager storageManager = beanContext.getBean(definition);
+                storageManagerMap.putIfAbsent(((Named) definition.getDeclaredQualifier()).getName(), storageManager);
             }
         }
     }
 
     @Override
     public void bindTo(@NonNull MeterRegistry registry) {
-        embeddedStorageManagerMap.forEach((key, value) ->
-            bindEmbeddedStorageManagerToRegistry(key, value, registry));
+        storageManagerMap.forEach((key, value) ->
+            bindStorageManagerToRegistry(key, value, registry));
     }
 
-    private void bindEmbeddedStorageManagerToRegistry(@NonNull String name,
-                                                      @NonNull EmbeddedStorageManager manager,
+    private void bindStorageManagerToRegistry(@NonNull String name,
+                                                      @NonNull StorageManager manager,
                                                       @NonNull MeterRegistry registry) {
         gauge(registry, name, SUFFIX_TOTAL_DATA_LENGTH,
             DESCRIPTION_TOTAL_DATA_LENGTH,

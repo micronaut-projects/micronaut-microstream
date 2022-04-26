@@ -107,17 +107,17 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Around
 public @interface Store {
     /**
-     * The optional name qualifier of the {@link one.microstream.storage.embedded.types.EmbeddedStorageManager} to use.
+     * The optional name qualifier of the {@link one.microstream.storage.types.StorageManager} to use.
      * If your application only have a Microstream instance, this is not required
      *
-     * @return The name qualifier of the {@link one.microstream.storage.embedded.types.EmbeddedStorageManager} to use.
+     * @return The name qualifier of the {@link one.microstream.storage.types.StorageManager} to use.
      */
     @AliasFor(member = "value")
     String name() default "";
 
     /**
-     * parameters which should be stored in the associated {@link one.microstream.storage.embedded.types.EmbeddedStorageManager}.
-     * @return parameters name which should be stored in the associated {@link one.microstream.storage.embedded.types.EmbeddedStorageManager}.
+     * parameters which should be stored in the associated {@link one.microstream.storage.types.StorageManager}.
+     * @return parameters name which should be stored in the associated {@link one.microstream.storage.types.StorageManager}.
      */
     String[] parameters() default {};
 
