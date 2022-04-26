@@ -4,7 +4,9 @@ import io.micronaut.context.annotation.Requires
 import io.micronaut.core.annotation.NonNull
 import io.micronaut.core.annotation.Nullable
 import io.micronaut.microstream.RootProvider
-import io.micronaut.microstream.annotation.Store
+import io.micronaut.microstream.annotations.Store
+import io.micronaut.microstream.annotations.StoreParams
+import io.micronaut.microstream.annotations.StoreReturn
 import jakarta.inject.Singleton
 import java.util.*
 import javax.validation.Valid
@@ -33,7 +35,7 @@ open class CustomerRepositoryStoreImpl(private val rootProvider: RootProvider<Da
         removeCustomer(rootProvider.root().customers, id)
     }
 
-    @Store(result = true) // <2>
+    @StoreReturn // <2>
     @Nullable
     open fun updateCustomer(id: String, customerSave: CustomerSave): Customer? {
         val c: Customer? = rootProvider.root().customers[id]
@@ -44,7 +46,7 @@ open class CustomerRepositoryStoreImpl(private val rootProvider: RootProvider<Da
         } else null
     }
 
-    @Store(parameters = ["customers"]) // <3>
+    @StoreParams("customers") // <3>
     open fun addCustomer(customers: MutableMap<String, Customer>, customerSave: CustomerSave): Customer {
         val customer = Customer(
             UUID.randomUUID().toString(),
@@ -55,7 +57,7 @@ open class CustomerRepositoryStoreImpl(private val rootProvider: RootProvider<Da
         return customer
     }
 
-    @Store(parameters = ["customers"]) // <3>
+    @StoreParams("customers") // <3>
     open fun removeCustomer(customers: MutableMap<String, Customer>, id: String) {
         customers.remove(id)
     }

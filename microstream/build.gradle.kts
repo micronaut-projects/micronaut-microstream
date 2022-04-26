@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     compileOnly(libs.micronaut.micrometer.core)
+    compileOnly(project(":microstream-annotations"))
     api(libs.managed.microstream.storage.embedded.configuration)
 
     compileOnly(libs.micronaut.management)

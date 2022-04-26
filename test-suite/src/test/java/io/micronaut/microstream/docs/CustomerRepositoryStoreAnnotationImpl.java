@@ -4,9 +4,9 @@ import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.microstream.RootProvider;
-import io.micronaut.microstream.annotations.StoreParams;
-import io.micronaut.microstream.annotations.StoreReturn;
+import io.micronaut.microstream.annotations.Store;
 import jakarta.inject.Singleton;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,14 +14,14 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-@Requires(property = "customer.repository", value = "store")
+@Requires(property = "customer.repository", value = "store-annotation")
 //tag::clazz[]
 @Singleton
-public class CustomerRepositoryStoreImpl implements CustomerRepository {
+public class CustomerRepositoryStoreAnnotationImpl implements CustomerRepository {
 
     private final RootProvider<Data> rootProvider;
 
-    public CustomerRepositoryStoreImpl(RootProvider<Data> rootProvider) { // <1>
+    public CustomerRepositoryStoreAnnotationImpl(RootProvider<Data> rootProvider) { // <1>
         this.rootProvider = rootProvider;
     }
 
@@ -48,7 +48,7 @@ public class CustomerRepositoryStoreImpl implements CustomerRepository {
         removeCustomer(rootProvider.root().getCustomers(), id);
     }
 
-    @StoreReturn // <2>
+    @Store(result = true) // <2>
     @Nullable
     protected Customer updateCustomer(@NonNull String id,
                                       @NonNull CustomerSave customerSave) {
@@ -61,7 +61,7 @@ public class CustomerRepositoryStoreImpl implements CustomerRepository {
         return null;
     }
 
-    @StoreParams("customers") // <3>
+    @Store(parameters = "customers") // <3>
     protected Customer addCustomer(@NonNull Map<String, Customer> customers,
                                    @NonNull CustomerSave customerSave) {
         Customer customer = new Customer(UUID.randomUUID().toString(),
@@ -71,7 +71,7 @@ public class CustomerRepositoryStoreImpl implements CustomerRepository {
         return customer;
     }
 
-    @StoreParams("customers") // <3>
+    @Store(parameters = "customers") // <3>
     protected void removeCustomer(@NonNull Map<String, Customer> customers,
                                   @NonNull String id) {
         customers.remove(id);

@@ -26,7 +26,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class CustomerControllerTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {"embedded-storage-manager", "store", "store-with-name", "root-eager"})
+    @ValueSource(strings = {
+        "store",
+        "embedded-storage-manager",
+        "store-with-name",
+        "root-eager",
+        "store-annotation"
+    })
     void verifyCrudWithMicrostream(String customerRepositoryImplementation) throws Exception {
         // Given
         String storageDirectory = "build/microstream-" + UUID.randomUUID();

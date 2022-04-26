@@ -1,6 +1,6 @@
 package io.micronaut.microstream.docs;
 
-import io.micronaut.microstream.annotation.Store;
+import io.micronaut.microstream.annotations.Store;
 import jakarta.inject.Singleton;
 import one.microstream.storage.types.StorageManager;
 

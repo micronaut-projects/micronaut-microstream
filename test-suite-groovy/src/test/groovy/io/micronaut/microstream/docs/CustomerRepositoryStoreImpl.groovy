@@ -4,7 +4,9 @@ import io.micronaut.context.annotation.Requires
 import io.micronaut.core.annotation.NonNull
 import io.micronaut.core.annotation.Nullable
 import io.micronaut.microstream.RootProvider
-import io.micronaut.microstream.annotation.Store
+import io.micronaut.microstream.annotations.Store
+import io.micronaut.microstream.annotations.StoreParams
+import io.micronaut.microstream.annotations.StoreReturn
 import jakarta.inject.Singleton
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
@@ -44,7 +46,7 @@ class CustomerRepositoryStoreImpl implements CustomerRepository {
         removeCustomer(rootProvider.root().customers, id)
     }
 
-    @Store(result = true) // <2>
+    @StoreReturn // <2>
     @Nullable
     protected Customer updateCustomer(@NonNull String id,
                                       @NonNull CustomerSave customerSave) {
@@ -59,7 +61,7 @@ class CustomerRepositoryStoreImpl implements CustomerRepository {
         null
     }
 
-    @Store(parameters = "customers") // <3>
+    @StoreParams("customers") // <3>
     protected Customer addCustomer(@NonNull Map<String, Customer> customers,
                                    @NonNull CustomerSave customerSave) {
         Customer customer = new Customer(UUID.randomUUID().toString(),
@@ -69,7 +71,7 @@ class CustomerRepositoryStoreImpl implements CustomerRepository {
         customer
     }
 
-    @Store(parameters = "customers") // <3>
+    @StoreParams("customers") // <3>
     protected void removeCustomer(@NonNull Map<String, Customer> customers,
                                   @NonNull String id) {
         customers.remove(id)

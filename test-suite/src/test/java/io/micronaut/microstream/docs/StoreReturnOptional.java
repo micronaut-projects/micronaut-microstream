@@ -2,7 +2,7 @@ package io.micronaut.microstream.docs;
 
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
-import io.micronaut.microstream.annotation.Store;
+import io.micronaut.microstream.annotations.Store;
 import jakarta.inject.Singleton;
 import one.microstream.concurrency.XThreads;
 import one.microstream.storage.types.StorageManager;

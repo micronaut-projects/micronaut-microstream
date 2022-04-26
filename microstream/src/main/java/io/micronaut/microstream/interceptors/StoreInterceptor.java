@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.annotation;
+package io.micronaut.microstream.interceptors;
 
 import io.micronaut.aop.InterceptedMethod;
 import io.micronaut.aop.InterceptorBean;
@@ -28,6 +28,8 @@ import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.inject.BeanDefinition;
 import io.micronaut.inject.qualifiers.Qualifiers;
+import io.micronaut.microstream.annotations.Store;
+import io.micronaut.microstream.annotations.StoringStrategy;
 import jakarta.inject.Singleton;
 import one.microstream.concurrency.XThreads;
 import one.microstream.persistence.types.PersistenceStoring;

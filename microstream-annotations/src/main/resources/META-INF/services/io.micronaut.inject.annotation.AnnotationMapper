@@ -1,0 +1,3 @@
+io.micronaut.microstream.annotations.StoreRootAnnotationMapper
+io.micronaut.microstream.annotations.StoreReturnAnnotationMapper
+io.micronaut.microstream.annotations.StoreParamsAnnotationMapper

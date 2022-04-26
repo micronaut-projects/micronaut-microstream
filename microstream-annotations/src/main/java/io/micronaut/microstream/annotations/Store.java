@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.annotation;
+package io.micronaut.microstream.annotations;
 
 import io.micronaut.aop.Around;
 import io.micronaut.context.annotation.AliasFor;
@@ -26,8 +26,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  *
- * An around annotation for methods which simplifies storing objects
- * in an associated {@link one.microstream.storage.embedded.types.EmbeddedStorageManager}.
+ * An around annotation for methods which simplifies storing objects in an associated Storage Manager.
  *
  * <p>
  * This annotation will wrap the decorated method to ensure thread isolation.
@@ -107,17 +106,17 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Around
 public @interface Store {
     /**
-     * The optional name qualifier of the {@link one.microstream.storage.types.StorageManager} to use.
+     * The optional name qualifier of the StorageManager to use.
      * If your application only have a Microstream instance, this is not required
      *
-     * @return The name qualifier of the {@link one.microstream.storage.types.StorageManager} to use.
+     * @return The name qualifier of the StorageManager to use.
      */
     @AliasFor(member = "value")
     String name() default "";
 
     /**
-     * parameters which should be stored in the associated {@link one.microstream.storage.types.StorageManager}.
-     * @return parameters name which should be stored in the associated {@link one.microstream.storage.types.StorageManager}.
+     * parameters which should be stored in the associated StorageManager.
+     * @return parameters name which should be stored in the associated StorageManager.
      */
     String[] parameters() default {};
 

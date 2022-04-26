@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.annotation;
+package io.micronaut.microstream.annotations;
 
 /**
  * Defines the way the instance that will be stored in the {@link one.microstream.storage.types.StorageManager}.

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.annotation;
+package io.micronaut.microstream.interceptors;
 
 /**
  * Exception thrown when an error occurs during storage interceptor processing.

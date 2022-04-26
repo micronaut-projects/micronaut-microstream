@@ -18,4 +18,4 @@
  * @author Sergio del Amo
  * @since 1.0.0
  */
-package io.micronaut.microstream.annotation;
+package io.micronaut.microstream.annotations;

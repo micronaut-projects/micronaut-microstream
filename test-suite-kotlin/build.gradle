@@ -8,7 +8,11 @@ repositories {
 }
 
 dependencies {
+    kaptTest(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    kaptTest (project(":microstream-annotations"))
     testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    testImplementation(project(":microstream-annotations"))
+
     testImplementation("io.micronaut:micronaut-validation")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api")
