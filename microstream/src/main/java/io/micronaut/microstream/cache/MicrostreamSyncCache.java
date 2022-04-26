@@ -15,6 +15,7 @@
  */
 package io.micronaut.microstream.cache;
 
+import io.micronaut.cache.AsyncCache;
 import io.micronaut.cache.SyncCache;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.convert.ConversionService;
@@ -24,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.cache.Cache;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
 import java.util.function.Supplier;
 
 /**
@@ -41,11 +43,13 @@ public class MicrostreamSyncCache<K, V> implements SyncCache<Cache<K, V>>, AutoC
     private final String name;
     private final Cache<K, V> cache;
     private final ConversionService<?> conversionService;
+    private final ExecutorService executorService;
 
-    public MicrostreamSyncCache(String name, Cache<K, V> cache, ConversionService<?> conversionService) {
+    public MicrostreamSyncCache(String name, Cache<K, V> cache, ConversionService<?> conversionService, ExecutorService executorService) {
         this.name = name;
         this.cache = cache;
         this.conversionService = conversionService;
+        this.executorService = executorService;
     }
 
     @Override
@@ -106,6 +110,12 @@ public class MicrostreamSyncCache<K, V> implements SyncCache<Cache<K, V>>, AutoC
             LOG.debug("Invalidating all");
         }
         cache.clear();
+    }
+
+    @Override
+    @NonNull
+    public AsyncCache<Cache<K, V>> async() {
+        return new MicrostreamAsyncCache<>(name, this, executorService);
     }
 
     @Override
