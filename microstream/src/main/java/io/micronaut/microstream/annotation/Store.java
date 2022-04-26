@@ -126,4 +126,17 @@ public @interface Store {
      * @return Whether to store the method result.
      */
     boolean result() default false;
+
+    /**
+     * The Storing strategy. Defaults to Lazy.
+     * @return Storing Strategy;
+     */
+    StoringStrategy strategy() default StoringStrategy.LAZY;
+
+    /**
+     * Whether to ignore {@link Store#parameters()} and {@link Store#result()} and store the whole entity class root. Defaults to false.
+     *
+     * @return  Whether to ignore {@link Store#parameters()} and {@link Store#result()} and store the whole entity class root.
+     */
+    boolean root() default false;
 }

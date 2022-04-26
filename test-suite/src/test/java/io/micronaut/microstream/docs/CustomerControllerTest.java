@@ -1,7 +1,6 @@
 package io.micronaut.microstream.docs;
 
 import io.micronaut.context.ApplicationContext;
-import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpRequest;
@@ -27,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class CustomerControllerTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {"embedded-storage-manager", "store", "store-with-name"})
+    @ValueSource(strings = {"embedded-storage-manager", "store", "store-with-name", "root-eager"})
     void verifyCrudWithMicrostream(String customerRepositoryImplementation) throws Exception {
         // Given
         String storageDirectory = "build/microstream-" + UUID.randomUUID();

@@ -26,7 +26,6 @@ import io.micronaut.management.endpoint.health.HealthEndpoint;
 import io.micronaut.management.health.indicator.HealthIndicator;
 import io.micronaut.management.health.indicator.HealthResult;
 import jakarta.inject.Singleton;
-import one.microstream.storage.types.StorageActivePart;
 import one.microstream.storage.types.StorageManager;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
