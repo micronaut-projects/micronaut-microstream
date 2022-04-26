@@ -10,6 +10,7 @@ managed-microstream-cache = { module = 'one.microstream:microstream-cache', vers
 jupiter-api = { module = 'org.junit.jupiter:junit-jupiter-api' }
 micronaut-cache-core = { module = 'io.micronaut.cache:micronaut-cache-core'}
 micronaut-cache-tck = { module = 'io.micronaut.cache:micronaut-cache-tck'}
+micronaut-aop = { module = "io.micronaut:micronaut-aop" }
 micronaut-http-client = { module = "io.micronaut:micronaut-http-client" }
 micronaut-http-server-netty = { module = "io.micronaut:micronaut-http-server-netty" }
 micronaut-management = { module = "io.micronaut:micronaut-management" }

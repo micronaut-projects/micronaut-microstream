@@ -1,7 +1,6 @@
 package io.micronaut.microstream.docs;
 
 import io.micronaut.context.ApplicationContext;
-import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpRequest;
@@ -27,7 +26,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class CustomerControllerTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {"embedded-storage-manager"})
+    @ValueSource(strings = {
+        "store",
+        "embedded-storage-manager",
+        "store-with-name",
+        "root-eager",
+        "store-root-eager",
+        "store-annotation"
+    })
     void verifyCrudWithMicrostream(String customerRepositoryImplementation) throws Exception {
         // Given
         String storageDirectory = "build/microstream-" + UUID.randomUUID();
@@ -44,25 +50,12 @@ class CustomerControllerTest {
 
         // And
         String sergioFirstName = "Sergio";
+        String sergioLastName = "del Amo";
         String timFirstName = "Tim";
 
-        // When we create Sergio
-        HttpRequest<?> request = HttpRequest.POST("/customer", Collections.singletonMap("firstName", sergioFirstName));
-        HttpResponse<?> response = client.exchange(request);
-
-        // Then
-        assertEquals(HttpStatus.CREATED, response.status());
-        String sergioLocation = response.getHeaders().get(HttpHeaders.LOCATION);
-        assertNotNull(sergioLocation);
-
-        // When we create Tim
-        request = HttpRequest.POST("/customer", Collections.singletonMap("firstName", timFirstName));
-        response = client.exchange(request);
-        assertEquals(HttpStatus.CREATED, response.status());
-
-        // Then
-        String timLocation = response.getHeaders().get(HttpHeaders.LOCATION);
-        assertNotNull(timLocation);
+        // When we create Sergio and Tim
+        String sergioLocation = create(client, sergioFirstName);
+        String timLocation = create(client, timFirstName);
 
         // When we retrieve Sergio
         HttpRequest<?> showRequest = HttpRequest.GET(sergioLocation);
@@ -92,31 +85,49 @@ class CustomerControllerTest {
         assertEquals(sergioFirstName, customer.getFirstName());
         assertNull(customer.getLastName());
 
-        // When we delete Sergio
-        HttpResponse<Customer> deleteResponse = secondClient.exchange(HttpRequest.DELETE(sergioLocation), Customer.class);
+        // When
+        HttpResponse<?> patchResponse = secondClient.exchange(HttpRequest.PATCH(sergioLocation,
+            CollectionUtils.mapOf( "firstName", customer.getFirstName(), "lastName", sergioLastName)));
 
         // Then
-        assertEquals(HttpStatus.NO_CONTENT, deleteResponse.status());
-
-        // And Sergio is gone
-        Executable e = () -> secondClient.exchange(HttpRequest.GET(sergioLocation), Customer.class);
-        HttpClientResponseException thrown = assertThrows(HttpClientResponseException.class, e);
-        assertEquals(HttpStatus.NOT_FOUND, thrown.getStatus());
+        assertEquals(HttpStatus.OK, patchResponse.status());
+        assertNotNull(patchResponse.getHeaders().get(HttpHeaders.LOCATION));
+        assertEquals(sergioLocation, patchResponse.getHeaders().get(HttpHeaders.LOCATION));
 
         // When we restart the server
-        secondClient.close();
+        httpClient.close();
         embeddedServer.close();
         embeddedServer = ApplicationContext.run(EmbeddedServer.class, properties);
         httpClient = embeddedServer.getApplicationContext().createBean(HttpClient.class, embeddedServer.getURL());
         BlockingHttpClient thirdClient = httpClient.toBlocking();
 
+        // And we re-retrieve Sergio
+        showResponse = thirdClient.exchange(HttpRequest.GET(sergioLocation), Customer.class);
+
+        // Then he still exists and his last name is updated
+        assertEquals(HttpStatus.OK, showResponse.status());
+        customer = showResponse.body();
+        assertNotNull(customer);
+        assertEquals(sergioFirstName, customer.getFirstName());
+        assertEquals(sergioLastName, customer.getLastName());
+
+        // When we delete Sergio
+        delete(thirdClient, sergioLocation);
+
+        // When we restart the server
+        thirdClient.close();
+        embeddedServer.close();
+        embeddedServer = ApplicationContext.run(EmbeddedServer.class, properties);
+        httpClient = embeddedServer.getApplicationContext().createBean(HttpClient.class, embeddedServer.getURL());
+        BlockingHttpClient fourthClient = httpClient.toBlocking();
+
         // Then Sergio remains gone
-        e = () -> thirdClient.exchange(HttpRequest.GET(sergioLocation), Customer.class);
-        thrown = assertThrows(HttpClientResponseException.class, e);
+        Executable e = () -> fourthClient.exchange(HttpRequest.GET(sergioLocation), Customer.class);
+        HttpClientResponseException thrown = assertThrows(HttpClientResponseException.class, e);
         assertEquals(HttpStatus.NOT_FOUND, thrown.getStatus());
 
         // But when we get Tim
-        showResponse = thirdClient.exchange(HttpRequest.GET(timLocation), Customer.class);
+        showResponse = fourthClient.exchange(HttpRequest.GET(timLocation), Customer.class);
 
         // Then he still exists
         assertEquals(HttpStatus.OK, showResponse.status());
@@ -125,7 +136,26 @@ class CustomerControllerTest {
         assertEquals(timFirstName, customer.getFirstName());
         assertNull(customer.getLastName());
 
-        thirdClient.close();
+        delete(fourthClient, timLocation);
+
+        fourthClient.close();
         embeddedServer.close();
+    }
+
+    private static String create(BlockingHttpClient client, String firstName) {
+        HttpRequest<?> request = HttpRequest.POST("/customer", Collections.singletonMap("firstName", firstName));
+        HttpResponse<?> response = client.exchange(request);
+        assertEquals(HttpStatus.CREATED, response.status());
+        String location = response.getHeaders().get(HttpHeaders.LOCATION);
+        assertNotNull(location);
+        return location;
+    }
+
+    private static void delete(BlockingHttpClient client, String location) {
+        HttpResponse<Customer> deleteResponse = client.exchange(HttpRequest.DELETE(location), Customer.class);
+        assertEquals(HttpStatus.NO_CONTENT, deleteResponse.status());
+        Executable e = () -> client.exchange(HttpRequest.GET(location), Customer.class);
+        HttpClientResponseException thrown = assertThrows(HttpClientResponseException.class, e);
+        assertEquals(HttpStatus.NOT_FOUND, thrown.getStatus());
     }
 }

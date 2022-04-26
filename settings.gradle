@@ -11,6 +11,7 @@ plugins {
 
 rootProject.name = 'microstream-parent'
 
+include 'microstream-annotations'
 include 'microstream'
 include 'microstream-bom'
 include 'test-suite'

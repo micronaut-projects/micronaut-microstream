@@ -1,8 +1,6 @@
 package io.micronaut.microstream.conf
 
 import io.micronaut.context.BeanContext
-import io.micronaut.context.annotation.Property
-import io.micronaut.core.util.StringUtils
 import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider

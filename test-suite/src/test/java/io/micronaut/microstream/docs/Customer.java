@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 public class Customer {
     @NonNull
     @NotBlank
-	private String id;
+	private final String id;
 
     @NonNull
     @NotBlank
@@ -28,6 +28,14 @@ public class Customer {
     @NonNull
     public String getId() {
         return id;
+    }
+
+    public void setFirstName(@NonNull String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(@Nullable String lastName) {
+        this.lastName = lastName;
     }
 
     @NonNull
