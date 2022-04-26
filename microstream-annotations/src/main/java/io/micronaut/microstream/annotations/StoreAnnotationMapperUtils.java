@@ -40,7 +40,7 @@ public final class StoreAnnotationMapperUtils {
 
     @NonNull
     public static AnnotationValueBuilder<Store> annotationValueBuilder(@NonNull AnnotationValue<?> annotation) {
-        StoringStrategy storingStrategy = annotation.get(STRATEGY, StoringStrategy.class).orElse(StoringStrategy.LAZY);
+        StoringStrategy storingStrategy = annotation.enumValue(STRATEGY, StoringStrategy.class).orElse(StoringStrategy.LAZY);
         Optional<String> name = annotation.get(NAME, String.class);
         AnnotationValueBuilder<Store> builder = AnnotationValue.builder(Store.class)
             .member(STRATEGY, storingStrategy);
