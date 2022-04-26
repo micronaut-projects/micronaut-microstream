@@ -3,10 +3,9 @@ package io.micronaut.microstream.docs
 import io.micronaut.context.annotation.Requires
 import io.micronaut.core.annotation.NonNull
 import io.micronaut.core.annotation.Nullable
+import io.micronaut.microstream.RootProvider
 import io.micronaut.microstream.annotation.Store
 import jakarta.inject.Singleton
-import one.microstream.storage.types.StorageManager
-
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
@@ -16,16 +15,16 @@ import javax.validation.constraints.NotNull
 @Singleton
 class CustomerRepositoryStoreImpl implements CustomerRepository {
 
-    private final StorageManager storageManager
+    private final RootProvider<Data> rootProvider
 
-    CustomerRepositoryStoreImpl(StorageManager storageManager) { // <1>
-        this.storageManager = storageManager
+    CustomerRepositoryStoreImpl(RootProvider<Data> rootProvider) { // <1>
+        this.rootProvider = rootProvider
     }
 
     @Override
     @NonNull
     Customer save(@NonNull @NotNull @Valid CustomerSave customerSave) {
-        return addCustomer(data().getCustomers(), customerSave)
+        return addCustomer(rootProvider.root().customers, customerSave)
     }
 
     @Override
@@ -37,19 +36,19 @@ class CustomerRepositoryStoreImpl implements CustomerRepository {
     @Override
     @NonNull
     Optional<Customer> findById(@NonNull @NotBlank String id) {
-        Optional.ofNullable(data().getCustomers().get(id))
+        Optional.ofNullable(rootProvider.root().customers[id])
     }
 
     @Override
     void deleteById(@NonNull @NotBlank String id) {
-        removeCustomer(data().getCustomers(), id)
+        removeCustomer(rootProvider.root().customers, id)
     }
 
     @Store(result = true) // <2>
     @Nullable
     protected Customer updateCustomer(@NonNull String id,
                                       @NonNull CustomerSave customerSave) {
-        Customer c = data().getCustomers().get(id)
+        Customer c = rootProvider.root().customers[id]
         if (c != null) {
             c.with {
                 firstName = customerSave.firstName
@@ -74,11 +73,6 @@ class CustomerRepositoryStoreImpl implements CustomerRepository {
     protected void removeCustomer(@NonNull Map<String, Customer> customers,
                                   @NonNull String id) {
         customers.remove(id)
-    }
-
-    @NonNull
-    private Data data() {
-        (Data) storageManager.root()
     }
 }
 //end::clazz[]

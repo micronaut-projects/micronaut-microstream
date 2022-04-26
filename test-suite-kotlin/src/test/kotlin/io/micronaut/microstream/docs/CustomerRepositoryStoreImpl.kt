@@ -3,9 +3,9 @@ package io.micronaut.microstream.docs
 import io.micronaut.context.annotation.Requires
 import io.micronaut.core.annotation.NonNull
 import io.micronaut.core.annotation.Nullable
+import io.micronaut.microstream.RootProvider
 import io.micronaut.microstream.annotation.Store
 import jakarta.inject.Singleton
-import one.microstream.storage.types.StorageManager
 import java.util.*
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
@@ -13,10 +13,10 @@ import javax.validation.constraints.NotBlank
 @Requires(property = "customer.repository", value = "store")
 //tag::clazz[]
 @Singleton
-open class CustomerRepositoryStoreImpl(private val storageManager: StorageManager) // <1>
+open class CustomerRepositoryStoreImpl(private val rootProvider: RootProvider<Data>) // <1>
     : CustomerRepository {
     override fun save(customerSave: @Valid CustomerSave): Customer {
-        return addCustomer(data.customers, customerSave)
+        return addCustomer(rootProvider.root().customers, customerSave)
     }
 
     override fun update(id : @NotBlank String,
@@ -26,17 +26,17 @@ open class CustomerRepositoryStoreImpl(private val storageManager: StorageManage
 
     @NonNull
     override fun findById(id: @NotBlank String): Customer? {
-        return data.customers[id]
+        return rootProvider.root().customers[id]
     }
 
     override fun deleteById(id: @NotBlank String) {
-        removeCustomer(data.customers, id)
+        removeCustomer(rootProvider.root().customers, id)
     }
 
     @Store(result = true) // <2>
     @Nullable
     open fun updateCustomer(id: String, customerSave: CustomerSave): Customer? {
-        val c: Customer? = data.customers[id]
+        val c: Customer? = rootProvider.root().customers[id]
         return if (c != null) {
             c.firstName = customerSave.firstName
             c.lastName = customerSave.lastName
@@ -59,11 +59,5 @@ open class CustomerRepositoryStoreImpl(private val storageManager: StorageManage
     open fun removeCustomer(customers: MutableMap<String, Customer>, id: String) {
         customers.remove(id)
     }
-
-    private val data: Data
-        get() {
-            val root = storageManager.root()
-            return if (root is Data) root else throw RuntimeException("Root is not Data")
-        }
 }
 //end::clazz[]

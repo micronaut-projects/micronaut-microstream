@@ -59,6 +59,7 @@ public class StorageManagerFactory {
     @Singleton
     public StorageManager createStorageManager(EmbeddedStorageFoundation<?> foundation,
                                                        @Parameter String name) {
+        @SuppressWarnings("resource") // We don't want to close the storage manager
         EmbeddedStorageManager storageManager = foundation.createEmbeddedStorageManager().start();
         if (storageManager.root() == null) {
             if (LOG.isTraceEnabled()) {

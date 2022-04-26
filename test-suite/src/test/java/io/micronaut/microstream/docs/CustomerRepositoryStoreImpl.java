@@ -3,10 +3,9 @@ package io.micronaut.microstream.docs;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+import io.micronaut.microstream.RootProvider;
 import io.micronaut.microstream.annotation.Store;
 import jakarta.inject.Singleton;
-import one.microstream.storage.types.StorageManager;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -19,16 +18,16 @@ import java.util.UUID;
 @Singleton
 public class CustomerRepositoryStoreImpl implements CustomerRepository {
 
-    private final StorageManager storageManager;
+    private final RootProvider<Data> rootProvider;
 
-    public CustomerRepositoryStoreImpl(StorageManager storageManager) { // <1>
-        this.storageManager = storageManager;
+    public CustomerRepositoryStoreImpl(RootProvider<Data> rootProvider) { // <1>
+        this.rootProvider = rootProvider;
     }
 
     @Override
     @NonNull
     public Customer save(@NonNull @NotNull @Valid CustomerSave customerSave) {
-        return addCustomer(data().getCustomers(), customerSave);
+        return addCustomer(rootProvider.root().getCustomers(), customerSave);
     }
 
     @Override
@@ -40,19 +39,19 @@ public class CustomerRepositoryStoreImpl implements CustomerRepository {
     @Override
     @NonNull
     public Optional<Customer> findById(@NonNull @NotBlank String id) {
-        return Optional.ofNullable(data().getCustomers().get(id));
+        return Optional.ofNullable(rootProvider.root().getCustomers().get(id));
     }
 
     @Override
     public void deleteById(@NonNull @NotBlank String id) {
-        removeCustomer(data().getCustomers(), id);
+        removeCustomer(rootProvider.root().getCustomers(), id);
     }
 
     @Store(result = true) // <2>
     @Nullable
     protected Customer updateCustomer(@NonNull String id,
                                       @NonNull CustomerSave customerSave) {
-        Customer c = data().getCustomers().get(id);
+        Customer c = rootProvider.root().getCustomers().get(id);
         if (c != null) {
             c.setFirstName(customerSave.getFirstName());
             c.setLastName(customerSave.getLastName());
@@ -75,11 +74,6 @@ public class CustomerRepositoryStoreImpl implements CustomerRepository {
     protected void removeCustomer(@NonNull Map<String, Customer> customers,
                                   @NonNull String id) {
         customers.remove(id);
-    }
-
-    @NonNull
-    private Data data() {
-        return (Data) storageManager.root();
     }
 }
 //end::clazz[]
