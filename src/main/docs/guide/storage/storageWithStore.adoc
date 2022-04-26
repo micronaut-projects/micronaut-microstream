@@ -1,6 +1,6 @@
 The following example shows how an equivalent implementation which leverages the ann:microstream.annotation.Store[] annotation to simplify object storage.
 
-snippet::io.micronaut.microstream.docs.CustomerRepositoryStoreImpl[tags="clazz"]
+snippet::io.micronaut.microstream.docs.CustomerRepositoryStoreImpl[tags=clazz]
 
 <1> If your Micronaut application has only a single Microstream Instance, you don't need to specify a name qualifier to inject `EmbeddedStorageManager`.
 <2> https://docs.microstream.one/manual/storage/storing-data/index.html[The rule is: "The Object that has been modified has to be stored!".].

@@ -31,8 +31,6 @@ import io.micronaut.inject.qualifiers.Qualifiers;
 import jakarta.inject.Singleton;
 import one.microstream.concurrency.XThreads;
 import one.microstream.storage.embedded.types.EmbeddedStorageManager;
-import reactor.core.publisher.Flux;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -43,6 +41,8 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * Method interceptor for {@link Store}.
+ * @author Tim Yates
  * @author Sergio del Amo
  * @since 1.0.0
  */
@@ -76,18 +76,20 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
         InterceptedMethod interceptedMethod = InterceptedMethod.of(context);
         switch (interceptedMethod.resultType()) {
             case PUBLISHER:
-                return interceptedMethod.handleResult(Flux.from(interceptedMethod.interceptResultAsPublisher())
-                    .doOnNext(o -> store(manager, context, storeAnnotationValue, o))
-                );
+                return interceptedMethod.handleResult(interceptedMethod.interceptResultAsPublisher());
             case COMPLETION_STAGE:
-                return interceptedMethod.interceptResultAsCompletionStage()
+                return XThreads.executeSynchronized(() -> interceptedMethod.interceptResultAsCompletionStage()
                     .whenComplete((o, t) -> {
-                        store(manager, context, storeAnnotationValue, o);
-                    });
+                        if (t != null) {
+                            store(manager, context, storeAnnotationValue, o);
+                        }
+                    }));
             case SYNCHRONOUS:
-                Object result = context.proceed();
-                store(manager, context, storeAnnotationValue, result);
-                return result;
+                return XThreads.executeSynchronized(() -> {
+                    Object result = context.proceed();
+                    store(manager, context, storeAnnotationValue, result);
+                    return result;
+                });
             default:
                 return interceptedMethod.unsupported();
         }
@@ -108,7 +110,7 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
 
     private void store(@NonNull EmbeddedStorageManager embeddedStorageManager,
                        @NonNull List<Object> instances) {
-        XThreads.executeSynchronized(() -> embeddedStorageManager.storeAll(instances));
+        embeddedStorageManager.storeAll(instances);
     }
 
     @NonNull
@@ -168,7 +170,9 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
         for (Map.Entry<String, MutableArgumentValue<?>> entry : params.entrySet()) {
             MutableArgumentValue<?> argumentValue = entry.getValue();
             Object obj = argumentValue.getValue();
-            result.add(obj);
+            if (obj != null) {
+                result.add(obj);
+            }
         }
         return result;
     }

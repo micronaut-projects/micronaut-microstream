@@ -9,6 +9,7 @@ import one.microstream.storage.embedded.types.EmbeddedStorageManager;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 

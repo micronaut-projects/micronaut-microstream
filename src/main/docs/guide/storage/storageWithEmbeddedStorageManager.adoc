@@ -1,6 +1,6 @@
 The following example shows how to create a repository which injects the `EmbeddedStorageManager` and retrieves the Root Instance:
 
-snippet::io.micronaut.microstream.docs.CustomerRepositoryImpl[tags="clazz"]
+snippet::io.micronaut.microstream.docs.CustomerRepositoryImpl[tags=clazz]
 
 <1> If your Micronaut application has only a single Microstream Instance, you don't need to specify a name qualifier to inject `EmbeddedStorageManager`.
 <2> When you are https://docs.microstream.one/manual/storage/root-instances.html#_shared_mutable_data[working with Microstream technology in a multi-threaded environment],
