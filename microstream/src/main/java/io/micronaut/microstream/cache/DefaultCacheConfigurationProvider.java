@@ -27,6 +27,7 @@ import one.microstream.cache.types.CacheConfiguration;
 import one.microstream.cache.types.CacheConfigurationBuilderConfigurationBased;
 import one.microstream.configuration.types.Configuration;
 import one.microstream.storage.embedded.types.EmbeddedStorageManager;
+import one.microstream.storage.types.StorageManager;
 
 /**
  * @param <K> The key type
@@ -83,12 +84,12 @@ public final class DefaultCacheConfigurationProvider<K, V> implements CacheConfi
         return returnBuilder;
     }
 
-    private EmbeddedStorageManager getStorage(String storageName) {
-        return beanContext.getBean(EmbeddedStorageManager.class, Qualifiers.byName(storageName));
+    private StorageManager getStorage(String storageName) {
+        return beanContext.getBean(StorageManager.class, Qualifiers.byName(storageName));
     }
 
-    private CacheConfiguration.Builder<K, V> getBuilder(EmbeddedStorageManager storage) {
-        return CacheConfiguration.Builder(getKeyType(), getValueType(), name, storage);
+    private CacheConfiguration.Builder<K, V> getBuilder(StorageManager storage) {
+        return CacheConfiguration.Builder(getKeyType(), getValueType(), name, (EmbeddedStorageManager) storage);
     }
 
     @Override
