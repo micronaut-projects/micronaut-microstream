@@ -6,10 +6,10 @@ repositories {
 }
 dependencies {
     testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
-    implementation(project(":microstream-annotations"))
 
     testCompileOnly("io.micronaut:micronaut-inject-groovy:$micronautVersion")
 
+    testImplementation(project(":microstream-annotations"))
     testImplementation("io.micronaut:micronaut-validation")
     testImplementation("org.spockframework:spock-core:${spockVersion}") {
         exclude module: 'groovy-all'
