@@ -166,7 +166,7 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
 
     @NonNull
     private StorageManager lookupManager(@NonNull AnnotationValue<Store> storeAnnotationValue) {
-        String name = Optional.ofNullable(storeAnnotationValue)
+        String name = Optional.of(storeAnnotationValue)
             .flatMap(a -> a.stringValue("name")).orElse(null);
         return lookupManager(name);
     }
