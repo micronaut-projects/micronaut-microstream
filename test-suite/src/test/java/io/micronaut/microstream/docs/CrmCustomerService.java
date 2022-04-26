@@ -25,7 +25,6 @@ public class CrmCustomerService {
         return data().getCustomers();
     }
 
-
     private CRM data() {
         return (CRM) storageManager.root();
     }

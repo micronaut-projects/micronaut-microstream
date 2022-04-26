@@ -38,6 +38,21 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * <p>
  * A method such as this:
  * <pre>
+ * {@literal @StoreReturn}
+ * protected Customer updateCustomer(String id, CustomerSave customerSave) {
+ *     Customer c = data().getCustomers().get(id);
+ *     if (c != null) {
+ *         c.setFirstName(customerSave.getFirstName());
+ *         c.setLastName(customerSave.getLastName());
+ *         return c;
+ *     }
+ *     return null;
+ * }
+ * </pre>
+ * <p>
+ *
+ * Becomes
+ * <pre>
  * protected Customer updateCustomer(String id, CustomerSave customerSave) {
  *     XThreads.executeSynchronized(() -> {
  *         Customer c = data().getCustomers().get(id);
@@ -49,21 +64,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *         }
  *         return null;
  *     }
- * }
- * </pre>
- * <p>
- *
- * Becomes
- * <pre>
- * {@literal @StoreReturn}
- * protected Customer updateCustomer(String id, CustomerSave customerSave) {
- *     Customer c = data().getCustomers().get(id);
- *     if (c != null) {
- *         c.setFirstName(customerSave.getFirstName());
- *         c.setLastName(customerSave.getLastName());
- *         return c;
- *     }
- *     return null;
  * }
  * </pre>
  * </p>
