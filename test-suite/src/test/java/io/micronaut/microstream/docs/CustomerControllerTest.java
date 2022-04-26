@@ -31,6 +31,7 @@ class CustomerControllerTest {
         "embedded-storage-manager",
         "store-with-name",
         "root-eager",
+        "store-root-eager",
         "store-annotation"
     })
     void verifyCrudWithMicrostream(String customerRepositoryImplementation) throws Exception {
