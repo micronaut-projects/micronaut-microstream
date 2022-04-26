@@ -66,25 +66,19 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
     @Nullable
     @Override
     public Object intercept(MethodInvocationContext<Object, Object> context) {
-        AnnotationValue<Store> storeAnnotationValue = context.getAnnotation(Store.class);
-        if (storeAnnotationValue == null) {
-            return context.proceed();
-        }
-        @SuppressWarnings("resource") // We don't want to close the storage manager
-        EmbeddedStorageManager manager = lookupManager(storeAnnotationValue);
-
         InterceptedMethod interceptedMethod = InterceptedMethod.of(context);
         switch (interceptedMethod.resultType()) {
             case PUBLISHER:
-                return interceptedMethod.handleResult(interceptedMethod.interceptResultAsPublisher());
             case COMPLETION_STAGE:
-                return XThreads.executeSynchronized(() -> interceptedMethod.interceptResultAsCompletionStage()
-                    .whenComplete((o, t) -> {
-                        if (t != null) {
-                            store(manager, context, storeAnnotationValue, o);
-                        }
-                    }));
+                return context.proceed();
             case SYNCHRONOUS:
+                AnnotationValue<Store> storeAnnotationValue = context.getAnnotation(Store.class);
+                if (storeAnnotationValue == null) {
+                    return context.proceed();
+                }
+                @SuppressWarnings("resource") // We don't want to close the storage manager
+                EmbeddedStorageManager manager = lookupManager(storeAnnotationValue);
+
                 return XThreads.executeSynchronized(() -> {
                     Object result = context.proceed();
                     store(manager, context, storeAnnotationValue, result);
