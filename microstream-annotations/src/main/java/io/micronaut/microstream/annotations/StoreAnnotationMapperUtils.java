@@ -25,7 +25,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
- * Utility classes to map to the {@link @Store} annotation.
+ * Utility classes to map to the {@link Store} annotation.
  * @author Sergio del Amo
  * @since 1.0.0
  */
