@@ -98,7 +98,7 @@ class RootObjectSpec extends Specification {
         String json = objectMapper.writeValueAsString(el)
 
         then:
-        json == '{"name":"rooty","objectId":1}'
+        json == '{"name":"rooty","objectId":"1"}'
     }
 
     void "round trip works as expected"() {

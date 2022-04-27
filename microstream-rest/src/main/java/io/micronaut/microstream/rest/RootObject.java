@@ -17,6 +17,7 @@ package io.micronaut.microstream.rest;
 
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.serde.annotation.Serdeable;
+import one.microstream.storage.restadapter.types.ViewerRootDescription;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -42,7 +43,15 @@ public class RootObject {
      */
     @NonNull
     @NotNull
-    private Long objectId;
+    private String objectId;
+
+    public RootObject() {
+    }
+
+    public RootObject(ViewerRootDescription userRoot) {
+        this.name = userRoot.getName();
+        this.objectId = Long.toString(userRoot.getObjectId());
+    }
 
     /**
      * @return the name of the root object
@@ -63,14 +72,14 @@ public class RootObject {
      * @return the id of the root object
      */
     @NonNull
-    public Long getObjectId() {
+    public String getObjectId() {
         return objectId;
     }
 
     /**
      * @param objectId the id of the root object
      */
-    public void setObjectId(@NonNull Long objectId) {
+    public void setObjectId(@NonNull String objectId) {
         this.objectId = objectId;
     }
 }
