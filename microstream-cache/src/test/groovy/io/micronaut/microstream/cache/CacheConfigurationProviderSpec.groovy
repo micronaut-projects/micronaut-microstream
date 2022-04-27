@@ -1,10 +1,8 @@
 package io.micronaut.microstream.cache
 
-import io.micronaut.cache.SyncCache
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.context.annotation.Requires
-import io.micronaut.core.type.Argument
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.inject.qualifiers.Qualifiers
@@ -12,6 +10,7 @@ import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.inject.Singleton
+import one.microstream.cache.types.CacheConfiguration
 import spock.lang.Specification
 
 import javax.cache.Cache
@@ -23,7 +22,7 @@ import javax.cache.expiry.ExpiryPolicy
 
 @Property(name = "spec.name", value = "CacheConfigurationProviderSpec")
 // Storage properties
-@Property(name = "microstream.storage.one.storage-directory", value = "build/microstream")
+@Property(name = "microstream.storage.one.storage-directory", value = 'build/microstream${random.shortuuid}')
 // Properties for first cache
 @Property(name = "microstream.cache.one.key-type", value = "java.lang.Integer")
 @Property(name = "microstream.cache.one.value-type", value = "java.lang.String")
@@ -43,14 +42,13 @@ class CacheConfigurationProviderSpec extends Specification {
 
     void "you can have multiple beans of type CacheConfigurationProvider"() {
         expect:
-        beanContext.getBeansOfType(CacheConfigurationProvider).size() == 3
+        beanContext.getBeansOfType(CacheConfiguration).size() == 3
 
         when:
-        CacheConfigurationProvider oneProvider = beanContext.getBean(CacheConfigurationProvider, Qualifiers.byName("one"))
+        CacheConfiguration oneProvider = beanContext.getBean(CacheConfiguration, Qualifiers.byName("one"))
 
         then:
-        oneProvider.name == 'one'
-        with(oneProvider.builder.build()) {
+        with(oneProvider) {
             keyType == Integer
             valueType == String
             readThrough
@@ -61,15 +59,14 @@ class CacheConfigurationProviderSpec extends Specification {
         }
 
         when:
-        CacheConfigurationProvider twoProvider = beanContext.getBean(CacheConfigurationProvider, Qualifiers.byName("two"))
+        CacheConfiguration twoProvider = beanContext.getBean(CacheConfiguration, Qualifiers.byName("two"))
 
         then:
-        twoProvider.name == 'two'
-        with(twoProvider.builder.build()) {
+        with(twoProvider) {
             keyType == Character
             valueType == Float
-            !readThrough
-            !writeThrough
+            readThrough
+            writeThrough
             managementEnabled
             !statisticsEnabled
             with(expiryPolicyFactory.create()) {
@@ -79,11 +76,10 @@ class CacheConfigurationProviderSpec extends Specification {
         }
 
         when:
-        CacheConfigurationProvider threeProvider = beanContext.getBean(CacheConfigurationProvider, Qualifiers.byName("three"))
+        CacheConfiguration threeProvider = beanContext.getBean(CacheConfiguration, Qualifiers.byName("three"))
 
         then: 'no type specified, so defaults to Object'
-        threeProvider.name == 'three'
-        with(threeProvider.builder.build()) {
+        with(threeProvider) {
             keyType == Object
             valueType == Object
             managementEnabled

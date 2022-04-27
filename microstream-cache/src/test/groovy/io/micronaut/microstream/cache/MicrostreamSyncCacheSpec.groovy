@@ -1,11 +1,11 @@
 package io.micronaut.microstream.cache
 
-import io.micronaut.cache.tck.AbstractAsyncCacheSpec
+import io.micronaut.cache.tck.AbstractSyncCacheSpec
 import io.micronaut.context.ApplicationContext
 import spock.lang.Shared
 import spock.lang.TempDir
 
-class MicrostreamAsyncCacheSpec extends AbstractAsyncCacheSpec {
+class MicrostreamSyncCacheSpec extends AbstractSyncCacheSpec {
 
     @TempDir
     @Shared
@@ -14,6 +14,7 @@ class MicrostreamAsyncCacheSpec extends AbstractAsyncCacheSpec {
     @Override
     ApplicationContext createApplicationContext() {
         ApplicationContext.run(
+                'microstream.storage.cache.storage-directory': 'build/microstream${random.shortuuid}',
                 'microstream.cache.counter.statistics-enabled': "true",
                 'microstream.cache.counter2.statistics-enabled': "true",
                 'microstream.cache.test.statistics-enabled': "true",

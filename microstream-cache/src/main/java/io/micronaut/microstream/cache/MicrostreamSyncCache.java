@@ -45,7 +45,10 @@ public class MicrostreamSyncCache<K, V> implements SyncCache<Cache<K, V>>, AutoC
     private final ConversionService<?> conversionService;
     private final ExecutorService executorService;
 
-    public MicrostreamSyncCache(String name, Cache<K, V> cache, ConversionService<?> conversionService, ExecutorService executorService) {
+    public MicrostreamSyncCache(String name,
+                                Cache<K, V> cache,
+                                ConversionService<?> conversionService,
+                                ExecutorService executorService) {
         this.name = name;
         this.cache = cache;
         this.conversionService = conversionService;

@@ -16,6 +16,7 @@
 package io.micronaut.microstream.conf;
 
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.naming.Named;
 import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfigurationBuilder;
 
@@ -32,6 +33,6 @@ public interface EmbeddedStorageConfigurationProvider extends Named {
      * <a href="https://docs.microstream.one/manual/storage/root-instances.html">Root Instances</a>
      * @return Class for the Root Instance.
      */
-    @NonNull
+    @Nullable
     Class<?> getRootClass();
 }
