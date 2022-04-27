@@ -4,8 +4,8 @@ plugins {
 
 dependencies {
     implementation(libs.managed.microstream.storage.restservice)
+
     testImplementation(project(":microstream"))
-    testImplementation(libs.logback.classic)
 }
 
 micronautBuild {
