@@ -15,9 +15,11 @@
  */
 package io.micronaut.microstream.persistence;
 
+import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.event.BeanCreatedEvent;
 import io.micronaut.context.event.BeanCreatedEventListener;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.util.StringUtils;
 import jakarta.inject.Singleton;
 import one.microstream.persistence.binary.jdk8.types.BinaryHandlersJDK8;
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation;
@@ -31,6 +33,7 @@ import org.slf4j.LoggerFactory;
  * @since 1.0.0
  */
 @Singleton
+@Requires(property = "microstream.persistence.type-handlers.jdk8.enabled", value = StringUtils.TRUE, defaultValue = StringUtils.TRUE) // For ease of testing
 public class EmbeddedStorageFoundationJDK8TypeHandlers implements BeanCreatedEventListener<EmbeddedStorageFoundation<?>> {
 
     private static final Logger LOG = LoggerFactory.getLogger(EmbeddedStorageFoundationJDK8TypeHandlers.class);

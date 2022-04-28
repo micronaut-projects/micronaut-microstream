@@ -5,6 +5,9 @@ plugins {
 dependencies {
     api(libs.managed.microstream.persistence.binary.jdk8)
     implementation(libs.managed.microstream.storage.embedded.configuration)
+
+    testImplementation(project(":microstream"))
+    testImplementation(libs.micronaut.http.server.netty)
 }
 
 micronautBuild {
