@@ -35,14 +35,25 @@ public class RootObject {
      */
     @NonNull
     @NotBlank
-    private String name;
+    private final String name;
 
     /**
      * the root object id.
      */
     @NonNull
     @NotNull
-    private Long objectId;
+    private final Long objectId;
+
+    /**
+     * Constructor.
+     *
+     * @param name     root name
+     * @param objectId the root object id
+     */
+    public RootObject(@NonNull String name, @NonNull Long objectId) {
+        this.name = name;
+        this.objectId = objectId;
+    }
 
     /**
      * @return the name of the root object
@@ -53,24 +64,10 @@ public class RootObject {
     }
 
     /**
-     * @param name the name of the root object
-     */
-    public void setName(@NonNull String name) {
-        this.name = name;
-    }
-
-    /**
      * @return the id of the root object
      */
     @NonNull
     public Long getObjectId() {
         return objectId;
-    }
-
-    /**
-     * @param objectId the id of the root object
-     */
-    public void setObjectId(@NonNull Long objectId) {
-        this.objectId = objectId;
     }
 }
