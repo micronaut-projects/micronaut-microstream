@@ -1,13 +1,17 @@
 package io.micronaut.microstream.rest
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
-import io.micronaut.core.annotation.Introspected
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
+import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
 import jakarta.inject.Inject
+import one.microstream.storage.restadapter.types.ViewerObjectDescription
+import one.microstream.storage.restadapter.types.ViewerStorageFileStatistics
+import one.microstream.storage.types.StorageManager
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.TempDir
@@ -27,11 +31,12 @@ class MicrostreamRestControllerSpec extends Specification implements TestPropert
     @Client("/")
     HttpClient httpClient
 
+    @Inject
+    ObjectMapper objectMapper
+
     @Override
     Map<String, String> getProperties() {
         [
-                "endpoints.routes.enabled": "true",
-                "endpoints.routes.sensitive": "false",
                 "microstream.storage.people.root-class": People.class.name,
                 "microstream.storage.people.storage-directory": new File(tempDir, "people").absolutePath,
                 "microstream.storage.towns.root-class": Towns.class.name,
@@ -39,21 +44,85 @@ class MicrostreamRestControllerSpec extends Specification implements TestPropert
         ]
     }
 
-    def 'works'() {
+    def 'file statistics exists'() {
         when:
-        def result = httpClient.toBlocking().retrieve("/microstream/people/root")
+        def statistics = stats()
 
         then:
-        result == '{"name":"ROOT","objectId":"1000000000000000028"}'
+        statistics.creationTime
+        !statistics.channelStatistics.empty
+
+        when:
+        statistics = stats('towns')
+
+        then:
+        statistics.creationTime
+        !statistics.channelStatistics.empty
     }
 
-    @Introspected
-    static class Towns {
-        List<String> towns = []
+    def 'Object traversal works as expected'() {
+        given:
+        def manager = beanContext.getBean(StorageManager, Qualifiers.byName("people"))
+        def people = manager.root().people
+        people << "Tim"
+        people << "Sergio"
+        manager.store(people)
+
+        when:
+        def root = root()
+
+        then:
+        root.name == 'ROOT'
+        root.objectId != null
+
+        when:
+        def obj = object(root.objectId)
+
+        then:
+        obj.objectId == root.objectId
+        obj.data.size() == 1
+
+        when:
+        String id = obj.data[0]
+        obj = object(id)
+
+        then:
+        obj.objectId == id
+        obj.data.size() == 1
+        // Which contains 2 items
+        obj.data[0].size() == 2
+
+        when:
+        String timId = obj.data[0][0]
+        String sergioId = obj.data[0][1]
+
+        def tim = object(timId)
+        def sergio = object(sergioId)
+
+        then:
+        tim.objectId == timId
+        tim.data.size() == 1
+        tim.data[0] == "Tim"
+
+        and:
+        sergio.objectId == sergioId
+        sergio.data.size() == 1
+        sergio.data[0] == "Sergio"
     }
 
-    @Introspected
-    static class People {
-        List<String> people = []
+    private ViewerStorageFileStatistics stats(String manager = 'people') {
+        read("/microstream/$manager/maintenance/filesStatistics", ViewerStorageFileStatistics)
+    }
+
+    private RootObject root(String manager = 'people') {
+        read("/microstream/$manager/root", RootObject)
+    }
+
+    private ViewerObjectDescription object(String id, String manager = 'people') {
+        return read("/microstream/$manager/object/$id", ViewerObjectDescription)
+    }
+
+    private <T> T read(String path, Class<T> clazz) {
+        objectMapper.readValue(httpClient.toBlocking().retrieve(path), clazz)
     }
 }

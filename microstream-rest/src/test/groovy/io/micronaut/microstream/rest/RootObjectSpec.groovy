@@ -11,6 +11,7 @@ import javax.validation.Validator
 
 @MicronautTest(startApplication = false)
 class RootObjectSpec extends Specification {
+
     @Inject
     ObjectMapper objectMapper
 
