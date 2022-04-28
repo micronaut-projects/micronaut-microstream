@@ -4,7 +4,8 @@ reactor-test = '3.4.15'
 
 [libraries]
 
-managed-microstream-storage-embedded-configuration= { module = 'one.microstream:microstream-storage-embedded-configuration', version.ref = 'managed-microstream' }
+managed-microstream-persistence-binary-jdk8 = { module = 'one.microstream:microstream-persistence-binary-jdk8', version.ref = 'managed-microstream' }
+managed-microstream-storage-embedded-configuration = { module = 'one.microstream:microstream-storage-embedded-configuration', version.ref = 'managed-microstream' }
 
 micronaut-aop = { module = "io.micronaut:micronaut-aop" }
 micronaut-http-client = { module = "io.micronaut:micronaut-http-client" }
