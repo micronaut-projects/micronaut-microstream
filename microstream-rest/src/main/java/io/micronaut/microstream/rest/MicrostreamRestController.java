@@ -24,10 +24,7 @@ import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.annotation.QueryValue;
 import io.micronaut.microstream.conf.EmbeddedStorageConfigurationProvider;
-import io.micronaut.serde.annotation.SerdeImport;
 import one.microstream.storage.restadapter.types.StorageRestAdapter;
-import one.microstream.storage.restadapter.types.ViewerChannelStatistics;
-import one.microstream.storage.restadapter.types.ViewerFileStatistics;
 import one.microstream.storage.restadapter.types.ViewerObjectDescription;
 import one.microstream.storage.restadapter.types.ViewerStorageFileStatistics;
 import one.microstream.storage.types.StorageManager;
@@ -45,10 +42,6 @@ import java.util.Optional;
 @Requires(bean = EmbeddedStorageConfigurationProvider.class)
 @Requires(property = MicrostreamRestControllerConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE, defaultValue = StringUtils.TRUE)
 @Controller("${" + MicrostreamRestControllerConfigurationProperties.PREFIX + ".path:" + MicrostreamRestControllerConfigurationProperties.DEFAULT_PATH + "}")
-@SerdeImport(value = ViewerStorageFileStatistics.class, mixin = ViewerStorageFileStatisticsMixin.class)
-@SerdeImport(ViewerChannelStatistics.class)
-@SerdeImport(ViewerFileStatistics.class)
-@SerdeImport(ViewerObjectDescription.class)
 public class MicrostreamRestController {
 
     private final MicrostreamRestService service;

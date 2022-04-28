@@ -3,7 +3,6 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor(libs.micronaut.serde.processor)
     annotationProcessor(libs.micronaut.validation)
 
     api(libs.micronaut.serde.api)
@@ -12,17 +11,10 @@ dependencies {
     implementation(libs.micronaut.validation)
     implementation(libs.micronaut.router)
     implementation(project(":microstream"))
-    implementation(libs.micronaut.serde.jackson)
+    implementation(libs.micronaut.jackson.databind)
     testImplementation(libs.micronaut.http.server.netty)
     testImplementation(libs.micronaut.http.client)
     testImplementation(libs.micronaut.management)
-}
-
-configurations.all {
-    resolutionStrategy.dependencySubstitution {
-        substitute(module("io.micronaut:micronaut-jackson-databind"))
-            .using(module("io.micronaut.serde:micronaut-serde-jackson:1.0.1"))
-    }
 }
 
 micronautBuild {
