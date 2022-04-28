@@ -54,7 +54,13 @@ class RootObjectSpec extends Specification {
 
     void "RootObject::toString() does not throw NPE"() {
         when:
-        new RootObject().toString()
+        new RootObject(null, null).toString()
+
+        then:
+        noExceptionThrown()
+
+        when:
+        new RootObject("tim", "1").toString()
 
         then:
         noExceptionThrown()
@@ -62,29 +68,23 @@ class RootObjectSpec extends Specification {
 
     void "valid RootObject does not trigger any constraint exception"() {
         when:
-        RootObject el = validRootObject()
+        RootObject el = new RootObject("rooty", "1")
 
         then:
         validator.validate(el).isEmpty()
     }
 
     void "name is required"() {
-        given:
-        RootObject el = validRootObject()
-
         when:
-        el.name = null
+        RootObject el = new RootObject(null, "1")
 
         then:
         !validator.validate(el).isEmpty()
     }
 
     void "objectId is required"() {
-        given:
-        RootObject el = validRootObject()
-
         when:
-        el.objectId = null
+        RootObject el = new RootObject("rooty", null)
 
         then:
         !validator.validate(el).isEmpty()
@@ -92,7 +92,7 @@ class RootObjectSpec extends Specification {
 
     void "values are present in json"() {
         given:
-        RootObject el = validRootObject()
+        RootObject el = new RootObject("rooty", "1")
 
         when:
         String json = objectMapper.writeValueAsString(el)
@@ -103,7 +103,7 @@ class RootObjectSpec extends Specification {
 
     void "round trip works as expected"() {
         given:
-        RootObject el = validRootObject()
+        RootObject el = new RootObject("rooty", "1")
 
         when:
         String json = objectMapper.writeValueAsString(el)
@@ -114,12 +114,5 @@ class RootObjectSpec extends Specification {
         then:
         object.name == el.name
         object.objectId == el.objectId
-    }
-
-    static RootObject validRootObject() {
-        RootObject el = new RootObject()
-        el.name = "rooty"
-        el.objectId = 1
-        el
     }
 }

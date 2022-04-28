@@ -36,16 +36,18 @@ public class RootObject {
      */
     @NonNull
     @NotBlank
-    private String name;
+    private final String name;
 
     /**
      * the root object id.
      */
     @NonNull
     @NotNull
-    private String objectId;
+    private final String objectId;
 
-    public RootObject() {
+    public RootObject(@NonNull @NotBlank String name, @NonNull @NotNull String objectId) {
+        this.name = name;
+        this.objectId = objectId;
     }
 
     public RootObject(ViewerRootDescription userRoot) {
@@ -62,24 +64,10 @@ public class RootObject {
     }
 
     /**
-     * @param name the name of the root object
-     */
-    public void setName(@NonNull String name) {
-        this.name = name;
-    }
-
-    /**
      * @return the id of the root object
      */
     @NonNull
     public String getObjectId() {
         return objectId;
-    }
-
-    /**
-     * @param objectId the id of the root object
-     */
-    public void setObjectId(@NonNull String objectId) {
-        this.objectId = objectId;
     }
 }
