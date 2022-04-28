@@ -15,8 +15,8 @@
  */
 package io.micronaut.microstream.rest;
 
+import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.serde.annotation.Serdeable;
 import one.microstream.storage.restadapter.types.ViewerRootDescription;
 
 import javax.validation.constraints.NotBlank;
@@ -28,7 +28,7 @@ import javax.validation.constraints.NotNull;
  * @author Tim Yates
  * @since 1.0.0
  */
-@Serdeable
+@Introspected
 public class RootObject {
 
     /**
