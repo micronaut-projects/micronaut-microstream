@@ -5,8 +5,6 @@ plugins {
 dependencies {
     annotationProcessor(libs.micronaut.validation)
 
-    api(libs.micronaut.serde.api)
-
     implementation(libs.managed.microstream.storage.restservice)
     implementation(libs.micronaut.validation)
 
