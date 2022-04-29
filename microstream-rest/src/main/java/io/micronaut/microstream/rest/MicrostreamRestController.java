@@ -38,7 +38,7 @@ import one.microstream.storage.types.StorageManager;
 @Requires(bean = StorageManager.class)
 @Requires(bean = EmbeddedStorageConfigurationProvider.class)
 @Requires(property = MicrostreamRestControllerConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE, defaultValue = StringUtils.TRUE)
-@Controller("${" + MicrostreamRestControllerConfigurationProperties.PREFIX + ".path:" + MicrostreamRestControllerConfigurationProperties.DEFAULT_PATH + "}")
+@Controller("/${" + MicrostreamRestControllerConfigurationProperties.PREFIX + ".path:" + MicrostreamRestControllerConfigurationProperties.DEFAULT_PATH + "}")
 public class MicrostreamRestController {
 
     private static final long DEFAULT_FIXED_OFFSET = 0L;

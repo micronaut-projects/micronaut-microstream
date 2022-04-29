@@ -45,7 +45,7 @@ public class MicrostreamRestControllerConfigurationProperties implements Togglea
      * The default path.
      */
     @SuppressWarnings("WeakerAccess")
-    public static final String DEFAULT_PATH = "/microstream";
+    public static final String DEFAULT_PATH = "microstream";
 
     private boolean enabled = DEFAULT_ENABLED;
     @NonNull
