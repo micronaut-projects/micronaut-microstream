@@ -1,6 +1,7 @@
 package io.micronaut.microstream.persistence
 
 import io.micronaut.context.ApplicationContext
+import io.micronaut.context.exceptions.NoSuchBeanException
 import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.runtime.server.EmbeddedServer
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation
@@ -37,6 +38,42 @@ class TypeHandlerSpec extends Specification {
         enabled | expected
         "true"  | Java8BinaryHandlerVector
         "false" | DefaultBinaryHandlerVector
+    }
+
+    void "config is absent when disabled"() {
+        given:
+        EmbeddedServer server = ApplicationContext.run(EmbeddedServer, [
+                "microstream.storage.people.root-class"             : People.class.name,
+                "microstream.storage.people.storage-directory"      : new File(tempDir, "people").absolutePath,
+                "microstream.persistence.type-handlers.jdk8.enabled": 'false',
+        ])
+
+        when:
+        server.applicationContext.getBean(EmbeddedStorageFoundationJDK8ConfigurationProperties)
+
+        then:
+        thrown(NoSuchBeanException)
+
+        cleanup:
+        server.stop()
+    }
+
+    void "config is present when enabled"() {
+        given:
+        EmbeddedServer server = ApplicationContext.run(EmbeddedServer, [
+                "microstream.storage.people.root-class"             : People.class.name,
+                "microstream.storage.people.storage-directory"      : new File(tempDir, "people").absolutePath,
+                "microstream.persistence.type-handlers.jdk8.enabled": 'true',
+        ])
+
+        when:
+        def config = server.applicationContext.getBean(EmbeddedStorageFoundationJDK8ConfigurationProperties)
+
+        then:
+        config.enabled
+
+        cleanup:
+        server.stop()
     }
 
     static class People {
