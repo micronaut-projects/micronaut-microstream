@@ -1,0 +1,3 @@
+These specialized type handlers for Java 8 and above are automatically registered for all of your storage managers when you include the dependency:
+
+dependency:micronaut-microstream-jdk8[groupId="{projectGroup}"]

@@ -1,0 +1,2 @@
+Although most types in the JDK or any other Java library will work with MicroStream, there https://docs.microstream.one/manual/5.0/storage/addendum/specialized-type-handlers.html[are specialized type handlers] for the most commonly used types.
+They are optimized to reduce memory overhead and increase performance.

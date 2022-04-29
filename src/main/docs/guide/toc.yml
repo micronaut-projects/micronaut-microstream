@@ -3,6 +3,9 @@ introduction:
 releaseHistory: Release History
 dependency: Dependency
 configuration: Configuration
+types:
+  title: Binary type handlers
+  jdk8: Jdk 8 types
 rootInstance: Root Instance
 storage:
   title: Storage

@@ -16,7 +16,7 @@ class TypeHandlerSpec extends Specification {
     @Shared
     File tempDir
 
-    def "Vector maps to #expected when jdk8 listener is enabled = #enabled"() {
+    void "Vector maps to #expected when jdk8 listener is enabled = #enabled"() {
         given:
         EmbeddedServer server = ApplicationContext.run(EmbeddedServer, [
                 "microstream.storage.people.root-class"             : People.class.name,
@@ -40,7 +40,5 @@ class TypeHandlerSpec extends Specification {
     }
 
     static class People {
-
-        def contents = []
     }
 }
