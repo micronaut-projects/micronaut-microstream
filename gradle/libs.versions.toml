@@ -12,6 +12,9 @@ micronaut-http-client = { module = "io.micronaut:micronaut-http-client" }
 micronaut-http-server-netty = { module = "io.micronaut:micronaut-http-server-netty" }
 micronaut-management = { module = "io.micronaut:micronaut-management" }
 micronaut-micrometer-core = { module = 'io.micronaut.micrometer:micronaut-micrometer-core' }
+micronaut-serde-api = { module = 'io.micronaut.serde:micronaut-serde-api' }
+micronaut-serde-processor = { module = 'io.micronaut.serde:micronaut-serde-processor' }
+micronaut-validation = { module = 'io.micronaut:micronaut-validation' }
 
 projectreactor = { module = 'io.projectreactor:reactor-core' }
 projectreactor-test = { module = "io.projectreactor:reactor-test", version.ref = 'reactor-test' }
