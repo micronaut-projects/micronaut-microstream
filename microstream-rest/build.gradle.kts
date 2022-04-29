@@ -9,6 +9,7 @@ dependencies {
 
     implementation(libs.managed.microstream.storage.restservice)
     implementation(libs.micronaut.validation)
+
     implementation(project(":microstream"))
     implementation(libs.micronaut.jackson.databind)
 

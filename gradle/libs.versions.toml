@@ -1,5 +1,5 @@
 [versions]
-managed-microstream='06.01.00-MS-GA'
+managed-microstream='07.00.00-MS-GA'
 reactor-test = '3.4.15'
 
 [libraries]
@@ -13,7 +13,6 @@ micronaut-http-server-netty = { module = "io.micronaut:micronaut-http-server-net
 micronaut-jackson-databind = { module = "io.micronaut:micronaut-jackson-databind" }
 micronaut-management = { module = "io.micronaut:micronaut-management" }
 micronaut-micrometer-core = { module = 'io.micronaut.micrometer:micronaut-micrometer-core' }
-micronaut-serde-api = { module = 'io.micronaut.serde:micronaut-serde-api' }
 micronaut-validation = { module = 'io.micronaut:micronaut-validation' }
 
 projectreactor = { module = 'io.projectreactor:reactor-core' }
