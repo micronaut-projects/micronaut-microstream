@@ -2,6 +2,7 @@ package io.micronaut.microstream.rest
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.micronaut.context.ApplicationContext
+import io.micronaut.context.exceptions.NoSuchBeanException
 import io.micronaut.core.annotation.NonNull
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.BlockingHttpClient
@@ -42,6 +43,13 @@ class RestConfigurationSpec extends Specification {
         root.name
         root.objectId
 
+        when:
+        def config = server.applicationContext.getBean(MicrostreamRestControllerConfigurationProperties)
+
+        then:
+        config.path == "api"
+
+        then:
         cleanup:
         client.close()
         server.stop()
@@ -62,6 +70,12 @@ class RestConfigurationSpec extends Specification {
         then:
         HttpClientResponseException e = thrown()
         e.status == HttpStatus.NOT_FOUND
+
+        when:
+        server.applicationContext.getBean(MicrostreamRestControllerConfigurationProperties)
+
+        then:
+        thrown(NoSuchBeanException)
 
         cleanup:
         client.close()
