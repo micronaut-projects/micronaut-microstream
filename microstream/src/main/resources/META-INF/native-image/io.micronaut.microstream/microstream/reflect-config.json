@@ -9,21 +9,6 @@
     "fields" : [ { "name" : "calculateByteSizeObjectHeaderFieldOffsetDummy", "allowUnsafeAccess" : true }]
   },
   {
-    "name":"SimpleContentObject",
-    "allDeclaredFields":true,
-    "allDeclaredMethods":true,
-    "fields" : [ { "name" : "creationDate", "allowWrite" : true }]
-  },
-  {
-    "name":"SimpleObjectGraph",
-    "allDeclaredFields":true,
-    "allDeclaredMethods":true,
-    "fields" : [ { "name" : "creationDate", "allowWrite" : true },
-      { "name" : "name", "allowWrite" : true },
-      { "name" : "data", "allowWrite" : true }
-    ]
-  },
-  {
     "name":"one.microstream.collections.BulkList",
     "allDeclaredMethods":true
   },
