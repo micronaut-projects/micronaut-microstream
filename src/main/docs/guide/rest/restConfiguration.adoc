@@ -1,4 +1,4 @@
-The API is enabled by default, but you can disable it by adding the following to your application.
+Once you add the _microstream-rest_ dependency, it exposes the API by default. You can disable it with:
 
 [source,yaml]
 .src/main/resources/application.yml
@@ -8,7 +8,7 @@ microstream:
     enabled: false
 ----
 
-It is exposed at `/microstream` by default.
+The API path is `/microstream` by default.
 
 NOTE: When multiple storage managers are defined, the URL must be suffixed by the manager name `/microstream/«storage-name»`.
 

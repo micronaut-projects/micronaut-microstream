@@ -2,6 +2,7 @@ package io.micronaut.microstream.rest
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.micronaut.context.ApplicationContext
+import io.micronaut.core.annotation.NonNull
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
@@ -17,7 +18,7 @@ class RestConfigurationSpec extends Specification {
     @Shared
     File tempDir
 
-    def "prefix can be configured"() {
+    void "prefix can be configured"() {
         given:
         def server = startServer(
                 "microstream.storage.people.root-class": People.class.name,
@@ -46,7 +47,7 @@ class RestConfigurationSpec extends Specification {
         server.stop()
     }
 
-    def "controller can be disabled"() {
+    void "controller can be disabled"() {
         given:
         def server = startServer(
                 "microstream.storage.people.root-class": People.class.name,
@@ -67,7 +68,7 @@ class RestConfigurationSpec extends Specification {
         server.stop()
     }
 
-    def "storage name is required if multiple exist"() {
+    void "storage name is required if multiple exist"() {
         given:
         def server = startServer(
                 "microstream.storage.people.root-class": People.class.name,
@@ -104,10 +105,12 @@ class RestConfigurationSpec extends Specification {
         server.stop()
     }
 
+    @NonNull
     EmbeddedServer startServer(Map props = [:]) {
         ApplicationContext.run(EmbeddedServer, props)
     }
 
+    @NonNull
     BlockingHttpClient getClient(EmbeddedServer server) {
         server.getApplicationContext().createBean(HttpClient, server.URL).toBlocking()
     }

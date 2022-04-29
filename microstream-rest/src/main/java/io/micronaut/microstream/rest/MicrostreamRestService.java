@@ -15,6 +15,7 @@
  */
 package io.micronaut.microstream.rest;
 
+import io.micronaut.core.annotation.NonNull;
 import one.microstream.storage.restadapter.types.StorageRestAdapter;
 
 import java.util.Optional;
@@ -27,7 +28,20 @@ import java.util.Optional;
  */
 public interface MicrostreamRestService {
 
-    StorageRestAdapter getAdapter(String name);
+    /**
+     * Get the single adapter for a given storage name.
+     *
+     * @param name the storage name
+     * @return the adapter
+     */
+    @NonNull
+    StorageRestAdapter getAdapter(@NonNull String name);
 
+    /**
+     * Returns a single adaptor if only one is available.
+     *
+     * @return The adaptor if only one is defined, or an empty optional if multiple are defined.
+     */
+    @NonNull
     Optional<StorageRestAdapter> singleAdapter();
 }

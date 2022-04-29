@@ -16,12 +16,12 @@
 package io.micronaut.microstream.rest;
 
 import io.micronaut.context.annotation.Requires;
+import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.util.StringUtils;
-import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
-import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.annotation.QueryValue;
 import io.micronaut.microstream.conf.EmbeddedStorageConfigurationProvider;
 import one.microstream.storage.restadapter.types.StorageRestAdapter;
@@ -29,23 +29,30 @@ import one.microstream.storage.restadapter.types.ViewerObjectDescription;
 import one.microstream.storage.restadapter.types.ViewerStorageFileStatistics;
 import one.microstream.storage.types.StorageManager;
 
-import java.util.Optional;
-
 /**
  * Microstream REST controller for a single StorageManager.
  *
  * @author Tim Yates
  * @since 1.0.0
  */
-
 @Requires(bean = StorageManager.class)
 @Requires(bean = EmbeddedStorageConfigurationProvider.class)
 @Requires(property = MicrostreamRestControllerConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE, defaultValue = StringUtils.TRUE)
 @Controller("${" + MicrostreamRestControllerConfigurationProperties.PREFIX + ".path:" + MicrostreamRestControllerConfigurationProperties.DEFAULT_PATH + "}")
 public class MicrostreamRestController {
 
+    private static final long DEFAULT_FIXED_OFFSET = 0L;
+    private static final long DEFAULT_FIXED_LENGTH = Long.MAX_VALUE;
+    private static final long DEFAULT_VARIABLE_OFFSET = 0L;
+    private static final long DEFAULT_VARIABLE_LENGTH = Long.MAX_VALUE;
+
     private final MicrostreamRestService service;
 
+    /**
+     * A default controller to expose the expected MicroStream REST API per storage manager.
+     *
+     * @param service the service to query MicroStream via the relevant {@link StorageRestAdapter}
+     */
     public MicrostreamRestController(MicrostreamRestService service) {
         this.service = service;
     }
@@ -56,7 +63,6 @@ public class MicrostreamRestController {
      * @return the root object
      */
     @Get("/root")
-    @Produces(MediaType.APPLICATION_JSON)
     public RootObject getRoot() {
         return service.singleAdapter().map(this::getRoot).orElse(null);
     }
@@ -68,7 +74,6 @@ public class MicrostreamRestController {
      * @return the root object
      */
     @Get("/{name}/root")
-    @Produces(MediaType.APPLICATION_JSON)
     public RootObject getRoot(@PathVariable String name) {
         return getRoot(service.getAdapter(name));
     }
@@ -98,7 +103,8 @@ public class MicrostreamRestController {
         return getDictionary(service.getAdapter(name));
     }
 
-    private String getDictionary(StorageRestAdapter adapter) {
+    @NonNull
+    private String getDictionary(@NonNull StorageRestAdapter adapter) {
         return adapter.getTypeDictionary();
     }
 
@@ -116,17 +122,18 @@ public class MicrostreamRestController {
      */
     @Get("/object/{oid}")
     @SuppressWarnings("java:S107") // This has more than 7 arguments
-    @Produces(MediaType.APPLICATION_JSON)
     public ViewerObjectDescription getObject(
         @PathVariable String oid,
-        @QueryValue Optional<Long> valueLength,
-        @QueryValue Optional<Long> fixedOffset,
-        @QueryValue Optional<Long> fixedLength,
-        @QueryValue Optional<Long> variableOffset,
-        @QueryValue Optional<Long> variableLength,
-        @QueryValue Optional<Boolean> references
+        @Nullable @QueryValue Long valueLength,
+        @Nullable @QueryValue Long fixedOffset,
+        @Nullable @QueryValue Long fixedLength,
+        @Nullable @QueryValue Long variableOffset,
+        @Nullable @QueryValue Long variableLength,
+        @Nullable @QueryValue Boolean references
     ) {
-        return service.singleAdapter().map(a -> getObject(a, oid, valueLength, fixedOffset, fixedLength, variableOffset, variableLength, references)).orElse(null);
+        return service.singleAdapter()
+            .map(a -> getObject(a, oid, valueLength, fixedOffset, fixedLength, variableOffset, variableLength, references))
+            .orElse(null);
     }
 
     /**
@@ -144,39 +151,39 @@ public class MicrostreamRestController {
      */
     @Get("/{name}/object/{oid}")
     @SuppressWarnings("java:S107") // This has more than 7 arguments
-    @Produces(MediaType.APPLICATION_JSON)
     public ViewerObjectDescription getObject(
         @PathVariable String name,
         @PathVariable String oid,
-        @QueryValue Optional<Long> valueLength,
-        @QueryValue Optional<Long> fixedOffset,
-        @QueryValue Optional<Long> fixedLength,
-        @QueryValue Optional<Long> variableOffset,
-        @QueryValue Optional<Long> variableLength,
-        @QueryValue Optional<Boolean> references
+        @Nullable @QueryValue Long valueLength,
+        @Nullable @QueryValue Long fixedOffset,
+        @Nullable @QueryValue Long fixedLength,
+        @Nullable @QueryValue Long variableOffset,
+        @Nullable @QueryValue Long variableLength,
+        @Nullable @QueryValue Boolean references
     ) {
         return getObject(service.getAdapter(name), oid, valueLength, fixedOffset, fixedLength, variableOffset, variableLength, references);
     }
 
     @SuppressWarnings("java:S107") // This has more than 7 arguments
+    @NonNull
     private ViewerObjectDescription getObject(
-        StorageRestAdapter adapter,
-        String oid,
-        Optional<Long> valueLength,
-        Optional<Long> fixedOffset,
-        Optional<Long> fixedLength,
-        Optional<Long> variableOffset,
-        Optional<Long> variableLength,
-        Optional<Boolean> references
+        @NonNull StorageRestAdapter adapter,
+        @NonNull String oid,
+        @Nullable Long valueLength,
+        @Nullable Long fixedOffset,
+        @Nullable Long fixedLength,
+        @Nullable Long variableOffset,
+        @Nullable Long variableLength,
+        @Nullable Boolean references
     ) {
         return adapter.getObject(
             Long.parseLong(oid),
-            fixedOffset.orElse(0L),
-            fixedLength.orElse(Long.MAX_VALUE),
-            variableOffset.orElse(0L),
-            variableLength.orElse(Long.MAX_VALUE),
-            valueLength.orElse(adapter.getDefaultValueLength()),
-            references.orElse(false)
+            fixedOffset != null ? fixedOffset : DEFAULT_FIXED_OFFSET,
+            fixedLength != null ? fixedLength : DEFAULT_FIXED_LENGTH,
+            variableOffset != null ? variableOffset : DEFAULT_VARIABLE_OFFSET,
+            variableLength != null ? variableLength : DEFAULT_VARIABLE_LENGTH,
+            valueLength != null ? valueLength : adapter.getDefaultValueLength(),
+            references != null && references
         );
     }
 
@@ -186,9 +193,10 @@ public class MicrostreamRestController {
      * @return the statistics as json
      */
     @Get("/maintenance/filesStatistics")
-    @Produces(MediaType.APPLICATION_JSON)
     public ViewerStorageFileStatistics getFilesStatistics() {
-        return service.singleAdapter().map(this::getFilesStatistics).orElse(null);
+        return service.singleAdapter()
+            .map(this::getFilesStatistics)
+            .orElse(null);
     }
 
     /**
@@ -198,12 +206,12 @@ public class MicrostreamRestController {
      * @return the statistics as json
      */
     @Get("/{name}/maintenance/filesStatistics")
-    @Produces(MediaType.APPLICATION_JSON)
     public ViewerStorageFileStatistics getFilesStatistics(@PathVariable String name) {
         return getFilesStatistics(service.getAdapter(name));
     }
 
-    private ViewerStorageFileStatistics getFilesStatistics(StorageRestAdapter adapter) {
+    @NonNull
+    private ViewerStorageFileStatistics getFilesStatistics(@NonNull StorageRestAdapter adapter) {
         return adapter.getStorageFilesStatistics();
     }
 }

@@ -16,6 +16,7 @@
 package io.micronaut.microstream.rest;
 
 import io.micronaut.context.BeanContext;
+import io.micronaut.core.annotation.NonNull;
 import io.micronaut.inject.qualifiers.Qualifiers;
 import io.micronaut.microstream.conf.EmbeddedStorageConfigurationProvider;
 import jakarta.inject.Singleton;
@@ -39,7 +40,16 @@ public class DefaultMicrostreamRestService implements MicrostreamRestService {
     private final Map<String, StorageRestAdapter> adapterMap = new ConcurrentHashMap<>();
     private final String singleStorageName;
 
-    public DefaultMicrostreamRestService(BeanContext beanContext, Collection<EmbeddedStorageConfigurationProvider> storageFoundations) {
+    /**
+     * Creates a service that allows us to query storage managers by name.
+     *
+     * @param beanContext the bean context to resolve storage managers
+     * @param storageFoundations the bound storage foundations
+     */
+    public DefaultMicrostreamRestService(
+        BeanContext beanContext,
+        Collection<EmbeddedStorageConfigurationProvider> storageFoundations
+    ) {
         for (EmbeddedStorageConfigurationProvider storageFoundation : storageFoundations) {
             StorageManager bean = beanContext.getBean(StorageManager.class, Qualifiers.byName(storageFoundation.getName()));
             adapterMap.put(storageFoundation.getName(), StorageRestAdapter.New(bean));
@@ -47,11 +57,13 @@ public class DefaultMicrostreamRestService implements MicrostreamRestService {
         this.singleStorageName = adapterMap.size() == 1 ? adapterMap.keySet().iterator().next() : null;
     }
 
+    @NonNull
     @Override
-    public StorageRestAdapter getAdapter(String name) {
+    public StorageRestAdapter getAdapter(@NonNull String name) {
         return adapterMap.get(name);
     }
 
+    @NonNull
     @Override
     public Optional<StorageRestAdapter> singleAdapter() {
         return singleStorageName == null ? Optional.empty() : Optional.of(adapterMap.get(singleStorageName));

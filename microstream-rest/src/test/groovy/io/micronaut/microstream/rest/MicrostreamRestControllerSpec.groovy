@@ -3,6 +3,7 @@ package io.micronaut.microstream.rest
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
+import io.micronaut.core.annotation.NonNull
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.inject.qualifiers.Qualifiers
@@ -44,7 +45,7 @@ class MicrostreamRestControllerSpec extends Specification implements TestPropert
         ]
     }
 
-    def 'file statistics exists'() {
+    void 'file statistics exists'() {
         when:
         def statistics = stats()
 
@@ -60,7 +61,7 @@ class MicrostreamRestControllerSpec extends Specification implements TestPropert
         !statistics.channelStatistics.empty
     }
 
-    def 'Object traversal works as expected'() {
+    void 'Object traversal works as expected'() {
         given:
         def manager = beanContext.getBean(StorageManager, Qualifiers.byName("people"))
         def people = manager.root().people
@@ -110,18 +111,22 @@ class MicrostreamRestControllerSpec extends Specification implements TestPropert
         sergio.data[0] == "Sergio"
     }
 
+    @NonNull
     private ViewerStorageFileStatistics stats(String manager = 'people') {
         read("/microstream/$manager/maintenance/filesStatistics", ViewerStorageFileStatistics)
     }
 
+    @NonNull
     private RootObject root(String manager = 'people') {
         read("/microstream/$manager/root", RootObject)
     }
 
+    @NonNull
     private ViewerObjectDescription object(String id, String manager = 'people') {
         return read("/microstream/$manager/object/$id", ViewerObjectDescription)
     }
 
+    @NonNull
     private <T> T read(String path, Class<T> clazz) {
         objectMapper.readValue(httpClient.toBlocking().retrieve(path), clazz)
     }

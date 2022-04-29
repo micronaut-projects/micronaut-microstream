@@ -20,7 +20,6 @@ import io.micronaut.core.annotation.NonNull;
 import one.microstream.storage.restadapter.types.ViewerRootDescription;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
  * This object represents a root object for the Microstream REST api.
@@ -42,15 +41,26 @@ public class RootObject {
      * the root object id.
      */
     @NonNull
-    @NotNull
+    @NotBlank
     private final String objectId;
 
-    public RootObject(@NonNull @NotBlank String name, @NonNull @NotNull String objectId) {
+    /**
+     * Construct a root object from a name and id.
+     *
+     * @param name     the name of the root object
+     * @param objectId the id of the root object
+     */
+    public RootObject(@NonNull String name, @NonNull String objectId) {
         this.name = name;
         this.objectId = objectId;
     }
 
-    public RootObject(ViewerRootDescription userRoot) {
+    /**
+     * Construct a root object from the MicroStream description.
+     *
+     * @param userRoot the root description from MicroStream
+     */
+    public RootObject(@NonNull ViewerRootDescription userRoot) {
         this.name = userRoot.getName();
         this.objectId = Long.toString(userRoot.getObjectId());
     }

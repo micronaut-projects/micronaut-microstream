@@ -21,6 +21,8 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.core.util.Toggleable;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * Configuration properties for the {@link MicrostreamRestController}.
  *
@@ -46,6 +48,8 @@ public class MicrostreamRestControllerConfigurationProperties implements Togglea
     public static final String DEFAULT_PATH = "/microstream";
 
     private boolean enabled = DEFAULT_ENABLED;
+    @NonNull
+    @NotBlank
     private String path = DEFAULT_PATH;
 
     /**
@@ -60,6 +64,7 @@ public class MicrostreamRestControllerConfigurationProperties implements Togglea
      * @return path to the {@link MicrostreamRestController}. Default value {@value #DEFAULT_PATH}
      */
     @NonNull
+    @NotBlank
     public String getPath() {
         return this.path;
     }
@@ -76,7 +81,7 @@ public class MicrostreamRestControllerConfigurationProperties implements Togglea
      * Path to the {@link MicrostreamRestController}. Default value {@value #DEFAULT_PATH}
      * @param path The path
      */
-    public void setPath(String path) {
+    public void setPath(@NonNull @NotBlank String path) {
         if (StringUtils.isNotEmpty(path)) {
             this.path = path;
         }
