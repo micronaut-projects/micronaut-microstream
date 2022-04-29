@@ -19,7 +19,7 @@ import spock.lang.TempDir
 
 @MicronautTest
 @Property(name = "spec.name", value = "MicrostreamRestControllerSpec")
-class MicrostreamRestControllerSpec extends Specification implements TestPropertyProvider {
+class MicrostreamRestControllerSingleStorageSpec extends Specification implements TestPropertyProvider {
 
     @TempDir
     @Shared
@@ -40,21 +40,12 @@ class MicrostreamRestControllerSpec extends Specification implements TestPropert
         [
                 "microstream.storage.people.root-class": People.class.name,
                 "microstream.storage.people.storage-directory": new File(tempDir, "people").absolutePath,
-                "microstream.storage.towns.root-class": Towns.class.name,
-                "microstream.storage.towns.storage-directory" : new File(tempDir, "towns").absolutePath,
         ]
     }
 
     void 'file statistics exists'() {
         when:
         def statistics = stats()
-
-        then:
-        statistics.creationTime
-        !statistics.channelStatistics.empty
-
-        when:
-        statistics = stats('towns')
 
         then:
         statistics.creationTime
@@ -120,23 +111,23 @@ class MicrostreamRestControllerSpec extends Specification implements TestPropert
     }
 
     @NonNull
-    private ViewerStorageFileStatistics stats(String manager = 'people') {
-        read("/microstream/$manager/maintenance/filesStatistics", ViewerStorageFileStatistics)
+    private ViewerStorageFileStatistics stats() {
+        read("/microstream/maintenance/filesStatistics", ViewerStorageFileStatistics)
     }
 
     @NonNull
-    private RootObject root(String manager = 'people') {
-        read("/microstream/$manager/root", RootObject)
+    private RootObject root() {
+        read("/microstream/root", RootObject)
     }
 
     @NonNull
     private String dictionary(String manager = 'people') {
-        httpClient.toBlocking().retrieve("/microstream/$manager/dictionary")
+        httpClient.toBlocking().retrieve("/microstream/dictionary")
     }
 
     @NonNull
-    private ViewerObjectDescription object(String id, String manager = 'people') {
-        return read("/microstream/$manager/object/$id", ViewerObjectDescription)
+    private ViewerObjectDescription object(String id) {
+        return read("/microstream/object/$id", ViewerObjectDescription)
     }
 
     @NonNull
