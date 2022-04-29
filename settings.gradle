@@ -11,10 +11,12 @@ plugins {
 
 rootProject.name = 'microstream-parent'
 
-include 'microstream-annotations'
-include 'microstream'
 include 'microstream-bom'
 include 'microstream-jdk8'
+include 'microstream'
+include 'microstream-annotations'
+include 'microstream-rest'
+
 include 'test-suite'
 include 'test-suite-groovy'
 include 'test-suite-kotlin'
