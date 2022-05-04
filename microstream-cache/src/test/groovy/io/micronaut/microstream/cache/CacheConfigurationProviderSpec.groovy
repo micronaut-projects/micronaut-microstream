@@ -1,10 +1,9 @@
 package io.micronaut.microstream.cache
 
-import io.micronaut.cache.SyncCache
+import one.microstream.cache.types.CacheConfiguration
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.context.annotation.Requires
-import io.micronaut.core.type.Argument
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.inject.qualifiers.Qualifiers
@@ -28,7 +27,7 @@ import javax.cache.expiry.ExpiryPolicy
 @Property(name = "microstream.cache.one.key-type", value = "java.lang.Integer")
 @Property(name = "microstream.cache.one.value-type", value = "java.lang.String")
 @Property(name = "microstream.cache.one.statistics-enabled", value = "true")
-@Property(name = "microstream.cache.one.backing-storage", value = "one")
+@Property(name = "microstream.cache.one.storage", value = "one")
 // Properties for second cache
 @Property(name = "microstream.cache.two.key-type", value = "java.lang.Character")
 @Property(name = "microstream.cache.two.value-type", value = "java.lang.Float")
@@ -43,29 +42,27 @@ class CacheConfigurationProviderSpec extends Specification {
 
     void "you can have multiple beans of type CacheConfigurationProvider"() {
         expect:
-        beanContext.getBeansOfType(CacheConfigurationProvider).size() == 3
+        beanContext.getBeansOfType(CacheConfiguration.Builder).size() == 3
 
         when:
-        CacheConfigurationProvider oneProvider = beanContext.getBean(CacheConfigurationProvider, Qualifiers.byName("one"))
+        CacheConfiguration.Builder oneProvider = beanContext.getBean(CacheConfiguration.Builder, Qualifiers.byName("one"))
 
         then:
-        oneProvider.name == 'one'
-        with(oneProvider.builder.build()) {
+        with(oneProvider.build()) {
             keyType == Integer
             valueType == String
-            readThrough
-            writeThrough
+            readThrough // When you set a Storage Manager, "read-through" mode is activated.
+            writeThrough // When you set a Storage Manager, "write-through" mode is activated.
             !managementEnabled
             statisticsEnabled
             expiryPolicyFactory.create() instanceof EternalExpiryPolicy
         }
 
         when:
-        CacheConfigurationProvider twoProvider = beanContext.getBean(CacheConfigurationProvider, Qualifiers.byName("two"))
+        CacheConfiguration.Builder twoProvider = beanContext.getBean(CacheConfiguration.Builder, Qualifiers.byName("two"))
 
         then:
-        twoProvider.name == 'two'
-        with(twoProvider.builder.build()) {
+        with(twoProvider.build()) {
             keyType == Character
             valueType == Float
             !readThrough
@@ -79,11 +76,10 @@ class CacheConfigurationProviderSpec extends Specification {
         }
 
         when:
-        CacheConfigurationProvider threeProvider = beanContext.getBean(CacheConfigurationProvider, Qualifiers.byName("three"))
+        CacheConfiguration.Builder threeProvider = beanContext.getBean(CacheConfiguration.Builder, Qualifiers.byName("three"))
 
         then: 'no type specified, so defaults to Object'
-        threeProvider.name == 'three'
-        with(threeProvider.builder.build()) {
+        with(threeProvider.build()) {
             keyType == Object
             valueType == Object
             managementEnabled

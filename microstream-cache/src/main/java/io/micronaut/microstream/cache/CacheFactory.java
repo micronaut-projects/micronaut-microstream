@@ -23,6 +23,7 @@ import io.micronaut.core.convert.ConversionService;
 import io.micronaut.scheduling.TaskExecutors;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
+import one.microstream.cache.types.CacheConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +57,7 @@ public class CacheFactory {
      * Create a cache for each CacheConfiguration.
      *
      * @param name The name of the cache
-     * @param provider The cache provider
+     * @param cacheConfigurationBuilder Cache Configuration Builder
      * @param <K> The key type
      * @param <V> The key type
      * @param executorService The IO executor service for async caches
@@ -64,15 +65,15 @@ public class CacheFactory {
      */
     @Singleton
     @Bean(preDestroy = "close")
-    @EachBean(CacheConfigurationProvider.class)
+    @EachBean(CacheConfiguration.Builder.class)
     public <K, V> MicrostreamSyncCache<K, V> createCache(
         @Parameter String name,
-        CacheConfigurationProvider<K, V> provider,
+        CacheConfiguration.Builder<K, V> cacheConfigurationBuilder,
         @Named(TaskExecutors.IO) ExecutorService executorService
     ) {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Creating cache: {}", name);
         }
-        return new MicrostreamSyncCache<>(name, manager.createCache(name, provider.getBuilder().build()), conversionService, executorService);
+        return new MicrostreamSyncCache<>(name, manager.createCache(name, cacheConfigurationBuilder.build()), conversionService, executorService);
     }
 }
