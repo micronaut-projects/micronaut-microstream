@@ -27,7 +27,7 @@ import javax.cache.expiry.ExpiryPolicy
 @Property(name = "microstream.cache.one.key-type", value = "java.lang.Integer")
 @Property(name = "microstream.cache.one.value-type", value = "java.lang.String")
 @Property(name = "microstream.cache.one.statistics-enabled", value = "true")
-@Property(name = "microstream.cache.one.backing-storage", value = "one")
+@Property(name = "microstream.cache.one.storage", value = "one")
 // Properties for second cache
 @Property(name = "microstream.cache.two.key-type", value = "java.lang.Character")
 @Property(name = "microstream.cache.two.value-type", value = "java.lang.Float")
@@ -51,8 +51,8 @@ class CacheConfigurationProviderSpec extends Specification {
         with(oneProvider) {
             keyType == Integer
             valueType == String
-            readThrough
-            writeThrough
+            readThrough // When you set a Storage Manager, "read-through" mode is activated.
+            writeThrough // When you set a Storage Manager, "write-through" mode is activated.
             !managementEnabled
             statisticsEnabled
             expiryPolicyFactory.create() instanceof EternalExpiryPolicy
@@ -65,8 +65,8 @@ class CacheConfigurationProviderSpec extends Specification {
         with(twoProvider) {
             keyType == Character
             valueType == Float
-            readThrough
-            writeThrough
+            readThrough // When you set a Storage Manager, "read-through" mode is activated.
+            writeThrough // When you set a Storage Manager, "write-through" mode is activated.
             managementEnabled
             !statisticsEnabled
             with(expiryPolicyFactory.create()) {

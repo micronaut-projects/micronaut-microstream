@@ -19,10 +19,6 @@ import io.micronaut.context.annotation.EachProperty;
 import io.micronaut.context.annotation.Parameter;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
-import one.microstream.cache.types.CacheConfiguration;
-
-import javax.cache.configuration.CompleteConfiguration;
-import javax.cache.configuration.Configuration;
 
 /**
  * @author Sergio del Amo
@@ -40,15 +36,20 @@ public class CacheConfigurationProperties<K, V> implements MicrostreamCacheConfi
     @Nullable
     private String storage;
 
-    private boolean readThrough;
+    @Nullable
+    private Boolean readThrough;
 
-    private boolean writeThrough;
+    @Nullable
+    private Boolean writeThrough;
 
-    private boolean storeByValue;
+    @Nullable
+    private Boolean storeByValue;
 
-    private boolean statisticsEnabled;
+    @Nullable
+    private Boolean statisticsEnabled;
 
-    private boolean managementEnabled;
+    @Nullable
+    private Boolean managementEnabled;
 
     private final String name;
 
@@ -74,27 +75,32 @@ public class CacheConfigurationProperties<K, V> implements MicrostreamCacheConfi
     }
 
     @Override
-    public boolean isReadThrough() {
+    @Nullable
+    public Boolean isReadThrough() {
         return readThrough;
     }
 
     @Override
-    public boolean isWriteThrough() {
+    @Nullable
+    public Boolean isWriteThrough() {
         return writeThrough;
     }
 
     @Override
-    public boolean isStoreByValue() {
+    @Nullable
+    public Boolean isStoreByValue() {
         return storeByValue;
     }
 
     @Override
-    public boolean isStatisticsEnabled() {
+    @Nullable
+    public Boolean isStatisticsEnabled() {
         return statisticsEnabled;
     }
 
     @Override
-    public boolean isManagementEnabled() {
+    @Nullable
+    public Boolean isManagementEnabled() {
         return managementEnabled;
     }
 
@@ -129,18 +135,18 @@ public class CacheConfigurationProperties<K, V> implements MicrostreamCacheConfi
     }
 
     /**
-     * When in "read-through" mode, cache misses that occur due to cache entries not existing as a result of performing a "get" will appropriately cause the configured CacheLoader to be invoked.
+     * When in "read-through" mode, cache misses that occur due to cache entries not existing as a result of performing a "get" will appropriately cause the configured CacheLoader to be invoked. When you set a Storage Manager, "read-through" mode is activated.
      * @param readThrough Whether to use "read-through" mode
      */
-    public void setReadThrough(boolean readThrough) {
+    public void setReadThrough(Boolean readThrough) {
         this.readThrough = readThrough;
     }
 
     /**
-     * When in "write-through" mode, cache updates that occur as a result of performing "put" operations will appropriately cause the configured CacheWriter to be invoked.
+     * When in "write-through" mode, cache updates that occur as a result of performing "put" operations will appropriately cause the configured CacheWriter to be invoked.When you set a Storage Manager, "write-through" mode is activated.
      * @param writeThrough Whether to use "write-through" mode.
      */
-    public void setWriteThrough(boolean writeThrough) {
+    public void setWriteThrough(Boolean writeThrough) {
         this.writeThrough = writeThrough;
     }
 
@@ -148,7 +154,7 @@ public class CacheConfigurationProperties<K, V> implements MicrostreamCacheConfi
      * When a cache is storeByValue, any mutation to the key or value does not affect the key of value stored in the cache.
      * @param storeByValue When a cache is storeByValue, any mutation to the key or value does not affect the key of value stored in the cache.
      */
-    public void setStoreByValue(boolean storeByValue) {
+    public void setStoreByValue(Boolean storeByValue) {
         this.storeByValue = storeByValue;
     }
 
@@ -156,7 +162,7 @@ public class CacheConfigurationProperties<K, V> implements MicrostreamCacheConfi
      * Whether statistics collection is enabled in this cache.
      * @param statisticsEnabled Whether statistics collection is enabled in this cache.
      */
-    public void setStatisticsEnabled(boolean statisticsEnabled) {
+    public void setStatisticsEnabled(Boolean statisticsEnabled) {
         this.statisticsEnabled = statisticsEnabled;
     }
 
@@ -164,7 +170,7 @@ public class CacheConfigurationProperties<K, V> implements MicrostreamCacheConfi
      * Whether management is enabled on this cache.
      * @param managementEnabled Whether management is enabled on this cache.
      */
-    public void setManagementEnabled(boolean managementEnabled) {
+    public void setManagementEnabled(Boolean managementEnabled) {
         this.managementEnabled = managementEnabled;
     }
 }

@@ -18,7 +18,6 @@ package io.micronaut.microstream.cache;
 import io.micronaut.context.BeanContext;
 import io.micronaut.context.annotation.EachBean;
 import io.micronaut.context.annotation.Factory;
-import io.micronaut.context.exceptions.DisabledBeanException;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.naming.Named;
 import io.micronaut.core.util.StringUtils;
@@ -30,6 +29,7 @@ import one.microstream.cache.types.CacheConfigurationPropertyNames;
 import one.microstream.configuration.types.Configuration;
 import one.microstream.storage.embedded.types.EmbeddedStorageManager;
 import one.microstream.storage.types.StorageManager;
+
 import java.util.Optional;
 
 /**
@@ -48,12 +48,15 @@ public class CacheConfigurationFactory<K, V> {
     @EachBean(MicrostreamCacheConfiguration.class)
     @Singleton
     public CacheConfiguration createCacheConfigurationProvider(MicrostreamCacheConfiguration<K, V> cacheConfiguration) {
+        EmbeddedStorageManager embeddedStorageManager = findStorageManager(cacheConfiguration)
+            .orElse(null);
+        CacheConfiguration.Builder<K, V> cacheConfigurationBuilder = embeddedStorageManager == null ? CacheConfiguration.Builder(cacheConfiguration.getKeyType(),
+            cacheConfiguration.getValueType()) : CacheConfiguration.Builder(cacheConfiguration.getKeyType(),
+            cacheConfiguration.getValueType(),
+            cacheConfiguration.getName(),
+            embeddedStorageManager);
         CacheConfiguration.Builder<?, ?> builder = CacheConfigurationBuilderConfigurationBased.New()
-            .buildCacheConfiguration(createConfiguration(cacheConfiguration),
-                CacheConfiguration.Builder(cacheConfiguration.getKeyType(),
-                    cacheConfiguration.getValueType(),
-                    cacheConfiguration.getName(),
-                    findStorageManager(cacheConfiguration)));
+            .buildCacheConfiguration(createConfiguration(cacheConfiguration), cacheConfigurationBuilder);
         findExpiryPolicyFactory(cacheConfiguration)
             .ifPresent(expiryPolicyFactory -> builder.expiryPolicyFactory(expiryPolicyFactory.getFactory()));
 
@@ -61,28 +64,33 @@ public class CacheConfigurationFactory<K, V> {
     }
 
     @NonNull
-    private EmbeddedStorageManager findStorageManager(MicrostreamCacheConfiguration<K, V> cacheConfiguration) {
+    private Optional<EmbeddedStorageManager> findStorageManager(MicrostreamCacheConfiguration<K, V> cacheConfiguration) {
         String storageNameQualifier = cacheConfiguration.getStorage() != null ?
             cacheConfiguration.getStorage() : cacheConfiguration.getName();
         Optional<StorageManager> storageManagerOptional = getStorage(storageNameQualifier);
         if (!storageManagerOptional.isPresent()) {
-            throw new DisabledBeanException("Unable to find a StorageManager");
+            return Optional.empty();
         }
         StorageManager storageManager = storageManagerOptional.get();
         if (!(storageManager instanceof EmbeddedStorageManager)) {
-            throw new DisabledBeanException("StorageManager not an instance of EmbeddedStorageManager");
+            return Optional.empty();
         }
-        return (EmbeddedStorageManager) storageManager;
+        return Optional.of((EmbeddedStorageManager) storageManager);
     }
 
     @NonNull
     private Configuration createConfiguration(@NonNull MicrostreamCacheConfiguration<K, V> cacheConfiguration) {
         Configuration.Builder configurationBuilder = Configuration.Builder();
-        configurationBuilder.set(CacheConfigurationPropertyNames.READ_THROUGH, booleanString(cacheConfiguration.isReadThrough()));
-        configurationBuilder.set(CacheConfigurationPropertyNames.WRITE_THROUGH, booleanString(cacheConfiguration.isWriteThrough()));
-        configurationBuilder.set(CacheConfigurationPropertyNames.STORE_BY_VALUE, booleanString(cacheConfiguration.isStoreByValue()));
-        configurationBuilder.set(CacheConfigurationPropertyNames.STATISTICS_ENABLED, booleanString(cacheConfiguration.isStatisticsEnabled()));
-        configurationBuilder.set(CacheConfigurationPropertyNames.MANAGEMENT_ENABLED, booleanString(cacheConfiguration.isManagementEnabled()));
+        booleanString(cacheConfiguration.isReadThrough()).ifPresent(b ->
+            configurationBuilder.set(CacheConfigurationPropertyNames.READ_THROUGH, b));
+        booleanString(cacheConfiguration.isWriteThrough()).ifPresent(b ->
+            configurationBuilder.set(CacheConfigurationPropertyNames.WRITE_THROUGH, b));
+        booleanString(cacheConfiguration.isStoreByValue()).ifPresent(b ->
+            configurationBuilder.set(CacheConfigurationPropertyNames.STORE_BY_VALUE, b));
+        booleanString(cacheConfiguration.isStatisticsEnabled()).ifPresent(b ->
+            configurationBuilder.set(CacheConfigurationPropertyNames.STATISTICS_ENABLED, b));
+        booleanString(cacheConfiguration.isManagementEnabled()).ifPresent(b ->
+            configurationBuilder.set(CacheConfigurationPropertyNames.MANAGEMENT_ENABLED, b));
         return configurationBuilder.buildConfiguration();
     }
 
@@ -91,6 +99,7 @@ public class CacheConfigurationFactory<K, V> {
         if (beanContext.containsBean(StorageManager.class, Qualifiers.byName(name))) {
             return Optional.of(beanContext.getBean(StorageManager.class, Qualifiers.byName(name)));
         }
+        // Should we through an ConfigurationException
         return beanContext.findBean(StorageManager.class);
     }
 
@@ -100,7 +109,10 @@ public class CacheConfigurationFactory<K, V> {
     }
 
     @NonNull
-    private String booleanString(boolean value) {
-        return value ? StringUtils.TRUE : StringUtils.FALSE;
+    private Optional<String> booleanString(Boolean value) {
+        if (value == null) {
+            return Optional.empty();
+        }
+        return Optional.of(value ? StringUtils.TRUE : StringUtils.FALSE);
     }
 }

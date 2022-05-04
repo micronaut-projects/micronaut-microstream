@@ -39,6 +39,10 @@ public interface MicrostreamCacheConfiguration<K, V> extends Named {
     @NonNull
     Class<V> getValueType();
 
+    /**
+     *
+     * @return Name qualifier for Storage Manager.
+     */
     @Nullable
     String getStorage();
 
@@ -46,29 +50,34 @@ public interface MicrostreamCacheConfiguration<K, V> extends Named {
      * When in "read-through" mode, cache misses that occur due to cache entries not existing as a result of performing a "get" will appropriately cause the configured CacheLoader to be invoked.
      * @return Whether to use "read-through" mode
      */
-    boolean isReadThrough();
+    @Nullable
+    Boolean isReadThrough();
 
     /**
      * When in "write-through" mode, cache updates that occur as a result of performing "put" operations will appropriately cause the configured CacheWriter to be invoked.
      * @return Whether to use "write-through" mode.
      */
-    boolean isWriteThrough();
+    @Nullable
+    Boolean isWriteThrough();
 
     /**
      * When a cache is storeByValue, any mutation to the key or value does not affect the key of value stored in the cache.
      * @return Whether the cache is Story by value.
      */
-    boolean isStoreByValue();
+    @Nullable
+    Boolean isStoreByValue();
 
     /**
      * Whether statistics collection is enabled in this cache.
      * @return Whether statistics collection is enabled in this cache.
      */
-    boolean isStatisticsEnabled();
+    @Nullable
+    Boolean isStatisticsEnabled();
 
     /**
      * Whether management is enabled on this cache.
      * @return Whether management is enabled on this cache.
      */
-    boolean isManagementEnabled();
+    @Nullable
+    Boolean isManagementEnabled();
 }
