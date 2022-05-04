@@ -37,6 +37,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *
  * <p>
  * A method such as this:
+ * </p>
  * <pre>
  * {@literal @StoreReturn}
  * protected Customer updateCustomer(String id, CustomerSave customerSave) {
@@ -50,11 +51,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * }
  * </pre>
  * <p>
- *
  * Becomes
+ * </p>
  * <pre>
  * protected Customer updateCustomer(String id, CustomerSave customerSave) {
- *     XThreads.executeSynchronized(() -> {
+ *     XThreads.executeSynchronized(() -&gt; {
  *         Customer c = data().getCustomers().get(id);
  *         if (c != null) {
  *             c.setFirstName(customerSave.getFirstName());
@@ -66,7 +67,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *     }
  * }
  * </pre>
- * </p>
  *
  * @see <a href="https://docs.microstream.one/manual/storage/root-instances.html#_shared_mutable_data">Microstream mutable data docs.</a>
  * @since 1.0.0
