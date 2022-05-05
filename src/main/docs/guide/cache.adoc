@@ -1,0 +1,2 @@
+MicroStream can be used as a caching abstraction layer.
+

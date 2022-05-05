@@ -1,0 +1,10 @@
+If caching that persists across restarts is required, you can first define a storage manager:
+
+[source,yaml]
+.src/main/resources/application.yml
+----
+include::test-suite/src/test/resources/application-cache.yml[]
+----
+
+<1> Define a storage manager called `backing`
+<2> Define a cache called `counter` which uses this storage manager to store Strings keys and Long values
