@@ -73,6 +73,6 @@ public class CacheFactory {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Creating cache: {}", name);
         }
-        return new MicrostreamSyncCache<>(name, manager.createCache(name, provider.getBuilder().build()), conversionService, executorService);
+        return new MicrostreamSyncCache<>(manager.createCache(name, provider.getBuilder().build()), conversionService, executorService);
     }
 }
