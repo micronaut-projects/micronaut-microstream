@@ -27,7 +27,6 @@ dependencies {
     testImplementation project(":microstream")
     testImplementation "io.micronaut.cache:micronaut-cache-core"
     testImplementation project(":microstream-cache")
-    testImplementation 'one.microstream:microstream-storage-restservice-sparkjava:07.00.00-MS-GA'
     testImplementation "org.junit.jupiter:junit-jupiter-params"
 }
 

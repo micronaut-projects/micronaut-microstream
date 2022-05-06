@@ -1,10 +1,13 @@
-If caching that persists across restarts is required, you can first define a storage manager:
+If caching that persists across restarts is required, you can back a MicroStream cache with a Storage Manager.
 
 [source,yaml]
 .src/main/resources/application.yml
 ----
-include::test-suite/src/test/resources/application-cache.yml[]
+include::test-suite/src/test/resources/application-cachepersist.yml[]
 ----
 
 <1> Define a storage manager called `backing`
-<2> Define a cache called `counter` which uses this storage manager to store Strings keys and Long values
+<2> Define a cache called `counter` to store Strings keys and Long values
+<3> Configure the cache to use the `backing` storage manager
+
+The above example will then persist across restarts.
