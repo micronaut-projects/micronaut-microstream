@@ -131,7 +131,7 @@ public class CacheConfigurationProperties<K, V> implements MicrostreamCacheConfi
 
     /**
      *
-     * @param storage Name qualifer for Microstream Storage Manager
+     * @param storage Name qualifier for Microstream Storage Manager
      */
     public void setStorage(@Nullable String storage) {
         this.storage = storage;

@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Optional;
 
 /**
- * Creates a {@link CacheConfiguration.Builder} for each {@link MicrostreamCacheConfiguration}.
+ * Creates a {@link one.microstream.cache.types.CacheConfiguration.Builder} for each {@link MicrostreamCacheConfiguration}.
  * @author Sergio del Amo
  * @since 1.0.0
  * @param <K> Key Type
@@ -57,7 +57,7 @@ public class CacheConfigurationFactory<K, V> {
     }
 
     /**
-     * Creates a {@link CacheConfiguration.Builder} for each {@link MicrostreamCacheConfiguration}.
+     * Creates a {@link one.microstream.cache.types.CacheConfiguration.Builder} for each {@link MicrostreamCacheConfiguration}.
      * @param cacheConfiguration Cache Configuration
      * @return Cache Configuration Builder
      */
