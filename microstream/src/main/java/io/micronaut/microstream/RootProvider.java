@@ -16,7 +16,7 @@
 package io.micronaut.microstream;
 
 /**
- * Functional interface to ease getting the Root Instance of Microstream Store Manager.
+ * Functional interface to ease getting the Root Instance of MicroStream Store Manager.
  * @author Sergio del Amo
  * @since 1.0.0
  * @param <T> The type of the root instance.

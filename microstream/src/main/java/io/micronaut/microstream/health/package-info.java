@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * Microstream classes related to Health and Health indicators.
+ * MicroStream classes related to Health and Health indicators.
  *
  * @see <a href="https://docs.micronaut.io/latest/guide/#healthEndpoint">Micronaut Health Endpoint</a>
  * @author Tim Yates
