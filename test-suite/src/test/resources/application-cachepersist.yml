@@ -1,0 +1,10 @@
+microstream:
+  storage:
+    backing: # <1>
+      storage-directory: "${storageDirectory}"
+      channel-count: 4
+  cache:
+    counter: # <2>
+      key-type: java.lang.String
+      value-type: java.lang.Long
+      backing-storage: backing # <3>

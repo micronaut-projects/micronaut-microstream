@@ -18,6 +18,8 @@ dependencies {
     testImplementation("io.micronaut:micronaut-http-server-netty")
     testImplementation("io.micronaut:micronaut-http-client")
     testImplementation(project(":microstream"))
+    testImplementation "io.micronaut.cache:micronaut-cache-core"
+    testImplementation project(":microstream-cache")
 
     testRuntimeOnly("ch.qos.logback:logback-classic")
 }
