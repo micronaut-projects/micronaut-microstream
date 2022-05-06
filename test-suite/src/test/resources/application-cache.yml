@@ -1,12 +1,12 @@
 microstream:
   storage:
     backing: # <1>
-      storage-directory: build/microstream${random.shortuuid}
+      storage-directory: "${storageDirectory}"
       channel-count: 4
   cache:
-    counter: # <2>
+    counter:
       key-type: java.lang.String
       value-type: java.lang.Long
-      backing-storage: backing
+      backing-storage: backing # <2>
 spec:
   name: CacheTest

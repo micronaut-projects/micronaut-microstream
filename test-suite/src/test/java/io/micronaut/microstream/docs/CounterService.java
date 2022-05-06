@@ -20,12 +20,7 @@ public class CounterService {
 
     @Cacheable
     public Long currentCount(String name) {
-        try {
-            TimeUnit.SECONDS.sleep(4);
-            return counters.get(name);
-        } catch (InterruptedException e) {
-            return -1L;
-        }
+        return counters.get(name);
     }
 
     @CacheInvalidate(parameters = {"name"})
