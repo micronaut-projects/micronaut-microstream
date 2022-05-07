@@ -2,10 +2,6 @@ To use the MicroStream cache abstraction, you must declare a dependency on
 
 dependency:micronaut-microstream-cache[group="io.micronaut.microstream"]
 
-To use the Micronaut cache annotations, you need to declare a dependency on the Micronaut cache module:
-
-dependency:micronaut-cache-core[group="io.micronaut.cache"]
-
 You can then define a cache by adding the following configuration to your application:
 
 [source,yaml]

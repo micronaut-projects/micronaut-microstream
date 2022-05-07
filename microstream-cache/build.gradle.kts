@@ -3,9 +3,9 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":microstream"))
-    implementation(libs.managed.microstream.cache)
-    implementation(libs.micronaut.cache.core)
+    api(project(":microstream"))
+    api(libs.managed.microstream.cache)
+    api(libs.micronaut.cache.core)
     testImplementation(libs.micronaut.cache.tck)
     testImplementation(libs.jupiter.api)
 }
