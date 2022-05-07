@@ -81,16 +81,15 @@ public class CacheConfigurationFactory<K, V> {
 
     @NonNull
     private Optional<StorageManager> findStorageManager(MicrostreamCacheConfiguration<K, V> cacheConfiguration) {
-        String storageNameQualifier = cacheConfiguration.getStorage();
-        if (storageNameQualifier == null) {
-            return Optional.empty();
-        }
-        if (beanContext.containsBean(StorageManager.class, Qualifiers.byName(storageNameQualifier))) {
-            if (LOG.isWarnEnabled()) {
-                LOG.warn("No Storage Manager qualified by name {}", storageNameQualifier);
-            }
-        }
-        return beanContext.findBean(StorageManager.class, Qualifiers.byName(storageNameQualifier));
+        return Optional.ofNullable(cacheConfiguration.getStorage())
+            .flatMap(storageNameQualifier -> {
+                if (!beanContext.containsBean(StorageManager.class, Qualifiers.byName(storageNameQualifier))) {
+                    if (LOG.isWarnEnabled()) {
+                        LOG.warn("No Storage Manager qualified by name {}", storageNameQualifier);
+                    }
+                }
+                return beanContext.findBean(StorageManager.class, Qualifiers.byName(storageNameQualifier));
+            });
     }
 
     @NonNull
