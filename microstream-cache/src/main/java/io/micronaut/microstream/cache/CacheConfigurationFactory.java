@@ -18,6 +18,7 @@ package io.micronaut.microstream.cache;
 import io.micronaut.context.BeanContext;
 import io.micronaut.context.annotation.EachBean;
 import io.micronaut.context.annotation.Factory;
+import io.micronaut.context.exceptions.DisabledBeanException;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.naming.Named;
 import io.micronaut.core.util.StringUtils;
@@ -64,6 +65,9 @@ public class CacheConfigurationFactory<K, V> {
     @EachBean(MicrostreamCacheConfiguration.class)
     @Singleton
     public CacheConfiguration.Builder<K, V> createCacheConfigurationProvider(MicrostreamCacheConfiguration<K, V> cacheConfiguration) {
+        if (!cacheConfiguration.isEnabled()) {
+            throw new DisabledBeanException("microstream cache " + cacheConfiguration.getName() + " is disabled");
+        }
         EmbeddedStorageManager embeddedStorageManager = (EmbeddedStorageManager) findStorageManager(cacheConfiguration)
             .filter(EmbeddedStorageManager.class::isInstance)
             .orElse(null);

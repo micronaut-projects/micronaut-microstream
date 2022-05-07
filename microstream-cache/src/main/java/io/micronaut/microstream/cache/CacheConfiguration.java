@@ -13,17 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * Microstream classes related to caching.
- *
- * @see <a href="https://micronaut-projects.github.io/micronaut-cache/latest/guide/">Micronaut Cache</a>
- * @author Tim Yates
- * @since 1.0.0
- */
-@Configuration
-@Requires(property = MicrostreamCacheConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE)
 package io.micronaut.microstream.cache;
 
-import io.micronaut.context.annotation.Configuration;
-import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.util.StringUtils;
+import io.micronaut.core.util.Toggleable;
+
+/**
+ * Global Microstream Cache configuration.
+ * @author Sergio del Amo
+ * @since 1.0.0
+ */
+public interface CacheConfiguration extends Toggleable {
+}

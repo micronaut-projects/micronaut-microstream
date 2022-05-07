@@ -18,6 +18,7 @@ package io.micronaut.microstream.cache;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.naming.Named;
+import io.micronaut.core.util.Toggleable;
 
 /**
  * Microstream Cache Configuration.
@@ -26,7 +27,7 @@ import io.micronaut.core.naming.Named;
  * @param <K> Key Type
  * @param <V> Value Type
  */
-public interface MicrostreamCacheConfiguration<K, V> extends Named {
+public interface MicrostreamCacheConfiguration<K, V> extends Named, Toggleable {
     /**
      *
      * @return The required type of keys for the Cache.

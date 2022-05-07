@@ -1,5 +1,6 @@
 package io.micronaut.microstream.cache
 
+import io.micronaut.core.util.StringUtils
 import one.microstream.cache.types.CacheConfiguration
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
@@ -26,14 +27,19 @@ import javax.cache.expiry.ExpiryPolicy
 // Properties for first cache
 @Property(name = "microstream.cache.one.key-type", value = "java.lang.Integer")
 @Property(name = "microstream.cache.one.value-type", value = "java.lang.String")
-@Property(name = "microstream.cache.one.statistics-enabled", value = "true")
+@Property(name = "microstream.cache.one.statistics-enabled", value = StringUtils.TRUE)
 @Property(name = "microstream.cache.one.storage", value = "one")
 // Properties for second cache
 @Property(name = "microstream.cache.two.key-type", value = "java.lang.Character")
 @Property(name = "microstream.cache.two.value-type", value = "java.lang.Float")
-@Property(name = "microstream.cache.two.management-enabled", value = "true")
+@Property(name = "microstream.cache.two.management-enabled", value = StringUtils.TRUE)
 // Properties for third cache
-@Property(name = "microstream.cache.three.management-enabled", value = "true")
+@Property(name = "microstream.cache.three.management-enabled", value = StringUtils.TRUE)
+// Properties for fourth cache
+@Property(name = "microstream.cache.fourth.key-type", value = "java.lang.Character")
+@Property(name = "microstream.cache.fourth.value-type", value = "java.lang.Float")
+@Property(name = "microstream.cache.fourth.management-enabled", value = StringUtils.TRUE)
+@Property(name = "microstream.cache.fourth.enabled", value = StringUtils.FALSE)
 @MicronautTest(startApplication = false)
 class CacheConfigurationProviderSpec extends Specification {
 
