@@ -16,7 +16,7 @@ class CachePersistenceSpec extends Specification {
                 "microstream.cache.backed.key-type"               : "java.lang.Integer",
                 "microstream.cache.backed.value-type"             : "java.lang.String",
                 "microstream.cache.backed.statistics-enabled"     : "true",
-                "microstream.cache.backed.backing-storage"        : "cachestore",
+                "microstream.cache.backed.storage"        : "cachestore",
 
                 "microstream.cache.unbacked.statistics-enabled"   : "true",
         ]
@@ -59,7 +59,7 @@ class CachePersistenceSpec extends Specification {
                 "microstream.cache.backed.key-type"               : "java.lang.Integer",
                 "microstream.cache.backed.value-type"             : "java.lang.String",
                 "microstream.cache.backed.statistics-enabled"     : "true",
-                "microstream.cache.backed.backing-storage"        : "cachestore",
+                "microstream.cache.backed.storage"                : "cachestore",
 
                 "microstream.cache.unbacked.statistics-enabled"   : "true",
         ]
