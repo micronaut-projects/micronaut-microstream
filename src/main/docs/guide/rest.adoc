@@ -1,0 +1,4 @@
+The MicroStream Storage isn’t a typical database server with administrative tooling, it is a pure java persistence engine which runs embedded in your application.
+When developing a MicroStream application, it is useful to be able to inspect the graph that is currently in your storage.
+
+The `micronaut-microstream-rest` library exposes the https://docs.microstream.one/manual/storage/rest-interface/rest-api.html[MicroStream REST API] from inside your Micronaut application.

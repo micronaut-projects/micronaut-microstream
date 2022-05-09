@@ -14,5 +14,10 @@ cache:
   cacheStorage: Cache Storage
 microstreamMetrics: Metrics
 storageHealth: Health
+rest:
+  title: REST API
+  restSetup: Enabling the REST API
+  restConfiguration: Configuration options
+  restGui: GUI
 repository: Repository
 

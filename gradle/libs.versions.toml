@@ -21,10 +21,9 @@ micronaut-cache-tck = { module = 'io.micronaut.cache:micronaut-cache-tck'}
 micronaut-aop = { module = "io.micronaut:micronaut-aop" }
 micronaut-http-client = { module = "io.micronaut:micronaut-http-client" }
 micronaut-http-server-netty = { module = "io.micronaut:micronaut-http-server-netty" }
+micronaut-jackson-databind = { module = "io.micronaut:micronaut-jackson-databind" }
 micronaut-management = { module = "io.micronaut:micronaut-management" }
 micronaut-micrometer-core = { module = 'io.micronaut.micrometer:micronaut-micrometer-core' }
-micronaut-serde-api = { module = 'io.micronaut.serde:micronaut-serde-api' }
-micronaut-serde-processor = { module = 'io.micronaut.serde:micronaut-serde-processor' }
 micronaut-validation = { module = 'io.micronaut:micronaut-validation' }
 micronaut-inject-groovy = { module = 'io.micronaut:micronaut-inject-groovy' }
 micronaut-test-spock = { module = 'io.micronaut.test:micronaut-test-spock' }

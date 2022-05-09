@@ -20,11 +20,11 @@ dependencies {
     testRuntimeOnly(libs.junit.jupiter.engine)
 
     testRuntimeOnly(libs.logback.classic)
-
     testImplementation(libs.micronaut.http.server.netty)
     testImplementation(libs.micronaut.http.client)
     testImplementation project(":microstream")
     testImplementation project(":microstream-cache")
+    testImplementation project(":microstream-rest")
     testImplementation(libs.jupiter.jupiter.params)
 }
 
