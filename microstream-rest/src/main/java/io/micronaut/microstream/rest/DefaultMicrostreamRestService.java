@@ -66,6 +66,6 @@ public class DefaultMicrostreamRestService implements MicrostreamRestService {
     @NonNull
     @Override
     public Optional<StorageRestAdapter> singleAdapter() {
-        return singleStorageName == null ? Optional.empty() : Optional.of(adapterMap.get(singleStorageName));
+        return singleStorageName == null ? Optional.empty() : Optional.ofNullable(adapterMap.get(singleStorageName));
     }
 }
