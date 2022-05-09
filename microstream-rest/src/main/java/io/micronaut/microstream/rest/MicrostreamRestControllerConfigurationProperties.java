@@ -29,7 +29,7 @@ import javax.validation.constraints.NotBlank;
  * @author Tim Yates
  * @since 1.0.0
  */
-@Requires(property = MicrostreamRestControllerConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE, defaultValue = StringUtils.TRUE)
+@Requires(property = MicrostreamRestControllerConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE, defaultValue = StringUtils.FALSE)
 @ConfigurationProperties(MicrostreamRestControllerConfigurationProperties.PREFIX)
 public class MicrostreamRestControllerConfigurationProperties implements Toggleable {
 
@@ -39,7 +39,7 @@ public class MicrostreamRestControllerConfigurationProperties implements Togglea
      * The default enable value.
      */
     @SuppressWarnings("WeakerAccess")
-    public static final boolean DEFAULT_ENABLED = true;
+    public static final boolean DEFAULT_ENABLED = false;
 
     /**
      * The default path.
