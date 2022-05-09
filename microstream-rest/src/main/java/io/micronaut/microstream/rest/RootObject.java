@@ -15,11 +15,11 @@
  */
 package io.micronaut.microstream.rest;
 
+import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.serde.annotation.Serdeable;
+import one.microstream.storage.restadapter.types.ViewerRootDescription;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
  * This object represents a root object for the Microstream REST api.
@@ -27,7 +27,7 @@ import javax.validation.constraints.NotNull;
  * @author Tim Yates
  * @since 1.0.0
  */
-@Serdeable
+@Introspected
 public class RootObject {
 
     /**
@@ -41,18 +41,28 @@ public class RootObject {
      * the root object id.
      */
     @NonNull
-    @NotNull
-    private final Long objectId;
+    @NotBlank
+    private final String objectId;
 
     /**
-     * Constructor.
+     * Construct a root object from a name and id.
      *
-     * @param name     root name
-     * @param objectId the root object id
+     * @param name     the name of the root object
+     * @param objectId the id of the root object
      */
-    public RootObject(@NonNull String name, @NonNull Long objectId) {
+    public RootObject(@NonNull String name, @NonNull String objectId) {
         this.name = name;
         this.objectId = objectId;
+    }
+
+    /**
+     * Construct a root object from the MicroStream description.
+     *
+     * @param userRoot the root description from MicroStream
+     */
+    public RootObject(@NonNull ViewerRootDescription userRoot) {
+        this.name = userRoot.getName();
+        this.objectId = Long.toString(userRoot.getObjectId());
     }
 
     /**
@@ -67,7 +77,7 @@ public class RootObject {
      * @return the id of the root object
      */
     @NonNull
-    public Long getObjectId() {
+    public String getObjectId() {
         return objectId;
     }
 }
