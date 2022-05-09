@@ -59,7 +59,9 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#storageHealth"><strong>8</strong><span>Health</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>9</strong><span>Repository</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#rest"><strong>9</strong><span>REST API</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>10</strong><span>Repository</span></a></div>
                                 
                             </div>
                         </div>
@@ -110,7 +112,15 @@
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-storageHealth"><a href="#storageHealth"><strong>8</strong><span>Health</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>9</strong><span>Repository</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-rest"><a href="#rest"><strong>9</strong><span>REST API</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-restSetup"><a href="#restSetup"><strong>9.1</strong><span>Enabling the REST API</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-restConfiguration"><a href="#restConfiguration"><strong>9.2</strong><span>Configuration options</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-restGui"><a href="#restGui"><strong>9.3</strong><span>GUI</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>10</strong><span>Repository</span></a></div>
         
         </div>
     </div>
@@ -1000,7 +1010,119 @@ By default, the details visible above are only shown to authenticated users. See
 </div>
 </div>
 
-<h1 id="repository"><a class="anchor" href="#repository"></a>9 Repository</h1>
+<h1 id="rest"><a class="anchor" href="#rest"></a>9 REST API</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The MicroStream Storage isn’t a typical database server with administrative tooling, it is a pure java persistence engine which runs embedded in your application.
+When developing a MicroStream application, it is useful to be able to inspect the graph that is currently in your storage.</p>
+</div>
+<div class="paragraph">
+<p>The <code>micronaut-microstream-rest</code> library exposes the <a href="https://docs.microstream.one/manual/storage/rest-interface/rest-api.html">MicroStream REST API</a> from inside your Micronaut application.</p>
+</div>
+
+<h2 id="restSetup"><a class="anchor" href="#restSetup"></a>9.1 Enabling the REST API</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest/restSetup.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To enable it, add the following dependency to your application.</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.microstream:micronaut-microstream-rest")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.microstream&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-microstream-rest&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+
+<h2 id="restConfiguration"><a class="anchor" href="#restConfiguration"></a>9.2 Configuration options</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest/restConfiguration.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>Once you add the <em>microstream-rest</em> dependency, it exposes the API by default. You can disable it with:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/application.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
+  rest:
+    enabled: false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The API path is <code>/microstream</code> by default.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When multiple storage managers are defined, the URL must be suffixed by the manager name <code>/microstream/«storage-name»</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This prefix can be configured via the configuration.</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/application.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
+  rest:
+    path: custom-prefix</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above configuration would expose the REST API at <code>/custom-prefix</code>. (or <code>/custom-prefix/«storage-name»</code> if you have multiple storage managers defined).</p>
+</div>
+
+<h2 id="restGui"><a class="anchor" href="#restGui"></a>9.3 GUI</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest/restGui.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The simplest way of interacting with this REST API is to use the MicroStream client GUI.</p>
+</div>
+<div class="paragraph">
+<p>Instructions on downloading and running this <a href="https://docs.microstream.one/manual/storage/rest-interface/client-gui.html">can be found here</a>.</p>
+</div>
+
+<h1 id="repository"><a class="anchor" href="#repository"></a>10 Repository</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/repository.adoc"'>
