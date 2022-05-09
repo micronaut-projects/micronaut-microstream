@@ -1,6 +1,5 @@
 package io.micronaut.microstream.rest
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.core.annotation.NonNull
@@ -31,9 +30,6 @@ class MicrostreamRestControllerSpec extends Specification implements TestPropert
     @Inject
     @Client("/")
     HttpClient httpClient
-
-    @Inject
-    ObjectMapper objectMapper
 
     @Override
     Map<String, String> getProperties() {
@@ -141,6 +137,6 @@ class MicrostreamRestControllerSpec extends Specification implements TestPropert
 
     @NonNull
     private <T> T read(String path, Class<T> clazz) {
-        objectMapper.readValue(httpClient.toBlocking().retrieve(path), clazz)
+        httpClient.toBlocking().retrieve(path, clazz)
     }
 }
