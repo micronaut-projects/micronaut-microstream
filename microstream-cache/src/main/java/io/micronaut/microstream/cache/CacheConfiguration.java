@@ -15,6 +15,7 @@
  */
 package io.micronaut.microstream.cache;
 
+import io.micronaut.context.annotation.DefaultImplementation;
 import io.micronaut.core.util.Toggleable;
 
 /**
@@ -24,5 +25,6 @@ import io.micronaut.core.util.Toggleable;
  * @author Sergio del Amo
  * @since 1.0.0
  */
+@DefaultImplementation(CacheConfigurationProperties.class)
 public interface CacheConfiguration extends Toggleable {
 }
