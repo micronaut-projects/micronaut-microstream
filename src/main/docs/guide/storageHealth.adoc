@@ -1,7 +1,7 @@
-https://docs.micronaut.io/latest/guide/#healthEndpoint[Health Endpoint] exposes the status of the Microstream Instances in your Micronaut Application.
+https://docs.micronaut.io/latest/guide/#healthEndpoint[Health Endpoint] exposes the status of the MicroStream Instances in your Micronaut Application.
 
 After you add the https://docs.micronaut.io/latest/guide/#management[`management`] dependency,
-the `/health` endpoint of a Micronaut application with one Microstream instance named `blue` will return:
+the `/health` endpoint of a Micronaut application with one MicroStream instance named `blue` will return:
 
 [source,json]
 ----
