@@ -5,29 +5,27 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    testAnnotationProcessor(project(":microstream-annotations"))
-    implementation(project(":microstream-annotations"))
-
     testAnnotationProcessor(platform("io.micronaut:micronaut-bom:$micronautVersion"))
-    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
-    testAnnotationProcessor("io.micronaut:micronaut-validation")
+    testAnnotationProcessor(project(":microstream-annotations"))
+    testAnnotationProcessor(libs.micronaut.inject.java)
+    testAnnotationProcessor(libs.micronaut.validation)
 
     testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
-    implementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
-    testImplementation("io.micronaut:micronaut-validation")
+    testImplementation(libs.micronaut.validation)
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testImplementation "io.micronaut.test:micronaut-test-junit5"
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testImplementation(project(":microstream-annotations"))
 
-    testRuntimeOnly("ch.qos.logback:logback-classic")
+    testImplementation(libs.jupiter.api)
+    testImplementation(libs.micronaut.test.junit5)
+    testRuntimeOnly(libs.junit.jupiter.engine)
 
-    testImplementation "io.micronaut:micronaut-http-server-netty:$micronautVersion"
-    testImplementation "io.micronaut:micronaut-http-client:$micronautVersion"
+    testRuntimeOnly(libs.logback.classic)
+    testImplementation(libs.micronaut.http.server.netty)
+    testImplementation(libs.micronaut.http.client)
     testImplementation project(":microstream")
+    testImplementation project(":microstream-cache")
     testImplementation project(":microstream-rest")
-
-    testImplementation "org.junit.jupiter:junit-jupiter-params"
+    testImplementation(libs.jupiter.jupiter.params)
 }
 
 tasks.named('test') {

@@ -8,6 +8,10 @@ storage:
   title: Storage
   storageWithStorageManager: StorageManager
   storageWithStore: Store Annotation
+cache:
+  title: Cache
+  cacheConfiguration: Cache Configuration
+  cacheStorage: Cache Storage
 microstreamMetrics: Metrics
 storageHealth: Health
 rest:

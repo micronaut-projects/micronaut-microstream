@@ -4,9 +4,20 @@ reactor-test = '3.4.17'
 
 [libraries]
 
-managed-microstream-storage-embedded-configuration= { module = 'one.microstream:microstream-storage-embedded-configuration', version.ref = 'managed-microstream' }
+managed-microstream-storage-embedded-configuration = { module = 'one.microstream:microstream-storage-embedded-configuration', version.ref = 'managed-microstream' }
+managed-microstream-cache = { module = 'one.microstream:microstream-cache', version.ref = 'managed-microstream' }
 managed-microstream-storage-restservice = { module = 'one.microstream:microstream-storage-restservice', version.ref = 'managed-microstream' }
 
+logback-classic = { module = 'ch.qos.logback:logback-classic' }
+
+jupiter-jupiter-params = { module = 'org.junit.jupiter:junit-jupiter-params' }
+jupiter-api = { module = 'org.junit.jupiter:junit-jupiter-api' }
+junit-jupiter-engine = { module = 'org.junit.jupiter:junit-jupiter-engine' }
+
+micronaut-inject-java = { module = 'io.micronaut:micronaut-inject-java' }
+micronaut-test-junit5 = { module = 'io.micronaut.test:micronaut-test-junit5' }
+micronaut-cache-core = { module = 'io.micronaut.cache:micronaut-cache-core', version = "3.4.1" }
+micronaut-cache-tck = { module = 'io.micronaut.cache:micronaut-cache-tck'}
 micronaut-aop = { module = "io.micronaut:micronaut-aop" }
 micronaut-http-client = { module = "io.micronaut:micronaut-http-client" }
 micronaut-http-server-netty = { module = "io.micronaut:micronaut-http-server-netty" }
@@ -14,6 +25,8 @@ micronaut-jackson-databind = { module = "io.micronaut:micronaut-jackson-databind
 micronaut-management = { module = "io.micronaut:micronaut-management" }
 micronaut-micrometer-core = { module = 'io.micronaut.micrometer:micronaut-micrometer-core' }
 micronaut-validation = { module = 'io.micronaut:micronaut-validation' }
+micronaut-inject-groovy = { module = 'io.micronaut:micronaut-inject-groovy' }
+micronaut-test-spock = { module = 'io.micronaut.test:micronaut-test-spock' }
 
 projectreactor = { module = 'io.projectreactor:reactor-core' }
 projectreactor-test = { module = "io.projectreactor:reactor-test", version.ref = 'reactor-test' }

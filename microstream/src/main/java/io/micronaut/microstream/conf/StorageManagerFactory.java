@@ -71,7 +71,9 @@ public class StorageManagerFactory {
                 throw new DisabledBeanException("Please, define a bean of type " + EmbeddedStorageConfigurationProvider.class.getSimpleName() + " by name qualifier: " + name);
             }
             EmbeddedStorageConfigurationProvider configuration = beanContext.getBean(EmbeddedStorageConfigurationProvider.class, Qualifiers.byName(name));
-            storageManager.setRoot(InstantiationUtils.instantiate(configuration.getRootClass()));
+            if (configuration.getRootClass() != null) {
+                storageManager.setRoot(InstantiationUtils.instantiate(configuration.getRootClass()));
+            }
             storageManager.storeRoot();
         }
         return storageManager;

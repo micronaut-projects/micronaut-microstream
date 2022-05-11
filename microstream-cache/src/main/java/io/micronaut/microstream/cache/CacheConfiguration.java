@@ -13,27 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.conf;
+package io.micronaut.microstream.cache;
 
-import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.annotation.Nullable;
-import io.micronaut.core.naming.Named;
-import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfigurationBuilder;
+import io.micronaut.context.annotation.DefaultImplementation;
+import io.micronaut.core.util.Toggleable;
 
 /**
+ * Global Microstream Cache configuration.
+ * {@link CacheConfiguration} and {@link CacheConfigurationProperties} exist to generate configuration reference documentation automatically.
+ * we generate documentation reference.
  * @author Sergio del Amo
  * @since 1.0.0
  */
-public interface EmbeddedStorageConfigurationProvider extends Named {
-
-    @NonNull
-    EmbeddedStorageConfigurationBuilder getBuilder();
-
-    /**
-     * Returns the class of the Root Instance.
-     * <a href="https://docs.microstream.one/manual/storage/root-instances.html">Root Instances</a>
-     * @return Class for the Root Instance.
-     */
-    @Nullable
-    Class<?> getRootClass();
+@DefaultImplementation(CacheConfigurationProperties.class)
+public interface CacheConfiguration extends Toggleable {
 }

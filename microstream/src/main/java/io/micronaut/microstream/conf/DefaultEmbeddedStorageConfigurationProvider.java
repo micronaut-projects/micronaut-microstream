@@ -19,10 +19,9 @@ import io.micronaut.context.annotation.ConfigurationBuilder;
 import io.micronaut.context.annotation.EachProperty;
 import io.micronaut.context.annotation.Parameter;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration;
 import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfigurationBuilder;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * @author Sergio del Amo
@@ -33,8 +32,7 @@ public class DefaultEmbeddedStorageConfigurationProvider implements EmbeddedStor
     @ConfigurationBuilder
     EmbeddedStorageConfigurationBuilder builder = EmbeddedStorageConfiguration.Builder();
 
-    @NonNull
-    @NotNull
+    @Nullable
     private Class<?> rootClass;
 
     private final String name;
