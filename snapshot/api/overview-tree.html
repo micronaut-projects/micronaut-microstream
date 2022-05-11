@@ -73,6 +73,7 @@
 <ul class="horizontal">
 <li><a href="io/micronaut/microstream/package-tree.html">io.micronaut.microstream</a>, </li>
 <li><a href="io/micronaut/microstream/annotations/package-tree.html">io.micronaut.microstream.annotations</a>, </li>
+<li><a href="io/micronaut/microstream/cache/package-tree.html">io.micronaut.microstream.cache</a>, </li>
 <li><a href="io/micronaut/microstream/conf/package-tree.html">io.micronaut.microstream.conf</a>, </li>
 <li><a href="io/micronaut/microstream/health/package-tree.html">io.micronaut.microstream.health</a>, </li>
 <li><a href="io/micronaut/microstream/interceptors/package-tree.html">io.micronaut.microstream.interceptors</a>, </li>
@@ -85,10 +86,19 @@
 <ul>
 <li type="circle">java.lang.Object
 <ul>
+<li type="circle">io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/CacheConfigurationFactory.html" title="class in io.micronaut.microstream.cache"><span class="typeNameLink">CacheConfigurationFactory</span></a>&lt;K,V&gt;</li>
+<li type="circle">io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/CacheConfigurationProperties.html" title="class in io.micronaut.microstream.cache"><span class="typeNameLink">CacheConfigurationProperties</span></a> (implements io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/CacheConfiguration.html" title="interface in io.micronaut.microstream.cache">CacheConfiguration</a>)</li>
+<li type="circle">io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/CacheFactory.html" title="class in io.micronaut.microstream.cache"><span class="typeNameLink">CacheFactory</span></a></li>
 <li type="circle">io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html" title="class in io.micronaut.microstream.conf"><span class="typeNameLink">DefaultEmbeddedStorageConfigurationProvider</span></a> (implements io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html" title="interface in io.micronaut.microstream.conf">EmbeddedStorageConfigurationProvider</a>)</li>
 <li type="circle">io.micronaut.microstream.rest.<a href="io/micronaut/microstream/rest/DefaultMicrostreamRestService.html" title="class in io.micronaut.microstream.rest"><span class="typeNameLink">DefaultMicrostreamRestService</span></a> (implements io.micronaut.microstream.rest.<a href="io/micronaut/microstream/rest/MicrostreamRestService.html" title="interface in io.micronaut.microstream.rest">MicrostreamRestService</a>)</li>
 <li type="circle">io.micronaut.microstream.<a href="io/micronaut/microstream/DefaultRootProvider.html" title="class in io.micronaut.microstream"><span class="typeNameLink">DefaultRootProvider</span></a>&lt;T&gt; (implements io.micronaut.microstream.<a href="io/micronaut/microstream/RootProvider.html" title="interface in io.micronaut.microstream">RootProvider</a>&lt;T&gt;)</li>
 <li type="circle">io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/EmbeddedStorageFoundationFactory.html" title="class in io.micronaut.microstream.conf"><span class="typeNameLink">EmbeddedStorageFoundationFactory</span></a></li>
+<li type="circle">io.micronaut.cache.jcache.JCacheSyncCache (implements io.micronaut.cache.SyncCache&lt;C&gt;)
+<ul>
+<li type="circle">io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/MicrostreamSyncCache.html" title="class in io.micronaut.microstream.cache"><span class="typeNameLink">MicrostreamSyncCache</span></a>&lt;K,V&gt; (implements java.lang.AutoCloseable)</li>
+</ul>
+</li>
+<li type="circle">io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/MicrostreamCacheConfigurationProperties.html" title="class in io.micronaut.microstream.cache"><span class="typeNameLink">MicrostreamCacheConfigurationProperties</span></a>&lt;K,V&gt; (implements io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/MicrostreamCacheConfiguration.html" title="interface in io.micronaut.microstream.cache">MicrostreamCacheConfiguration</a>&lt;K,V&gt;)</li>
 <li type="circle">io.micronaut.microstream.health.<a href="io/micronaut/microstream/health/MicrostreamHealth.html" title="class in io.micronaut.microstream.health"><span class="typeNameLink">MicrostreamHealth</span></a></li>
 <li type="circle">io.micronaut.microstream.health.<a href="io/micronaut/microstream/health/MicrostreamHealthIndicator.html" title="class in io.micronaut.microstream.health"><span class="typeNameLink">MicrostreamHealthIndicator</span></a> (implements io.micronaut.management.health.indicator.HealthIndicator)</li>
 <li type="circle">io.micronaut.microstream.metrics.<a href="io/micronaut/microstream/metrics/MicrostreamMetricsBinder.html" title="class in io.micronaut.microstream.metrics"><span class="typeNameLink">MicrostreamMetricsBinder</span></a> (implements io.micrometer.core.instrument.binder.MeterBinder)</li>
@@ -119,13 +129,21 @@
 </ul>
 <h2 title="Interface Hierarchy">Interface Hierarchy</h2>
 <ul>
+<li type="circle">io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/ExpiryPolicyFactory.html" title="interface in io.micronaut.microstream.cache"><span class="typeNameLink">ExpiryPolicyFactory</span></a></li>
 <li type="circle">io.micronaut.microstream.rest.<a href="io/micronaut/microstream/rest/MicrostreamRestService.html" title="interface in io.micronaut.microstream.rest"><span class="typeNameLink">MicrostreamRestService</span></a></li>
 <li type="circle">io.micronaut.core.naming.Named
 <ul>
 <li type="circle">io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html" title="interface in io.micronaut.microstream.conf"><span class="typeNameLink">EmbeddedStorageConfigurationProvider</span></a></li>
+<li type="circle">io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/MicrostreamCacheConfiguration.html" title="interface in io.micronaut.microstream.cache"><span class="typeNameLink">MicrostreamCacheConfiguration</span></a>&lt;K,V&gt; (also extends io.micronaut.core.util.Toggleable)</li>
 </ul>
 </li>
 <li type="circle">io.micronaut.microstream.<a href="io/micronaut/microstream/RootProvider.html" title="interface in io.micronaut.microstream"><span class="typeNameLink">RootProvider</span></a>&lt;T&gt;</li>
+<li type="circle">io.micronaut.core.util.Toggleable
+<ul>
+<li type="circle">io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/CacheConfiguration.html" title="interface in io.micronaut.microstream.cache"><span class="typeNameLink">CacheConfiguration</span></a></li>
+<li type="circle">io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/MicrostreamCacheConfiguration.html" title="interface in io.micronaut.microstream.cache"><span class="typeNameLink">MicrostreamCacheConfiguration</span></a>&lt;K,V&gt; (also extends io.micronaut.core.naming.Named)</li>
+</ul>
+</li>
 </ul>
 <h2 title="Annotation Type Hierarchy">Annotation Type Hierarchy</h2>
 <ul>

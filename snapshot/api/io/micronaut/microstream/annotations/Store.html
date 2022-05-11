@@ -106,6 +106,7 @@ public @interface <span class="memberNameLabel">Store</span></pre>
  </p>
  <p>
  A method such as this:
+ </p>
  <pre>
   @Store(parameters = "customers")
  protected Customer addCustomer(Map&lt;String, Customer&gt; customers, CustomerSave customerSave) {
@@ -115,9 +116,10 @@ public @interface <span class="memberNameLabel">Store</span></pre>
      return customer;
  }
  </pre>
- <p>
 
+ <p>
  Becomes
+ </p>
  <pre>
  protected Customer addCustomer(Map&lt;String, Customer&gt; customers, CustomerSave customerSave) {
      return XThreads.executeSynchronized(() -&gt; {
@@ -129,11 +131,12 @@ public @interface <span class="memberNameLabel">Store</span></pre>
      });
  }
  </pre>
-
+ <p>
  You can store a method's result.
-
+ </p>
  <p>
  A method such as this:
+ </p>
  <pre>
   @Store(result = true)
  protected Customer updateCustomer(String id, CustomerSave customerSave) {
@@ -147,9 +150,8 @@ public @interface <span class="memberNameLabel">Store</span></pre>
  }
  </pre>
  <p>
-
- <p>
  Becomes
+ </p>
  <pre>
  protected Customer updateCustomer(String id, CustomerSave customerSave) {
      XThreads.executeSynchronized(() -&gt; {
@@ -163,8 +165,7 @@ public @interface <span class="memberNameLabel">Store</span></pre>
          return null;
      }
  }
- </pre>
- </p></div>
+ </pre></div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>1.0.0</dd>

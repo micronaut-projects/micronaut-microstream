@@ -106,6 +106,7 @@ public @interface <span class="memberNameLabel">StoreReturn</span></pre>
 
  <p>
  A method such as this:
+ </p>
  <pre>
   @StoreReturn
  protected Customer updateCustomer(String id, CustomerSave customerSave) {
@@ -119,11 +120,11 @@ public @interface <span class="memberNameLabel">StoreReturn</span></pre>
  }
  </pre>
  <p>
-
  Becomes
+ </p>
  <pre>
  protected Customer updateCustomer(String id, CustomerSave customerSave) {
-     XThreads.executeSynchronized(() -> {
+     XThreads.executeSynchronized(() -&gt; {
          Customer c = data().getCustomers().get(id);
          if (c != null) {
              c.setFirstName(customerSave.getFirstName());
@@ -134,8 +135,7 @@ public @interface <span class="memberNameLabel">StoreReturn</span></pre>
          return null;
      }
  }
- </pre>
- </p></div>
+ </pre></div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>1.0.0</dd>
