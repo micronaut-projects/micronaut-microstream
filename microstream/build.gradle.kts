@@ -3,18 +3,18 @@ plugins {
 }
 
 dependencies {
-    compileOnly(libs.micronaut.micrometer.core)
+    compileOnly(mn.micronaut.micrometer.core)
     compileOnly(project(":microstream-annotations"))
     api(libs.managed.microstream.storage.embedded.configuration)
 
-    compileOnly(libs.micronaut.management)
+    compileOnly(mn.micronaut.management)
     implementation(libs.projectreactor)
 
     testImplementation(libs.projectreactor.test)
-    testImplementation(libs.micronaut.micrometer.core)
-    testImplementation(libs.micronaut.management)
-    testImplementation(libs.micronaut.http.server.netty)
-    testImplementation(libs.micronaut.http.client)
+    testImplementation(mn.micronaut.micrometer.core)
+    testImplementation(mn.micronaut.management)
+    testImplementation(mn.micronaut.http.server.netty)
+    testImplementation(mn.micronaut.http.client)
     testImplementation(project(":microstream-annotations"))
 }
 

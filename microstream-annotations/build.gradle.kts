@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.micronaut.aop)
+    implementation(mn.micronaut.aop)
 }
 
 micronautBuild {

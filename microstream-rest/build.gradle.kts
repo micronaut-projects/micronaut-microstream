@@ -3,16 +3,16 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor(libs.micronaut.validation)
+    annotationProcessor(mn.micronaut.validation)
 
     implementation(libs.managed.microstream.storage.restservice)
-    implementation(libs.micronaut.validation)
+    implementation(mn.micronaut.validation)
 
     implementation(project(":microstream"))
-    implementation(libs.micronaut.jackson.databind)
+    implementation(mn.micronaut.jackson.databind)
 
-    testImplementation(libs.micronaut.http.server.netty)
-    testImplementation(libs.micronaut.http.client)
+    testImplementation(mn.micronaut.http.server.netty)
+    testImplementation(mn.micronaut.http.client)
 }
 
 micronautBuild {
