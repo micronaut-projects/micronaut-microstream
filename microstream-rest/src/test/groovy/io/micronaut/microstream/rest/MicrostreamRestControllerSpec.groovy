@@ -34,7 +34,6 @@ class MicrostreamRestControllerSpec extends Specification implements TestPropert
     @Override
     Map<String, String> getProperties() {
         [
-                "microstream.rest.enabled": 'true',
                 "microstream.storage.people.root-class": People.class.name,
                 "microstream.storage.people.storage-directory": new File(tempDir, "people").absolutePath,
                 "microstream.storage.towns.root-class": Towns.class.name,

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.micronaut.context.ApplicationContext
 import io.micronaut.context.exceptions.NoSuchBeanException
 import io.micronaut.core.annotation.NonNull
+import io.micronaut.core.util.StringUtils
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
@@ -24,7 +25,6 @@ class RestConfigurationSpec extends Specification {
         def server = startServer(
                 "microstream.storage.people.root-class": People.class.name,
                 "microstream.storage.people.storage-directory": new File(tempDir, "people").absolutePath,
-                "microstream.rest.enabled": 'true',
                 'microstream.rest.path': 'api',
         )
         def client = getClient(server)
@@ -45,7 +45,7 @@ class RestConfigurationSpec extends Specification {
         root.objectId
 
         when:
-        def config = server.applicationContext.getBean(MicrostreamRestControllerConfigurationProperties)
+        def config = server.applicationContext.getBean(MicrostreamRestControllerConfiguration)
 
         then:
         config.path == "api"
@@ -56,9 +56,10 @@ class RestConfigurationSpec extends Specification {
         server.stop()
     }
 
-    void "controller is disabled by default"() {
+    void "controller is disabled if microstream.rest.enabled is set to false"() {
         given:
         def server = startServer(
+                "microstream.rest.enabled": StringUtils.FALSE,
                 "microstream.storage.people.root-class": People.class.name,
                 "microstream.storage.people.storage-directory": new File(tempDir, "people").absolutePath,
         )
@@ -71,11 +72,11 @@ class RestConfigurationSpec extends Specification {
         HttpClientResponseException e = thrown()
         e.status == HttpStatus.NOT_FOUND
 
-        when:
-        server.applicationContext.getBean(MicrostreamRestControllerConfigurationProperties)
-
-        then:
-        thrown(NoSuchBeanException)
+        and:
+        !server.applicationContext.containsBean(MicrostreamRestControllerConfiguration)
+        !server.applicationContext.containsBean(MicrostreamRestController)
+        !server.applicationContext.containsBean(MicrostreamRestService)
+        !server.applicationContext.containsBean(ObjectMapperBeanCreatedEventListener)
 
         cleanup:
         client.close()
@@ -89,7 +90,6 @@ class RestConfigurationSpec extends Specification {
                 "microstream.storage.people.storage-directory": new File(tempDir, "people").absolutePath,
                 "microstream.storage.towns.root-class": Towns.class.name,
                 "microstream.storage.towns.storage-directory": new File(tempDir, "towns").absolutePath,
-                "microstream.rest.enabled": 'true',
         )
         def client = getClient(server)
         def mapper = server.applicationContext.getBean(ObjectMapper)
