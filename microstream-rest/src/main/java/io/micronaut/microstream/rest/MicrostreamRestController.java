@@ -18,7 +18,6 @@ package io.micronaut.microstream.rest;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
-import io.micronaut.core.util.StringUtils;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
@@ -37,7 +36,6 @@ import one.microstream.storage.types.StorageManager;
  */
 @Requires(bean = StorageManager.class)
 @Requires(bean = EmbeddedStorageConfigurationProvider.class)
-@Requires(property = MicrostreamRestControllerConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE, defaultValue = StringUtils.FALSE)
 @Controller("/${" + MicrostreamRestControllerConfigurationProperties.PREFIX + ".path:" + MicrostreamRestControllerConfigurationProperties.DEFAULT_PATH + "}")
 public class MicrostreamRestController {
 

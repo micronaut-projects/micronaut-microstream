@@ -16,11 +16,8 @@
 package io.micronaut.microstream.rest;
 
 import io.micronaut.context.annotation.ConfigurationProperties;
-import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.util.StringUtils;
-import io.micronaut.core.util.Toggleable;
-
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -29,9 +26,8 @@ import javax.validation.constraints.NotBlank;
  * @author Tim Yates
  * @since 1.0.0
  */
-@Requires(property = MicrostreamRestControllerConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE, defaultValue = StringUtils.FALSE)
 @ConfigurationProperties(MicrostreamRestControllerConfigurationProperties.PREFIX)
-public class MicrostreamRestControllerConfigurationProperties implements Toggleable {
+public class MicrostreamRestControllerConfigurationProperties implements MicrostreamRestControllerConfiguration {
 
     public static final String PREFIX = "microstream.rest";
 
@@ -39,7 +35,7 @@ public class MicrostreamRestControllerConfigurationProperties implements Togglea
      * The default enable value.
      */
     @SuppressWarnings("WeakerAccess")
-    public static final boolean DEFAULT_ENABLED = false;
+    public static final boolean DEFAULT_ENABLED = true;
 
     /**
      * The default path.
@@ -48,6 +44,7 @@ public class MicrostreamRestControllerConfigurationProperties implements Togglea
     public static final String DEFAULT_PATH = "microstream";
 
     private boolean enabled = DEFAULT_ENABLED;
+
     @NonNull
     @NotBlank
     private String path = DEFAULT_PATH;
@@ -64,7 +61,7 @@ public class MicrostreamRestControllerConfigurationProperties implements Togglea
      * @return path to the {@link MicrostreamRestController}. Default value {@value #DEFAULT_PATH}
      */
     @NonNull
-    @NotBlank
+    @Override
     public String getPath() {
         return this.path;
     }
@@ -81,7 +78,7 @@ public class MicrostreamRestControllerConfigurationProperties implements Togglea
      * Path to the {@link MicrostreamRestController}. Default value {@value #DEFAULT_PATH}
      * @param path The path
      */
-    public void setPath(@NonNull @NotBlank String path) {
+    public void setPath(@NonNull String path) {
         if (StringUtils.isNotEmpty(path)) {
             this.path = path;
         }

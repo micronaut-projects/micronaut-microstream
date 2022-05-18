@@ -13,17 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * This provides a REST API for the microstream low-level client to connect to.
- *
- * @author Tim Yates
- * @see <a href="https://docs.microstream.one/manual/storage/rest-interface/index.html">REST Interface</a>
- * @since 1.0.0
- */
-@Configuration
-@Requires(property = MicrostreamRestControllerConfigurationProperties.PREFIX + ".enabled", value = StringUtils.TRUE, defaultValue = StringUtils.TRUE)
 package io.micronaut.microstream.rest;
 
-import io.micronaut.context.annotation.Configuration;
-import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.util.StringUtils;
+import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.util.Toggleable;
+
+/**
+ * Configuration for MicroStream Rest.
+ *
+ * @author Sergio del Amo
+ * @since 1.0.0
+ */
+public interface MicrostreamRestControllerConfiguration extends Toggleable {
+    /**
+     * @return path to the {@link MicrostreamRestController}.
+     */
+    @NonNull
+    String getPath();
+}
