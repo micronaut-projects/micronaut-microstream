@@ -26,7 +26,7 @@ import java.util.Optional;
  * @author Tim Yates
  * @since 1.0.0
  */
-public interface MicrostreamRestService {
+public interface MicroStreamRestService {
 
     /**
      * Get the single adapter for a given storage name.

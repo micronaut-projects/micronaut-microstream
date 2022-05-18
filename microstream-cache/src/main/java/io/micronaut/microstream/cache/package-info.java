@@ -21,7 +21,7 @@
  * @since 1.0.0
  */
 @Configuration
-@Requires(property = MicrostreamCacheConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE)
+@Requires(property = MicroStreamCacheConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE)
 package io.micronaut.microstream.cache;
 
 import io.micronaut.context.annotation.Configuration;

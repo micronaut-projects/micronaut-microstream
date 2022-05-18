@@ -24,9 +24,9 @@ import io.micronaut.core.util.Toggleable;
  * @author Sergio del Amo
  * @since 1.0.0
  */
-public interface MicrostreamRestControllerConfiguration extends Toggleable {
+public interface MicroStreamRestControllerConfiguration extends Toggleable {
     /**
-     * @return path to the {@link MicrostreamRestController}.
+     * @return path to the {@link MicroStreamRestController}.
      */
     @NonNull
     String getPath();

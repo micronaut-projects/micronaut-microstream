@@ -2,4 +2,4 @@ microstream:
   storage:
     main: # <1>
       root-class: 'io.micronaut.microstream.docs.Data' # <2>
-      storage-directory: '/Users/sdelamo/Documents/MicrostreamData'
+      storage-directory: '/Users/sdelamo/Documents/MicroStreamData'

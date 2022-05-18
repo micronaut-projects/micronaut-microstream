@@ -21,13 +21,13 @@ import io.micronaut.core.util.StringUtils;
 import javax.validation.constraints.NotBlank;
 
 /**
- * Configuration properties for the {@link MicrostreamRestController}.
+ * Configuration properties for the {@link MicroStreamRestController}.
  *
  * @author Tim Yates
  * @since 1.0.0
  */
-@ConfigurationProperties(MicrostreamRestControllerConfigurationProperties.PREFIX)
-public class MicrostreamRestControllerConfigurationProperties implements MicrostreamRestControllerConfiguration {
+@ConfigurationProperties(MicroStreamRestControllerConfigurationProperties.PREFIX)
+public class MicroStreamRestControllerConfigurationProperties implements MicroStreamRestControllerConfiguration {
 
     public static final String PREFIX = "microstream.rest";
 
@@ -50,7 +50,7 @@ public class MicrostreamRestControllerConfigurationProperties implements Microst
     private String path = DEFAULT_PATH;
 
     /**
-     * @return true if you want to enable the {@link MicrostreamRestController}
+     * @return true if you want to enable the {@link MicroStreamRestController}
      */
     @Override
     public boolean isEnabled() {
@@ -58,7 +58,7 @@ public class MicrostreamRestControllerConfigurationProperties implements Microst
     }
 
     /**
-     * @return path to the {@link MicrostreamRestController}. Default value {@value #DEFAULT_PATH}
+     * @return path to the {@link MicroStreamRestController}. Default value {@value #DEFAULT_PATH}
      */
     @NonNull
     @Override
@@ -67,7 +67,7 @@ public class MicrostreamRestControllerConfigurationProperties implements Microst
     }
 
     /**
-     * Enables {@link MicrostreamRestController}. Default value {@value #DEFAULT_ENABLED}
+     * Enables {@link MicroStreamRestController}. Default value {@value #DEFAULT_ENABLED}
      * @param enabled True if it is enabled
      */
     public void setEnabled(boolean enabled) {
@@ -75,7 +75,7 @@ public class MicrostreamRestControllerConfigurationProperties implements Microst
     }
 
     /**
-     * Path to the {@link MicrostreamRestController}. Default value {@value #DEFAULT_PATH}
+     * Path to the {@link MicroStreamRestController}. Default value {@value #DEFAULT_PATH}
      * @param path The path
      */
     public void setPath(@NonNull String path) {

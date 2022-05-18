@@ -22,9 +22,9 @@ import io.micronaut.context.annotation.ConfigurationProperties;
  * {@link CacheConfiguration} and {@link CacheConfigurationProperties} exist to generate configuration reference documentation automatically.
  * @author Sergio del Amo
  * @since 1.0.0
- * It uses a different class because {@link MicrostreamCacheConfigurationProperties} is a {@link io.micronaut.context.annotation.EachProperty} implementation.
+ * It uses a different class because {@link MicroStreamCacheConfigurationProperties} is a {@link io.micronaut.context.annotation.EachProperty} implementation.
  */
-@ConfigurationProperties(MicrostreamCacheConfigurationProperties.PREFIX)
+@ConfigurationProperties(MicroStreamCacheConfigurationProperties.PREFIX)
 public class CacheConfigurationProperties implements CacheConfiguration {
     /**
      * Whether Microstream Cache module is enabled.
