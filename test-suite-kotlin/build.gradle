@@ -13,17 +13,17 @@ dependencies {
     testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     testImplementation(project(":microstream-annotations"))
 
-    testImplementation(libs.micronaut.validation)
+    testImplementation(mn.micronaut.validation)
 
     testImplementation(libs.jupiter.api)
-    testImplementation(libs.micronaut.test.junit5)
+    testImplementation(mn.micronaut.test.junit5)
     testRuntimeOnly(libs.junit.jupiter.engine)
     testRuntimeOnly(libs.logback.classic)
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21"
-    kaptTest(libs.micronaut.inject.java)
+    kaptTest(mn.micronaut.inject.java)
 
-    testImplementation(libs.micronaut.http.server.netty)
-    testImplementation(libs.micronaut.http.client)
+    testImplementation(mn.micronaut.http.server.netty)
+    testImplementation(mn.micronaut.http.client)
     testImplementation project(":microstream")
     testImplementation(libs.jupiter.jupiter.params)
     testImplementation project(":microstream-cache")

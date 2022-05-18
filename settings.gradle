@@ -20,3 +20,7 @@ include 'microstream-cache'
 include 'test-suite'
 include 'test-suite-groovy'
 include 'test-suite-kotlin'
+
+micronautBuild {
+    importMicronautCatalog()
+}
