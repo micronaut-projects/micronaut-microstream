@@ -26,6 +26,7 @@ class RestConfigurationSpec extends Specification {
                 "microstream.storage.people.root-class": People.class.name,
                 "microstream.storage.people.storage-directory": new File(tempDir, "people").absolutePath,
                 'microstream.rest.path': 'api',
+                'microstream.rest.enabled': 'true',
         )
         def client = getClient(server)
         def mapper = server.applicationContext.getBean(ObjectMapper)
@@ -56,10 +57,9 @@ class RestConfigurationSpec extends Specification {
         server.stop()
     }
 
-    void "controller is disabled if microstream.rest.enabled is set to false"() {
+    void "controller is disabled by default"() {
         given:
         def server = startServer(
-                "microstream.rest.enabled": StringUtils.FALSE,
                 "microstream.storage.people.root-class": People.class.name,
                 "microstream.storage.people.storage-directory": new File(tempDir, "people").absolutePath,
         )
@@ -90,6 +90,7 @@ class RestConfigurationSpec extends Specification {
                 "microstream.storage.people.storage-directory": new File(tempDir, "people").absolutePath,
                 "microstream.storage.towns.root-class": Towns.class.name,
                 "microstream.storage.towns.storage-directory": new File(tempDir, "towns").absolutePath,
+                'microstream.rest.enabled': 'true',
         )
         def client = getClient(server)
         def mapper = server.applicationContext.getBean(ObjectMapper)

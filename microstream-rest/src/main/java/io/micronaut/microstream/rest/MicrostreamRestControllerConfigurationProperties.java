@@ -35,7 +35,7 @@ public class MicrostreamRestControllerConfigurationProperties implements Microst
      * The default enable value.
      */
     @SuppressWarnings("WeakerAccess")
-    public static final boolean DEFAULT_ENABLED = true;
+    public static final boolean DEFAULT_ENABLED = false;
 
     /**
      * The default path.

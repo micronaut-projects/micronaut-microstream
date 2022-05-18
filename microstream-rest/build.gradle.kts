@@ -13,6 +13,7 @@ dependencies {
 
     testImplementation(mn.micronaut.http.server.netty)
     testImplementation(mn.micronaut.http.client)
+    testImplementation(libs.logback.classic)
 }
 
 micronautBuild {
