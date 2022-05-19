@@ -23,7 +23,7 @@ import io.micronaut.core.annotation.Introspected;
  * @since 1.0.0
  */
 @Introspected
-public class MicrostreamHealth {
+public class MicroStreamHealth {
 
     private final boolean startingUp;
     private final boolean running;
@@ -41,7 +41,7 @@ public class MicrostreamHealth {
      * @param shuttingDown Whether the Microstream instance is shutting down
      * @param shutdown Whether the Microstream instance is off
      */
-    public MicrostreamHealth(boolean startingUp,
+    public MicroStreamHealth(boolean startingUp,
                              boolean running,
                              boolean active,
                              boolean acceptingTasks,

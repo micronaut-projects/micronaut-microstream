@@ -66,7 +66,7 @@ public class CacheFactory {
     @Singleton
     @Bean(preDestroy = "close")
     @EachBean(CacheConfiguration.Builder.class)
-    public <K, V> MicrostreamSyncCache<K, V> createCache(
+    public <K, V> MicroStreamSyncCache<K, V> createCache(
         @Parameter String name,
         CacheConfiguration.Builder<K, V> cacheConfigurationBuilder,
         @Named(TaskExecutors.IO) ExecutorService executorService
@@ -74,6 +74,6 @@ public class CacheFactory {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Creating cache: {}", name);
         }
-        return new MicrostreamSyncCache<>(manager.createCache(name, cacheConfigurationBuilder.build()), conversionService, executorService);
+        return new MicroStreamSyncCache<>(manager.createCache(name, cacheConfigurationBuilder.build()), conversionService, executorService);
     }
 }

@@ -36,22 +36,22 @@ import one.microstream.storage.types.StorageManager;
  */
 @Requires(bean = StorageManager.class)
 @Requires(bean = EmbeddedStorageConfigurationProvider.class)
-@Controller("/${" + MicrostreamRestControllerConfigurationProperties.PREFIX + ".path:" + MicrostreamRestControllerConfigurationProperties.DEFAULT_PATH + "}")
-public class MicrostreamRestController {
+@Controller("/${" + MicroStreamRestControllerConfigurationProperties.PREFIX + ".path:" + MicroStreamRestControllerConfigurationProperties.DEFAULT_PATH + "}")
+public class MicroStreamRestController {
 
     private static final long DEFAULT_FIXED_OFFSET = 0L;
     private static final long DEFAULT_FIXED_LENGTH = Long.MAX_VALUE;
     private static final long DEFAULT_VARIABLE_OFFSET = 0L;
     private static final long DEFAULT_VARIABLE_LENGTH = Long.MAX_VALUE;
 
-    private final MicrostreamRestService service;
+    private final MicroStreamRestService service;
 
     /**
      * A default controller to expose the expected MicroStream REST API per storage manager.
      *
      * @param service the service to query MicroStream via the relevant {@link StorageRestAdapter}
      */
-    public MicrostreamRestController(MicrostreamRestService service) {
+    public MicroStreamRestController(MicroStreamRestService service) {
         this.service = service;
     }
 

@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Optional;
 
 /**
- * Creates a {@link one.microstream.cache.types.CacheConfiguration.Builder} for each {@link MicrostreamCacheConfiguration}.
+ * Creates a {@link one.microstream.cache.types.CacheConfiguration.Builder} for each {@link MicroStreamCacheConfiguration}.
  * @author Sergio del Amo
  * @since 1.0.0
  * @param <K> Key Type
@@ -58,13 +58,13 @@ public class CacheConfigurationFactory<K, V> {
     }
 
     /**
-     * Creates a {@link one.microstream.cache.types.CacheConfiguration.Builder} for each {@link MicrostreamCacheConfiguration}.
+     * Creates a {@link one.microstream.cache.types.CacheConfiguration.Builder} for each {@link MicroStreamCacheConfiguration}.
      * @param cacheConfiguration Cache Configuration
      * @return Cache Configuration Builder
      */
-    @EachBean(MicrostreamCacheConfiguration.class)
+    @EachBean(MicroStreamCacheConfiguration.class)
     @Singleton
-    public CacheConfiguration.Builder<K, V> createCacheConfigurationProvider(MicrostreamCacheConfiguration<K, V> cacheConfiguration) {
+    public CacheConfiguration.Builder<K, V> createCacheConfigurationProvider(MicroStreamCacheConfiguration<K, V> cacheConfiguration) {
         if (!cacheConfiguration.isEnabled()) {
             throw new DisabledBeanException("microstream cache " + cacheConfiguration.getName() + " is disabled");
         }
@@ -84,7 +84,7 @@ public class CacheConfigurationFactory<K, V> {
     }
 
     @NonNull
-    private Optional<StorageManager> findStorageManager(MicrostreamCacheConfiguration<K, V> cacheConfiguration) {
+    private Optional<StorageManager> findStorageManager(MicroStreamCacheConfiguration<K, V> cacheConfiguration) {
         return Optional.ofNullable(cacheConfiguration.getStorage())
             .flatMap(storageNameQualifier -> {
                 if (LOG.isWarnEnabled() && !beanContext.containsBean(StorageManager.class, Qualifiers.byName(storageNameQualifier))) {
@@ -95,7 +95,7 @@ public class CacheConfigurationFactory<K, V> {
     }
 
     @NonNull
-    private Configuration createConfiguration(@NonNull MicrostreamCacheConfiguration<K, V> cacheConfiguration) {
+    private Configuration createConfiguration(@NonNull MicroStreamCacheConfiguration<K, V> cacheConfiguration) {
         Configuration.Builder configurationBuilder = Configuration.Builder();
         booleanString(cacheConfiguration.isReadThrough()).ifPresent(b ->
             configurationBuilder.set(CacheConfigurationPropertyNames.READ_THROUGH, b));

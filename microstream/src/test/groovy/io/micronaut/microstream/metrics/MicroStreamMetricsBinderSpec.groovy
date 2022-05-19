@@ -19,7 +19,7 @@ import spock.lang.TempDir
 
 @MicronautTest
 @Property(name = "spec.name", value = "MicrostreamMetricsBinderSpec")
-class MicrostreamMetricsBinderSpec extends Specification implements TestPropertyProvider {
+class MicroStreamMetricsBinderSpec extends Specification implements TestPropertyProvider {
 
     @TempDir
     @Shared
