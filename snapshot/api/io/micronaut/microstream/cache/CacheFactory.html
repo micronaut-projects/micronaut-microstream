@@ -154,7 +154,7 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>&lt;K,V&gt;&nbsp;<a href="../../../../io/micronaut/microstream/cache/MicrostreamSyncCache.html" title="class in io.micronaut.microstream.cache">MicrostreamSyncCache</a>&lt;K,V&gt;</code></td>
+<td class="colFirst"><code>&lt;K,V&gt;&nbsp;<a href="../../../../io/micronaut/microstream/cache/MicroStreamSyncCache.html" title="class in io.micronaut.microstream.cache">MicroStreamSyncCache</a>&lt;K,V&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/micronaut/microstream/cache/CacheFactory.html#createCache-java.lang.String-one.microstream.cache.types.CacheConfiguration.Builder-java.util.concurrent.ExecutorService-">createCache</a></span>(java.lang.String&nbsp;name,
            one.microstream.cache.types.CacheConfiguration.Builder&lt;K,V&gt;&nbsp;cacheConfigurationBuilder,
            java.util.concurrent.ExecutorService&nbsp;executorService)</code>
@@ -214,7 +214,7 @@ extends java.lang.Object</pre>
 <pre>@Singleton
  @Bean(preDestroy="close")
  @EachBean(value=one.microstream.cache.types.CacheConfiguration.Builder.class)
-public&nbsp;&lt;K,V&gt;&nbsp;<a href="../../../../io/micronaut/microstream/cache/MicrostreamSyncCache.html" title="class in io.micronaut.microstream.cache">MicrostreamSyncCache</a>&lt;K,V&gt;&nbsp;createCache(@Parameter
+public&nbsp;&lt;K,V&gt;&nbsp;<a href="../../../../io/micronaut/microstream/cache/MicroStreamSyncCache.html" title="class in io.micronaut.microstream.cache">MicroStreamSyncCache</a>&lt;K,V&gt;&nbsp;createCache(@Parameter
                                                                                                                                                                         java.lang.String&nbsp;name,
                                                                                                                                                                         one.microstream.cache.types.CacheConfiguration.Builder&lt;K,V&gt;&nbsp;cacheConfigurationBuilder,
                                                                                                                                                                         @Named(value="io")
