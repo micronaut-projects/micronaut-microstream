@@ -21,13 +21,13 @@ import io.micronaut.core.naming.Named;
 import io.micronaut.core.util.Toggleable;
 
 /**
- * Microstream Cache Configuration.
+ * MicroStream Cache Configuration.
  * @author Sergio del Amo
  * @since 1.0.0
  * @param <K> Key Type
  * @param <V> Value Type
  */
-public interface MicrostreamCacheConfiguration<K, V> extends Named, Toggleable {
+public interface MicroStreamCacheConfiguration<K, V> extends Named, Toggleable {
     /**
      *
      * @return The required type of keys for the Cache.

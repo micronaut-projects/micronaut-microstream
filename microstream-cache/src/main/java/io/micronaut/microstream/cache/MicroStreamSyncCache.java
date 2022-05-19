@@ -29,11 +29,11 @@ import java.util.concurrent.ExecutorService;
  * @since 1.0.0
  * @author Tim Yates
  */
-public class MicrostreamSyncCache<K, V> extends JCacheSyncCache implements AutoCloseable {
+public class MicroStreamSyncCache<K, V> extends JCacheSyncCache implements AutoCloseable {
 
     private final Cache<K, V> cache;
 
-    public MicrostreamSyncCache(Cache<K, V> cache, ConversionService<?> conversionService, ExecutorService executorService) {
+    public MicroStreamSyncCache(Cache<K, V> cache, ConversionService<?> conversionService, ExecutorService executorService) {
         super(cache, conversionService, executorService);
         this.cache = cache;
     }

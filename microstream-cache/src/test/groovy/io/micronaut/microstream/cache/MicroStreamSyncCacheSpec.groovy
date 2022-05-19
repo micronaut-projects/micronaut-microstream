@@ -6,7 +6,7 @@ import spock.lang.AutoCleanup
 import spock.lang.Shared
 import spock.lang.TempDir
 
-class MicrostreamSyncCacheSpec extends AbstractSyncCacheSpec {
+class MicroStreamSyncCacheSpec extends AbstractSyncCacheSpec {
 
     @TempDir
     @Shared

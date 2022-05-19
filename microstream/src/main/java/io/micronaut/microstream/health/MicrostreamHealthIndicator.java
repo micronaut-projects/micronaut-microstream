@@ -72,8 +72,8 @@ public class MicrostreamHealthIndicator implements HealthIndicator {
     }
 
     @NonNull
-    private static MicrostreamHealth healthOfManager(@NonNull StorageManager manager) {
-        return new MicrostreamHealth(manager.isStartingUp(),
+    private static MicroStreamHealth healthOfManager(@NonNull StorageManager manager) {
+        return new MicroStreamHealth(manager.isStartingUp(),
             manager.isRunning(),
             manager.isActive(),
             manager.isAcceptingTasks(),

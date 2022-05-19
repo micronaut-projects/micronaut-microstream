@@ -22,7 +22,7 @@ import one.microstream.storage.restadapter.types.ViewerRootDescription;
 import javax.validation.constraints.NotBlank;
 
 /**
- * This object represents a root object for the Microstream REST api.
+ * This object represents a root object for the MicroStream REST api.
  *
  * @author Tim Yates
  * @since 1.0.0

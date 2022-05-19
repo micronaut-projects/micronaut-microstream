@@ -12,7 +12,7 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 @MicronautTest(startApplication = false)
-class MicrostreamHealthIndicatorFuncSpec extends Specification {
+class MicroStreamHealthIndicatorFuncSpec extends Specification {
 
     @Inject
     BeanContext beanContext

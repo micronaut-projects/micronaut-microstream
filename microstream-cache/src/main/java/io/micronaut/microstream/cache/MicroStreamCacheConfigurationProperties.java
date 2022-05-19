@@ -26,8 +26,8 @@ import io.micronaut.core.annotation.Nullable;
  * @param <K> Key Type
  * @param <V> Value Type
  */
-@EachProperty(MicrostreamCacheConfigurationProperties.PREFIX)
-public class MicrostreamCacheConfigurationProperties<K, V> implements MicrostreamCacheConfiguration<K, V> {
+@EachProperty(MicroStreamCacheConfigurationProperties.PREFIX)
+public class MicroStreamCacheConfigurationProperties<K, V> implements MicroStreamCacheConfiguration<K, V> {
 
     public static final String PREFIX = "microstream.cache";
 
@@ -65,7 +65,7 @@ public class MicrostreamCacheConfigurationProperties<K, V> implements Microstrea
 
     private final String name;
 
-    public MicrostreamCacheConfigurationProperties(@Parameter String name) {
+    public MicroStreamCacheConfigurationProperties(@Parameter String name) {
         this.name = name;
     }
 

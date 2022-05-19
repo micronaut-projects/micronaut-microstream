@@ -9,7 +9,7 @@ import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.TempDir
 
-class MicrostreamHealthIndicatorDetailSpec extends Specification {
+class MicroStreamHealthIndicatorDetailSpec extends Specification {
 
     @TempDir
     @Shared
