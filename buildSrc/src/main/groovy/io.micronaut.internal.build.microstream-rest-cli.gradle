@@ -1,0 +1,23 @@
+configurations {
+    create("cli")
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    cli(libs.microstream.rest.gui) {
+        artifact {
+            type = "jar"
+            transitive = false
+        }
+    }
+}
+
+tasks.register("runCli", JavaExec) {
+    group = "cli"
+    description = "Runs the CLI"
+    classpath = files(configurations.named("cli").map { it.singleFile }.get())
+    it.args('--server.port=8888')
+}
