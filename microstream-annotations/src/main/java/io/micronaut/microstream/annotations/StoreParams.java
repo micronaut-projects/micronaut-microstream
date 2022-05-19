@@ -60,7 +60,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * }
  * </pre>
  *
- * @see <a href="https://docs.microstream.one/manual/storage/root-instances.html#_shared_mutable_data">Microstream mutable data docs.</a>
+ * @see <a href="https://docs.microstream.one/manual/storage/root-instances.html#_shared_mutable_data">MicroStream mutable data docs.</a>
  * @since 1.0.0
  * @author Tim Yates
  * @author Sergio del Amo
@@ -71,7 +71,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface StoreParams {
     /**
      * The optional name qualifier of the Store Manager to use.
-     * If your application only have a Microstream instance, this is not required
+     * If your application only have a MicroStream instance, this is not required
      *
      * @return The name qualifier of the Store Manager to use.
      */

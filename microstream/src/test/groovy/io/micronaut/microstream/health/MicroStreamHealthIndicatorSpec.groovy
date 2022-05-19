@@ -10,7 +10,7 @@ class MicroStreamHealthIndicatorSpec extends Specification {
         ApplicationContext context = ApplicationContext.run(['endpoints.health.microstream.enabled': false])
 
         expect:
-        !context.containsBean(MicrostreamHealthIndicator)
+        !context.containsBean(MicroStreamHealthIndicator)
 
         cleanup:
         context.close()

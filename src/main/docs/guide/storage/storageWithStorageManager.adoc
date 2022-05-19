@@ -2,8 +2,8 @@ The following example shows how to create a repository which injects the `Storag
 
 snippet::io.micronaut.microstream.docs.CustomerRepositoryImpl[tags=clazz]
 
-<1> If your Micronaut application has only a single Microstream Instance, you don't need to specify a name qualifier to inject `StorageManager`.
-<2> When you are https://docs.microstream.one/manual/storage/root-instances.html#_shared_mutable_data[working with Microstream technology in a multi-threaded environment],
+<1> If your Micronaut application has only a single MicroStream Instance, you don't need to specify a name qualifier to inject `StorageManager`.
+<2> When you are https://docs.microstream.one/manual/storage/root-instances.html#_shared_mutable_data[working with MicroStream technology in a multi-threaded environment],
 reading and writing to this shared object graph must be synchronized.
 <3> https://docs.microstream.one/manual/storage/storing-data/index.html[To store a newly created object, store the "owner" of the object].
 

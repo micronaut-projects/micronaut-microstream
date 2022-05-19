@@ -34,7 +34,7 @@ class CustomerControllerTest {
         "store-root-eager",
         "store-annotation"
     })
-    void verifyCrudWithMicrostream(String customerRepositoryImplementation) throws Exception {
+    void verifyCrudWithMicroStream(String customerRepositoryImplementation) throws Exception {
         // Given
         String storageDirectory = "build/microstream-" + UUID.randomUUID();
         Map<String, Object> properties = CollectionUtils.mapOf(

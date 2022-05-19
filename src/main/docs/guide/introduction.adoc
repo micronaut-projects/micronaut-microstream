@@ -1,1 +1,1 @@
-Integration with https://microstream.one[Microstream].
+Integration with https://microstream.one[MicroStream].

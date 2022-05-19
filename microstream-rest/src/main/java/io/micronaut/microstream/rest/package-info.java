@@ -21,7 +21,7 @@
  * @since 1.0.0
  */
 @Configuration
-@Requires(property = MicrostreamRestControllerConfigurationProperties.PREFIX + ".enabled", value = StringUtils.TRUE, defaultValue = StringUtils.FALSE)
+@Requires(property = MicroStreamRestControllerConfigurationProperties.PREFIX + ".enabled", value = StringUtils.TRUE, defaultValue = StringUtils.FALSE)
 package io.micronaut.microstream.rest;
 
 import io.micronaut.context.annotation.Configuration;

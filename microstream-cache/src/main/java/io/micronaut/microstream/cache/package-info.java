@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * Microstream classes related to caching.
+ * MicroStream classes related to caching.
  *
  * @see <a href="https://micronaut-projects.github.io/micronaut-cache/latest/guide/">Micronaut Cache</a>
  * @author Tim Yates

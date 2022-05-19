@@ -18,7 +18,7 @@ package io.micronaut.microstream.cache;
 import io.micronaut.context.annotation.ConfigurationProperties;
 
 /**
- * Configuration for Microstream Cache module.
+ * Configuration for MicroStream Cache module.
  * {@link CacheConfiguration} and {@link CacheConfigurationProperties} exist to generate configuration reference documentation automatically.
  * @author Sergio del Amo
  * @since 1.0.0
@@ -27,7 +27,7 @@ import io.micronaut.context.annotation.ConfigurationProperties;
 @ConfigurationProperties(MicroStreamCacheConfigurationProperties.PREFIX)
 public class CacheConfigurationProperties implements CacheConfiguration {
     /**
-     * Whether Microstream Cache module is enabled.
+     * Whether MicroStream Cache module is enabled.
      */
     @SuppressWarnings("WeakerAccess")
     public static final boolean DEFAULT_ENABLED = true;
@@ -40,7 +40,7 @@ public class CacheConfigurationProperties implements CacheConfiguration {
     }
 
     /**
-     * Whether Microstream Cache module is enabled. Default Value: {@value CacheConfigurationProperties#DEFAULT_ENABLED}
+     * Whether MicroStream Cache module is enabled. Default Value: {@value CacheConfigurationProperties#DEFAULT_ENABLED}
      * @param enabled Whether this cache is enabled.
      */
     public void setEnabled(boolean enabled) {

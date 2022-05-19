@@ -22,7 +22,7 @@ import javax.cache.Cache;
 import java.util.concurrent.ExecutorService;
 
 /**
- * A {@link io.micronaut.cache.SyncCache} implementation that uses a Microstream Cache instance.
+ * A {@link io.micronaut.cache.SyncCache} implementation that uses a MicroStream Cache instance.
  *
  * @param <K> the key type
  * @param <V> the value type

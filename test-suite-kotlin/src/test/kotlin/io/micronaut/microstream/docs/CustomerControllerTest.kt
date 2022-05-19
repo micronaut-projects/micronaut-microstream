@@ -19,7 +19,7 @@ class CustomerControllerTest {
 
     @ParameterizedTest
     @ValueSource(strings = ["embedded-storage-manager", "store"])
-    fun verifyCrudWithMicrostream(customerRepositoryImplementation: String) {
+    fun verifyCrudWithMicroStream(customerRepositoryImplementation: String) {
         // Given
         var server = startServer(customerRepositoryImplementation)
         val sergioName = "Sergio"

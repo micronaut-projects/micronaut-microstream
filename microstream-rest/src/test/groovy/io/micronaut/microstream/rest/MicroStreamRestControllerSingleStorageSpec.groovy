@@ -17,7 +17,7 @@ import spock.lang.Specification
 import spock.lang.TempDir
 
 @MicronautTest
-@Property(name = "spec.name", value = "MicrostreamRestControllerSpec")
+@Property(name = "spec.name", value = "MicroStreamRestControllerSpec")
 class MicroStreamRestControllerSingleStorageSpec extends Specification implements TestPropertyProvider {
 
     @TempDir
