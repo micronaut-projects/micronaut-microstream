@@ -141,7 +141,7 @@ public class MicroStreamCacheConfigurationProperties<K, V> implements MicroStrea
 
     /**
      *
-     * @param storage Name qualifier for Microstream Storage Manager
+     * @param storage Name qualifier for MicroStream Storage Manager
      */
     public void setStorage(@Nullable String storage) {
         this.storage = storage;

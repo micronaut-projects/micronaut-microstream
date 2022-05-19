@@ -22,7 +22,7 @@ class MicroStreamHealthIndicatorFuncSpec extends Specification {
     @Unroll
     void "#desc manager is #expectedStatus"() {
         when:
-        MicrostreamHealthIndicator healthIndicator = beanContext.getBean(MicrostreamHealthIndicator)
+        MicroStreamHealthIndicator healthIndicator = beanContext.getBean(MicroStreamHealthIndicator)
         StepVerifier.create(healthIndicator.result)
                 .expectNextMatches(t -> t.status == expectedStatus)
                 .verifyComplete()

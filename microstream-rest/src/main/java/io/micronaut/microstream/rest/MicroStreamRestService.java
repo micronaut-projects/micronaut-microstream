@@ -21,7 +21,7 @@ import one.microstream.storage.restadapter.types.StorageRestAdapter;
 import java.util.Optional;
 
 /**
- * Microstream REST service.
+ * MicroStream REST service.
  *
  * @author Tim Yates
  * @since 1.0.0

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * Class related to Microstream integration with the Micronaut Framework.
+ * Class related to MicroStream integration with the Micronaut Framework.
  * @author Sergio del Amo
  * @since 1.0.0
  */

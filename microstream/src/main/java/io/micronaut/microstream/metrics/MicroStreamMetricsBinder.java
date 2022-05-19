@@ -37,7 +37,7 @@ import java.util.function.Supplier;
 import static io.micronaut.microstream.metrics.MicroStreamMetricsBinder.MICROSTREAM_METRIC_PREFIX;
 
 /**
- * A Micronaut {@link MeterBinder} for Microstream integration.
+ * A Micronaut {@link MeterBinder} for MicroStream integration.
  *
  * @since 1.0.0
  * @author Tim Yates

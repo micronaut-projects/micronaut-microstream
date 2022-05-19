@@ -19,7 +19,7 @@ import javax.cache.configuration.Factory;
 import javax.cache.expiry.ExpiryPolicy;
 
 /**
- * A marker class for defining an expiry policy on Microstream backed caches.
+ * A marker class for defining an expiry policy on MicroStream backed caches.
  *
  * @author Tim Yates
  * @since 1.0.0

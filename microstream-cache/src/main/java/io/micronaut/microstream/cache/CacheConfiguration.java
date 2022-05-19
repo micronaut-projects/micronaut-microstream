@@ -19,7 +19,7 @@ import io.micronaut.context.annotation.DefaultImplementation;
 import io.micronaut.core.util.Toggleable;
 
 /**
- * Global Microstream Cache configuration.
+ * Global MicroStream Cache configuration.
  * {@link CacheConfiguration} and {@link CacheConfigurationProperties} exist to generate configuration reference documentation automatically.
  * we generate documentation reference.
  * @author Sergio del Amo

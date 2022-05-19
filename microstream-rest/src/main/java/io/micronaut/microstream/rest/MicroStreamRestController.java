@@ -29,7 +29,7 @@ import one.microstream.storage.restadapter.types.ViewerStorageFileStatistics;
 import one.microstream.storage.types.StorageManager;
 
 /**
- * Microstream REST controller for a single StorageManager.
+ * MicroStream REST controller for a single StorageManager.
  *
  * @author Tim Yates
  * @since 1.0.0

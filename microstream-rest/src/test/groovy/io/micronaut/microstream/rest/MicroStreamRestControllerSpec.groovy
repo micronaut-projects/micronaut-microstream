@@ -17,7 +17,7 @@ import spock.lang.Specification
 import spock.lang.TempDir
 
 @MicronautTest
-@Property(name = "spec.name", value = "MicrostreamRestControllerSpec")
+@Property(name = "spec.name", value = "MicroStreamRestControllerSpec")
 class MicroStreamRestControllerSpec extends Specification implements TestPropertyProvider {
 
     @TempDir
@@ -34,6 +34,7 @@ class MicroStreamRestControllerSpec extends Specification implements TestPropert
     @Override
     Map<String, String> getProperties() {
         [
+                'microstream.rest.enabled': 'true',
                 "microstream.storage.people.root-class": People.class.name,
                 "microstream.storage.people.storage-directory": new File(tempDir, "people").absolutePath,
                 "microstream.storage.towns.root-class": Towns.class.name,

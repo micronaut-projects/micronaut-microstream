@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * Packages relates to Microstream annotations.
+ * Packages relates to MicroStream annotations.
  * @author Sergio del Amo
  * @since 1.0.0
  */
