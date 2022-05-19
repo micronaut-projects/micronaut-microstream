@@ -1,0 +1,3 @@
+The simplest way of interacting with this REST API is to use the MicroStream client GUI.
+
+Instructions on downloading and running this https://docs.microstream.one/manual/storage/rest-interface/client-gui.html[can be found here].

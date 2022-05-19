@@ -34,10 +34,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
-import static io.micronaut.microstream.metrics.MicrostreamMetricsBinder.MICROSTREAM_METRIC_PREFIX;
+import static io.micronaut.microstream.metrics.MicroStreamMetricsBinder.MICROSTREAM_METRIC_PREFIX;
 
 /**
- * A Micronaut {@link MeterBinder} for Microstream integration.
+ * A Micronaut {@link MeterBinder} for MicroStream integration.
  *
  * @since 1.0.0
  * @author Tim Yates
@@ -46,7 +46,7 @@ import static io.micronaut.microstream.metrics.MicrostreamMetricsBinder.MICROSTR
 @RequiresMetrics
 @Requires(property = MeterRegistryFactory.MICRONAUT_METRICS_BINDERS + "." + MICROSTREAM_METRIC_PREFIX + ".enabled", value = StringUtils.TRUE, defaultValue = StringUtils.TRUE)
 @Requires(classes = MeterBinder.class)
-public class MicrostreamMetricsBinder implements MeterBinder {
+public class MicroStreamMetricsBinder implements MeterBinder {
 
     public static final String MICROSTREAM_METRIC_PREFIX = "microstream";
     private static final String SUFFIX_TOTAL_DATA_LENGTH = "totalDataLength";
@@ -63,7 +63,7 @@ public class MicrostreamMetricsBinder implements MeterBinder {
      *
      * @param beanContext Bean Context
      */
-    public MicrostreamMetricsBinder(BeanContext beanContext) {
+    public MicroStreamMetricsBinder(BeanContext beanContext) {
         for (BeanDefinition<StorageManager> definition : beanContext.getBeanDefinitions(StorageManager.class)) {
             if (definition.getDeclaredQualifier() instanceof Named) {
                 StorageManager storageManager = beanContext.getBean(definition);

@@ -14,5 +14,5 @@ You specify the Root class via configuration:
 include::test-suite/src/test/resources/application-data.yml[]
 ----
 
-<1> Specify a name qualifier for the Microstream instance
+<1> Specify a name qualifier for the MicroStream instance
 <2> Specify the class of the entity graph's root.

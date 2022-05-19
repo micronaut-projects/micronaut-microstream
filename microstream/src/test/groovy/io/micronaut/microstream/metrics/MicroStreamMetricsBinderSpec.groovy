@@ -18,8 +18,8 @@ import spock.lang.Specification
 import spock.lang.TempDir
 
 @MicronautTest
-@Property(name = "spec.name", value = "MicrostreamMetricsBinderSpec")
-class MicrostreamMetricsBinderSpec extends Specification implements TestPropertyProvider {
+@Property(name = "spec.name", value = "MicroStreamMetricsBinderSpec")
+class MicroStreamMetricsBinderSpec extends Specification implements TestPropertyProvider {
 
     @TempDir
     @Shared
@@ -81,7 +81,7 @@ class MicrostreamMetricsBinderSpec extends Specification implements TestProperty
     }
 
     @Singleton
-    @Requires(property = "spec.name", value = "MicrostreamMetricsBinderSpec")
+    @Requires(property = "spec.name", value = "MicroStreamMetricsBinderSpec")
     static class SpecController {
 
         private StorageManager townManager

@@ -1,0 +1,15 @@
+The API path is `/microstream` by default.
+
+NOTE: When multiple storage managers are defined, the URL must be suffixed by the manager name `/microstream/«storage-name»`.
+
+This prefix can be configured via the configuration.
+
+[source,yaml]
+.src/main/resources/application.yml
+----
+microstream:
+  rest:
+    path: custom-prefix
+----
+
+The above configuration would expose the REST API at `/custom-prefix`. (or `/custom-prefix/«storage-name»` if you have multiple storage managers defined).

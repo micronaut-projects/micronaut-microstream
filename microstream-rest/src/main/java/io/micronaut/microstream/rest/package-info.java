@@ -20,4 +20,10 @@
  * @see <a href="https://docs.microstream.one/manual/storage/rest-interface/index.html">REST Interface</a>
  * @since 1.0.0
  */
+@Configuration
+@Requires(property = MicroStreamRestControllerConfigurationProperties.PREFIX + ".enabled", value = StringUtils.TRUE, defaultValue = StringUtils.FALSE)
 package io.micronaut.microstream.rest;
+
+import io.micronaut.context.annotation.Configuration;
+import io.micronaut.context.annotation.Requires;
+import io.micronaut.core.util.StringUtils;

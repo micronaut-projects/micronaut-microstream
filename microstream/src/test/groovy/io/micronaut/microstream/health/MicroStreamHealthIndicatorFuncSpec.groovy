@@ -12,7 +12,7 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 @MicronautTest(startApplication = false)
-class MicrostreamHealthIndicatorFuncSpec extends Specification {
+class MicroStreamHealthIndicatorFuncSpec extends Specification {
 
     @Inject
     BeanContext beanContext
@@ -22,7 +22,7 @@ class MicrostreamHealthIndicatorFuncSpec extends Specification {
     @Unroll
     void "#desc manager is #expectedStatus"() {
         when:
-        MicrostreamHealthIndicator healthIndicator = beanContext.getBean(MicrostreamHealthIndicator)
+        MicroStreamHealthIndicator healthIndicator = beanContext.getBean(MicroStreamHealthIndicator)
         StepVerifier.create(healthIndicator.result)
                 .expectNextMatches(t -> t.status == expectedStatus)
                 .verifyComplete()

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 /**
- * Microstream Configuration files.
- * <a href="https://docs.microstream.one/manual/storage/configuration/index.html">Microstream Configuration</a>
+ * MicroStream Configuration files.
+ * <a href="https://docs.microstream.one/manual/storage/configuration/index.html">MicroStream Configuration</a>
  * @author Sergio del Amo
  * @since 1.0.0
  */

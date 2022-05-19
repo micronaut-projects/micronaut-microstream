@@ -17,7 +17,7 @@ import spock.lang.Unroll
 class CustomerControllerSpec extends Specification {
 
     @Unroll
-    void "verify CRUD with Microstream"(String customerRepositoryImplementation) {
+    void "verify CRUD with MicroStream"(String customerRepositoryImplementation) {
         given:
         String storageDirectory = "build/microstream-" + UUID.randomUUID()
         ServerAndClient server = startServer(serverProperties(storageDirectory, customerRepositoryImplementation))

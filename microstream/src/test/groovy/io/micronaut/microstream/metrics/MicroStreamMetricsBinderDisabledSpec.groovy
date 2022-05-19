@@ -14,8 +14,8 @@ import spock.lang.Specification
 import spock.lang.TempDir
 
 @MicronautTest
-@Property(name = "spec.name", value = "MicrostreamMetricsBinderSpec")
-class MicrostreamMetricsBinderDisabledSpec extends Specification implements TestPropertyProvider {
+@Property(name = "spec.name", value = "MicroStreamMetricsBinderSpec")
+class MicroStreamMetricsBinderDisabledSpec extends Specification implements TestPropertyProvider {
 
     @TempDir
     @Shared
@@ -39,7 +39,7 @@ class MicrostreamMetricsBinderDisabledSpec extends Specification implements Test
 
     void "metrics are not added"() {
         when:
-        beanContext.getBean(MicrostreamMetricsBinder)
+        beanContext.getBean(MicroStreamMetricsBinder)
 
         then:
         thrown(NoSuchBeanException)

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * Class related to interceptors to provide functionality for the Microstream annotations.
+ * Class related to interceptors to provide functionality for the MicroStream annotations.
  * @author Sergio del Amo
  * @since 1.0.0
  */

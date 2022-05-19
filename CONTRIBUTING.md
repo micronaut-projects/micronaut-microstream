@@ -8,15 +8,15 @@ If you are interested in contributing to Micronaut and are looking for issues to
 
 ## JDK Setup
 
-Micronaut microstream currently requires JDK 8.
+Micronaut MicroStream currently requires JDK 8.
 
 ## IDE Setup
 
-Micronaut microstream can be imported into IntelliJ IDEA by opening the `build.gradle` file.
+Micronaut MicroStream can be imported into IntelliJ IDEA by opening the `build.gradle` file.
 
 ## Docker Setup
 
-Micronaut microstream tests currently require Docker to be installed.
+Micronaut MicroStream tests currently require Docker to be installed.
 
 ## Running Tests
 

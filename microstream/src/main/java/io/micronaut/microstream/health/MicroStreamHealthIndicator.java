@@ -41,14 +41,14 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Singleton
 @Requires(classes = HealthIndicator.class)
-@Requires(property = HealthEndpoint.PREFIX + "." +  MicrostreamHealthIndicator.MICROSTREAM_PREFIX + ".enabled", value = StringUtils.TRUE, defaultValue = StringUtils.TRUE)
-public class MicrostreamHealthIndicator implements HealthIndicator {
+@Requires(property = HealthEndpoint.PREFIX + "." +  MicroStreamHealthIndicator.MICROSTREAM_PREFIX + ".enabled", value = StringUtils.TRUE, defaultValue = StringUtils.TRUE)
+public class MicroStreamHealthIndicator implements HealthIndicator {
 
     public static final String MICROSTREAM_PREFIX = "microstream";
     private static final String DOT = ".";
     private final Map<String, StorageManager> storageManagerMap = new ConcurrentHashMap<>();
 
-    public MicrostreamHealthIndicator(BeanContext beanContext) {
+    public MicroStreamHealthIndicator(BeanContext beanContext) {
         for (BeanDefinition<StorageManager> definition : beanContext.getBeanDefinitions(StorageManager.class)) {
             if (definition.getDeclaredQualifier() instanceof Named) {
                 String name = ((Named) definition.getDeclaredQualifier()).getName();
@@ -72,8 +72,8 @@ public class MicrostreamHealthIndicator implements HealthIndicator {
     }
 
     @NonNull
-    private static MicrostreamHealth healthOfManager(@NonNull StorageManager manager) {
-        return new MicrostreamHealth(manager.isStartingUp(),
+    private static MicroStreamHealth healthOfManager(@NonNull StorageManager manager) {
+        return new MicroStreamHealth(manager.isStartingUp(),
             manager.isRunning(),
             manager.isActive(),
             manager.isAcceptingTasks(),

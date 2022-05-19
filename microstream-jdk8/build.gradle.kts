@@ -7,7 +7,7 @@ dependencies {
     implementation(libs.managed.microstream.storage.embedded.configuration)
 
     testImplementation(project(":microstream"))
-    testImplementation(libs.micronaut.http.server.netty)
+    testImplementation(mn.micronaut.http.server.netty)
 }
 
 micronautBuild {

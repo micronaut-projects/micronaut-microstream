@@ -18,12 +18,12 @@ package io.micronaut.microstream.health;
 import io.micronaut.core.annotation.Introspected;
 
 /**
- * Health information about a Microstream instance.
+ * Health information about a MicroStream instance.
  * @author Sergio del Amo
  * @since 1.0.0
  */
 @Introspected
-public class MicrostreamHealth {
+public class MicroStreamHealth {
 
     private final boolean startingUp;
     private final boolean running;
@@ -34,14 +34,14 @@ public class MicrostreamHealth {
 
     /**
      *
-     * @param startingUp Whether the Microstream instance is starting up.
-     * @param running Whether the Microstream instance is running
-     * @param active Whether the Microstream instance is active
-     * @param acceptingTasks Whether the Microstream instance accepts tasks
-     * @param shuttingDown Whether the Microstream instance is shutting down
-     * @param shutdown Whether the Microstream instance is off
+     * @param startingUp Whether the MicroStream instance is starting up.
+     * @param running Whether the MicroStream instance is running
+     * @param active Whether the MicroStream instance is active
+     * @param acceptingTasks Whether the MicroStream instance accepts tasks
+     * @param shuttingDown Whether the MicroStream instance is shutting down
+     * @param shutdown Whether the MicroStream instance is off
      */
-    public MicrostreamHealth(boolean startingUp,
+    public MicroStreamHealth(boolean startingUp,
                              boolean running,
                              boolean active,
                              boolean acceptingTasks,
@@ -57,7 +57,7 @@ public class MicrostreamHealth {
 
     /**
      *
-     * @return Whether the Microstream instance is starting up.
+     * @return Whether the MicroStream instance is starting up.
      */
     public boolean isStartingUp() {
         return startingUp;
@@ -65,7 +65,7 @@ public class MicrostreamHealth {
 
     /**
      *
-     * @return Whether the Microstream instance is running
+     * @return Whether the MicroStream instance is running
      */
     public boolean isRunning() {
         return running;
@@ -73,7 +73,7 @@ public class MicrostreamHealth {
 
     /**
      *
-     * @return Whether the Microstream instance is active
+     * @return Whether the MicroStream instance is active
      */
     public boolean isActive() {
         return active;
@@ -81,7 +81,7 @@ public class MicrostreamHealth {
 
     /**
      *
-     * @return Whether the Microstream instance accepts tasks
+     * @return Whether the MicroStream instance accepts tasks
      */
     public boolean isAcceptingTasks() {
         return acceptingTasks;
@@ -89,7 +89,7 @@ public class MicrostreamHealth {
 
     /**
      *
-     * @return Whether the Microstream instance is shutting down
+     * @return Whether the MicroStream instance is shutting down
      */
     public boolean isShuttingDown() {
         return shuttingDown;
@@ -97,7 +97,7 @@ public class MicrostreamHealth {
 
     /**
      *
-     * @return Whether the Microstream instance is off
+     * @return Whether the MicroStream instance is off
      */
     public boolean isShutdown() {
         return shutdown;
