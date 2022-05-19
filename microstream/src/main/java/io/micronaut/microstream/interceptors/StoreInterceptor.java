@@ -21,6 +21,7 @@ import io.micronaut.aop.MethodInterceptor;
 import io.micronaut.aop.MethodInvocationContext;
 import io.micronaut.context.BeanContext;
 import io.micronaut.core.annotation.AnnotationValue;
+import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.type.MutableArgumentValue;
@@ -54,6 +55,7 @@ import java.util.function.Consumer;
  * @author Sergio del Amo
  * @since 1.0.0
  */
+@Internal
 @Singleton
 @InterceptorBean(Store.class)
 public class StoreInterceptor implements MethodInterceptor<Object, Object> {
