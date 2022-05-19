@@ -35,7 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 1.0.0
  */
 @Singleton
-public class DefaultMicrostreamRestService implements MicrostreamRestService {
+public class DefaultMicroStreamRestService implements MicrostreamRestService {
 
     private final Map<String, StorageRestAdapter> adapterMap = new ConcurrentHashMap<>();
     private final String singleStorageName;
@@ -46,7 +46,7 @@ public class DefaultMicrostreamRestService implements MicrostreamRestService {
      * @param beanContext the bean context to resolve storage managers
      * @param storageFoundations the bound storage foundations
      */
-    public DefaultMicrostreamRestService(
+    public DefaultMicroStreamRestService(
         BeanContext beanContext,
         Collection<EmbeddedStorageConfigurationProvider> storageFoundations
     ) {
