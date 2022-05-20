@@ -15,7 +15,7 @@ These annotations wrap the decorated method to ensure thread isolation.
 | It stores the root object.
 
 | ann:microstream.annotations.Store[]
-| Micronaut Microstream maps other annotations to this annotation. You will not use this annotation directly.
+| Micronaut MicroStream maps other annotations to this annotation. You will not use this annotation directly.
 |===
 
 If you work with multiple MicroStream instances, you can supply the name qualifier to the annotation to specify the instance you are working with.

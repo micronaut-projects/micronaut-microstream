@@ -1,4 +1,4 @@
-The following example shows how an equivalent implementation which leverages the <<annotations, Micronaut Microstream annotations>> to simplify object storage.
+The following example shows how an equivalent implementation which leverages the <<annotations, Micronaut MicroStream annotations>> to simplify object storage.
 
 snippet::io.micronaut.microstream.docs.CustomerRepositoryStoreImpl[tags=clazz]
 
@@ -6,4 +6,4 @@ snippet::io.micronaut.microstream.docs.CustomerRepositoryStoreImpl[tags=clazz]
 <2> https://docs.microstream.one/manual/storage/storing-data/index.html[The rule is: "The Object that has been modified has to be stored!"].
 <3> https://docs.microstream.one/manual/storage/storing-data/index.html[To store a newly created object, store the "owner" of the object].
 
-NOTE: <<annotations, Micronaut Microstream annotations>> only work for synchronous methods. It does not do any logic for methods returning a `Publisher` or a `CompletableFuture`. For those scenarios, use directly the `StorageManager`.
+NOTE: <<annotations, Micronaut MicroStream annotations>> only work for synchronous methods. It does not do any logic for methods returning a `Publisher` or a `CompletableFuture`. For those scenarios, use directly the `StorageManager`.
