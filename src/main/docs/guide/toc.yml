@@ -4,6 +4,7 @@ releaseHistory: Release History
 dependency: Dependency
 configuration: Configuration
 rootInstance: Root Instance
+annotations: Annotations
 storage:
   title: Storage
   storageWithStorageManager: StorageManager

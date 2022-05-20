@@ -1,0 +1,23 @@
+Micronaut MicroStream ships the following around method annotations.
+They simplify storing objects in an associated Store Manager.
+
+These annotations wrap the decorated method to ensure thread isolation.
+
+[cols="1,1"]
+|===
+| ann:microstream.annotations.StoreParams[]
+| It stores the method parameters specified in the annotation value.
+
+| ann:microstream.annotations.StoreReturn[]
+| It stores the method return
+
+| ann:microstream.annotations.StoreRoot[]
+| It stores the root object.
+
+| ann:microstream.annotations.Store[]
+| Micronaut Microstream maps other annotations to this annotation. You will not use this annotation directly.
+|===
+
+If you work with multiple MicroStream instances, you can supply the name qualifier to the annotation to specify the instance you are working with.
+
+Moreover, you can specify the api:microstream.annotations.StoringStrategy[] via the annotations. By default, `LAZY` is the default storing mode.
