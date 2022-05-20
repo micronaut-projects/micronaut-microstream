@@ -5,9 +5,3 @@ plugins {
 dependencies {
     implementation(mn.micronaut.aop)
 }
-
-micronautBuild {
-    binaryCompatibility {
-        enabled.set(false)
-    }
-}

@@ -9,9 +9,3 @@ dependencies {
     testImplementation(mn.micronaut.cache.tck)
     testImplementation(libs.jupiter.api)
 }
-
-micronautBuild {
-    binaryCompatibility {
-        enabled.set(false)
-    }
-}
