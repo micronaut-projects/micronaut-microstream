@@ -13,16 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package io.micronaut.microstream.conf;
+
+import io.micronaut.context.annotation.DefaultImplementation;
+import io.micronaut.core.util.Toggleable;
+
 /**
- * Class related to MicroStream integration with the Micronaut Framework.
+ * Global MicroStream configuration.
+ * {@link MicroStreamConfiguration} and {@link MicroStreamConfigurationProperties} exist to generate configuration reference documentation automatically.
+ * we generate documentation reference.
  * @author Sergio del Amo
  * @since 1.0.0
  */
-@Configuration
-@Requires(property = MicroStreamConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE)
-package io.micronaut.microstream;
-
-import io.micronaut.context.annotation.Configuration;
-import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.util.StringUtils;
-import io.micronaut.microstream.conf.MicroStreamConfigurationProperties;
+@DefaultImplementation(MicroStreamConfigurationProperties.class)
+public interface MicroStreamConfiguration extends Toggleable {
+}

@@ -1,7 +1,7 @@
 A Micronaut application can have more than one MicroStream instances.
 Each MicroStream instance represents one coherent entity graph of persistent data.
 
-https://docs.microstream.one/manual/storage/configuration/index.html[MicroStream Configuration]
+You can use the same values described in the https://docs.microstream.one/manual/storage/configuration/index.html[MicroStream Configuration documentation].
 
 The following configuration example configures two beans of type api:microstream.conf.EmbeddedStorageConfigurationProvider[]
 with https://docs.micronaut.io/latest/guide/#qualifiers[Name Bean Qualifiers]: `orange` and `blue`.

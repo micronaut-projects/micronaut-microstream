@@ -4,10 +4,11 @@ releaseHistory: Release History
 dependency: Dependency
 configuration: Configuration
 rootInstance: Root Instance
+annotations: Annotations
 storage:
   title: Storage
   storageWithStorageManager: StorageManager
-  storageWithStore: Store Annotation
+  storageWithStore: Working with Annotations
 cache:
   title: Cache
   cacheConfiguration: Cache Configuration
