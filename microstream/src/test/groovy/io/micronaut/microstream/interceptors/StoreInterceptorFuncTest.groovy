@@ -1,26 +1,17 @@
 package io.micronaut.microstream.interceptors
 
-import io.micronaut.context.BeanContext
-import io.micronaut.context.annotation.Property
+import io.micronaut.context.ApplicationContext
 import io.micronaut.context.annotation.Requires
 import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.microstream.annotations.Store
 import io.micronaut.microstream.annotations.StoringStrategy
-import io.micronaut.test.annotation.MockBean
-import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.inject.Singleton
 import one.microstream.persistence.types.Storer
 import one.microstream.storage.types.StorageManager
 import spock.lang.Specification
 
-@MicronautTest(startApplication = false)
-@Property(name = "spec.name", value = "StoreInterceptorFuncTest")
 class StoreInterceptorFuncTest extends Specification {
-
-    @Inject
-    BeanContext beanContext
 
     List<String> data = []
 
@@ -33,8 +24,11 @@ class StoreInterceptorFuncTest extends Specification {
 
     void "no name specified results in an exception"() {
         given:
-        beanContext.registerSingleton(StorageManager, mockStorageManager, Qualifiers.byName('flowers'))
-        SpecController controller = beanContext.getBean(SpecController)
+        def ctx = ApplicationContext.run([
+                'spec.name': 'StoreInterceptorFuncTest'
+        ])
+        ctx.registerSingleton(StorageManager, mockStorageManager, Qualifiers.byName('flowers'))
+        SpecController controller = ctx.getBean(SpecController)
 
         when:
         controller.eagerResultantStore('iris')
@@ -78,11 +72,9 @@ class StoreInterceptorFuncTest extends Specification {
 
         and: "lazy root storage stores on the manager with the full root object"
         1 * mockStorageManager.store(["iris", "daisy", "tulip", "rose"])
-    }
 
-    @MockBean(bean = StorageManager, named = "flowers")
-    StorageManager getEmbeddedStorageManager() {
-        mockStorageManager
+        cleanup:
+        ctx.close()
     }
 
     @Singleton
