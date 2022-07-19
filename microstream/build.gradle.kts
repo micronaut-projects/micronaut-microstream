@@ -9,6 +9,7 @@ dependencies {
 
     compileOnly(mn.micronaut.management)
     implementation(libs.projectreactor)
+    implementation(libs.microstream.persistence.binary.jdk8)
 
     testImplementation(libs.projectreactor.test)
     testImplementation(mn.micronaut.micrometer.core)
