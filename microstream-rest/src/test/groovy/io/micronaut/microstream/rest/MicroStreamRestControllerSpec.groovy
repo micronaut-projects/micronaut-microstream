@@ -94,13 +94,15 @@ class MicroStreamRestControllerSpec extends Specification implements TestPropert
 
         then:
         obj.objectId == id
-        obj.data.size() == 1
+
+        // With the Jdk8 persistence layer, the first item is a list capacity, and the second the list itself
+        obj.data.size() == 2
         // Which contains 2 items
-        obj.data[0].size() == 2
+        obj.data[1].size() == 2
 
         when:
-        String timId = obj.data[0][0]
-        String sergioId = obj.data[0][1]
+        String timId = obj.data[1][0]
+        String sergioId = obj.data[1][1]
 
         def tim = object(timId)
         def sergio = object(sergioId)
