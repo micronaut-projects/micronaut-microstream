@@ -17,6 +17,7 @@ package io.micronaut.microstream.rest;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-@JsonInclude
+@SuppressWarnings("DefaultAnnotationParam")
+@JsonInclude(JsonInclude.Include.ALWAYS)
 interface ViewerObjectDescriptionMixin {
 }

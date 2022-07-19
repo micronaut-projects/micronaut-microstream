@@ -20,7 +20,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
 
-@JsonInclude
+@SuppressWarnings("DefaultAnnotationParam")
+@JsonInclude(JsonInclude.Include.ALWAYS)
 interface ViewerStorageFileStatisticsMixin {
     @SuppressWarnings("unused")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")

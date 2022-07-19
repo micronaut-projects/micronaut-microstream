@@ -40,10 +40,10 @@ class CustomerControllerTest {
         String storageDirectory = "build/microstream-" + UUID.randomUUID();
         Map<String, Object> properties = CollectionUtils.mapOf(
             "microstream.storage.main.storage-directory", storageDirectory,
-            "customer.repository",
-            customerRepositoryImplementation,
-            "microstream.storage.main.root-class",
-            "io.micronaut.microstream.docs.Data");
+            "customer.repository", customerRepositoryImplementation,
+            "microstream.storage.main.root-class", "io.micronaut.microstream.docs.Data",
+            "microstream.rest.enabled", "true"
+        );
         EmbeddedServer embeddedServer = ApplicationContext.run(EmbeddedServer.class, properties, Environment.TEST);
         HttpClient httpClient = embeddedServer.getApplicationContext()
             .createBean(HttpClient.class, embeddedServer.getURL());
@@ -68,6 +68,9 @@ class CustomerControllerTest {
         assertNotNull(customer);
         assertEquals(sergioFirstName, customer.getFirstName());
         assertNull(customer.getLastName());
+
+        // Check the rest-api endpoint is working
+        client.retrieve("/microstream/object/1000000000000000031?valueLength=10000&variableLength=0&references=true");
 
         // When we restart the server
         httpClient.close();
