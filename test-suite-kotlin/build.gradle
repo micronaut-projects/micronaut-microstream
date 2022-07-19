@@ -10,10 +10,13 @@ repositories {
 dependencies {
     kaptTest(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     kaptTest (project(":microstream-annotations"))
+    kaptTest (mn.micronaut.serde.processor)
+
     testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     testImplementation(project(":microstream-annotations"))
 
     testImplementation(mn.micronaut.validation)
+    testImplementation(mn.micronaut.serde.jackson)
 
     testImplementation(libs.jupiter.api)
     testImplementation(mn.micronaut.test.junit5)
@@ -27,6 +30,13 @@ dependencies {
     testImplementation project(":microstream")
     testImplementation(libs.jupiter.jupiter.params)
     testImplementation project(":microstream-cache")
+}
+
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        substitute(module("io.micronaut:micronaut-jackson-databind"))
+                .using(module("io.micronaut.serde:micronaut-serde-jackson:${mn.versions.micronaut.serialization.get()}"))
+    }
 }
 
 tasks.named('test') {

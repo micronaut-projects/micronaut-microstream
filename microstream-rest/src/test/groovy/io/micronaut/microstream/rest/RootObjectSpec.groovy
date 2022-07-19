@@ -1,8 +1,8 @@
 package io.micronaut.microstream.rest
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import io.micronaut.context.BeanContext
 import io.micronaut.core.beans.BeanIntrospection
+import io.micronaut.serde.ObjectMapper
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification

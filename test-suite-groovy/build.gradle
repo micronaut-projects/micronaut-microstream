@@ -11,6 +11,7 @@ dependencies {
 
     testImplementation(project(":microstream-annotations"))
     testImplementation(mn.micronaut.validation)
+    testImplementation(mn.micronaut.serde.jackson)
     testImplementation("org.spockframework:spock-core:${spockVersion}") {
         exclude module: 'groovy-all'
     }
@@ -21,6 +22,13 @@ dependencies {
     testImplementation project(":microstream-cache")
 
     testRuntimeOnly(libs.logback.classic)
+}
+
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        substitute(module("io.micronaut:micronaut-jackson-databind"))
+                .using(module("io.micronaut.serde:micronaut-serde-jackson:${mn.versions.micronaut.serialization.get()}"))
+    }
 }
 
 tasks.named('test') {

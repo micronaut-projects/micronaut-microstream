@@ -1,9 +1,9 @@
 package io.micronaut.microstream.rest
 
-import io.micronaut.core.annotation.Introspected
 import io.micronaut.core.annotation.NonNull
+import io.micronaut.serde.annotation.Serdeable
 
-@Introspected
+@Serdeable
 class Towns {
 
     @NonNull

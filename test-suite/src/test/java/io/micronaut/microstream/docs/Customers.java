@@ -1,11 +1,12 @@
 package io.micronaut.microstream.docs;
 
-import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.serde.annotation.Serdeable;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Introspected
+@Serdeable
 public class Customers {
     @NonNull
     private Map<String, Customer> customersById = new ConcurrentHashMap<>();
