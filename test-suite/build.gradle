@@ -1,17 +1,21 @@
 plugins {
     id 'java-library'
 }
+
 repositories {
     mavenCentral()
+    // We need this for the fixedMicronautVersionForTestSuites version
+    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
 }
+
 dependencies {
-    testAnnotationProcessor(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    testAnnotationProcessor(platform("io.micronaut:micronaut-bom:$fixedMicronautVersionForTestSuites"))
     testAnnotationProcessor(project(":microstream-annotations"))
     testAnnotationProcessor(mn.micronaut.inject.java)
     testAnnotationProcessor(mn.micronaut.validation)
     testAnnotationProcessor(mn.micronaut.serde.processor)
 
-    testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    testImplementation(platform("io.micronaut:micronaut-bom:$fixedMicronautVersionForTestSuites"))
     testImplementation(mn.micronaut.validation)
     testImplementation(mn.micronaut.serde.jackson)
 

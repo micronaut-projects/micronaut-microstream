@@ -5,14 +5,16 @@ plugins {
 
 repositories {
     mavenCentral()
+    // We need this for the fixedMicronautVersionForTestSuites version
+    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 dependencies {
-    kaptTest(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    kaptTest(platform("io.micronaut:micronaut-bom:$fixedMicronautVersionForTestSuites"))
     kaptTest (project(":microstream-annotations"))
     kaptTest (mn.micronaut.serde.processor)
 
-    testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    testImplementation(platform("io.micronaut:micronaut-bom:$fixedMicronautVersionForTestSuites"))
     testImplementation(project(":microstream-annotations"))
 
     testImplementation(mn.micronaut.validation)
