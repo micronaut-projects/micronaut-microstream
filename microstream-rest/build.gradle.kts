@@ -15,9 +15,3 @@ dependencies {
     testImplementation(mn.micronaut.http.client)
     testImplementation(libs.logback.classic)
 }
-
-micronautBuild {
-    binaryCompatibility {
-        enabled.set(false)
-    }
-}

@@ -18,9 +18,3 @@ dependencies {
     testImplementation(mn.micronaut.http.client)
     testImplementation(project(":microstream-annotations"))
 }
-
-micronautBuild {
-    binaryCompatibility {
-        enabled.set(false)
-    }
-}
