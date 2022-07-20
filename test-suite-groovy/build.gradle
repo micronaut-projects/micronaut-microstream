@@ -1,16 +1,21 @@
 plugins {
     id 'groovy'
 }
+
 repositories {
     mavenCentral()
+    // We need this for the fixedMicronautVersionForTestSuites version
+    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
 }
+
 dependencies {
-    testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    testImplementation(platform("io.micronaut:micronaut-bom:$fixedMicronautVersionForTestSuites"))
 
     testCompileOnly(mn.micronaut.inject.groovy)
 
     testImplementation(project(":microstream-annotations"))
     testImplementation(mn.micronaut.validation)
+    testImplementation(mn.micronaut.serde.jackson)
     testImplementation("org.spockframework:spock-core:${spockVersion}") {
         exclude module: 'groovy-all'
     }
@@ -21,6 +26,13 @@ dependencies {
     testImplementation project(":microstream-cache")
 
     testRuntimeOnly(libs.logback.classic)
+}
+
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        substitute(module("io.micronaut:micronaut-jackson-databind"))
+                .using(module("io.micronaut.serde:micronaut-serde-jackson:${mn.versions.micronaut.serialization.get()}"))
+    }
 }
 
 tasks.named('test') {

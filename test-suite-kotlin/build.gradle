@@ -5,15 +5,20 @@ plugins {
 
 repositories {
     mavenCentral()
+    // We need this for the fixedMicronautVersionForTestSuites version
+    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 dependencies {
-    kaptTest(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    kaptTest(platform("io.micronaut:micronaut-bom:$fixedMicronautVersionForTestSuites"))
     kaptTest (project(":microstream-annotations"))
-    testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    kaptTest (mn.micronaut.serde.processor)
+
+    testImplementation(platform("io.micronaut:micronaut-bom:$fixedMicronautVersionForTestSuites"))
     testImplementation(project(":microstream-annotations"))
 
     testImplementation(mn.micronaut.validation)
+    testImplementation(mn.micronaut.serde.jackson)
 
     testImplementation(libs.jupiter.api)
     testImplementation(mn.micronaut.test.junit5)
@@ -27,6 +32,13 @@ dependencies {
     testImplementation project(":microstream")
     testImplementation(libs.jupiter.jupiter.params)
     testImplementation project(":microstream-cache")
+}
+
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        substitute(module("io.micronaut:micronaut-jackson-databind"))
+                .using(module("io.micronaut.serde:micronaut-serde-jackson:${mn.versions.micronaut.serialization.get()}"))
+    }
 }
 
 tasks.named('test') {

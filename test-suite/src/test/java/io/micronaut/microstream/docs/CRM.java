@@ -1,8 +1,8 @@
 package io.micronaut.microstream.docs;
 
-import io.micronaut.core.annotation.Introspected;
+import io.micronaut.serde.annotation.Serdeable;
 
-@Introspected
+@Serdeable
 public class CRM {
     private Customers customers = new Customers();
 
