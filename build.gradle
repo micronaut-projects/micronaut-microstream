@@ -4,3 +4,8 @@ plugins {
     id "io.micronaut.build.internal.quality-reporting"
     id "io.micronaut.internal.build.microstream-rest-cli"
 }
+
+repositories {
+    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
+    mavenCentral()
+}
