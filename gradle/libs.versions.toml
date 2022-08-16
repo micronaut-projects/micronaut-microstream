@@ -1,6 +1,6 @@
 [versions]
 managed-microstream='07.00.00-MS-GA'
-reactor-test = '3.4.21'
+reactor-test = '3.4.22'
 
 [libraries]
 
