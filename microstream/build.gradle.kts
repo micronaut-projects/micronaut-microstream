@@ -9,6 +9,7 @@ dependencies {
 
     compileOnly(mn.micronaut.management)
     implementation(libs.projectreactor)
+    implementation(libs.microstream.persistence.binary.jdk8)
 
     testImplementation(libs.projectreactor.test)
     testImplementation(mn.micronaut.micrometer.core)
@@ -16,10 +17,4 @@ dependencies {
     testImplementation(mn.micronaut.http.server.netty)
     testImplementation(mn.micronaut.http.client)
     testImplementation(project(":microstream-annotations"))
-}
-
-micronautBuild {
-    binaryCompatibility {
-        enabled.set(false)
-    }
 }

@@ -16,16 +16,3 @@ dependencies {
     testImplementation(mn.micronaut.http.client)
     testImplementation(libs.logback.classic)
 }
-
-configurations.all {
-    resolutionStrategy.dependencySubstitution {
-        substitute(module("io.micronaut:micronaut-jackson-databind"))
-            .using(module("io.micronaut.serde:micronaut-serde-jackson:${mn.versions.micronaut.serialization.get()}"))
-    }
-}
-
-micronautBuild {
-    binaryCompatibility {
-        enabled.set(false)
-    }
-}
