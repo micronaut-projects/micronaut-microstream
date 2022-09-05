@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("io.micronaut:micronaut-bom:$fixedMicronautVersionForTestSuites"))
+    testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
 
     testCompileOnly(mn.micronaut.inject.groovy)
 

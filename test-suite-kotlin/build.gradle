@@ -10,11 +10,11 @@ repositories {
 }
 
 dependencies {
-    kaptTest(platform("io.micronaut:micronaut-bom:$fixedMicronautVersionForTestSuites"))
+    kaptTest(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     kaptTest (project(":microstream-annotations"))
     kaptTest (mn.micronaut.serde.processor)
 
-    testImplementation(platform("io.micronaut:micronaut-bom:$fixedMicronautVersionForTestSuites"))
+    testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     testImplementation(project(":microstream-annotations"))
 
     testImplementation(mn.micronaut.validation)
