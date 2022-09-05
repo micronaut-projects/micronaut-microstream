@@ -1,0 +1,12 @@
+[
+  {
+    "type": "io.micronaut.microstream.rest.$ObjectMapperBeanCreatedEventListener$Definition$Reference",
+    "member": "Field $ANNOTATION_METADATA",
+    "reason": "Provide a human readable reason for the change"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$ObjectMapperBeanCreatedEventListener$Definition$Reference",
+    "member": "Constructor io.micronaut.microstream.rest.$ObjectMapperBeanCreatedEventListener$Definition$Reference()",
+    "reason": "Provide a human readable reason for the change"
+  }
+]
