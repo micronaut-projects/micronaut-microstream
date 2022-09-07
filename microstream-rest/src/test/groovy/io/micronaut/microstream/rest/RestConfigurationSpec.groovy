@@ -1,14 +1,13 @@
 package io.micronaut.microstream.rest
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import io.micronaut.context.ApplicationContext
 import io.micronaut.core.annotation.NonNull
-import io.micronaut.core.util.StringUtils
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.runtime.server.EmbeddedServer
+import io.micronaut.serde.ObjectMapper
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.TempDir
@@ -75,7 +74,6 @@ class RestConfigurationSpec extends Specification {
         !server.applicationContext.containsBean(MicroStreamRestControllerConfiguration)
         !server.applicationContext.containsBean(MicroStreamRestController)
         !server.applicationContext.containsBean(MicroStreamRestService)
-        !server.applicationContext.containsBean(ObjectMapperBeanCreatedEventListener)
 
         cleanup:
         client.close()

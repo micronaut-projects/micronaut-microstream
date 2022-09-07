@@ -1,25 +1,14 @@
 package io.micronaut.microstream.rest
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import io.micronaut.context.BeanContext
+import io.micronaut.context.ApplicationContext
+import io.micronaut.context.env.Environment
 import io.micronaut.core.beans.BeanIntrospection
-import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import jakarta.inject.Inject
+import io.micronaut.serde.ObjectMapper
 import spock.lang.Specification
 
 import javax.validation.Validator
 
-@MicronautTest(startApplication = false)
 class RootObjectSpec extends Specification {
-
-    @Inject
-    ObjectMapper objectMapper
-
-    @Inject
-    Validator validator
-
-    @Inject
-    BeanContext beanContext
 
     void "RootObject is annotated with Introspected"() {
         when:
@@ -44,31 +33,56 @@ class RootObjectSpec extends Specification {
     }
 
     void "valid RootObject does not trigger any constraint exception"() {
+        given:
+        def ctx = ApplicationContext.run(Environment.TEST)
+        def validator = ctx.getBean(Validator)
+
         when:
         RootObject el = new RootObject("rooty", "1")
 
         then:
         validator.validate(el).isEmpty()
+
+        cleanup:
+        ctx.close()
     }
 
     void "name is required"() {
+        given:
+        def ctx = ApplicationContext.run(Environment.TEST)
+        def validator = ctx.getBean(Validator)
+
         when:
         RootObject el = new RootObject(null, "1")
 
         then:
         !validator.validate(el).isEmpty()
+
+        cleanup:
+        ctx.close()
     }
 
     void "objectId is required"() {
+        given:
+        def ctx = ApplicationContext.run(Environment.TEST)
+        def validator = ctx.getBean(Validator)
+
         when:
         RootObject el = new RootObject("rooty", null)
 
         then:
         !validator.validate(el).isEmpty()
+
+        cleanup:
+        ctx.close()
     }
 
     void "values are present in json"() {
         given:
+        def ctx = ApplicationContext.run(Environment.TEST)
+        def objectMapper = ctx.getBean(ObjectMapper)
+
+        and:
         RootObject el = new RootObject("rooty", "1")
 
         when:
@@ -76,10 +90,17 @@ class RootObjectSpec extends Specification {
 
         then:
         json == '{"name":"rooty","objectId":"1"}'
+
+        cleanup:
+        ctx.close()
     }
 
     void "round trip works as expected"() {
         given:
+        def ctx = ApplicationContext.run(Environment.TEST)
+        def objectMapper = ctx.getBean(ObjectMapper)
+
+        and:
         RootObject el = new RootObject("rooty", "1")
 
         when:
@@ -91,5 +112,8 @@ class RootObjectSpec extends Specification {
         then:
         object.name == el.name
         object.objectId == el.objectId
+
+        cleanup:
+        ctx.close()
     }
 }

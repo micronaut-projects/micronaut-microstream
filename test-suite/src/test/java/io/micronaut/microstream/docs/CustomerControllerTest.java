@@ -1,6 +1,7 @@
 package io.micronaut.microstream.docs;
 
 import io.micronaut.context.ApplicationContext;
+import io.micronaut.context.env.Environment;
 import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpRequest;
@@ -39,10 +40,10 @@ class CustomerControllerTest {
         String storageDirectory = "build/microstream-" + UUID.randomUUID();
         Map<String, Object> properties = CollectionUtils.mapOf(
             "microstream.storage.main.storage-directory", storageDirectory,
-            "customer.repository",
-            customerRepositoryImplementation,
-            "microstream.storage.main.root-class",
-            "io.micronaut.microstream.docs.Data");
+            "customer.repository", customerRepositoryImplementation,
+            "microstream.storage.main.root-class", "io.micronaut.microstream.docs.Data",
+            "microstream.rest.enabled", "true"
+        );
         EmbeddedServer embeddedServer = ApplicationContext.run(EmbeddedServer.class, properties);
         HttpClient httpClient = embeddedServer.getApplicationContext()
             .createBean(HttpClient.class, embeddedServer.getURL());
@@ -68,6 +69,9 @@ class CustomerControllerTest {
         assertEquals(sergioFirstName, customer.getFirstName());
         assertNull(customer.getLastName());
 
+        // Check the rest-api endpoint is working
+        client.retrieve("/microstream/object/1000000000000000031?valueLength=10000&variableLength=0&references=true");
+
         // When we restart the server
         httpClient.close();
         embeddedServer.close();
@@ -86,8 +90,7 @@ class CustomerControllerTest {
         assertNull(customer.getLastName());
 
         // When
-        HttpResponse<?> patchResponse = secondClient.exchange(HttpRequest.PATCH(sergioLocation,
-            CollectionUtils.mapOf( "firstName", customer.getFirstName(), "lastName", sergioLastName)));
+        HttpResponse<?> patchResponse = secondClient.exchange(HttpRequest.PATCH(sergioLocation, new CustomerSave(customer.getFirstName(), sergioLastName)));
 
         // Then
         assertEquals(HttpStatus.OK, patchResponse.status());

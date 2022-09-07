@@ -23,7 +23,10 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.QueryValue;
 import io.micronaut.microstream.conf.EmbeddedStorageConfigurationProvider;
+import io.micronaut.serde.annotation.SerdeImport;
 import one.microstream.storage.restadapter.types.StorageRestAdapter;
+import one.microstream.storage.restadapter.types.ViewerChannelStatistics;
+import one.microstream.storage.restadapter.types.ViewerFileStatistics;
 import one.microstream.storage.restadapter.types.ViewerObjectDescription;
 import one.microstream.storage.restadapter.types.ViewerStorageFileStatistics;
 import one.microstream.storage.types.StorageManager;
@@ -37,6 +40,10 @@ import one.microstream.storage.types.StorageManager;
 @Requires(bean = StorageManager.class)
 @Requires(bean = EmbeddedStorageConfigurationProvider.class)
 @Controller("/${" + MicroStreamRestControllerConfigurationProperties.PREFIX + ".path:" + MicroStreamRestControllerConfigurationProperties.DEFAULT_PATH + "}")
+@SerdeImport(value = ViewerStorageFileStatistics.class, mixin = ViewerStorageFileStatisticsMixin.class)
+@SerdeImport(value = ViewerObjectDescription.class, mixin = ViewerObjectDescriptionMixin.class)
+@SerdeImport(value = ViewerChannelStatistics.class)
+@SerdeImport(value = ViewerFileStatistics.class)
 public class MicroStreamRestController {
 
     private static final long DEFAULT_FIXED_OFFSET = 0L;
