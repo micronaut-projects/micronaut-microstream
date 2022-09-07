@@ -305,13 +305,13 @@ with <a href="https://docs.micronaut.io/latest/guide/#qualifiers">Name Bean Qual
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.microstream.docs;
 
-import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.serde.annotation.Serdeable;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Introspected // <b class="conum">(1)</b>
+@Serdeable // <b class="conum">(1)</b>
 public class Data {
     private Map&lt;String, Customer&gt; customers = new HashMap&lt;&gt;();
 
@@ -356,13 +356,13 @@ data class Data(val customers: MutableMap&lt;String, Customer&gt; = mutableMapOf
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.microstream.docs;
 
-import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+import io.micronaut.serde.annotation.Serdeable;
 
 import javax.validation.constraints.NotBlank;
 
-@Introspected
+@Serdeable
 public class Customer {
     @NonNull
     @NotBlank
