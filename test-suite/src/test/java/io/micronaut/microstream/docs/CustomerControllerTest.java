@@ -44,7 +44,7 @@ class CustomerControllerTest {
             "microstream.storage.main.root-class", "io.micronaut.microstream.docs.Data",
             "microstream.rest.enabled", "true"
         );
-        EmbeddedServer embeddedServer = ApplicationContext.run(EmbeddedServer.class, properties, Environment.TEST);
+        EmbeddedServer embeddedServer = ApplicationContext.run(EmbeddedServer.class, properties);
         HttpClient httpClient = embeddedServer.getApplicationContext()
             .createBean(HttpClient.class, embeddedServer.getURL());
         BlockingHttpClient client = httpClient.toBlocking();
@@ -75,7 +75,7 @@ class CustomerControllerTest {
         // When we restart the server
         httpClient.close();
         embeddedServer.close();
-        embeddedServer = ApplicationContext.run(EmbeddedServer.class, properties, Environment.TEST);
+        embeddedServer = ApplicationContext.run(EmbeddedServer.class, properties);
         httpClient = embeddedServer.getApplicationContext().createBean(HttpClient.class, embeddedServer.getURL());
         BlockingHttpClient secondClient = httpClient.toBlocking();
 
