@@ -1,7 +1,7 @@
 To start, add the following dependencies to your classpath.
 
-dependency:micronaut-microstream-annotations[group="io.micronaut.microstream",scope=annotationProcessor]
+dependency:micronaut-microstream-annotations[groupId="io.micronaut.microstream",scope=annotationProcessor]
 
-dependency:micronaut-microstream-annotations[group="io.micronaut.microstream"]
+dependency:micronaut-microstream-annotations[groupId="io.micronaut.microstream"]
 
-dependency:micronaut-microstream[group="io.micronaut.microstream"]
+dependency:micronaut-microstream[groupId="io.micronaut.microstream"]
