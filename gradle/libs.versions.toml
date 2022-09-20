@@ -1,5 +1,5 @@
 [versions]
-managed-microstream='07.00.00-MS-GA'
+managed-microstream='07.01.00-MS-GA'
 reactor-test = '3.4.23'
 
 [libraries]
