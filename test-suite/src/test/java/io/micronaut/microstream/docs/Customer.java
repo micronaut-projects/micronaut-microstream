@@ -1,12 +1,12 @@
 package io.micronaut.microstream.docs;
 
-import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+import io.micronaut.serde.annotation.Serdeable;
 
 import javax.validation.constraints.NotBlank;
 
-@Introspected
+@Serdeable // <1>
 public class Customer {
     @NonNull
     @NotBlank

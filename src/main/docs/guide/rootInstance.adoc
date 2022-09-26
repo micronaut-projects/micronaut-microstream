@@ -1,10 +1,12 @@
-The following example creates a https://docs.microstream.one/manual/storage/root-instances.html[Root Instance] to store `Customer`s:
+The following example creates a https://docs.microstream.one/manual/storage/root-instances.html[Root Instance] to store ``Customer``s:
 
 snippet::io.micronaut.microstream.docs.Data[]
 
-<1> Annotate the Root class with https://docs.micronaut.io/latest/api/io/micronaut/core/annotation/Introspected.html[@Introspected] to generate https://docs.micronaut.io/latest/guide/#introspection[BeanIntrospection] metadata at compilation time. This information is used by the Micronaut Framework to instantiate the class without using reflection.
+And `Customer` is defined as:
 
 snippet::io.micronaut.microstream.docs.Customer[]
+
+<1> The type is annotated with https://micronaut-projects.github.io/micronaut-serialization/snapshot/api/io/micronaut/serde/annotation/Serdeable.html[@Serdeable] to enable serialization/deserialization
 
 You specify the Root class via configuration:
 
