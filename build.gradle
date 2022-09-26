@@ -4,3 +4,8 @@ plugins {
     id "io.micronaut.build.internal.quality-reporting"
     id "io.micronaut.internal.build.microstream-rest-cli"
 }
+
+micronautBuild {
+    sourceCompatibility = "17"
+    targetCompatibility = "17"
+}

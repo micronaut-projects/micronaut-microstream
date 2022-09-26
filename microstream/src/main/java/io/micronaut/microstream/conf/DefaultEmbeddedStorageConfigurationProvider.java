@@ -29,11 +29,14 @@ import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfi
  */
 @EachProperty("microstream.storage")
 public class DefaultEmbeddedStorageConfigurationProvider implements EmbeddedStorageConfigurationProvider {
+
     @ConfigurationBuilder
     EmbeddedStorageConfigurationBuilder builder = EmbeddedStorageConfiguration.Builder();
 
     @Nullable
     private Class<?> rootClass;
+
+    private boolean enableJdk17Types = DEFAULT_ENABLE_JDK17_TYPES;
 
     private final String name;
 
@@ -66,5 +69,20 @@ public class DefaultEmbeddedStorageConfigurationProvider implements EmbeddedStor
      */
     public void setRootClass(@NonNull Class<?> rootClass) {
         this.rootClass = rootClass;
+    }
+
+    @Override
+    public boolean isEnableJdk17Types() {
+        return enableJdk17Types;
+    }
+
+    /**
+     * Configure whether JDK 17 type enhancements are enabled. Defaults to {@value EmbeddedStorageConfigurationProvider#DEFAULT_ENABLE_JDK17_TYPES}.
+     *
+     * @since 2.0.0
+     * @param enableJdk17Types whether JDK 17 type enhancements are enabled.
+     */
+    public void setEnableJdk17Types(boolean enableJdk17Types) {
+        this.enableJdk17Types = enableJdk17Types;
     }
 }

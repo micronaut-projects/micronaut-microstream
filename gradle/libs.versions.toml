@@ -10,6 +10,7 @@ managed-microstream-storage-restservice = { module = 'one.microstream:microstrea
 
 microstream-rest-gui = { module = 'one.microstream:microstream-storage-restclient-app', version.ref = 'managed-microstream' }
 microstream-persistence-binary-jdk8 = { module = 'one.microstream:microstream-persistence-binary-jdk8', version.ref = 'managed-microstream' }
+microstream-persistence-binary-jdk17 = { module = 'one.microstream:microstream-persistence-binary-jdk17', version.ref = 'managed-microstream' }
 
 logback-classic = { module = 'ch.qos.logback:logback-classic' }
 

@@ -64,6 +64,12 @@ class MicroStreamRestControllerSpec extends Specification implements TestPropert
 
         then:
         dictionary.contains('primitive 8 bit integer signed')
+
+        and: 'Contains JDK8 loadFactor addition'
+        dictionary.contains('java.util.LinkedHashSet{\n\tfloat  loadFactor')
+
+        and: 'Contains JDK17 addition'
+        dictionary.contains('java.util.ImmutableCollections$Set12')
     }
 
     void 'Object traversal works as expected'() {
