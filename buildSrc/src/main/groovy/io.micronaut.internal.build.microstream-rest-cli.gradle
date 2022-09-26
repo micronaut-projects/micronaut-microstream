@@ -1,11 +1,9 @@
+plugins {
+    id "io.micronaut.internal.build.microstream-base"
+}
 configurations {
     create("cli")
 }
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     cli(libs.microstream.rest.gui) {
         artifact {

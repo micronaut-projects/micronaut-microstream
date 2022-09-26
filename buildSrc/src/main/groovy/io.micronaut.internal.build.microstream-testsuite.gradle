@@ -1,7 +1,5 @@
-repositories {
-    mavenCentral()
-    // We need this for the fixedMicronautVersionForTestSuites version
-    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
+plugins {
+    id "io.micronaut.internal.build.microstream-base"
 }
 
 configurations.all {
