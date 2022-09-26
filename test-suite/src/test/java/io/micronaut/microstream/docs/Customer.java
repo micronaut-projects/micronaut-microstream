@@ -6,7 +6,7 @@ import io.micronaut.serde.annotation.Serdeable;
 
 import javax.validation.constraints.NotBlank;
 
-@Serdeable
+@Serdeable // <1>
 public class Customer {
     @NonNull
     @NotBlank
