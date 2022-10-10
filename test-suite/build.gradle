@@ -26,6 +26,8 @@ dependencies {
     testRuntimeOnly(libs.junit.jupiter.engine)
 
     testRuntimeOnly(libs.logback.classic)
+    testRuntimeOnly(mn.snakeyaml)
+
     testImplementation(mn.micronaut.http.server.netty)
     testImplementation(mn.micronaut.http.client)
     testImplementation project(":microstream")

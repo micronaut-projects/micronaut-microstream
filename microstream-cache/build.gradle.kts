@@ -10,7 +10,8 @@ repositories {
 dependencies {
     api(project(":microstream"))
     api(libs.managed.microstream.cache)
-    api(libs.micronaut.cache.core)
+    api(mn.micronaut.cache.core)
+
     testImplementation(mn.micronaut.cache.tck)
     testImplementation(libs.jupiter.api)
 }

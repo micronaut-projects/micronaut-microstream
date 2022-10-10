@@ -24,6 +24,7 @@ dependencies {
     testImplementation project(":microstream-cache")
 
     testRuntimeOnly(libs.logback.classic)
+    testRuntimeOnly(mn.snakeyaml)
 }
 
 tasks.named('test') {
