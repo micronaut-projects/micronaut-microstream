@@ -1,0 +1,122 @@
+[
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef0",
+    "member": "Field $ANNOTATION_METADATA",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef0",
+    "member": "Constructor io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef0()",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef0",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationSource",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef0",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationMetadataProvider",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef0",
+    "member": "Implemented interface io.micronaut.core.naming.Named",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef0",
+    "member": "Implemented interface io.micronaut.core.beans.BeanIntrospectionReference",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef1",
+    "member": "Field $ANNOTATION_METADATA",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef1",
+    "member": "Constructor io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef1()",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef1",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationSource",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef1",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationMetadataProvider",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef1",
+    "member": "Implemented interface io.micronaut.core.naming.Named",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef1",
+    "member": "Implemented interface io.micronaut.core.beans.BeanIntrospectionReference",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef2",
+    "member": "Field $ANNOTATION_METADATA",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef2",
+    "member": "Constructor io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef2()",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef2",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationSource",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef2",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationMetadataProvider",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef2",
+    "member": "Implemented interface io.micronaut.core.naming.Named",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef2",
+    "member": "Implemented interface io.micronaut.core.beans.BeanIntrospectionReference",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef3",
+    "member": "Field $ANNOTATION_METADATA",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef3",
+    "member": "Constructor io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef3()",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef3",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationSource",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef3",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationMetadataProvider",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef3",
+    "member": "Implemented interface io.micronaut.core.naming.Named",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  },
+  {
+    "type": "io.micronaut.microstream.rest.$MicroStreamRestController$IntrospectionRef3",
+    "member": "Implemented interface io.micronaut.core.beans.BeanIntrospectionReference",
+    "reason": "Major Update tied to Micronaut 4 and JDK 17 as a baseline"
+  }
+]

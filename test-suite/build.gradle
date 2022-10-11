@@ -26,6 +26,8 @@ dependencies {
     testRuntimeOnly(libs.junit.jupiter.engine)
 
     testRuntimeOnly(libs.logback.classic)
+    testRuntimeOnly(mn.snakeyaml)
+
     testImplementation(mn.micronaut.http.server.netty)
     testImplementation(mn.micronaut.http.client)
     testImplementation project(":microstream")
@@ -39,6 +41,6 @@ tasks.named('test') {
 }
 
 java {
-    sourceCompatibility = JavaVersion.toVersion("1.8")
-    targetCompatibility = JavaVersion.toVersion("1.8")
+    sourceCompatibility = JavaVersion.toVersion("17")
+    targetCompatibility = JavaVersion.toVersion("17")
 }
