@@ -26,6 +26,8 @@ import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfi
  */
 public interface EmbeddedStorageConfigurationProvider extends Named {
 
+    boolean DEFAULT_ENABLE_JDK17_TYPES = true;
+
     @NonNull
     EmbeddedStorageConfigurationBuilder getBuilder();
 
@@ -36,4 +38,12 @@ public interface EmbeddedStorageConfigurationProvider extends Named {
      */
     @Nullable
     Class<?> getRootClass();
+
+    /**
+     * Configure whether JDK 17 type enhancements are enabled. Defaults to {@value EmbeddedStorageConfigurationProvider#DEFAULT_ENABLE_JDK17_TYPES}.
+     *
+     * @since 2.0.0
+     * @return whether JDK 17 type enhancements are enabled.
+     */
+    boolean isEnableJdk17Types();
 }
