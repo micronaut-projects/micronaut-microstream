@@ -44,7 +44,7 @@ loadScripts(document, 'script');</script>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
@@ -92,6 +92,15 @@ implements <a href="EmbeddedStorageConfigurationProvider.html" title="interface 
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- =========== FIELD SUMMARY =========== -->
+<li>
+<section class="field-summary" id="field-summary">
+<h2>Field Summary</h2>
+<div class="inherited-list">
+<h3 id="fields-inherited-from-class-io.micronaut.microstream.conf.EmbeddedStorageConfigurationProvider">Fields inherited from interface&nbsp;io.micronaut.microstream.conf.<a href="EmbeddedStorageConfigurationProvider.html" title="interface in io.micronaut.microstream.conf">EmbeddedStorageConfigurationProvider</a></h3>
+<code><a href="EmbeddedStorageConfigurationProvider.html#DEFAULT_ENABLE_JDK17_TYPES">DEFAULT_ENABLE_JDK17_TYPES</a></code></div>
+</section>
+</li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <li>
 <section class="constructor-summary" id="constructor-summary">
@@ -126,6 +135,16 @@ implements <a href="EmbeddedStorageConfigurationProvider.html" title="interface 
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRootClass()" class="member-name-link">getRootClass</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the class of the Root Instance.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isEnableJdk17Types()" class="member-name-link">isEnableJdk17Types</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Configure whether JDK 17 type enhancements are enabled.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setEnableJdk17Types(boolean)" class="member-name-link">setEnableJdk17Types</a><wbr>(boolean&nbsp;enableJdk17Types)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Configure whether JDK 17 type enhancements are enabled.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setRootClass(java.lang.Class)" class="member-name-link">setRootClass</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;&nbsp;rootClass)</code></div>
@@ -212,6 +231,33 @@ implements <a href="EmbeddedStorageConfigurationProvider.html" title="interface 
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>rootClass</code> - Class for the Root Instance.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="isEnableJdk17Types()">
+<h3>isEnableJdk17Types</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEnableJdk17Types</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="EmbeddedStorageConfigurationProvider.html#isEnableJdk17Types()">EmbeddedStorageConfigurationProvider</a></code></span></div>
+<div class="block">Configure whether JDK 17 type enhancements are enabled. Defaults to <a href="EmbeddedStorageConfigurationProvider.html#DEFAULT_ENABLE_JDK17_TYPES">true</a>.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="EmbeddedStorageConfigurationProvider.html#isEnableJdk17Types()">isEnableJdk17Types</a></code>&nbsp;in interface&nbsp;<code><a href="EmbeddedStorageConfigurationProvider.html" title="interface in io.micronaut.microstream.conf">EmbeddedStorageConfigurationProvider</a></code></dd>
+<dt>Returns:</dt>
+<dd>whether JDK 17 type enhancements are enabled.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setEnableJdk17Types(boolean)">
+<h3>setEnableJdk17Types</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setEnableJdk17Types</span><wbr><span class="parameters">(boolean&nbsp;enableJdk17Types)</span></div>
+<div class="block">Configure whether JDK 17 type enhancements are enabled. Defaults to <a href="EmbeddedStorageConfigurationProvider.html#DEFAULT_ENABLE_JDK17_TYPES">true</a>.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>enableJdk17Types</code> - whether JDK 17 type enhancements are enabled.</dd>
+<dt>Since:</dt>
+<dd>2.0.0</dd>
 </dl>
 </section>
 </li>
