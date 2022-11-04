@@ -3,4 +3,5 @@ plugins {
 }
 dependencies {
     implementation(mn.micronaut.aop)
+    implementation(mn.micronaut.core.processor)
 }

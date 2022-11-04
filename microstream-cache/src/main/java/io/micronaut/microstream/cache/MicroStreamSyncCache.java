@@ -33,7 +33,7 @@ public class MicroStreamSyncCache<K, V> extends JCacheSyncCache implements AutoC
 
     private final Cache<K, V> cache;
 
-    public MicroStreamSyncCache(Cache<K, V> cache, ConversionService<?> conversionService, ExecutorService executorService) {
+    public MicroStreamSyncCache(Cache<K, V> cache, ConversionService conversionService, ExecutorService executorService) {
         super(cache, conversionService, executorService);
         this.cache = cache;
     }

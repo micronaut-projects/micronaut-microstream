@@ -41,14 +41,14 @@ public class CacheFactory {
     private static final Logger LOG = LoggerFactory.getLogger(CacheFactory.class);
     private static final String MICROSTREAM_CACHING_PROVIDER = "one.microstream.cache.types.CachingProvider";
     private final CacheManager manager;
-    private final ConversionService<?> conversionService;
+    private final ConversionService conversionService;
 
     /**
      * Constructor.
      *
      * @param conversionService The conversion service
      */
-    public CacheFactory(ConversionService<?> conversionService) {
+    public CacheFactory(ConversionService conversionService) {
         this.conversionService = conversionService;
         this.manager = Caching.getCachingProvider(MICROSTREAM_CACHING_PROVIDER).getCacheManager();
     }
