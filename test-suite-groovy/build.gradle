@@ -18,5 +18,5 @@ dependencies {
     testImplementation(project(":microstream"))
     testImplementation project(":microstream-cache")
     testRuntimeOnly(libs.logback.classic)
-    testRuntimeOnly(libs.snakeyaml)
+    testRuntimeOnly(mn.snakeyaml)
 }
