@@ -2,6 +2,9 @@
 managed-microstream='07.01.00-MS-GA'
 reactor-test = '3.4.23'
 
+# Temporary until https://github.com/micronaut-projects/micronaut-core/pull/8390
+snakeyaml = "1.33"
+
 # Temporary until https://github.com/micronaut-projects/micronaut-core/pull/8388
 logback = "1.4.5"
 
@@ -33,3 +36,6 @@ junit-jupiter-engine = { module = 'org.junit.jupiter:junit-jupiter-engine' }
 
 projectreactor = { module = 'io.projectreactor:reactor-core' }
 projectreactor-test = { module = "io.projectreactor:reactor-test", version.ref = 'reactor-test' }
+
+# Temporary until https://github.com/micronaut-projects/micronaut-core/pull/8390
+snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "snakeyaml" }
