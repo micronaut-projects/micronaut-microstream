@@ -20,7 +20,7 @@ dependencies {
     testImplementation(mnTest.micronaut.test.junit5)
     testRuntimeOnly(libs.junit.jupiter.engine)
 
-    testRuntimeOnly(libs.logback.classic)
+    testRuntimeOnly(mn.logback.classic)
     testRuntimeOnly(mn.snakeyaml)
 
     testImplementation(mn.micronaut.http.server.netty)
