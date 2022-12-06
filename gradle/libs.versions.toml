@@ -2,7 +2,15 @@
 managed-microstream='07.01.00-MS-GA'
 reactor-test = '3.4.23'
 
+micronaut-cache = "4.0.0-SNAPSHOT"
+micronaut-micrometer = "5.0.0-SNAPSHOT"
+micronaut-serde = "2.0.0-SNAPSHOT"
+micronaut-test = "4.0.0-SNAPSHOT"
+
 [libraries]
+micronaut-cache = { module = "io.micronaut.cache:micronaut-cache-bom", version.ref = "micronaut-cache" }
+micronaut-micrometer = { module = "io.micronaut.micrometer:micronaut-micrometer-bom", version.ref = "micronaut-micrometer" }
+micronaut-serde = { module = "io.micronaut.serde:micronaut-serde-bom", version.ref = "micronaut-serde" }
 
 managed-microstream-storage-embedded-configuration = { module = 'one.microstream:microstream-storage-embedded-configuration', version.ref = 'managed-microstream' }
 managed-microstream-cache = { module = 'one.microstream:microstream-cache', version.ref = 'managed-microstream' }
@@ -11,8 +19,6 @@ managed-microstream-storage-restservice = { module = 'one.microstream:microstrea
 microstream-rest-gui = { module = 'one.microstream:microstream-storage-restclient-app', version.ref = 'managed-microstream' }
 microstream-persistence-binary-jdk8 = { module = 'one.microstream:microstream-persistence-binary-jdk8', version.ref = 'managed-microstream' }
 microstream-persistence-binary-jdk17 = { module = 'one.microstream:microstream-persistence-binary-jdk17', version.ref = 'managed-microstream' }
-
-logback-classic = { module = 'ch.qos.logback:logback-classic' }
 
 jupiter-jupiter-params = { module = 'org.junit.jupiter:junit-jupiter-params' }
 jupiter-api = { module = 'org.junit.jupiter:junit-jupiter-api' }

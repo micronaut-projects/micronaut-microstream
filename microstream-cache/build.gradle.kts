@@ -1,3 +1,5 @@
+import org.gradle.api.internal.artifacts.dependencies.DefaultDependencyConstraint.strictly
+
 plugins {
     id("io.micronaut.internal.build.microstream-module")
 }
@@ -5,11 +7,7 @@ plugins {
 dependencies {
     api(project(":microstream"))
     api(libs.managed.microstream.cache)
-    api(mn.micronaut.cache.core) {
-        version {
-            strictly("4.0.0-SNAPSHOT")
-        }
-    }
-    testImplementation(mn.micronaut.cache.tck)
+    api(mnCache.micronaut.cache.core)
+    testImplementation(mnCache.micronaut.cache.tck)
     testImplementation(libs.jupiter.api)
 }
