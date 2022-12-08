@@ -26,6 +26,5 @@ micronautBuild {
     importMicronautCatalog()
     importMicronautCatalog("micronaut-cache")
     importMicronautCatalog("micronaut-micrometer")
-    importMicronautCatalog("micronaut-reactor")
     importMicronautCatalog("micronaut-serde")
 }

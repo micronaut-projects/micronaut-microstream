@@ -14,7 +14,7 @@ dependencies {
 
     testImplementation(platform("io.projectreactor:reactor-bom:${mnReactor.versions.reactor.bom.get()}"))
     testImplementation(mnSerde.micronaut.serde.jackson)
-    testImplementation(libs.reactor.test)
+    testImplementation(mn.reactor.test)
     testImplementation(mnMicrometer.micronaut.micrometer.core)
     testImplementation(mn.micronaut.management)
     testImplementation(mn.micronaut.http.server.netty)
