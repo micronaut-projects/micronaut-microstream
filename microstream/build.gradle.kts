@@ -8,12 +8,12 @@ dependencies {
     api(libs.managed.microstream.storage.embedded.configuration)
 
     compileOnly(mn.micronaut.management)
-    implementation(libs.projectreactor)
+    implementation(mn.reactor)
     implementation(libs.microstream.persistence.binary.jdk8)
     implementation(libs.microstream.persistence.binary.jdk17)
 
     testImplementation(mnSerde.micronaut.serde.jackson)
-    testImplementation(libs.projectreactor.test)
+    testImplementation(mn.reactor.test)
     testImplementation(mnMicrometer.micronaut.micrometer.core)
     testImplementation(mn.micronaut.management)
     testImplementation(mn.micronaut.http.server.netty)
