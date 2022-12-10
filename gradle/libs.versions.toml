@@ -1,5 +1,5 @@
 [versions]
-managed-microstream='07.01.00-MS-GA'
+managed-microstream='08.00.00-MS-EA1'
 
 micronaut-cache = "4.0.0-SNAPSHOT"
 micronaut-micrometer = "5.0.0-SNAPSHOT"
