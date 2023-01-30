@@ -1,5 +1,5 @@
 microstream:
   cache:
-    counter: # <1>
+    counter:
       key-type: java.lang.String
       value-type: java.lang.Long

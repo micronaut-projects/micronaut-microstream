@@ -4,12 +4,11 @@ NOTE: When multiple storage managers are defined, the URL must be suffixed by th
 
 This prefix can be configured via the configuration.
 
-[source,yaml]
-.src/main/resources/application.yml
+[configuration]
 ----
 microstream:
   rest:
     path: custom-prefix
 ----
 
-The above configuration would expose the REST API at `/custom-prefix`. (or `/custom-prefix/«storage-name»` if you have multiple storage managers defined).
+The above configuration exposes the REST API at `/custom-prefix`. (or `/custom-prefix/«storage-name»` if you have multiple storage managers defined).

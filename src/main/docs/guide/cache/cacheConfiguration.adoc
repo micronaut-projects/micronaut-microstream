@@ -4,13 +4,12 @@ dependency:micronaut-microstream-cache[group="io.micronaut.microstream"]
 
 You can then define a cache by adding the following configuration to your application:
 
-[source,yaml]
-.src/main/resources/application.yml
+[configuration]
 ----
 include::test-suite/src/test/resources/application-cache.yml[]
 ----
 
-<1> Define a cache named `counter` which has String keys and Long values.
+- Define a cache named `counter` which has String keys and Long values.
 
 This cache can then be used via the following:
 

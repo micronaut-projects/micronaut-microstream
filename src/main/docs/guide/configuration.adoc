@@ -6,11 +6,10 @@ You can use the same values described in the https://docs.microstream.one/manual
 The following configuration example configures two beans of type api:microstream.conf.EmbeddedStorageConfigurationProvider[]
 with https://docs.micronaut.io/latest/guide/#qualifiers[Name Bean Qualifiers]: `orange` and `blue`.
 
-[source,yaml]
-.src/main/resources/application.yml
+[configuration]
 ----
 include::test-suite/src/test/resources/application-multiple.yml[]
 ----
 
-<1> Specify a different name qualifier for each MicroStream instance
-<2> Specify the class of the entity graph's root.
+- `orange` and `blue` specify a different name qualifier for each MicroStream instance
+- `root-class` for each instance specifies the class of the entity graph's root.

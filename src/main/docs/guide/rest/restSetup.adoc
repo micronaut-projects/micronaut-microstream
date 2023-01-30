@@ -4,12 +4,11 @@ dependency:micronaut-microstream-rest[groupId="{projectGroup}",scope="developmen
 
 You also need to enable it in your configuration, as for security it is disabled by default.
 
-[source,yaml]
-.src/main/resources/application.yml
+[configuration]
 ----
 microstream:
   rest:
     enabled: true
 ----
 
-It will output a warning each time your application is started if the REST endpoint is enabled that this should not be deployed to production.
+Outputs a warning each time your application is started – if the REST endpoint is enabled – that this should not be deployed to production.
