@@ -10,11 +10,10 @@ snippet::io.micronaut.microstream.docs.Customer[]
 
 You specify the Root class via configuration:
 
-[source,yaml]
-.src/main/resources/application.yml
+[configuration]
 ----
 include::test-suite/src/test/resources/application-data.yml[]
 ----
 
-<1> Specify a name qualifier for the MicroStream instance
-<2> Specify the class of the entity graph's root.
+- `main` specifies a name qualifier for the MicroStream instance
+- `root-class` specifies the class of the entity graph's root.
