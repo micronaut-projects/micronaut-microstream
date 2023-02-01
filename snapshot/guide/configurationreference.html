@@ -46,38 +46,14 @@
         <div class="docs-content">
             <div class="project">
                 <h1>Configuration Reference</h1>
-                <p><strong>Version:</strong>2.0.0-SNAPSHOT</p>
+                <p><strong>Version:</strong>1.3.1-SNAPSHOT</p>
                 <p></p>
             </div>
 <div class="sect2">
 <h3 id="_microstream_cache_config_properties">Microstream Cache Config Properties</h3>
-<a id="io.micronaut.microstream.cache.CacheConfigurationProperties" href="#io.micronaut.microstream.cache.CacheConfigurationProperties">&#128279;</a>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/microstream/cache/CacheConfigurationProperties.html">CacheConfigurationProperties</a></caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.cache.enabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether MicroStream Cache module is enabled. Default Value:</p></td>
-</tr>
-</tbody>
-</table>
-<div style="page-break-after: always;"></div>
 <a id="io.micronaut.microstream.cache.MicroStreamCacheConfigurationProperties" href="#io.micronaut.microstream.cache.MicroStreamCacheConfigurationProperties">&#128279;</a>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Configuration Properties for <a href="../api/io/micronaut/microstream/cache/MicroStreamCacheConfigurationProperties.html">MicroStreamCacheConfigurationProperties</a></caption>
+<caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/microstream/cache/MicroStreamCacheConfigurationProperties.html">MicroStreamCacheConfigurationProperties</a></caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -91,6 +67,11 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.cache.*.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether this cache is enabled. Default Value: {@value #DEFAULT_ENABLED}</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.cache.*.key-type</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Class</p></td>
@@ -131,10 +112,29 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Boolean</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Whether management is enabled on this cache.</p></td>
 </tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<a id="io.micronaut.microstream.cache.CacheConfigurationProperties" href="#io.micronaut.microstream.cache.CacheConfigurationProperties">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Configuration Properties for <a href="../api/io/micronaut/microstream/cache/CacheConfigurationProperties.html">CacheConfigurationProperties</a></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.cache.*.enabled</code></p></td>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.cache.enabled</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether this cache is enabled. Default Value:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether MicroStream Cache module is enabled. Default Value: true</p></td>
 </tr>
 </tbody>
 </table>
@@ -142,33 +142,9 @@
 </div>
 <div class="sect2">
 <h3 id="_microstream_config_properties">Microstream Config Properties</h3>
-<a id="io.micronaut.microstream.conf.MicroStreamConfigurationProperties" href="#io.micronaut.microstream.conf.MicroStreamConfigurationProperties">&#128279;</a>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Configuration Properties for <a href="../api/io/micronaut/microstream/conf/MicroStreamConfigurationProperties.html">MicroStreamConfigurationProperties</a></caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.enabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether MicroStream module is enabled. Default Value:</p></td>
-</tr>
-</tbody>
-</table>
-<div style="page-break-after: always;"></div>
 <a id="io.micronaut.microstream.conf.DefaultEmbeddedStorageConfigurationProvider" href="#io.micronaut.microstream.conf.DefaultEmbeddedStorageConfigurationProvider">&#128279;</a>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Configuration Properties for <a href="../api/io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html">DefaultEmbeddedStorageConfigurationProvider</a></caption>
+<caption class="title">Table 3. Configuration Properties for <a href="../api/io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html">DefaultEmbeddedStorageConfigurationProvider</a></caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -182,11 +158,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.storage.*.all</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">one.microstream.collections.types.XGettingCollection</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.storage.*.storage-directory</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
@@ -303,15 +274,39 @@
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.storage.*.all</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">one.microstream.collections.types.XGettingCollection</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.storage.*.root-class</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Class</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Class of the Root Instance.
  &lt;a href="https://docs.microstream.one/manual/storage/root-instances.html"&gt;Root Instances&lt;/a&gt;</p></td>
 </tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<a id="io.micronaut.microstream.conf.MicroStreamConfigurationProperties" href="#io.micronaut.microstream.conf.MicroStreamConfigurationProperties">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. Configuration Properties for <a href="../api/io/micronaut/microstream/conf/MicroStreamConfigurationProperties.html">MicroStreamConfigurationProperties</a></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.storage.*.enable-jdk17-types</code></p></td>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.enabled</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Configure whether JDK 17 type enhancements are enabled. Defaults to .</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether MicroStream module is enabled. Default Value: true</p></td>
 </tr>
 </tbody>
 </table>
@@ -338,12 +333,12 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.rest.enabled</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enables {@link MicroStreamRestController}. Default value false</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.rest.path</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path to the {@link MicroStreamRestController}. Default value "microstream"</p></td>
 </tr>
 </tbody>
 </table>

@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <title>Micronaut MicroStream</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
     <link rel="stylesheet" href="../css/custom.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
@@ -143,13 +142,13 @@
         <h1>Micronaut MicroStream</h1>
         <p></p>
         <p>Micronaut integration with MicroStream</p>
-        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option selected='selected' value='https://micronaut-projects.github.io/micronaut-microstream/snapshot/guide/index.html'>SNAPSHOT</option><option value='https://micronaut-projects.github.io/micronaut-microstream/1.3.0/guide/index.html'>1.3.0</option><option value='https://micronaut-projects.github.io/micronaut-microstream/1.2.0/guide/index.html'>1.2.0</option><option value='https://micronaut-projects.github.io/micronaut-microstream/1.1.0/guide/index.html'>1.1.0</option><option value='https://micronaut-projects.github.io/micronaut-microstream/1.0.0/guide/index.html'>1.0.0</option><option value='https://micronaut-projects.github.io/micronaut-microstream/1.0.0-M1/guide/index.html'>1.0.0-M1</option></select> </p>
+        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option selected='selected' value='https://micronaut-projects.github.io/micronaut-microstream/snapshot/guide/index.html'>SNAPSHOT</option><option value='https://micronaut-projects.github.io/micronaut-microstream/latest/guide/index.html'>LATEST</option><option value='https://micronaut-projects.github.io/micronaut-microstream/1.3.0/guide/index.html'>1.3.0</option><option value='https://micronaut-projects.github.io/micronaut-microstream/1.2.0/guide/index.html'>1.2.0</option><option value='https://micronaut-projects.github.io/micronaut-microstream/1.1.0/guide/index.html'>1.1.0</option><option value='https://micronaut-projects.github.io/micronaut-microstream/1.0.0/guide/index.html'>1.0.0</option><option value='https://micronaut-projects.github.io/micronaut-microstream/1.0.0-M1/guide/index.html'>1.0.0-M1</option></select> </p>
     </div>
     
 <h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/introduction.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/introduction.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -162,7 +161,7 @@
 <h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>2 Release History</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/releaseHistory.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/releaseHistory.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -178,7 +177,7 @@
 <h1 id="dependency"><a class="anchor" href="#dependency"></a>3 Dependency</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/dependency.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/dependency.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -242,7 +241,7 @@
 <h1 id="configuration"><a class="anchor" href="#configuration"></a>4 Configuration</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/configuration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/configuration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -259,17 +258,31 @@ Each MicroStream instance represents one coherent entity graph of persistent dat
 <p>The following configuration example configures two beans of type <a href="../api/io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html">EmbeddedStorageConfigurationProvider</a>
 with <a href="https://docs.micronaut.io/latest/guide/#qualifiers">Name Bean Qualifiers</a>: <code>orange</code> and <code>blue</code>.</p>
 </div>
-<div class="listingblock">
-<div class="title">src/main/resources/application.yml</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">microstream.storage.orange.root-class=io.micronaut.microstream.docs.OneData
+microstream.storage.orange.storage-directory=build/microstream${random.shortuuid}
+microstream.storage.orange.channel-count=4
+microstream.storage.blue.root-class=io.micronaut.microstream.docs.AnotherData
+microstream.storage.blue.storage-directory=build/microstream${random.shortuuid}
+microstream.storage.blue.channel-count=4
+microstream.storage.blue.channel-directory-prefix=channel_
+microstream.storage.blue.data-file-prefix=channel_
+microstream.storage.blue.data-file-suffix=.dat</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
   storage:
-    orange: <i class="conum" data-value="1"></i><b>(1)</b>
-      root-class: 'io.micronaut.microstream.docs.OneData' <i class="conum" data-value="2"></i><b>(2)</b>
+    orange:
+      root-class: 'io.micronaut.microstream.docs.OneData'
       storage-directory: build/microstream${random.shortuuid}
       channel-count: 4
-    blue: <i class="conum" data-value="2"></i><b>(2)</b>
-      root-class: 'io.micronaut.microstream.docs.AnotherData' <i class="conum" data-value="2"></i><b>(2)</b>
+    blue:
+      root-class: 'io.micronaut.microstream.docs.AnotherData'
       storage-directory: build/microstream${random.shortuuid}
       channel-count: 4
       channel-directory-prefix: 'channel_'
@@ -277,23 +290,107 @@ with <a href="https://docs.micronaut.io/latest/guide/#qualifiers">Name Bean Qual
       data-file-suffix: '.dat'</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Specify a different name qualifier for each MicroStream instance</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Specify the class of the entity graph&#8217;s root.</td>
-</tr>
-</table>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[microstream]
+  [microstream.storage]
+    [microstream.storage.orange]
+      root-class="io.micronaut.microstream.docs.OneData"
+      storage-directory="build/microstream${random.shortuuid}"
+      channel-count=4
+    [microstream.storage.blue]
+      root-class="io.micronaut.microstream.docs.AnotherData"
+      storage-directory="build/microstream${random.shortuuid}"
+      channel-count=4
+      channel-directory-prefix="channel_"
+      data-file-prefix="channel_"
+      data-file-suffix=".dat"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">microstream {
+  storage {
+    orange {
+      rootClass = "io.micronaut.microstream.docs.OneData"
+      storageDirectory = "build/microstream${random.shortuuid}"
+      channelCount = 4
+    }
+    blue {
+      rootClass = "io.micronaut.microstream.docs.AnotherData"
+      storageDirectory = "build/microstream${random.shortuuid}"
+      channelCount = 4
+      channelDirectoryPrefix = "channel_"
+      dataFilePrefix = "channel_"
+      dataFileSuffix = ".dat"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  microstream {
+    storage {
+      orange {
+        root-class = "io.micronaut.microstream.docs.OneData"
+        storage-directory = "build/microstream${random.shortuuid}"
+        channel-count = 4
+      }
+      blue {
+        root-class = "io.micronaut.microstream.docs.AnotherData"
+        storage-directory = "build/microstream${random.shortuuid}"
+        channel-count = 4
+        channel-directory-prefix = "channel_"
+        data-file-prefix = "channel_"
+        data-file-suffix = ".dat"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "microstream": {
+    "storage": {
+      "orange": {
+        "root-class": "io.micronaut.microstream.docs.OneData",
+        "storage-directory": "build/microstream${random.shortuuid}",
+        "channel-count": 4
+      },
+      "blue": {
+        "root-class": "io.micronaut.microstream.docs.AnotherData",
+        "storage-directory": "build/microstream${random.shortuuid}",
+        "channel-count": 4,
+        "channel-directory-prefix": "channel_",
+        "data-file-prefix": "channel_",
+        "data-file-suffix": ".dat"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>orange</code> and <code>blue</code> specify a different name qualifier for each MicroStream instance</p>
+</li>
+<li>
+<p><code>root-class</code> for each instance specifies the class of the entity graph&#8217;s root.</p>
+</li>
+</ul>
 </div>
 
 <h1 id="rootInstance"><a class="anchor" href="#rootInstance"></a>5 Root Instance</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rootInstance.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/rootInstance.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -452,33 +549,89 @@ class Customer(val id: String, var firstName: String, var lastName: String?)</co
 <div class="paragraph">
 <p>You specify the Root class via configuration:</p>
 </div>
-<div class="listingblock">
-<div class="title">src/main/resources/application.yml</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">microstream.storage.main.root-class=io.micronaut.microstream.docs.Data
+microstream.storage.main.storage-directory=/Users/sdelamo/Documents/MicroStreamData</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
   storage:
-    main: <i class="conum" data-value="1"></i><b>(1)</b>
-      root-class: 'io.micronaut.microstream.docs.Data' <i class="conum" data-value="2"></i><b>(2)</b>
+    main:
+      root-class: 'io.micronaut.microstream.docs.Data'
       storage-directory: '/Users/sdelamo/Documents/MicroStreamData'</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Specify a name qualifier for the MicroStream instance</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Specify the class of the entity graph&#8217;s root.</td>
-</tr>
-</table>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[microstream]
+  [microstream.storage]
+    [microstream.storage.main]
+      root-class="io.micronaut.microstream.docs.Data"
+      storage-directory="/Users/sdelamo/Documents/MicroStreamData"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">microstream {
+  storage {
+    main {
+      rootClass = "io.micronaut.microstream.docs.Data"
+      storageDirectory = "/Users/sdelamo/Documents/MicroStreamData"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  microstream {
+    storage {
+      main {
+        root-class = "io.micronaut.microstream.docs.Data"
+        storage-directory = "/Users/sdelamo/Documents/MicroStreamData"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "microstream": {
+    "storage": {
+      "main": {
+        "root-class": "io.micronaut.microstream.docs.Data",
+        "storage-directory": "/Users/sdelamo/Documents/MicroStreamData"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>main</code> specifies a name qualifier for the MicroStream instance</p>
+</li>
+<li>
+<p><code>root-class</code> specifies the class of the entity graph&#8217;s root.</p>
+</li>
+</ul>
 </div>
 
 <h1 id="annotations"><a class="anchor" href="#annotations"></a>6 Annotations</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/annotations.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/annotations.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -525,7 +678,7 @@ They simplify storing objects in an associated Store Manager.</p>
 <h1 id="storage"><a class="anchor" href="#storage"></a>7 Storage</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storage.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/storage.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -606,7 +759,7 @@ interface CustomerRepository {
 <h2 id="storageWithStorageManager"><a class="anchor" href="#storageWithStorageManager"></a>7.1 StorageManager</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storage/storageWithStorageManager.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/storage/storageWithStorageManager.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -805,7 +958,7 @@ reading and writing to this shared object graph must be synchronized.</td>
 <h2 id="storageWithStore"><a class="anchor" href="#storageWithStore"></a>7.2 Working with Annotations</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storage/storageWithStore.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/storage/storageWithStore.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1030,7 +1183,7 @@ open class CustomerRepositoryStoreImpl(private val rootProvider: RootProvider&lt
 <h1 id="cache"><a class="anchor" href="#cache"></a>8 Cache</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/cache.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/cache.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1043,7 +1196,7 @@ open class CustomerRepositoryStoreImpl(private val rootProvider: RootProvider&lt
 <h2 id="cacheConfiguration"><a class="anchor" href="#cacheConfiguration"></a>8.1 Cache Configuration</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/cache/cacheConfiguration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/cache/cacheConfiguration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1071,23 +1224,80 @@ open class CustomerRepositoryStoreImpl(private val rootProvider: RootProvider&lt
 <div class="paragraph">
 <p>You can then define a cache by adding the following configuration to your application:</p>
 </div>
-<div class="listingblock">
-<div class="title">src/main/resources/application.yml</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">microstream.cache.counter.key-type=java.lang.String
+microstream.cache.counter.value-type=java.lang.Long</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
   cache:
-    counter: <i class="conum" data-value="1"></i><b>(1)</b>
+    counter:
       key-type: java.lang.String
       value-type: java.lang.Long</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Define a cache named <code>counter</code> which has String keys and Long values.</td>
-</tr>
-</table>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[microstream]
+  [microstream.cache]
+    [microstream.cache.counter]
+      key-type="java.lang.String"
+      value-type="java.lang.Long"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">microstream {
+  cache {
+    counter {
+      keyType = "java.lang.String"
+      valueType = "java.lang.Long"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  microstream {
+    cache {
+      counter {
+        key-type = "java.lang.String"
+        value-type = "java.lang.Long"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "microstream": {
+    "cache": {
+      "counter": {
+        "key-type": "java.lang.String",
+        "value-type": "java.lang.Long"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Define a cache named <code>counter</code> which has String keys and Long values.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>This cache can then be used via the following:</p>
@@ -1198,7 +1408,7 @@ open class CounterService {
 <h2 id="cacheStorage"><a class="anchor" href="#cacheStorage"></a>8.2 Cache Storage</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/cache/cacheStorage.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/cache/cacheStorage.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1207,36 +1417,120 @@ open class CounterService {
 <div class="paragraph">
 <p>If caching that persists across restarts is required, you can back a MicroStream cache with a Storage Manager.</p>
 </div>
-<div class="listingblock">
-<div class="title">src/main/resources/application.yml</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">microstream.storage.backing.storage-directory=${storageDirectory}
+microstream.storage.backing.channel-count=4
+microstream.cache.counter.key-type=java.lang.String
+microstream.cache.counter.value-type=java.lang.Long
+microstream.cache.counter.storage=backing</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
   storage:
-    backing: <i class="conum" data-value="1"></i><b>(1)</b>
+    backing:
       storage-directory: "${storageDirectory}"
       channel-count: 4
   cache:
-    counter: <i class="conum" data-value="2"></i><b>(2)</b>
+    counter:
       key-type: java.lang.String
       value-type: java.lang.Long
-      storage: backing <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+      storage: backing</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Define a storage manager called <code>backing</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Define a cache called <code>counter</code> to store Strings keys and Long values</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Configure the cache to use the <code>backing</code> storage manager</td>
-</tr>
-</table>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[microstream]
+  [microstream.storage]
+    [microstream.storage.backing]
+      storage-directory="${storageDirectory}"
+      channel-count=4
+  [microstream.cache]
+    [microstream.cache.counter]
+      key-type="java.lang.String"
+      value-type="java.lang.Long"
+      storage="backing"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">microstream {
+  storage {
+    backing {
+      storageDirectory = "${storageDirectory}"
+      channelCount = 4
+    }
+  }
+  cache {
+    counter {
+      keyType = "java.lang.String"
+      valueType = "java.lang.Long"
+      storage = "backing"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  microstream {
+    storage {
+      backing {
+        storage-directory = "${storageDirectory}"
+        channel-count = 4
+      }
+    }
+    cache {
+      counter {
+        key-type = "java.lang.String"
+        value-type = "java.lang.Long"
+        storage = "backing"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "microstream": {
+    "storage": {
+      "backing": {
+        "storage-directory": "${storageDirectory}",
+        "channel-count": 4
+      }
+    },
+    "cache": {
+      "counter": {
+        "key-type": "java.lang.String",
+        "value-type": "java.lang.Long",
+        "storage": "backing"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Define a storage manager called <code>backing</code></p>
+</li>
+<li>
+<p>Define a cache called <code>counter</code> to store Strings keys and Long values</p>
+</li>
+<li>
+<p>Configure the cache to use the <code>backing</code> storage manager</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>The above example will then persist across restarts.</p>
@@ -1245,7 +1539,7 @@ open class CounterService {
 <h1 id="microstreamMetrics"><a class="anchor" href="#microstreamMetrics"></a>9 Metrics</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/microstreamMetrics.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/microstreamMetrics.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1255,13 +1549,13 @@ open class CounterService {
 <p>You can enable MicroStream Metrics collection by enabling <a href="https://micronaut-projects.github.io/micronaut-micrometer/latest/guide">Micrometer Metrics</a>.</p>
 </div>
 <div class="paragraph">
-<p>If you do not wish to collect MicroStream metrics, you can set <code>micronaut.metrics.binders.microstream.enabled</code> to <code>false</code> in <code>application.yml</code>.</p>
+<p>If you do not wish to collect MicroStream metrics, you can set <code>micronaut.metrics.binders.microstream.enabled</code> to <code>false</code> in the application configuration file.</p>
 </div>
 
 <h1 id="storageHealth"><a class="anchor" href="#storageHealth"></a>10 Health</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storageHealth.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/storageHealth.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1312,7 +1606,14 @@ By default, the details visible above are only shown to authenticated users. See
 <div class="paragraph">
 <p>If you wish to disable the MicroStream health check while still using the <code>management</code> dependency you can set the property <code>endpoints.health.microstream.enabled</code> to <code>false</code> in your application configuration.</p>
 </div>
-<div class="listingblock">
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">endpoints.health.microstream.enabled=false</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">endpoints:
   health:
@@ -1320,11 +1621,58 @@ By default, the details visible above are only shown to authenticated users. See
       enabled: false</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[endpoints]
+  [endpoints.health]
+    [endpoints.health.microstream]
+      enabled=false</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">endpoints {
+  health {
+    microstream {
+      enabled = false
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  endpoints {
+    health {
+      microstream {
+        enabled = false
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "endpoints": {
+    "health": {
+      "microstream": {
+        "enabled": false
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
 
 <h1 id="rest"><a class="anchor" href="#rest"></a>11 REST API</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/rest.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1341,7 +1689,7 @@ When developing a MicroStream application, it is useful to be able to inspect th
 <h2 id="restSetup"><a class="anchor" href="#restSetup"></a>11.1 Enabling the REST API</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest/restSetup.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/rest/restSetup.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1370,22 +1718,68 @@ When developing a MicroStream application, it is useful to be able to inspect th
 <div class="paragraph">
 <p>You also need to enable it in your configuration, as for security it is disabled by default.</p>
 </div>
-<div class="listingblock">
-<div class="title">src/main/resources/application.yml</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">microstream.rest.enabled=true</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
   rest:
     enabled: true</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[microstream]
+  [microstream.rest]
+    enabled=true</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">microstream {
+  rest {
+    enabled = true
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  microstream {
+    rest {
+      enabled = true
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "microstream": {
+    "rest": {
+      "enabled": true
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
 <div class="paragraph">
-<p>It will output a warning each time your application is started if the REST endpoint is enabled that this should not be deployed to production.</p>
+<p>Outputs a warning each time your application is started – if the REST endpoint is enabled – that this should not be deployed to production.</p>
 </div>
 
 <h2 id="restConfiguration"><a class="anchor" href="#restConfiguration"></a>11.2 Configuration options</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest/restConfiguration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/rest/restConfiguration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1409,22 +1803,68 @@ When multiple storage managers are defined, the URL must be suffixed by the mana
 <div class="paragraph">
 <p>This prefix can be configured via the configuration.</p>
 </div>
-<div class="listingblock">
-<div class="title">src/main/resources/application.yml</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">microstream.rest.path=custom-prefix</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
   rest:
     path: custom-prefix</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[microstream]
+  [microstream.rest]
+    path="custom-prefix"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">microstream {
+  rest {
+    path = "custom-prefix"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  microstream {
+    rest {
+      path = "custom-prefix"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "microstream": {
+    "rest": {
+      "path": "custom-prefix"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
 <div class="paragraph">
-<p>The above configuration would expose the REST API at <code>/custom-prefix</code>. (or <code>/custom-prefix/«storage-name»</code> if you have multiple storage managers defined).</p>
+<p>The above configuration exposes the REST API at <code>/custom-prefix</code>. (or <code>/custom-prefix/«storage-name»</code> if you have multiple storage managers defined).</p>
 </div>
 
 <h2 id="restGui"><a class="anchor" href="#restGui"></a>11.3 GUI</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest/restGui.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/rest/restGui.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1440,7 +1880,7 @@ When multiple storage managers are defined, the URL must be suffixed by the mana
 <h1 id="repository"><a class="anchor" href="#repository"></a>12 Repository</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/repository.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/1.3.x/src/main/docs/guide/repository.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
