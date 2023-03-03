@@ -3,13 +3,13 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor(mn.micronaut.validation)
+    annotationProcessor(mnValidation.micronaut.validation.processor)
     annotationProcessor(mnSerde.micronaut.serde.processor)
 
     implementation(libs.managed.microstream.storage.restservice)
-    implementation(mn.micronaut.validation)
+    implementation(mnValidation.micronaut.validation)
 
-    implementation(project(":microstream"))
+    implementation(projects.micronautMicrostream)
     implementation(mnSerde.micronaut.serde.jackson)
 
     testImplementation(mn.micronaut.http.server.netty)
