@@ -29,10 +29,12 @@ import org.slf4j.LoggerFactory;
 @Requires(notEnv = Environment.TEST)
 final class MicroStreamRestStartupWarning implements ApplicationEventListener<StartupEvent> {
 
-    static final String WARNING_MESSAGE = "*****************\n\n" +
-        "\tThe MicroStream REST endpoint is enabled and you are not running in a test environment.\n" +
-        "\tThis endpoint is not intended for production use as it may allow data to be exfiltrated.\n" +
-        "\tPlease see https://micronaut-projects.github.io/micronaut-microstream/snapshot/guide/#rest for instruction on how to disable.";
+    static final String WARNING_MESSAGE = """
+        *****************
+
+        \tThe MicroStream REST endpoint is enabled and you are not running in a test environment.
+        \tThis endpoint is not intended for production use as it may allow data to be exfiltrated.
+        \tPlease see https://micronaut-projects.github.io/micronaut-microstream/snapshot/guide/#rest for instruction on how to disable.""";
 
     private static final Logger LOG = LoggerFactory.getLogger(MicroStreamRestStartupWarning.class);
 
