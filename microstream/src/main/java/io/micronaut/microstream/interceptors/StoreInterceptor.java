@@ -78,7 +78,7 @@ public class StoreInterceptor implements MethodInterceptor<Object, Object> {
     @Nullable
     @Override
     public Object intercept(MethodInvocationContext<Object, Object> context) {
-        InterceptedMethod interceptedMethod = InterceptedMethod.of(context);
+        InterceptedMethod interceptedMethod = InterceptedMethod.of(context, beanContext.getConversionService());
         switch (interceptedMethod.resultType()) {
             case PUBLISHER:
             case COMPLETION_STAGE:
