@@ -354,7 +354,7 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.serde.annotation.Serdeable;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 @Serdeable // <b class="conum">(1)</b>
 public class Customer {
@@ -408,7 +408,7 @@ import io.micronaut.core.annotation.Introspected
 import io.micronaut.core.annotation.NonNull
 import io.micronaut.core.annotation.Nullable
 
-import javax.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotBlank
 
 @Introspected
 class Customer {
@@ -540,9 +540,9 @@ They simplify storing objects in an associated Store Manager.</p>
 
 import io.micronaut.core.annotation.NonNull;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
@@ -568,9 +568,9 @@ public interface CustomerRepository {
 
 import io.micronaut.core.annotation.NonNull
 
-import javax.validation.Valid
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotNull
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
 
 interface CustomerRepository {
 
@@ -591,8 +591,8 @@ interface CustomerRepository {
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.microstream.docs
 
-import javax.validation.Valid
-import javax.validation.constraints.NotBlank
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
 
 interface CustomerRepository {
     fun save(customerSave: @Valid CustomerSave): Customer
