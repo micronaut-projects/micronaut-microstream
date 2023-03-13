@@ -6,7 +6,7 @@ import io.micronaut.core.beans.BeanIntrospection
 import io.micronaut.serde.ObjectMapper
 import spock.lang.Specification
 
-import javax.validation.Validator
+import jakarta.validation.Validator
 
 class RootObjectSpec extends Specification {
 

@@ -6,7 +6,7 @@ import jakarta.inject.Singleton
 import one.microstream.concurrency.XThreads
 import one.microstream.storage.types.StorageManager
 import java.util.*
-import javax.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotBlank
 
 @Requires(property = "customer.repository", value = "embedded-storage-manager")
 //tag::clazz[]

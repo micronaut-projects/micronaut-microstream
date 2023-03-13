@@ -9,8 +9,8 @@ import io.micronaut.microstream.annotations.StoreParams
 import io.micronaut.microstream.annotations.StoreReturn
 import jakarta.inject.Singleton
 import java.util.*
-import javax.validation.Valid
-import javax.validation.constraints.NotBlank
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
 
 @Requires(property = "customer.repository", value = "store")
 //tag::clazz[]

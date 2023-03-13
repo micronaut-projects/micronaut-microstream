@@ -5,11 +5,11 @@ plugins {
 }
 
 dependencies {
-    kaptTest(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    kaptTest(platform(mn.micronaut.core.bom))
     kaptTest(projects.micronautMicrostreamAnnotations)
     kaptTest(mnSerde.micronaut.serde.processor)
 
-    testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    testImplementation(platform(mn.micronaut.core.bom))
     testImplementation(projects.micronautMicrostreamAnnotations)
 
     testImplementation(mnValidation.micronaut.validation)
@@ -20,7 +20,7 @@ dependencies {
     testRuntimeOnly(libs.junit.jupiter.engine)
     testRuntimeOnly(mn.logback.classic)
     testRuntimeOnly(mn.snakeyaml)
-    testImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10"
+    testImplementation libs.kotlin.stdlib
     kaptTest(mn.micronaut.inject.java)
 
     testImplementation(mn.micronaut.http.server.netty)
@@ -28,11 +28,4 @@ dependencies {
     testImplementation(projects.micronautMicrostream)
     testImplementation(libs.jupiter.jupiter.params)
     testImplementation(projects.micronautMicrostreamCache)
-}
-
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = '17'
-        javaParameters = true
-    }
 }
