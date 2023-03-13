@@ -8,8 +8,8 @@ import io.micronaut.microstream.annotations.StoringStrategy;
 import jakarta.inject.Singleton;
 import one.microstream.storage.types.StorageManager;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 @Requires(property = "spec.service", value = "store-return")
 @Singleton

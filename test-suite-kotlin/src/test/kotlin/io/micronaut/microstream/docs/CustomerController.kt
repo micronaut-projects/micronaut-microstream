@@ -13,7 +13,7 @@ import io.micronaut.http.annotation.Delete
 import io.micronaut.http.annotation.Status
 import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.uri.UriBuilder
-import javax.validation.Valid
+import jakarta.validation.Valid
 
 @Controller("/customer")
 internal class CustomerController(private val repository: CustomerRepository) {

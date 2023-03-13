@@ -4,13 +4,13 @@ plugins {
 }
 
 dependencies {
-    testAnnotationProcessor(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    testAnnotationProcessor(platform(mn.micronaut.core.bom))
     testAnnotationProcessor(projects.micronautMicrostreamAnnotations)
     testAnnotationProcessor(mn.micronaut.inject.java)
     testAnnotationProcessor(mnValidation.micronaut.validation.processor)
     testAnnotationProcessor(mnSerde.micronaut.serde.processor)
 
-    testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    testImplementation(platform(mn.micronaut.core.bom))
     testImplementation(mnValidation.micronaut.validation)
     testImplementation(mnSerde.micronaut.serde.jackson)
 

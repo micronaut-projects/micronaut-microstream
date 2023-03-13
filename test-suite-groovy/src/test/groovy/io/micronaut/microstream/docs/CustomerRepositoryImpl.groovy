@@ -6,9 +6,9 @@ import jakarta.inject.Singleton
 import one.microstream.concurrency.XThreads
 import one.microstream.storage.types.StorageManager
 
-import javax.validation.Valid
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotNull
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
 import java.util.function.Supplier
 
 @Requires(property = "customer.repository", value = "embedded-storage-manager")
