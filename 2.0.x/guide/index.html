@@ -1,0 +1,1463 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>Micronaut MicroStream</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
+    <link rel="stylesheet" href="../css/custom.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
+    <link rel="stylesheet" href="../css/highlight/agate.css">
+    <script src="../js/highlight.pack.js"></script>
+    <script src="../js/guide.js"></script>
+    <script src="../js/multi-language-sample.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link rel="stylesheet" href="../css/multi-language-sample.css"/>
+    <script src="../js/docs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
+    <script type="text/javascript">
+        function addJsClass(el) {
+            var classes = document.body.className.split(" ");
+            classes.push("js");
+            document.body.className = classes.join(" ");
+        }
+    </script>
+
+</head>
+
+<body class="body" id="docs" onload="addJsClass();" onhashchange="highlightMenu()">
+
+<div id="table-of-content-nav-link" class="desktop">
+    <a id="theme-switcher" title="Switch to dark theme" href="javascript:switchTheme(true)"><i class="fa fa-moon-o"></i></a>
+    <a title="Collapse/Open Table of contents" title="Hide Table of Contents" href="javascript:hideTableOfContents();" class="button">[ + ]</a>
+</div>
+
+<div id="main">
+    <div id="navigation" class="no-print">
+        <div class="navTitle">
+            <span id="logo"><a href="http://micronaut.io" title="Go to Micronaut Website"><img src="../img/micronaut-logo-white.svg" alt="Micronaut"/></a></span>
+        </div>
+        <div class="navLinks">
+            <ul>
+                    <li><div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)" class="desktop">
+                            <a href="../guide/index.html" class="button">Table of contents</a>
+                            <div id="nav-summary-childs" style="display:none;">
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#dependency"><strong>3</strong><span>Dependency</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#configuration"><strong>4</strong><span>Configuration</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#rootInstance"><strong>5</strong><span>Root Instance</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#annotations"><strong>6</strong><span>Annotations</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#storage"><strong>7</strong><span>Storage</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#cache"><strong>8</strong><span>Cache</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#microstreamMetrics"><strong>9</strong><span>Metrics</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#storageHealth"><strong>10</strong><span>Health</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#rest"><strong>11</strong><span>REST API</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>12</strong><span>Repository</span></a></div>
+                                
+                            </div>
+                        </div>
+                    </li>
+
+                <li id="table-of-content-nav-link-mobile" class="mobile">
+                    <a title="Scroll to Table of contents" href="javascript:scrollToTop();" class="button">Toc</a>
+                </li>
+                <li class="desktop">
+                    <a title="Go to API documentation" href="../api/index.html" class="button">API Reference</a>
+                </li>
+                <li class="mobile">
+                    <a title="Go to API documentation" href="../api/index.html" class="button">API</a>
+                </li>
+                <li class="desktop">
+                    <a title="Go to Configuration Reference documentation" href="../guide/configurationreference.html" class="button">Configuration Reference</a>
+                </li>
+                <li class="mobile">
+                    <a title="Go to Configuration Reference documentation" href="../guide/configurationreference.html" class="button">Conf</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    
+    <div id="table-of-content">
+        <div class="toc-content">
+
+        <h2>Table of Contents</h2>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-introduction"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-releaseHistory"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-dependency"><a href="#dependency"><strong>3</strong><span>Dependency</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-configuration"><a href="#configuration"><strong>4</strong><span>Configuration</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-rootInstance"><a href="#rootInstance"><strong>5</strong><span>Root Instance</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-annotations"><a href="#annotations"><strong>6</strong><span>Annotations</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-storage"><a href="#storage"><strong>7</strong><span>Storage</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-storageWithStorageManager"><a href="#storageWithStorageManager"><strong>7.1</strong><span>StorageManager</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-storageWithStore"><a href="#storageWithStore"><strong>7.2</strong><span>Working with Annotations</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-cache"><a href="#cache"><strong>8</strong><span>Cache</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-cacheConfiguration"><a href="#cacheConfiguration"><strong>8.1</strong><span>Cache Configuration</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-cacheStorage"><a href="#cacheStorage"><strong>8.2</strong><span>Cache Storage</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-microstreamMetrics"><a href="#microstreamMetrics"><strong>9</strong><span>Metrics</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-storageHealth"><a href="#storageHealth"><strong>10</strong><span>Health</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-rest"><a href="#rest"><strong>11</strong><span>REST API</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-restSetup"><a href="#restSetup"><strong>11.1</strong><span>Enabling the REST API</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-restConfiguration"><a href="#restConfiguration"><strong>11.2</strong><span>Configuration options</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-restGui"><a href="#restGui"><strong>11.3</strong><span>GUI</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>12</strong><span>Repository</span></a></div>
+        
+        </div>
+    </div>
+    
+    <div class="docs-content">
+    <div class="project">
+        <h1>Micronaut MicroStream</h1>
+        <p></p>
+        <p>Micronaut integration with MicroStream</p>
+        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option value='https://micronaut-projects.github.io/micronaut-microstream/snapshot/guide/index.html'>SNAPSHOT</option><option value='https://micronaut-projects.github.io/micronaut-microstream/latest/guide/index.html'>LATEST</option><option selected='selected' value='https://micronaut-projects.github.io/micronaut-microstream/2.0.0-M1/guide/index.html'>2.0.0-M1</option><option value='https://micronaut-projects.github.io/micronaut-microstream/1.3.0/guide/index.html'>1.3.0</option><option value='https://micronaut-projects.github.io/micronaut-microstream/1.2.0/guide/index.html'>1.2.0</option><option value='https://micronaut-projects.github.io/micronaut-microstream/1.1.0/guide/index.html'>1.1.0</option><option value='https://micronaut-projects.github.io/micronaut-microstream/1.0.0/guide/index.html'>1.0.0</option><option value='https://micronaut-projects.github.io/micronaut-microstream/1.0.0-M1/guide/index.html'>1.0.0-M1</option></select> </p>
+    </div>
+    
+<h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/introduction.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>Integration with <a href="https://microstream.one">MicroStream</a>.</p>
+</div>
+
+<h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>2 Release History</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/releaseHistory.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>For this project, you can find a list of releases (with release notes) here:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/micronaut-projects/micronaut-microstream/releases">https://github.com/micronaut-projects/micronaut-microstream/releases</a></p>
+</div>
+
+<h1 id="dependency"><a class="anchor" href="#dependency"></a>3 Dependency</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/dependency.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To start, add the following dependencies to your classpath.</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">annotationProcessor(<span class="hljs-string">"io.micronaut.microstream:micronaut-microstream-annotations")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;annotationProcessorPaths&gt;
+    &lt;path&gt;
+        &lt;groupId&gt;io.micronaut.microstream&lt;/groupId&gt;
+        &lt;artifactId&gt;micronaut-microstream-annotations&lt;/artifactId&gt;
+    &lt;/path&gt;
+&lt;/annotationProcessorPaths&gt;</code></pre>
+</div>
+</div></p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.microstream:micronaut-microstream-annotations")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.microstream&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-microstream-annotations&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.microstream:micronaut-microstream")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.microstream&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-microstream&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+
+<h1 id="configuration"><a class="anchor" href="#configuration"></a>4 Configuration</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/configuration.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>A Micronaut application can have more than one MicroStream instances.
+Each MicroStream instance represents one coherent entity graph of persistent data.</p>
+</div>
+<div class="paragraph">
+<p>You can use the same values described in the <a href="https://docs.microstream.one/manual/storage/configuration/index.html">MicroStream Configuration documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>The following configuration example configures two beans of type <a href="../api/io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html">EmbeddedStorageConfigurationProvider</a>
+with <a href="https://docs.micronaut.io/latest/guide/#qualifiers">Name Bean Qualifiers</a>: <code>orange</code> and <code>blue</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/application.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
+  storage:
+    orange: <i class="conum" data-value="1"></i><b>(1)</b>
+      root-class: 'io.micronaut.microstream.docs.OneData' <i class="conum" data-value="2"></i><b>(2)</b>
+      storage-directory: build/microstream${random.shortuuid}
+      channel-count: 4
+    blue: <i class="conum" data-value="2"></i><b>(2)</b>
+      root-class: 'io.micronaut.microstream.docs.AnotherData' <i class="conum" data-value="2"></i><b>(2)</b>
+      storage-directory: build/microstream${random.shortuuid}
+      channel-count: 4
+      channel-directory-prefix: 'channel_'
+      data-file-prefix: 'channel_'
+      data-file-suffix: '.dat'</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Specify a different name qualifier for each MicroStream instance</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Specify the class of the entity graph&#8217;s root.</td>
+</tr>
+</table>
+</div>
+
+<h1 id="rootInstance"><a class="anchor" href="#rootInstance"></a>5 Root Instance</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rootInstance.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The following example creates a <a href="https://docs.microstream.one/manual/storage/root-instances.html">Root Instance</a> to store <code>Customer</code>s:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.microstream.docs;
+
+import io.micronaut.core.annotation.NonNull;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Data {
+    private Map&lt;String, Customer&gt; customers = new HashMap&lt;&gt;();
+
+    @NonNull
+    public Map&lt;String, Customer&gt; getCustomers() {
+        return this.customers;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.microstream.docs
+
+import io.micronaut.core.annotation.Introspected
+
+@Introspected // <b class="conum">(1)</b>
+class Data {
+    Map&lt;String, Customer&gt; customers = [:]
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.microstream.docs
+
+import io.micronaut.core.annotation.Introspected
+
+@Introspected // <b class="conum">(1)</b>
+data class Data(val customers: MutableMap&lt;String, Customer&gt; = mutableMapOf())</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And <code>Customer</code> is defined as:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.microstream.docs;
+
+import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
+import io.micronaut.serde.annotation.Serdeable;
+
+import jakarta.validation.constraints.NotBlank;
+
+@Serdeable // <b class="conum">(1)</b>
+public class Customer {
+    @NonNull
+    @NotBlank
+	private final String id;
+
+    @NonNull
+    @NotBlank
+	private String firstName;
+
+    @Nullable
+	private String lastName;
+
+    public Customer(@NonNull String id, @NonNull String firstName, @Nullable String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    @NonNull
+    public String getId() {
+        return id;
+    }
+
+    public void setFirstName(@NonNull String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(@Nullable String lastName) {
+        this.lastName = lastName;
+    }
+
+    @NonNull
+    public String getFirstName() {
+        return firstName;
+    }
+
+    @Nullable
+    public String getLastName() {
+        return lastName;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.microstream.docs
+
+import io.micronaut.core.annotation.Introspected
+import io.micronaut.core.annotation.NonNull
+import io.micronaut.core.annotation.Nullable
+
+import jakarta.validation.constraints.NotBlank
+
+@Introspected
+class Customer {
+    @NonNull
+    @NotBlank
+    String id
+
+    @NonNull
+    @NotBlank
+    String firstName
+
+    @Nullable
+    String lastName
+
+    Customer(@NonNull String id, @NonNull String firstName, @Nullable String lastName) {
+        this.id = id
+        this.firstName = firstName
+        this.lastName = lastName
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.microstream.docs
+
+import io.micronaut.core.annotation.Introspected
+
+@Introspected
+class Customer(val id: String, var firstName: String, var lastName: String?)</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The type is annotated with <a href="https://micronaut-projects.github.io/micronaut-serialization/snapshot/api/io/micronaut/serde/annotation/Serdeable.html">@Serdeable</a> to enable serialization/deserialization</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You specify the Root class via configuration:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/application.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
+  storage:
+    main: <i class="conum" data-value="1"></i><b>(1)</b>
+      root-class: 'io.micronaut.microstream.docs.Data' <i class="conum" data-value="2"></i><b>(2)</b>
+      storage-directory: '/Users/sdelamo/Documents/MicroStreamData'</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Specify a name qualifier for the MicroStream instance</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Specify the class of the entity graph&#8217;s root.</td>
+</tr>
+</table>
+</div>
+
+<h1 id="annotations"><a class="anchor" href="#annotations"></a>6 Annotations</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/annotations.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>Micronaut MicroStream ships the following around method annotations.
+They simplify storing objects in an associated Store Manager.</p>
+</div>
+<div class="paragraph">
+<p>These annotations wrap the decorated method to ensure thread isolation.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../api/io/micronaut/microstream/annotations/StoreParams.html">@StoreParams</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It stores the method parameters specified in the annotation value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../api/io/micronaut/microstream/annotations/StoreReturn.html">@StoreReturn</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It stores the method return</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../api/io/micronaut/microstream/annotations/StoreRoot.html">@StoreRoot</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It stores the root object.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../api/io/micronaut/microstream/annotations/Store.html">@Store</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Micronaut MicroStream maps other annotations to this annotation. You will not use this annotation directly.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If you work with multiple MicroStream instances, you can supply the name qualifier to the annotation to specify the instance you are working with.</p>
+</div>
+<div class="paragraph">
+<p>Moreover, you can specify the <a href="../api/io/micronaut/microstream/annotations/StoringStrategy.html">StoringStrategy</a> via the annotations. By default, <code>LAZY</code> is the default storing mode.</p>
+</div>
+
+<h1 id="storage"><a class="anchor" href="#storage"></a>7 Storage</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storage.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The following example shows how to create implementations for this repository:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.microstream.docs;
+
+import io.micronaut.core.annotation.NonNull;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.UUID;
+
+public interface CustomerRepository {
+
+    @NonNull
+    Customer save(@NonNull @NotNull @Valid CustomerSave customerSave);
+
+    void update(@NonNull @NotBlank String id,
+                @NonNull @NotNull @Valid CustomerSave customerSave);
+
+    @NonNull
+    Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id);
+
+    void deleteById(@NonNull @NotBlank String id);
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.microstream.docs
+
+import io.micronaut.core.annotation.NonNull
+
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+
+interface CustomerRepository {
+
+    @NonNull
+    Customer save(@NonNull @NotNull @Valid CustomerSave customer)
+
+    void update(@NonNull @NotBlank String id,
+                @NonNull @NotNull @Valid CustomerSave customer)
+
+    @NonNull
+    Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id)
+
+    void deleteById(@NonNull @NotBlank String id)
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.microstream.docs
+
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
+
+interface CustomerRepository {
+    fun save(customerSave: @Valid CustomerSave): Customer
+    fun update(id: @NotBlank String, customerSave: @Valid CustomerSave)
+    fun findById(id: @NotBlank String): Customer?
+    fun deleteById(id: @NotBlank String)
+}</code></pre>
+</div>
+</div>
+
+<h2 id="storageWithStorageManager"><a class="anchor" href="#storageWithStorageManager"></a>7.1 StorageManager</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storage/storageWithStorageManager.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The following example shows how to create a repository which injects the <code>StorageManager</code> and retrieves the Root Instance:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Singleton
+public class CustomerRepositoryImpl implements CustomerRepository {
+
+    private final StorageManager storageManager;
+
+    public CustomerRepositoryImpl(StorageManager storageManager) { // <b class="conum">(1)</b>
+        this.storageManager = storageManager;
+    }
+
+	@Override
+    @NonNull
+	public Customer save(@NonNull @NotNull @Valid CustomerSave customerSave) {
+        return XThreads.executeSynchronized(() -&gt; { // <b class="conum">(2)</b>
+            String id = UUID.randomUUID().toString();
+            Customer customer = new Customer(id, customerSave.getFirstName(), customerSave.getLastName());
+            data().getCustomers().put(id, customer);
+            storageManager.store(data().getCustomers()); // <b class="conum">(3)</b>
+            return customer;
+        });
+	}
+
+    @Override
+    public void update(@NonNull @NotBlank String id,
+                       @NonNull @NotNull @Valid CustomerSave customerSave) {
+        XThreads.executeSynchronized(() -&gt; { // <b class="conum">(2)</b>
+            Customer c = data().getCustomers().get(id);
+            c.setFirstName(customerSave.getFirstName());
+            c.setLastName(customerSave.getLastName());
+            storageManager.store(c); // <b class="conum">(3)</b>
+        });
+    }
+
+    @Override
+    @NonNull
+    public Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id) {
+        return Optional.ofNullable(data().getCustomers().get(id));
+    }
+
+    @Override
+    public void deleteById(@NonNull @NotBlank String id) {
+        XThreads.executeSynchronized(() -&gt; { // <b class="conum">(2)</b>
+            data().getCustomers().remove(id);
+            storageManager.store(data().getCustomers()); // <b class="conum">(3)</b>
+        });
+    }
+
+    private Data data() {
+        return (Data) storageManager.root();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">@Singleton
+class CustomerRepositoryImpl implements CustomerRepository {
+
+    private final StorageManager storageManager
+
+    CustomerRepositoryImpl(StorageManager storageManager) { // <b class="conum">(1)</b>
+        this.storageManager = storageManager
+    }
+
+    @Override
+    @NonNull
+    Customer save(@NonNull @NotNull @Valid CustomerSave customerSave) {
+        XThreads.executeSynchronized(new Supplier&lt;Customer&gt;() { // <b class="conum">(2)</b>
+            @Override
+            Customer get() {
+                String id = UUID.randomUUID().toString()
+                Customer customer = new Customer(id, customerSave.getFirstName(), customerSave.getLastName())
+                data().getCustomers().put(id, customer)
+                store(data().getCustomers()) // <b class="conum">(3)</b>
+                customer
+            }
+        })
+    }
+
+    @Override
+    void update(@NonNull @NotBlank String id,
+                @NonNull @NotNull @Valid CustomerSave customerSave) {
+        XThreads.executeSynchronized(new Runnable() { // <b class="conum">(2)</b>
+            @Override
+            void run() {
+                Customer c = data().getCustomers().get(id)
+                c.setFirstName(customerSave.getFirstName())
+                c.setLastName(customerSave.getLastName())
+                store(c) // <b class="conum">(3)</b>
+            }
+        })
+    }
+
+    @Override
+    @NonNull
+    Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id) {
+        Optional.ofNullable(data().getCustomers().get(id))
+    }
+
+    @Override
+    void deleteById(@NonNull @NotBlank String id) {
+        XThreads.executeSynchronized(new Runnable() { // <b class="conum">(2)</b>
+            @Override
+            void run() {
+                data().getCustomers().remove(id)
+                store(data().getCustomers()) // <b class="conum">(3)</b>
+            }
+        })
+    }
+
+    private void store(Object instance) {
+        storageManager.store(instance)
+    }
+
+    private Data data() {
+        (Data) storageManager.root()
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Singleton
+class CustomerRepositoryImpl(private val storageManager: StorageManager) // <b class="conum">(1)</b>
+    : CustomerRepository {
+    override fun save(customerSave: CustomerSave): Customer {
+        val id = UUID.randomUUID().toString()
+        val customer = Customer(id, customerSave.firstName, customerSave.lastName)
+        XThreads.executeSynchronized { // <b class="conum">(2)</b>
+            data.customers[customer.id] = customer
+            storageManager.store(data.customers) // <b class="conum">(3)</b>
+        }
+        return customer
+    }
+
+    override fun update(id : String, customerSave: CustomerSave) {
+        XThreads.executeSynchronized { // <b class="conum">(2)</b>
+            val customer : Customer? = data.customers[id]
+            if (customer != null) {
+                with(customer) {
+                    firstName = customerSave.firstName
+                    lastName = customerSave.lastName
+                }
+                storageManager.store(customer) // <b class="conum">(3)</b>
+            }
+        }
+    }
+
+    @NonNull
+    override fun findById(id: @NotBlank String): Customer? {
+        return data.customers[id]
+    }
+
+    override fun deleteById(id: @NotBlank String) {
+        XThreads.executeSynchronized { // <b class="conum">(2)</b>
+            data.customers.remove(id)
+            storageManager.store(data.customers) // <b class="conum">(3)</b>
+        }
+    }
+
+    private val data: Data
+        get() {
+            val root = storageManager.root()
+            return if (root is Data) root else throw RuntimeException("Root is not Data")
+        }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>If your Micronaut application has only a single MicroStream Instance, you don&#8217;t need to specify a name qualifier to inject <code>StorageManager</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>When you are <a href="https://docs.microstream.one/manual/storage/root-instances.html#_shared_mutable_data">working with MicroStream technology in a multi-threaded environment</a>,
+reading and writing to this shared object graph must be synchronized.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><a href="https://docs.microstream.one/manual/storage/storing-data/index.html">To store a newly created object, store the "owner" of the object</a>.</td>
+</tr>
+</table>
+</div>
+
+<h2 id="storageWithStore"><a class="anchor" href="#storageWithStore"></a>7.2 Working with Annotations</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storage/storageWithStore.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The following example shows how an equivalent implementation which leverages the <a href="#annotations">Micronaut MicroStream annotations</a> to simplify object storage.</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Singleton
+public class CustomerRepositoryStoreImpl implements CustomerRepository {
+
+    private final RootProvider&lt;Data&gt; rootProvider;
+
+    public CustomerRepositoryStoreImpl(RootProvider&lt;Data&gt; rootProvider) { // <b class="conum">(1)</b>
+        this.rootProvider = rootProvider;
+    }
+
+    @Override
+    @NonNull
+    public Customer save(@NonNull @NotNull @Valid CustomerSave customerSave) {
+        return addCustomer(rootProvider.root().getCustomers(), customerSave);
+    }
+
+    @Override
+    public void update(@NonNull @NotBlank String id,
+                       @NonNull @NotNull @Valid CustomerSave customerSave) {
+        updateCustomer(id, customerSave);
+    }
+
+    @Override
+    @NonNull
+    public Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id) {
+        return Optional.ofNullable(rootProvider.root().getCustomers().get(id));
+    }
+
+    @Override
+    public void deleteById(@NonNull @NotBlank String id) {
+        removeCustomer(rootProvider.root().getCustomers(), id);
+    }
+
+    @StoreReturn // <b class="conum">(2)</b>
+    @Nullable
+    protected Customer updateCustomer(@NonNull String id,
+                                      @NonNull CustomerSave customerSave) {
+        Customer c = rootProvider.root().getCustomers().get(id);
+        if (c != null) {
+            c.setFirstName(customerSave.getFirstName());
+            c.setLastName(customerSave.getLastName());
+            return c;
+        }
+        return null;
+    }
+
+    @StoreParams("customers") // <b class="conum">(3)</b>
+    protected Customer addCustomer(@NonNull Map&lt;String, Customer&gt; customers,
+                                   @NonNull CustomerSave customerSave) {
+        Customer customer = new Customer(UUID.randomUUID().toString(),
+            customerSave.getFirstName(),
+            customerSave.getLastName());
+        customers.put(customer.getId(), customer);
+        return customer;
+    }
+
+    @StoreParams("customers") // <b class="conum">(3)</b>
+    protected void removeCustomer(@NonNull Map&lt;String, Customer&gt; customers,
+                                  @NonNull String id) {
+        customers.remove(id);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">@Singleton
+class CustomerRepositoryStoreImpl implements CustomerRepository {
+
+    private final RootProvider&lt;Data&gt; rootProvider
+
+    CustomerRepositoryStoreImpl(RootProvider&lt;Data&gt; rootProvider) { // <b class="conum">(1)</b>
+        this.rootProvider = rootProvider
+    }
+
+    @Override
+    @NonNull
+    Customer save(@NonNull @NotNull @Valid CustomerSave customerSave) {
+        return addCustomer(rootProvider.root().customers, customerSave)
+    }
+
+    @Override
+    void update(@NonNull @NotBlank String id,
+                @NonNull @NotNull @Valid CustomerSave customerSave) {
+        updateCustomer(id, customerSave)
+    }
+
+    @Override
+    @NonNull
+    Optional&lt;Customer&gt; findById(@NonNull @NotBlank String id) {
+        Optional.ofNullable(rootProvider.root().customers[id])
+    }
+
+    @Override
+    void deleteById(@NonNull @NotBlank String id) {
+        removeCustomer(rootProvider.root().customers, id)
+    }
+
+    @StoreReturn // <b class="conum">(2)</b>
+    @Nullable
+    protected Customer updateCustomer(@NonNull String id,
+                                      @NonNull CustomerSave customerSave) {
+        Customer c = rootProvider.root().customers[id]
+        if (c != null) {
+            c.with {
+                firstName = customerSave.firstName
+                lastName = customerSave.lastName
+            }
+            return c
+        }
+        null
+    }
+
+    @StoreParams("customers") // <b class="conum">(3)</b>
+    protected Customer addCustomer(@NonNull Map&lt;String, Customer&gt; customers,
+                                   @NonNull CustomerSave customerSave) {
+        Customer customer = new Customer(UUID.randomUUID().toString(),
+            customerSave.firstName,
+            customerSave.lastName)
+        customers[customer.id] = customer
+        customer
+    }
+
+    @StoreParams("customers") // <b class="conum">(3)</b>
+    protected void removeCustomer(@NonNull Map&lt;String, Customer&gt; customers,
+                                  @NonNull String id) {
+        customers.remove(id)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Singleton
+open class CustomerRepositoryStoreImpl(private val rootProvider: RootProvider&lt;Data&gt;) // <b class="conum">(1)</b>
+    : CustomerRepository {
+    override fun save(customerSave: @Valid CustomerSave): Customer {
+        return addCustomer(rootProvider.root().customers, customerSave)
+    }
+
+    override fun update(id : @NotBlank String,
+                        customerSave: @Valid CustomerSave) {
+        updateCustomer(id, customerSave)
+    }
+
+    @NonNull
+    override fun findById(id: @NotBlank String): Customer? {
+        return rootProvider.root().customers[id]
+    }
+
+    override fun deleteById(id: @NotBlank String) {
+        removeCustomer(rootProvider.root().customers, id)
+    }
+
+    @StoreReturn // <b class="conum">(2)</b>
+    @Nullable
+    open fun updateCustomer(id: String, customerSave: CustomerSave): Customer? {
+        val c: Customer? = rootProvider.root().customers[id]
+        return if (c != null) {
+            c.firstName = customerSave.firstName
+            c.lastName = customerSave.lastName
+            c
+        } else null
+    }
+
+    @StoreParams("customers") // <b class="conum">(3)</b>
+    open fun addCustomer(customers: MutableMap&lt;String, Customer&gt;, customerSave: CustomerSave): Customer {
+        val customer = Customer(
+            UUID.randomUUID().toString(),
+            customerSave.firstName,
+            customerSave.lastName
+        )
+        customers[customer.id] = customer
+        return customer
+    }
+
+    @StoreParams("customers") // <b class="conum">(3)</b>
+    open fun removeCustomer(customers: MutableMap&lt;String, Customer&gt;, id: String) {
+        customers.remove(id)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>You can also inject an instance of <a href="../api/io/micronaut/microstream/RootProvider.html">RootProvider</a> to easily access the MicroStream Root Instance. If your Micronaut application has only a single MicroStream Instance, you don&#8217;t need to specify a name qualifier to inject it.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><a href="https://docs.microstream.one/manual/storage/storing-data/index.html">The rule is: "The Object that has been modified has to be stored!"</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><a href="https://docs.microstream.one/manual/storage/storing-data/index.html">To store a newly created object, store the "owner" of the object</a>.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<a href="#annotations">Micronaut MicroStream annotations</a> only work for synchronous methods. It does not do any logic for methods returning a <code>Publisher</code> or a <code>CompletableFuture</code>. For those scenarios, use directly the <code>StorageManager</code>.
+</td>
+</tr>
+</table>
+</div>
+
+<h1 id="cache"><a class="anchor" href="#cache"></a>8 Cache</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/cache.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>MicroStream can be used as a <a href="https://micronaut-projects.github.io/micronaut-cache/latest/guide/#cache-abstraction">cache abstraction</a> layer.</p>
+</div>
+
+<h2 id="cacheConfiguration"><a class="anchor" href="#cacheConfiguration"></a>8.1 Cache Configuration</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/cache/cacheConfiguration.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To use the MicroStream cache abstraction, you must declare a dependency on</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut:micronaut-microstream-cache")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-microstream-cache&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+<div class="paragraph">
+<p>You can then define a cache by adding the following configuration to your application:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/application.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
+  cache:
+    counter: <i class="conum" data-value="1"></i><b>(1)</b>
+      key-type: java.lang.String
+      value-type: java.lang.Long</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Define a cache named <code>counter</code> which has String keys and Long values.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This cache can then be used via the following:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.microstream.docs;
+
+import io.micronaut.cache.annotation.CacheConfig;
+import io.micronaut.cache.annotation.CachePut;
+import io.micronaut.cache.annotation.Cacheable;
+import jakarta.inject.Singleton;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Singleton
+@CacheConfig("counter") // <b class="conum">(1)</b>
+public class CounterService {
+
+    Map&lt;String, Long&gt; counters = new HashMap&lt;&gt;();
+
+    @Cacheable // <b class="conum">(2)</b>
+    public Long currentCount(String name) {
+        return counters.get(name);
+    }
+
+    @CachePut(parameters = {"name"}) // <b class="conum">(3)</b>
+    public Long setCount(String name, Long count) {
+        counters.put(name, count);
+        return count;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.microstream.docs
+
+import io.micronaut.cache.annotation.CacheConfig
+import io.micronaut.cache.annotation.CachePut
+import io.micronaut.cache.annotation.Cacheable
+import jakarta.inject.Singleton
+
+@Singleton
+@CacheConfig("counter") // <b class="conum">(1)</b>
+class CounterService {
+
+    Map&lt;String, Long&gt; counters = [:]
+
+    @Cacheable // <b class="conum">(2)</b>
+    Long currentCount(String name) {
+        return counters.get(name)
+    }
+
+    @CachePut(parameters = ["name"]) // <b class="conum">(3)</b>
+    Long setCount(String name, Long count) {
+        counters.put(name, count)
+        count
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.microstream.docs
+
+import io.micronaut.cache.annotation.CacheConfig
+import io.micronaut.cache.annotation.CachePut
+import io.micronaut.cache.annotation.Cacheable
+import jakarta.inject.Singleton
+import java.util.HashMap
+
+@Singleton
+@CacheConfig("counter") // <b class="conum">(1)</b>
+open class CounterService {
+
+    val counters: MutableMap&lt;String, Long&gt; = HashMap()
+
+    @Cacheable // <b class="conum">(2)</b>
+    open fun currentCount(name: String): Long? = counters[name]
+
+    @CachePut(parameters = ["name"]) // <b class="conum">(3)</b>
+    open fun setCount(name: String, count: Long): Long {
+        counters[name] = count
+        return count
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Use the <code>counter</code> cache.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The result of this call will be cached.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Setting the counter will invalidate the cache for this key.</td>
+</tr>
+</table>
+</div>
+
+<h2 id="cacheStorage"><a class="anchor" href="#cacheStorage"></a>8.2 Cache Storage</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/cache/cacheStorage.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>If caching that persists across restarts is required, you can back a MicroStream cache with a Storage Manager.</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/application.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
+  storage:
+    backing: <i class="conum" data-value="1"></i><b>(1)</b>
+      storage-directory: "${storageDirectory}"
+      channel-count: 4
+  cache:
+    counter: <i class="conum" data-value="2"></i><b>(2)</b>
+      key-type: java.lang.String
+      value-type: java.lang.Long
+      storage: backing <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Define a storage manager called <code>backing</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Define a cache called <code>counter</code> to store Strings keys and Long values</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Configure the cache to use the <code>backing</code> storage manager</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The above example will then persist across restarts.</p>
+</div>
+
+<h1 id="microstreamMetrics"><a class="anchor" href="#microstreamMetrics"></a>9 Metrics</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/microstreamMetrics.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>You can enable MicroStream Metrics collection by enabling <a href="https://micronaut-projects.github.io/micronaut-micrometer/latest/guide">Micrometer Metrics</a>.</p>
+</div>
+<div class="paragraph">
+<p>If you do not wish to collect MicroStream metrics, you can set <code>micronaut.metrics.binders.microstream.enabled</code> to <code>false</code> in <code>application.yml</code>.</p>
+</div>
+
+<h1 id="storageHealth"><a class="anchor" href="#storageHealth"></a>10 Health</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storageHealth.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p><a href="https://docs.micronaut.io/latest/guide/#healthEndpoint">Health Endpoint</a> exposes the status of the MicroStream Instances in your Micronaut Application.</p>
+</div>
+<div class="paragraph">
+<p>After you add the <a href="https://docs.micronaut.io/latest/guide/#management"><code>management</code></a> dependency,
+the <code>/health</code> endpoint of a Micronaut application with one MicroStream instance named <code>blue</code> will return:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "name": "application",
+  "status": "UP",
+  "details": {
+    "microstream.blue": {
+      "name": "application",
+      "status": "UP",
+      "details": {
+        "startingUp": false,
+        "running": true,
+        "active": true,
+        "acceptingTasks": true,
+        "shuttingDown": false,
+        "shutdown": false
+      }
+    },
+    ...
+  }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+By default, the details visible above are only shown to authenticated users. See the <a href="https://docs.micronaut.io/latest/guide/#healthEndpoint">Health Endpoint</a> documentation for how to configure that setting.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If you wish to disable the MicroStream health check while still using the <code>management</code> dependency you can set the property <code>endpoints.health.microstream.enabled</code> to <code>false</code> in your application configuration.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">endpoints:
+  health:
+    microstream:
+      enabled: false</code></pre>
+</div>
+</div>
+
+<h1 id="rest"><a class="anchor" href="#rest"></a>11 REST API</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The MicroStream Storage isn’t a typical database server with administrative tooling, it is a pure java persistence engine which runs embedded in your application.
+When developing a MicroStream application, it is useful to be able to inspect the graph that is currently in your storage.</p>
+</div>
+<div class="paragraph">
+<p>The <code>micronaut-microstream-rest</code> library exposes the <a href="https://docs.microstream.one/manual/storage/rest-interface/rest-api.html">MicroStream REST API</a> from inside your Micronaut application.</p>
+</div>
+
+<h2 id="restSetup"><a class="anchor" href="#restSetup"></a>11.1 Enabling the REST API</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest/restSetup.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To enable it, add the following dependency to your application.</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">developmentOnly(<span class="hljs-string">"io.micronaut.microstream:micronaut-microstream-rest")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.microstream&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-microstream-rest&lt;/artifactId&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+<div class="paragraph">
+<p>You also need to enable it in your configuration, as for security it is disabled by default.</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/application.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
+  rest:
+    enabled: true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It will output a warning each time your application is started if the REST endpoint is enabled that this should not be deployed to production.</p>
+</div>
+
+<h2 id="restConfiguration"><a class="anchor" href="#restConfiguration"></a>11.2 Configuration options</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest/restConfiguration.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The API path is <code>/microstream</code> by default.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When multiple storage managers are defined, the URL must be suffixed by the manager name <code>/microstream/«storage-name»</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This prefix can be configured via the configuration.</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/application.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
+  rest:
+    path: custom-prefix</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above configuration would expose the REST API at <code>/custom-prefix</code>. (or <code>/custom-prefix/«storage-name»</code> if you have multiple storage managers defined).</p>
+</div>
+
+<h2 id="restGui"><a class="anchor" href="#restGui"></a>11.3 GUI</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest/restGui.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The simplest way of interacting with this REST API is to use the MicroStream client GUI.</p>
+</div>
+<div class="paragraph">
+<p>Instructions on downloading and running this <a href="https://docs.microstream.one/manual/storage/rest-interface/client-gui.html">can be found here</a>.</p>
+</div>
+
+<h1 id="repository"><a class="anchor" href="#repository"></a>12 Repository</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/repository.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>You can find the source code of this project in this repository:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/micronaut-projects/micronaut-microstream">https://github.com/micronaut-projects/micronaut-microstream</a></p>
+</div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
