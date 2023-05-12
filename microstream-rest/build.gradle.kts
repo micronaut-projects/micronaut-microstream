@@ -10,9 +10,10 @@ dependencies {
     implementation(mnValidation.micronaut.validation)
 
     implementation(projects.micronautMicrostream)
+    implementation(mnSerde.micronaut.serde.api)
     implementation(mnSerde.micronaut.serde.jackson)
 
     testImplementation(mn.micronaut.http.server.netty)
     testImplementation(mn.micronaut.http.client)
-    testImplementation(mn.logback.classic)
+    testImplementation(mnLogging.logback.classic)
 }
