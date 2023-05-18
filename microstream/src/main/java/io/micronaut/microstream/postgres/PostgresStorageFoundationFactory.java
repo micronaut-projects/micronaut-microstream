@@ -16,8 +16,10 @@
 package io.micronaut.microstream.postgres;
 
 import io.micronaut.context.BeanContext;
+import io.micronaut.context.annotation.Context;
 import io.micronaut.context.annotation.EachBean;
 import io.micronaut.context.annotation.Factory;
+import io.micronaut.inject.BeanDefinition;
 import io.micronaut.inject.qualifiers.Qualifiers;
 import jakarta.inject.Singleton;
 import one.microstream.afs.sql.types.SqlConnector;
@@ -64,7 +66,7 @@ public class PostgresStorageFoundationFactory {
             )
         );
 
-        return EmbeddedStorage.Foundation((fileSystem.ensureDirectoryPath(provider.getTableName())));
+        return EmbeddedStorage.Foundation(fileSystem.ensureDirectoryPath(provider.getTableName()));
     }
 
     private DataSource defaultDataSource(BeanContext ctx) {

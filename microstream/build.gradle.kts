@@ -23,7 +23,7 @@ dependencies {
 
     testImplementation(mnSerde.micronaut.serde.jackson)
     testImplementation(mn.reactor.test)
-    testImplementation(mnMicrometer.micronaut.micrometer.core)
+//    testImplementation(mnMicrometer.micronaut.micrometer.core)
     testImplementation(mn.micronaut.management)
     testImplementation(mn.micronaut.http.server.netty)
     testImplementation(mn.micronaut.http.client)

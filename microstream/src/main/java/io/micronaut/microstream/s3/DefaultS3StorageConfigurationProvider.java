@@ -15,10 +15,13 @@
  */
 package io.micronaut.microstream.s3;
 
+import io.micronaut.context.annotation.ConfigurationBuilder;
 import io.micronaut.context.annotation.EachProperty;
 import io.micronaut.context.annotation.Parameter;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration;
+import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfigurationBuilder;
 
 /**
  * @author Tim Yates
@@ -26,6 +29,9 @@ import io.micronaut.core.annotation.Nullable;
  */
 @EachProperty("microstream.s3.storage")
 public class DefaultS3StorageConfigurationProvider implements S3StorageConfigurationProvider {
+
+    @ConfigurationBuilder
+    EmbeddedStorageConfigurationBuilder builder = EmbeddedStorageConfiguration.Builder();
 
     @Nullable
     private Class<?> rootClass;
@@ -47,6 +53,12 @@ public class DefaultS3StorageConfigurationProvider implements S3StorageConfigura
     @NonNull
     public Class<?> getRootClass() {
         return this.rootClass;
+    }
+
+    @Override
+    @NonNull
+    public EmbeddedStorageConfigurationBuilder getBuilder() {
+        return builder;
     }
 
     /**

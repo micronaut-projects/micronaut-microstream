@@ -15,21 +15,13 @@
  */
 package io.micronaut.microstream.s3;
 
-import io.micronaut.core.annotation.Nullable;
-import io.micronaut.core.naming.Named;
+import io.micronaut.microstream.conf.EmbeddedStorageConfigurationProvider;
 
 /**
  * @author Tim Yates
  * @since 1.0.0
  */
-public interface S3StorageConfigurationProvider extends Named {
-    /**
-     * Returns the class of the Root Instance.
-     * <a href="https://docs.microstream.one/manual/storage/root-instances.html">Root Instances</a>
-     * @return Class for the Root Instance.
-     */
-    @Nullable
-    Class<?> getRootClass();
+public interface S3StorageConfigurationProvider extends EmbeddedStorageConfigurationProvider {
 
     /**
      *

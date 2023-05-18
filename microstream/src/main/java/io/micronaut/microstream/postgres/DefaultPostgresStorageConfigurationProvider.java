@@ -15,10 +15,13 @@
  */
 package io.micronaut.microstream.postgres;
 
+import io.micronaut.context.annotation.ConfigurationBuilder;
 import io.micronaut.context.annotation.EachProperty;
 import io.micronaut.context.annotation.Parameter;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration;
+import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfigurationBuilder;
 
 /**
  * @author Tim Yates
@@ -26,6 +29,9 @@ import io.micronaut.core.annotation.Nullable;
  */
 @EachProperty("microstream.postgres.storage")
 public class DefaultPostgresStorageConfigurationProvider implements PostgresStorageConfigurationProvider {
+
+    @ConfigurationBuilder
+    EmbeddedStorageConfigurationBuilder builder = EmbeddedStorageConfiguration.Builder();
 
     @Nullable
     private Class<?> rootClass;
@@ -47,6 +53,12 @@ public class DefaultPostgresStorageConfigurationProvider implements PostgresStor
     @NonNull
     public Class<?> getRootClass() {
         return this.rootClass;
+    }
+
+    @Override
+    @NonNull
+    public EmbeddedStorageConfigurationBuilder getBuilder() {
+        return builder;
     }
 
     /**
