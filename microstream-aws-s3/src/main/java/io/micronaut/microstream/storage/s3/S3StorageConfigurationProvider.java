@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2022 original authors
+ * Copyright 2017-2023 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.conf;
+package io.micronaut.microstream.storage.s3;
 
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.naming.Named;
+import io.micronaut.microstream.conf.BaseConfigurationProvider;
 import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfigurationBuilder;
 
 /**
- * @author Sergio del Amo
+ * @author Tim Yates
  * @since 1.0.0
  */
-public interface EmbeddedStorageConfigurationProvider extends BaseConfigurationProvider {
+public interface S3StorageConfigurationProvider extends BaseConfigurationProvider {
 
-    @NonNull
-    EmbeddedStorageConfigurationBuilder getBuilder();
+    String getBucketName();
 }
