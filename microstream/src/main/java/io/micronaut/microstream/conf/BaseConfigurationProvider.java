@@ -21,5 +21,7 @@ public interface BaseConfigurationProvider extends Named {
      * @since 2.0.0
      * @return whether JDK 17 type enhancements are enabled.
      */
-    boolean isEnableJdk17Types();
+    default boolean isEnableJdk17Types() {
+        return true;
+    }
 }

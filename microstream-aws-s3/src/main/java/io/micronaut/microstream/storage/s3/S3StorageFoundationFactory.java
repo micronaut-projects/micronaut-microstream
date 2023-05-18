@@ -22,12 +22,9 @@ import io.micronaut.inject.qualifiers.Qualifiers;
 import jakarta.inject.Singleton;
 import one.microstream.afs.aws.s3.types.S3Connector;
 import one.microstream.afs.blobstore.types.BlobStoreFileSystem;
-import one.microstream.afs.types.ADirectory;
 import one.microstream.storage.embedded.types.EmbeddedStorage;
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation;
 import software.amazon.awssdk.services.s3.S3Client;
-
-import java.util.Optional;
 
 @Factory
 public class S3StorageFoundationFactory {

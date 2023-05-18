@@ -20,6 +20,8 @@ import io.micronaut.context.annotation.Parameter;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 
+import static io.micronaut.microstream.conf.BaseConfigurationProvider.DEFAULT_ENABLE_JDK17_TYPES;
+
 /**
  * @author Tim Yates
  * @since 2.0.0
@@ -77,5 +79,9 @@ public class DefaultS3StorageConfigurationProvider implements S3StorageConfigura
 
     public String getBucketName() {
         return bucketName;
+    }
+
+    public void setBucketName(String bucketName) {
+        this.bucketName = bucketName;
     }
 }
