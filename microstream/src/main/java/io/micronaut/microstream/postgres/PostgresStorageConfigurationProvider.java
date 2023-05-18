@@ -13,19 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.conf;
+package io.micronaut.microstream.postgres;
 
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.naming.Named;
 
 /**
- * @since 3.0.0
  * @author Tim Yates
+ * @since 1.0.0
  */
-public interface BaseConfigurationProvider extends Named {
-
-    boolean DEFAULT_ENABLE_JDK17_TYPES = true;
-
+public interface PostgresStorageConfigurationProvider extends Named {
     /**
      * Returns the class of the Root Instance.
      * <a href="https://docs.microstream.one/manual/storage/root-instances.html">Root Instances</a>
@@ -35,12 +32,8 @@ public interface BaseConfigurationProvider extends Named {
     Class<?> getRootClass();
 
     /**
-     * Configure whether JDK 17 type enhancements are enabled. Defaults to {@value EmbeddedStorageConfigurationProvider#DEFAULT_ENABLE_JDK17_TYPES}.
      *
-     * @since 2.0.0
-     * @return whether JDK 17 type enhancements are enabled.
+     * @return Returns the name of the table to use.
      */
-    default boolean isEnableJdk17Types() {
-        return true;
-    }
+    String getTableName();
 }

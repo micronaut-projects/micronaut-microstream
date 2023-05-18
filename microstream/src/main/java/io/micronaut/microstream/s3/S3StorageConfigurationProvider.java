@@ -17,7 +17,6 @@ package io.micronaut.microstream.s3;
 
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.naming.Named;
-import io.micronaut.microstream.conf.EmbeddedStorageConfigurationProvider;
 
 /**
  * @author Tim Yates
@@ -31,16 +30,6 @@ public interface S3StorageConfigurationProvider extends Named {
      */
     @Nullable
     Class<?> getRootClass();
-
-    /**
-     * Configure whether JDK 17 type enhancements are enabled. Defaults to {@value EmbeddedStorageConfigurationProvider#DEFAULT_ENABLE_JDK17_TYPES}.
-     *
-     * @since 2.0.0
-     * @return whether JDK 17 type enhancements are enabled.
-     */
-    default boolean isEnableJdk17Types() {
-        return true;
-    }
 
     /**
      *

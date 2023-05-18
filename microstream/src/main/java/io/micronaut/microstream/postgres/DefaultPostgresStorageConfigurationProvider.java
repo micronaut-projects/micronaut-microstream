@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2022 original authors
+ * Copyright 2017-2023 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,39 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.conf;
+package io.micronaut.microstream.postgres;
 
-import io.micronaut.context.annotation.ConfigurationBuilder;
 import io.micronaut.context.annotation.EachProperty;
 import io.micronaut.context.annotation.Parameter;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
-import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration;
-import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfigurationBuilder;
 
 /**
- * @author Sergio del Amo
- * @since 1.0.0
+ * @author Tim Yates
+ * @since 3.0.0
  */
-@EachProperty("microstream.storage")
-public class DefaultEmbeddedStorageConfigurationProvider implements EmbeddedStorageConfigurationProvider {
-
-    @ConfigurationBuilder
-    EmbeddedStorageConfigurationBuilder builder = EmbeddedStorageConfiguration.Builder();
+@EachProperty("microstream.postgres.storage")
+public class DefaultPostgresStorageConfigurationProvider implements PostgresStorageConfigurationProvider {
 
     @Nullable
     private Class<?> rootClass;
 
     private final String name;
+    private String tableName;
 
-    public DefaultEmbeddedStorageConfigurationProvider(@Parameter String name) {
+    public DefaultPostgresStorageConfigurationProvider(@Parameter String name) {
         this.name = name;
-    }
-
-    @Override
-    @NonNull
-    public EmbeddedStorageConfigurationBuilder getBuilder() {
-        return builder;
     }
 
     @Override
@@ -67,5 +56,18 @@ public class DefaultEmbeddedStorageConfigurationProvider implements EmbeddedStor
      */
     public void setRootClass(@NonNull Class<?> rootClass) {
         this.rootClass = rootClass;
+    }
+
+    @Override
+    public String getTableName() {
+        return tableName;
+    }
+
+    /**
+     * Name of the table to use.
+     * @param tableName
+     */
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 }

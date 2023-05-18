@@ -20,8 +20,6 @@ import io.micronaut.context.annotation.Parameter;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 
-import static io.micronaut.microstream.conf.BaseConfigurationProvider.DEFAULT_ENABLE_JDK17_TYPES;
-
 /**
  * @author Tim Yates
  * @since 2.0.0
@@ -31,8 +29,6 @@ public class DefaultS3StorageConfigurationProvider implements S3StorageConfigura
 
     @Nullable
     private Class<?> rootClass;
-
-    private boolean enableJdk17Types = DEFAULT_ENABLE_JDK17_TYPES;
 
     private final String name;
     private String bucketName;
@@ -60,21 +56,6 @@ public class DefaultS3StorageConfigurationProvider implements S3StorageConfigura
      */
     public void setRootClass(@NonNull Class<?> rootClass) {
         this.rootClass = rootClass;
-    }
-
-    @Override
-    public boolean isEnableJdk17Types() {
-        return enableJdk17Types;
-    }
-
-    /**
-     * Configure whether JDK 17 type enhancements are enabled. Defaults to {@value S3StorageConfigurationProvider#DEFAULT_ENABLE_JDK17_TYPES}.
-     *
-     * @since 2.0.0
-     * @param enableJdk17Types whether JDK 17 type enhancements are enabled.
-     */
-    public void setEnableJdk17Types(boolean enableJdk17Types) {
-        this.enableJdk17Types = enableJdk17Types;
     }
 
     @Override
