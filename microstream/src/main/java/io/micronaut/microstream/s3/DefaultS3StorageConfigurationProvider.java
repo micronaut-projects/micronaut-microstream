@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.storage.s3;
+package io.micronaut.microstream.s3;
 
 import io.micronaut.context.annotation.EachProperty;
 import io.micronaut.context.annotation.Parameter;
@@ -77,10 +77,15 @@ public class DefaultS3StorageConfigurationProvider implements S3StorageConfigura
         this.enableJdk17Types = enableJdk17Types;
     }
 
+    @Override
     public String getBucketName() {
         return bucketName;
     }
 
+    /**
+     * Name of the bucket to use.
+     * @param bucketName
+     */
     public void setBucketName(String bucketName) {
         this.bucketName = bucketName;
     }

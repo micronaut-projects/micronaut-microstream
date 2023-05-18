@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.storage.s3;
+package io.micronaut.microstream.s3;
 
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.naming.Named;
@@ -42,5 +42,9 @@ public interface S3StorageConfigurationProvider extends Named {
         return true;
     }
 
+    /**
+     *
+     * @return Returns the name of the bucket to use.
+     */
     String getBucketName();
 }
