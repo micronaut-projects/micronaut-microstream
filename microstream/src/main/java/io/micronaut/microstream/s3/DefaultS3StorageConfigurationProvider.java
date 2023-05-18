@@ -22,7 +22,7 @@ import io.micronaut.core.annotation.Nullable;
 
 /**
  * @author Tim Yates
- * @since 2.0.0
+ * @since 3.0.0
  */
 @EachProperty("microstream.s3.storage")
 public class DefaultS3StorageConfigurationProvider implements S3StorageConfigurationProvider {

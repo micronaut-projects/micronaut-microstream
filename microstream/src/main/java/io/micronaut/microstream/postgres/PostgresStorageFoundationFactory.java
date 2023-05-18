@@ -48,7 +48,7 @@ public class PostgresStorageFoundationFactory {
      */
     @Singleton
     @EachBean(PostgresStorageConfigurationProvider.class)
-    EmbeddedStorageFoundation<?> createFoundation(BeanContext ctx, PostgresStorageConfigurationProvider provider) {
+    EmbeddedStorageFoundation<?> createFoundation(PostgresStorageConfigurationProvider provider, BeanContext ctx) {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Creating storage foundation from postgres storage provider {}", provider);
         }
