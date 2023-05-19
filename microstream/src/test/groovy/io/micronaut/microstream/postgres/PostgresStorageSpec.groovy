@@ -10,6 +10,8 @@ import jakarta.inject.Inject
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation
 import one.microstream.storage.types.StorageManager
 
+import javax.sql.DataSource
+
 @MicronautTest
 @Property(name = "microstream.postgres.storage.foo.table-name", value = PostgresStorageSpec.TABLE_NAME)
 @Property(name = "microstream.postgres.storage.foo.root-class", value = 'io.micronaut.microstream.BaseStorageSpec$Root')
@@ -25,6 +27,9 @@ class PostgresStorageSpec extends BaseStorageSpec {
 
     @Inject
     CustomerRepository customerRepository
+
+    @Inject
+    DataSource dataSource
 
     void "expected beans are created"() {
         expect:
@@ -43,5 +48,20 @@ class PostgresStorageSpec extends BaseStorageSpec {
 
         then:
         noExceptionThrown()
+
+        and:
+        tables(dataSource).contains(TABLE_NAME)
+    }
+
+    List<String> tables(DataSource dataSource) {
+        def result = []
+        dataSource.connection.withCloseable {
+            it.metaData.getTables(null, null, "$TABLE_NAME%", null).with {
+                while(it.next()) {
+                    result << it.getString(3)
+                }
+            }
+        }
+        result
     }
 }

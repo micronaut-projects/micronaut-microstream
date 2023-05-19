@@ -72,10 +72,10 @@ public class StorageManagerFactory {
                 LOG.trace("No data found");
             }
 
-            if (!beanContext.containsBean(EmbeddedStorageConfigurationProvider.class, Qualifiers.byName(name))) {
-                throw new DisabledBeanException("Please, define a bean of type " + EmbeddedStorageConfigurationProvider.class.getSimpleName() + " by name qualifier: " + name);
+            if (!beanContext.containsBean(RootClassConfigurationProvider.class, Qualifiers.byName(name))) {
+                throw new DisabledBeanException("Please, define a bean of type " + RootClassConfigurationProvider.class.getSimpleName() + " by name qualifier: " + name);
             }
-            EmbeddedStorageConfigurationProvider configuration = beanContext.getBean(EmbeddedStorageConfigurationProvider.class, Qualifiers.byName(name));
+            RootClassConfigurationProvider configuration = beanContext.getBean(RootClassConfigurationProvider.class, Qualifiers.byName(name));
             if (configuration.getRootClass() != null) {
                 storageManager.setRoot(InstantiationUtils.instantiate(configuration.getRootClass()));
             }

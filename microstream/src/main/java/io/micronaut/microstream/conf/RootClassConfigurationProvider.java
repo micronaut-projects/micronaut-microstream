@@ -13,21 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.postgres;
+package io.micronaut.microstream.conf;
 
-import io.micronaut.core.annotation.NonNull;
-import io.micronaut.microstream.conf.RootClassConfigurationProvider;
+import io.micronaut.core.annotation.Nullable;
+import io.micronaut.core.naming.Named;
 
 /**
- * @author Tim Yates
+ * Provides the class of the Root Instance.
+ *
  * @since 2.0.0
+ * @author Tim Yates
  */
-public interface PostgresStorageConfigurationProvider extends RootClassConfigurationProvider {
+public interface RootClassConfigurationProvider extends Named {
 
     /**
-     *
-     * @return Returns the name of the table to use.
+     * Returns the class of the Root Instance.
+     * <a href="https://docs.microstream.one/manual/storage/root-instances.html">Root Instances</a>
+     * @return Class for the Root Instance.
      */
-    @NonNull
-    String getTableName();
+    @Nullable
+    Class<?> getRootClass();
 }

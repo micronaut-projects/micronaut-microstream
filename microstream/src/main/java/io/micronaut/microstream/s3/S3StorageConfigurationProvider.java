@@ -16,13 +16,13 @@
 package io.micronaut.microstream.s3;
 
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.microstream.conf.EmbeddedStorageConfigurationProvider;
+import io.micronaut.microstream.conf.RootClassConfigurationProvider;
 
 /**
  * @author Tim Yates
  * @since 2.0.0
  */
-public interface S3StorageConfigurationProvider extends EmbeddedStorageConfigurationProvider {
+public interface S3StorageConfigurationProvider extends RootClassConfigurationProvider {
 
     /**
      *
