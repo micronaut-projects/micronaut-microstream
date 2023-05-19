@@ -1,5 +1,6 @@
 package io.micronaut.microstream.postgres
 
+
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.core.util.StringUtils
@@ -16,7 +17,7 @@ import spock.lang.Specification
 @Property(name = "microstream.postgres.storage.foo.table-name", value = PostgresStorageSpec.TABLE)
 @Property(name = "microstream.postgres.storage.foo.root-class", value = "io.micronaut.microstream.s3.Root")
 @Property(name = "datasources.foo.db-type", value = "postgresql")
-@Property(name = "micronaut.metrics.binders.jdbc.enabled", value = StringUtils.FALSE)
+@Property(name = "micronaut.metrics.enabled", value = StringUtils.FALSE) // Workaround for cyclic bean creation HikariDataSource -> MetricsRegistry -> HikariDataSource
 @MicronautTest
 class PostgresStorageSpec extends Specification {
 
@@ -32,7 +33,7 @@ class PostgresStorageSpec extends Specification {
         expect:
         beanContext.containsBean(PostgresStorageConfigurationProvider, Qualifiers.byName("foo"))
         beanContext.containsBean(EmbeddedStorageFoundation, Qualifiers.byName("foo"))
-//        beanContext.getBeansOfType(StorageManager).size() == 1
+        beanContext.getBeansOfType(StorageManager).size() == 1
 
         when:
         customerRepository.updateName("foo")
