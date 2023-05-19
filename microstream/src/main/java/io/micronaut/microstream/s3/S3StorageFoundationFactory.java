@@ -41,7 +41,7 @@ public class S3StorageFoundationFactory {
 
     /**
      * @param ctx      Bean Context.
-     * @param provider A {@link one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration#Builder()} provider.
+     * @param provider A {@link S3StorageConfigurationProvider} provider.
      * @return A {@link one.microstream.storage.embedded.types.EmbeddedStorageFoundation}.
      */
     @Singleton

@@ -43,7 +43,7 @@ public class PostgresStorageFoundationFactory {
 
     /**
      * @param ctx      Bean Context.
-     * @param provider A {@link one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration#Builder()} provider.
+     * @param provider A {@link PostgresStorageConfigurationProvider} provider.
      * @return A {@link EmbeddedStorageFoundation}.
      */
     @Singleton
