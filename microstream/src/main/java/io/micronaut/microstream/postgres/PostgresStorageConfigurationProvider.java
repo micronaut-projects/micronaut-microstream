@@ -15,13 +15,12 @@
  */
 package io.micronaut.microstream.postgres;
 
-import io.micronaut.core.annotation.Nullable;
-import io.micronaut.core.naming.Named;
+import io.micronaut.core.annotation.NonNull;
 import io.micronaut.microstream.conf.EmbeddedStorageConfigurationProvider;
 
 /**
  * @author Tim Yates
- * @since 1.0.0
+ * @since 2.0.0
  */
 public interface PostgresStorageConfigurationProvider extends EmbeddedStorageConfigurationProvider {
 
@@ -29,5 +28,6 @@ public interface PostgresStorageConfigurationProvider extends EmbeddedStorageCon
      *
      * @return Returns the name of the table to use.
      */
+    @NonNull
     String getTableName();
 }

@@ -28,13 +28,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.s3.S3Client;
 
-import java.util.function.Supplier;
-
 /**
  * Factory for an S3 based EmbeddedStorageFoundation.
  *
- * @since 3.0.0
  * @author Tim Yates
+ * @since 2.0.0
  */
 @Factory
 public class S3StorageFoundationFactory {
@@ -42,31 +40,34 @@ public class S3StorageFoundationFactory {
     private static final Logger LOG = LoggerFactory.getLogger(S3StorageFoundationFactory.class);
 
     /**
-     * @param ctx Bean Context.
+     * @param ctx      Bean Context.
      * @param provider A {@link one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration#Builder()} provider.
      * @return A {@link one.microstream.storage.embedded.types.EmbeddedStorageFoundation}.
      */
     @Singleton
     @EachBean(S3StorageConfigurationProvider.class)
-    EmbeddedStorageFoundation<?> createFoundation(BeanContext ctx, S3StorageConfigurationProvider provider) {
-        S3Client s3client = ctx.findBean(S3Client.class, Qualifiers.byName(provider.getName())).orElseGet(defaultClient(ctx));
-        BlobStoreFileSystem fileSystem = BlobStoreFileSystem.New(S3Connector.Caching(s3client));
+    EmbeddedStorageFoundation<?> createFoundation(
+        S3StorageConfigurationProvider provider,
+        BeanContext ctx
+    ) {
+        S3Client s3client = ctx.findBean(S3Client.class, Qualifiers.byName(provider.getName()))
+            .orElseGet(() -> defaultClient(ctx));
+
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Got S3Client {}", s3client);
+        }
+
+        BlobStoreFileSystem fileSystem = BlobStoreFileSystem.New(
+            S3Connector.Caching(s3client)
+        );
+
         return EmbeddedStorage.Foundation(fileSystem.ensureDirectoryPath(provider.getBucketName()));
     }
 
-    private Supplier<S3Client> defaultClient(BeanContext ctx) {
+    private S3Client defaultClient(BeanContext ctx) {
         if (LOG.isDebugEnabled()) {
             LOG.debug("No named S3Client found. Looking for a default");
         }
-        return () -> {
-            S3Client bean = ctx.getBean(S3Client.class);
-
-            if (LOG.isTraceEnabled()) {
-                bean.serviceClientConfiguration().endpointOverride().ifPresent(endpoint -> {
-                    LOG.trace("Found client with endpoint override configured to {}", endpoint);
-                });
-            }
-            return bean;
-        };
+        return ctx.getBean(S3Client.class);
     }
 }

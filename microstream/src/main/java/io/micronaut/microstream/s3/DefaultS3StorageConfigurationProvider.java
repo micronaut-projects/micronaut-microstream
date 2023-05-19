@@ -25,7 +25,7 @@ import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfi
 
 /**
  * @author Tim Yates
- * @since 3.0.0
+ * @since 2.0.0
  */
 @EachProperty("microstream.s3.storage")
 public class DefaultS3StorageConfigurationProvider implements S3StorageConfigurationProvider {

@@ -13,21 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/**
+ * MicroStream Storage Target support for S3.
+ *
+ * @since 2.0.0
+ * @author Tim Yates
+ */
+@Requires(classes = S3Connector.class)
+@Requires(beans = S3Client.class)
 package io.micronaut.microstream.s3;
 
-import io.micronaut.core.annotation.NonNull;
-import io.micronaut.microstream.conf.EmbeddedStorageConfigurationProvider;
+import io.micronaut.context.annotation.Requires;
+import one.microstream.afs.aws.s3.types.S3Connector;
+import software.amazon.awssdk.services.s3.S3Client;
 
-/**
- * @author Tim Yates
- * @since 2.0.0
- */
-public interface S3StorageConfigurationProvider extends EmbeddedStorageConfigurationProvider {
-
-    /**
-     *
-     * @return Returns the name of the bucket to use.
-     */
-    @NonNull
-    String getBucketName();
-}

@@ -13,21 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.s3;
-
-import io.micronaut.core.annotation.NonNull;
-import io.micronaut.microstream.conf.EmbeddedStorageConfigurationProvider;
-
 /**
- * @author Tim Yates
+ * MicroStream Storage Target support for Postgres.
+ *
  * @since 2.0.0
+ * @author Tim Yates
  */
-public interface S3StorageConfigurationProvider extends EmbeddedStorageConfigurationProvider {
+@Requires(classes = {SqlProviderPostgres.class, SqlFileSystem.class})
+@Requires(beans = DataSource.class)
+package io.micronaut.microstream.postgres;
 
-    /**
-     *
-     * @return Returns the name of the bucket to use.
-     */
-    @NonNull
-    String getBucketName();
-}
+import io.micronaut.context.annotation.Requires;
+import one.microstream.afs.sql.types.SqlFileSystem;
+import one.microstream.afs.sql.types.SqlProviderPostgres;
+
+import javax.sql.DataSource;

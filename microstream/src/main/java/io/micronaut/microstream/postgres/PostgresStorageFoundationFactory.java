@@ -16,10 +16,8 @@
 package io.micronaut.microstream.postgres;
 
 import io.micronaut.context.BeanContext;
-import io.micronaut.context.annotation.Context;
 import io.micronaut.context.annotation.EachBean;
 import io.micronaut.context.annotation.Factory;
-import io.micronaut.inject.BeanDefinition;
 import io.micronaut.inject.qualifiers.Qualifiers;
 import jakarta.inject.Singleton;
 import one.microstream.afs.sql.types.SqlConnector;
@@ -35,8 +33,8 @@ import javax.sql.DataSource;
 /**
  * Factory for an S3 based EmbeddedStorageFoundation.
  *
- * @since 3.0.0
  * @author Tim Yates
+ * @since 2.0.0
  */
 @Factory
 public class PostgresStorageFoundationFactory {
@@ -44,13 +42,14 @@ public class PostgresStorageFoundationFactory {
     private static final Logger LOG = LoggerFactory.getLogger(PostgresStorageFoundationFactory.class);
 
     /**
-     * @param ctx Bean Context.
+     * @param ctx      Bean Context.
      * @param provider A {@link one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration#Builder()} provider.
      * @return A {@link EmbeddedStorageFoundation}.
      */
     @Singleton
     @EachBean(PostgresStorageConfigurationProvider.class)
     EmbeddedStorageFoundation<?> createFoundation(PostgresStorageConfigurationProvider provider, BeanContext ctx) {
+
         if (LOG.isDebugEnabled()) {
             LOG.debug("Creating storage foundation from postgres storage provider {}", provider);
         }
@@ -60,23 +59,22 @@ public class PostgresStorageFoundationFactory {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Got DataSource {}", dataSource);
         }
+
         SqlFileSystem fileSystem = SqlFileSystem.New(
             SqlConnector.Caching(
                 SqlProviderPostgres.New(dataSource)
             )
         );
 
-        return EmbeddedStorage.Foundation(fileSystem.ensureDirectoryPath(provider.getTableName()));
+        return EmbeddedStorage.Foundation(
+            fileSystem.ensureDirectoryPath(provider.getTableName())
+        );
     }
 
     private DataSource defaultDataSource(BeanContext ctx) {
         if (LOG.isDebugEnabled()) {
             LOG.debug("No named DataSource found. Looking for a default");
         }
-        DataSource bean = ctx.getBean(DataSource.class);
-        if (LOG.isTraceEnabled()) {
-            LOG.trace("Found a datasource {}", bean);
-        }
-        return bean;
+        return ctx.getBean(DataSource.class);
     }
 }
