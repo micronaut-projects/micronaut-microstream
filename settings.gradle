@@ -13,7 +13,6 @@ rootProject.name = 'microstream-parent'
 
 include 'microstream-bom'
 include 'microstream'
-include 'microstream-aws-s3'
 include 'microstream-annotations'
 include 'microstream-rest'
 include 'microstream-cache'
