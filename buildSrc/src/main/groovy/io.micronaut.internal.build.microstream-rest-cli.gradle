@@ -1,9 +1,11 @@
 plugins {
     id "io.micronaut.internal.build.microstream-base"
 }
+
 configurations {
     create("cli")
 }
+
 dependencies {
     cli(libs.microstream.rest.gui) {
         artifact {
