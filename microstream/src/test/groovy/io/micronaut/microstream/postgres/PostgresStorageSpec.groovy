@@ -1,27 +1,24 @@
 package io.micronaut.microstream.postgres
 
-
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.core.util.StringUtils
 import io.micronaut.inject.qualifiers.Qualifiers
-import io.micronaut.microstream.s3.Root
+import io.micronaut.microstream.BaseStorageSpec
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
-import jakarta.inject.Singleton
-import one.microstream.concurrency.XThreads
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation
 import one.microstream.storage.types.StorageManager
-import spock.lang.Specification
 
-@Property(name = "microstream.postgres.storage.foo.table-name", value = PostgresStorageSpec.TABLE)
-@Property(name = "microstream.postgres.storage.foo.root-class", value = "io.micronaut.microstream.s3.Root")
+@MicronautTest
+@Property(name = "microstream.postgres.storage.foo.table-name", value = PostgresStorageSpec.TABLE_NAME)
+@Property(name = "microstream.postgres.storage.foo.root-class", value = 'io.micronaut.microstream.BaseStorageSpec$Root')
 @Property(name = "datasources.foo.db-type", value = "postgresql")
 @Property(name = "micronaut.metrics.enabled", value = StringUtils.FALSE) // Workaround for cyclic bean creation HikariDataSource -> MetricsRegistry -> HikariDataSource
-@MicronautTest
-class PostgresStorageSpec extends Specification {
+@Property(name = "spec.type", value = "storage")
+class PostgresStorageSpec extends BaseStorageSpec {
 
-    static final TABLE = "microstream"
+    static final String TABLE_NAME = "microstreamfoo"
 
     @Inject
     BeanContext beanContext
@@ -46,30 +43,5 @@ class PostgresStorageSpec extends Specification {
 
         then:
         noExceptionThrown()
-    }
-
-    @Singleton
-    static class CustomerRepository {
-
-        private final StorageManager storageManager
-
-        CustomerRepository(StorageManager storageManager) {
-            this.storageManager = storageManager
-        }
-
-        String name() {
-            return data().getName();
-        }
-
-        private void updateName(String name) {
-            XThreads.executeSynchronized(() -> { // <2>
-                data().setName(name)
-                storageManager.storeRoot(); // <3>
-            });
-        }
-
-        private Root data() {
-            return (Root) storageManager.root();
-        }
     }
 }
