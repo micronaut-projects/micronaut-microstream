@@ -18,8 +18,6 @@ package io.micronaut.microstream.conf;
 import io.micronaut.context.annotation.EachBean;
 import io.micronaut.context.annotation.Factory;
 import jakarta.inject.Singleton;
-import one.microstream.persistence.binary.jdk17.types.BinaryHandlersJDK17;
-import one.microstream.persistence.binary.jdk8.types.BinaryHandlersJDK8;
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation;
 
 /**
@@ -38,8 +36,6 @@ public class EmbeddedStorageFoundationFactory {
     @EachBean(EmbeddedStorageConfigurationProvider.class)
     @Singleton
     EmbeddedStorageFoundation<?> createFoundation(EmbeddedStorageConfigurationProvider provider) {
-        return provider.getBuilder().createEmbeddedStorageFoundation()
-            .onConnectionFoundation(BinaryHandlersJDK8::registerJDK8TypeHandlers)
-            .onConnectionFoundation(BinaryHandlersJDK17::registerJDK17TypeHandlers);
+        return provider.getBuilder().createEmbeddedStorageFoundation();
     }
 }

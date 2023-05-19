@@ -59,8 +59,7 @@ public class StorageManagerFactory {
     @EachBean(EmbeddedStorageFoundation.class)
     @Bean(preDestroy = "shutdown")
     @Singleton
-    public StorageManager createStorageManager(EmbeddedStorageFoundation<?> foundation,
-                                                       @Parameter String name) {
+    public StorageManager createStorageManager(EmbeddedStorageFoundation<?> foundation, @Parameter String name) {
         @SuppressWarnings("resource") // We don't want to close the storage manager
         EmbeddedStorageManager storageManager = foundation
             .onConnectionFoundation(BinaryHandlersJDK8::registerJDK8TypeHandlers)
