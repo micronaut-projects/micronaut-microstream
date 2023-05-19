@@ -18,7 +18,7 @@ package io.micronaut.microstream.rest;
 import io.micronaut.context.BeanContext;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.inject.qualifiers.Qualifiers;
-import io.micronaut.microstream.conf.EmbeddedStorageConfigurationProvider;
+import io.micronaut.microstream.conf.RootClassConfigurationProvider;
 import jakarta.inject.Singleton;
 import one.microstream.storage.restadapter.types.StorageRestAdapter;
 import one.microstream.storage.types.StorageManager;
@@ -48,9 +48,9 @@ public class DefaultMicroStreamRestService implements MicroStreamRestService {
      */
     public DefaultMicroStreamRestService(
         BeanContext beanContext,
-        Collection<EmbeddedStorageConfigurationProvider> storageFoundations
+        Collection<RootClassConfigurationProvider> storageFoundations
     ) {
-        for (EmbeddedStorageConfigurationProvider storageFoundation : storageFoundations) {
+        for (RootClassConfigurationProvider storageFoundation : storageFoundations) {
             StorageManager bean = beanContext.getBean(StorageManager.class, Qualifiers.byName(storageFoundation.getName()));
             adapterMap.put(storageFoundation.getName(), StorageRestAdapter.New(bean));
         }
