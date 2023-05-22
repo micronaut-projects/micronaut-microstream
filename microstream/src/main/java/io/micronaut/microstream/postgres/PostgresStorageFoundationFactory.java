@@ -16,6 +16,7 @@
 package io.micronaut.microstream.postgres;
 
 import io.micronaut.context.BeanContext;
+import io.micronaut.context.Qualifier;
 import io.micronaut.context.annotation.EachBean;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.inject.qualifiers.Qualifiers;
@@ -53,7 +54,12 @@ public class PostgresStorageFoundationFactory {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Creating storage foundation from postgres storage provider {}", provider);
         }
-        DataSource dataSource = ctx.findBean(DataSource.class, Qualifiers.byName(provider.getName()))
+
+        Qualifier<DataSource> datasourceQualifier = provider.getDatasourceName()
+            .map(Qualifiers::<DataSource>byName)
+            .orElseGet(() -> Qualifiers.byName(provider.getName()));
+
+        DataSource dataSource = ctx.findBean(DataSource.class, datasourceQualifier)
             .orElseGet(() -> defaultDataSource(ctx));
 
         if (LOG.isDebugEnabled()) {

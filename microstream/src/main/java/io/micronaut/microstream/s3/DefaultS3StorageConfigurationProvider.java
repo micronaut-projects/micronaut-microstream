@@ -18,7 +18,6 @@ package io.micronaut.microstream.s3;
 import io.micronaut.context.annotation.EachProperty;
 import io.micronaut.context.annotation.Parameter;
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.annotation.Nullable;
 
 /**
  * @author Tim Yates
@@ -27,7 +26,7 @@ import io.micronaut.core.annotation.Nullable;
 @EachProperty("microstream.s3.storage")
 public class DefaultS3StorageConfigurationProvider implements S3StorageConfigurationProvider {
 
-    @Nullable
+    @NonNull
     private Class<?> rootClass;
 
     private final String name;
@@ -58,16 +57,16 @@ public class DefaultS3StorageConfigurationProvider implements S3StorageConfigura
         this.rootClass = rootClass;
     }
 
+    @NonNull
     @Override
     public String getBucketName() {
         return bucketName;
     }
 
     /**
-     * Name of the bucket to use.
-     * @param bucketName
+     * @param bucketName Name of the bucket to use.
      */
-    public void setBucketName(String bucketName) {
+    public void setBucketName(@NonNull String bucketName) {
         this.bucketName = bucketName;
     }
 }

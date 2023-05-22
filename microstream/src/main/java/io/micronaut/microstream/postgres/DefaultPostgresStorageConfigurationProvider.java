@@ -20,6 +20,8 @@ import io.micronaut.context.annotation.Parameter;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 
+import java.util.Optional;
+
 /**
  * @author Tim Yates
  * @since 2.0.0
@@ -27,10 +29,15 @@ import io.micronaut.core.annotation.Nullable;
 @EachProperty("microstream.postgres.storage")
 public class DefaultPostgresStorageConfigurationProvider implements PostgresStorageConfigurationProvider {
 
-    @Nullable
+    @NonNull
     private Class<?> rootClass;
 
     private final String name;
+
+    @Nullable
+    private String datasourceName;
+
+    @NonNull
     private String tableName;
 
     public DefaultPostgresStorageConfigurationProvider(@Parameter String name) {
@@ -59,15 +66,29 @@ public class DefaultPostgresStorageConfigurationProvider implements PostgresStor
     }
 
     @Override
+    @Nullable
+    public Optional<String> getDatasourceName() {
+        return Optional.ofNullable(datasourceName);
+    }
+
+    /**
+     * Name of the datasource to use.  If unset the datasource with the name of this storage will be used.
+     * @param datasourceName
+     */
+    public void setDatasourceName(@Nullable String datasourceName) {
+        this.datasourceName = datasourceName;
+    }
+
+    @Override
+    @NonNull
     public String getTableName() {
         return tableName;
     }
 
     /**
-     * Name of the table to use.
-     * @param tableName
+     * @param tableName Name of the table to use.
      */
-    public void setTableName(String tableName) {
+    public void setTableName(@NonNull String tableName) {
         this.tableName = tableName;
     }
 }
