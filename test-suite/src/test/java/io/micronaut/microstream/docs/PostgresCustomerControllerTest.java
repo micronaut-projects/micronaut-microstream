@@ -44,7 +44,7 @@ class PostgresCustomerControllerTest {
             "customer.repository", customerRepositoryImplementation,
             "datasources.main.db-type", "postgresql",
             "micronaut.metrics.enabled", StringUtils.FALSE,
-            "microstream.postgres.storage.main.table-name", "microstream",
+            "microstream.postgres.storage.main.table-name", "microstream" + UUID.randomUUID(),
             "microstream.postgres.storage.main.root-class", "io.micronaut.microstream.docs.Data",
             "microstream.rest.enabled", "true"
         );

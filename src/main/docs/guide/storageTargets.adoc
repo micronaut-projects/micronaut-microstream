@@ -1,0 +1,9 @@
+.https://docs.microstream.one/manual/storage/storage-targets/index.html
+> MicroStream supports a variety of storage targets. Through an abstracted file system (AFS), it is possible to connect to a lot of different back ends. The AFS allows to use folders and files, like in all common file systems, but with different connectors it is possible to use different solutions as the actual storage
+
+By default, the Micronaut Framework MicroStream integration will use a local directory as a backing store for the object graph.
+
+You can switch this to a different target via configuration.
+Currently supported targets are:
+
+

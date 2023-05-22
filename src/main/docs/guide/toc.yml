@@ -9,6 +9,10 @@ storage:
   title: Storage
   storageWithStorageManager: StorageManager
   storageWithStore: Working with Annotations
+storageTargets:
+  title: Storage Targets
+  postgres: Postgres
+  s3: S3
 cache:
   title: Cache
   cacheConfiguration: Cache Configuration
