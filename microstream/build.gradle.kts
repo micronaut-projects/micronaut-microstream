@@ -40,6 +40,7 @@ dependencies {
 }
 
 micronaut {
+    importMicronautPlatform.set(false)
     testResources {
         enabled.set(true)
         additionalModules.add(LOCALSTACK_S3)
