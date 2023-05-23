@@ -1,18 +1,18 @@
 [versions]
 micronaut-docs = "2.0.0"
-micronaut = "4.0.0-M3"
+micronaut = "4.0.0-M4"
 groovy = "4.0.12"
 kotlin = "1.8.21"
 spock = "2.3-groovy-4.0"
 
 managed-microstream='08.00.00-MS-GA'
 
-micronaut-cache = "4.0.0-M1"
-micronaut-logging = "1.0.0-M1"
+micronaut-cache = "4.0.0-M2"
+micronaut-logging = "1.0.0-M2"
 micronaut-micrometer = "5.0.0-M1"
-micronaut-serde = "2.0.0-M5"
-micronaut-test = "4.0.0-M3"
-micronaut-validation = "4.0.0-M5"
+micronaut-serde = "2.0.0-M8"
+micronaut-test = "4.0.0-M4"
+micronaut-validation = "4.0.0-M7"
 
 [libraries]
 micronaut-cache = { module = "io.micronaut.cache:micronaut-cache-bom", version.ref = "micronaut-cache" }
