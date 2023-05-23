@@ -7,6 +7,7 @@ import io.micronaut.core.util.StringUtils;
 import jakarta.inject.Singleton;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 
@@ -32,6 +33,11 @@ public class S3LocalstackClient {
             .region(Region.of(s3Config.getRegion()))
             .build();
         client.createBucket(b -> b.bucket(s3Config.getTestBucketName()));
+        try {
+            // localstack seems to require one of these that fails before the next one (from MicroStream) passes. I have no idea why.
+            client.putObject(b -> b.bucket(s3Config.getTestBucketName()).key("/"), RequestBody.empty());
+        } catch (Exception e) {
+        }
         return client;
     }
 }

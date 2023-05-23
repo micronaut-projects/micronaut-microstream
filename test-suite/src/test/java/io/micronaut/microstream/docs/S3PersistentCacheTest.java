@@ -1,22 +1,10 @@
 package io.micronaut.microstream.docs;
 
 import io.micronaut.context.ApplicationContext;
-import io.micronaut.context.annotation.ConfigurationBuilder;
-import io.micronaut.context.annotation.ConfigurationProperties;
-import io.micronaut.context.annotation.Factory;
-import io.micronaut.context.annotation.Replaces;
-import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.runtime.server.EmbeddedServer;
-import jakarta.inject.Singleton;
 import org.junit.jupiter.api.Test;
-import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
-import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.s3.S3Client;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,7 +21,9 @@ class S3PersistentCacheTest {
             "aws.test-bucket-name", BUCKET_NAME,
             "microstream.cache.counter.key-type", "java.lang.String",
             "microstream.cache.counter.value-type", "java.lang.Long",
-            "microstream.cache.counter.storage", "cache"
+            "microstream.cache.counter.storage", "cache",
+            "microstream.s3.storage.cache.bucket-name", BUCKET_NAME,
+            "micronaut.http.client.read-timeout", "30s" // We need to increase this for the localstack object to be created
         );
 
         // When we create the app, and use a cached method

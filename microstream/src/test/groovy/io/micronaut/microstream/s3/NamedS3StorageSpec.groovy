@@ -13,6 +13,7 @@ import one.microstream.storage.embedded.types.EmbeddedStorageFoundation
 import one.microstream.storage.types.StorageManager
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider
+import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3Client
 import spock.lang.Shared
@@ -89,7 +90,13 @@ class NamedS3StorageSpec extends BaseStorageSpec {
                     .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(s3Config.accessKeyId, s3Config.secretKey)))
                     .region(Region.of(s3Config.region))
                     .build()
-            def r = client.createBucket { it.bucket(BUCKET_NAME) }
+            client.createBucket { it.bucket(BUCKET_NAME) }
+            try {
+                // localstack seems to require one of these that fails before the next one (from MicroStream) passes. I have no idea why.
+                client.putObject({ it.bucket(BUCKET_NAME).key("/") }, RequestBody.empty())
+            } catch (e) {
+                e.printStackTrace()
+            }
             client
         }
     }

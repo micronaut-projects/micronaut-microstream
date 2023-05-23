@@ -45,7 +45,8 @@ class S3CustomerControllerTest {
             "micronaut.metrics.enabled", StringUtils.FALSE,
             "microstream.s3.storage.main.bucket-name", BUCKET_NAME,
             "microstream.s3.storage.main.root-class", "io.micronaut.microstream.docs.Data",
-            "microstream.rest.enabled", "true"
+            "microstream.rest.enabled", "true",
+            "micronaut.http.client.read-timeout", "30s" // We need to increase this for the localstack object to be created
         );
         EmbeddedServer embeddedServer = ApplicationContext.run(EmbeddedServer.class, properties);
         HttpClient httpClient = embeddedServer.getApplicationContext()
