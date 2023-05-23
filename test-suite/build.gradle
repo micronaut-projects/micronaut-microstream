@@ -34,6 +34,9 @@ dependencies {
     testImplementation(libs.managed.microstream.sql)
     testImplementation(mnSql.micronaut.jdbc.hikari)
     testRuntimeOnly(mnSql.postgresql)
+
+    testImplementation(libs.managed.microstream.aws.s3)
+    testImplementation(mnAws.micronaut.aws.sdk.v2)
 }
 
 micronaut {
@@ -41,5 +44,6 @@ micronaut {
     testResources {
         enabled.set(true)
         additionalModules.add("jdbc-postgresql")
+        additionalModules.add("localstack-s3")
     }
 }
