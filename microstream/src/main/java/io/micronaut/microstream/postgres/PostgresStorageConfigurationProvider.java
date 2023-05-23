@@ -16,7 +16,6 @@
 package io.micronaut.microstream.postgres;
 
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.annotation.Nullable;
 import io.micronaut.microstream.conf.RootClassConfigurationProvider;
 
 import java.util.Optional;
@@ -32,7 +31,7 @@ public interface PostgresStorageConfigurationProvider extends RootClassConfigura
      *
      * @return Returns the name of the datasource to use.
      */
-    @Nullable
+    @NonNull
     Optional<String> getDatasourceName();
 
     /**

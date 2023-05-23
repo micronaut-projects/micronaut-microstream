@@ -18,11 +18,21 @@ package io.micronaut.microstream.s3;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.microstream.conf.RootClassConfigurationProvider;
 
+import java.util.Optional;
+
 /**
  * @author Tim Yates
  * @since 2.0.0
  */
 public interface S3StorageConfigurationProvider extends RootClassConfigurationProvider {
+
+    /**
+     * The name of the defined S3Client to use.  If unset, a client with the same name as the storage will be used.
+     *
+     * @return Returns the name of the S3Client to use.
+     */
+    @NonNull
+    Optional<String> getS3ClientName();
 
     /**
      *

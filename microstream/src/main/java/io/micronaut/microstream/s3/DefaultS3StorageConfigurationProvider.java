@@ -18,6 +18,9 @@ package io.micronaut.microstream.s3;
 import io.micronaut.context.annotation.EachProperty;
 import io.micronaut.context.annotation.Parameter;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
+
+import java.util.Optional;
 
 /**
  * @author Tim Yates
@@ -30,6 +33,11 @@ public class DefaultS3StorageConfigurationProvider implements S3StorageConfigura
     private Class<?> rootClass;
 
     private final String name;
+
+    @Nullable
+    private String s3ClientName;
+
+    @NonNull
     private String bucketName;
 
     public DefaultS3StorageConfigurationProvider(@Parameter String name) {
@@ -55,6 +63,20 @@ public class DefaultS3StorageConfigurationProvider implements S3StorageConfigura
      */
     public void setRootClass(@NonNull Class<?> rootClass) {
         this.rootClass = rootClass;
+    }
+
+    @Override
+    @NonNull
+    public Optional<String> getS3ClientName() {
+        return Optional.ofNullable(s3ClientName);
+    }
+
+    /**
+     * Name of the s3 client to use.  If unset the client with the name of this storage will be used if available.
+     * @param s3ClientName the name of the S3 client to use
+     */
+    public void setS3ClientName(@Nullable String s3ClientName) {
+        this.s3ClientName = s3ClientName;
     }
 
     @NonNull

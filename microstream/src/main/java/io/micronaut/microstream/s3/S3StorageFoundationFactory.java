@@ -50,8 +50,14 @@ public class S3StorageFoundationFactory {
         S3StorageConfigurationProvider provider,
         BeanContext ctx
     ) {
-        S3Client s3client = ctx.findBean(S3Client.class, Qualifiers.byName(provider.getName()))
-            .orElseGet(() -> defaultClient(ctx));
+        String s3ClientName = provider.getS3ClientName().orElse(provider.getName());
+
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Looking for S3Client named '{}'", s3ClientName);
+        }
+
+        S3Client s3client = ctx.findBean(S3Client.class, Qualifiers.byName(s3ClientName))
+            .orElseGet(() -> defaultClient(ctx, s3ClientName));
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("Got S3Client {}", s3client);
@@ -64,9 +70,9 @@ public class S3StorageFoundationFactory {
         return EmbeddedStorage.Foundation(fileSystem.ensureDirectoryPath(provider.getBucketName()));
     }
 
-    private S3Client defaultClient(BeanContext ctx) {
+    private S3Client defaultClient(BeanContext ctx, String s3ClientName) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("No named S3Client found. Looking for a default");
+            LOG.debug("No S3Client named '{}' found. Looking for a default", s3ClientName);
         }
         return ctx.getBean(S3Client.class);
     }

@@ -16,7 +16,6 @@
 package io.micronaut.microstream.postgres;
 
 import io.micronaut.context.BeanContext;
-import io.micronaut.context.Qualifier;
 import io.micronaut.context.annotation.EachBean;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.inject.qualifiers.Qualifiers;
@@ -55,12 +54,14 @@ public class PostgresStorageFoundationFactory {
             LOG.debug("Creating storage foundation from postgres storage provider {}", provider);
         }
 
-        Qualifier<DataSource> datasourceQualifier = provider.getDatasourceName()
-            .map(Qualifiers::<DataSource>byName)
-            .orElseGet(() -> Qualifiers.byName(provider.getName()));
+        String datasourceName = provider.getDatasourceName().orElse(provider.getName());
 
-        DataSource dataSource = ctx.findBean(DataSource.class, datasourceQualifier)
-            .orElseGet(() -> defaultDataSource(ctx));
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Looking for DataSource named '{}'", datasourceName);
+        }
+
+        DataSource dataSource = ctx.findBean(DataSource.class, Qualifiers.byName(datasourceName))
+            .orElseGet(() -> defaultDataSource(ctx, datasourceName));
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("Got DataSource {}", dataSource);
@@ -77,9 +78,9 @@ public class PostgresStorageFoundationFactory {
         );
     }
 
-    private DataSource defaultDataSource(BeanContext ctx) {
+    private DataSource defaultDataSource(BeanContext ctx, String datasourceName) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("No named DataSource found. Looking for a default");
+            LOG.debug("No DataSource named '{}' found. Looking for a default", datasourceName);
         }
         return ctx.getBean(DataSource.class);
     }
