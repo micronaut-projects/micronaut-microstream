@@ -27,7 +27,9 @@ microstream:
 <2> The name of the table to use in the database
 <3> The root class of the object graph to store
 
-By default, it is expected that the name of the DataSource and the Storage Manager are the same. If this is not the case, the DataSource name can be configured as follows:
+The storage manager will first attempt to look up a DataSource with the same name as the Storage Manager, and if this is not found, it will attempt to look up an un-named DataSource.
+
+If you require to use a DataSource with a different name, this can be configured via the `datasource-name` property as below.
 
 [configuration]
 ----

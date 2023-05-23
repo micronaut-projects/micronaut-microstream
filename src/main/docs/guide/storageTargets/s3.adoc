@@ -14,3 +14,19 @@ microstream:
 <1> The name for the created Storage Manager
 <2> The name of the S3 bucket to use for storage
 <3> The root class of the object graph to store
+
+The storage manager will first attempt to look up an S3Client with the same name as the Storage Manager, and if this is not found, it will attempt to look up an un-named S3Client bean.
+
+If you require to use an S3Client with a different name, this can be configured via the `s3-client-name` property as below.
+
+[configuration]
+----
+microstream:
+    s3:
+        storage:
+            default:
+                s3-client-name: my-s3-client       # <1>
+                bucket-name: microstream
+                root-class: com.example.model.Root
+----
+<1> The name of the S3Client bean to use
