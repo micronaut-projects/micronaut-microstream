@@ -1,0 +1,16 @@
+Configuration of an S3 storage target requires a https://micronaut-projects.github.io/micronaut-aws/latest/guide/#s3[S3Client bean to be defined].
+
+The configuration can then be defined as follows:
+
+[configuration]
+----
+microstream:
+    s3:
+        storage:
+            default:                               # <1>
+                bucket-name: microstream           # <2>
+                root-class: com.example.model.Root # <3>
+----
+<1> The name for the created Storage Manager
+<2> The name of the S3 bucket to use for storage
+<3> The root class of the object graph to store
