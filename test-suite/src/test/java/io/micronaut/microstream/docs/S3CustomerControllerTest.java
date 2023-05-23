@@ -16,7 +16,7 @@ class S3CustomerControllerTest extends BaseCustomerControllerTest {
             "microstream.s3.storage.main.bucket-name", BUCKET_NAME,
             "microstream.s3.storage.main.root-class", "io.micronaut.microstream.docs.Data",
             "micronaut.metrics.enabled", StringUtils.FALSE,
-            "micronaut.http.client.read-timeout", "30s" // We need to increase this for the localstack object to be created
+            "micronaut.http.client.read-timeout", "60s" // We need to increase this for the localstack object to be created and the image to be pulled
         );
     }
 }
