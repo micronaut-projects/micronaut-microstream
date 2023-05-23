@@ -37,6 +37,7 @@ dependencies {
 }
 
 micronaut {
+    importMicronautPlatform.set(false)
     testResources {
         enabled.set(true)
         additionalModules.add("jdbc-postgresql")
