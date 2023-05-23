@@ -30,6 +30,7 @@ micronautBuild {
     importMicronautCatalog()
     importMicronautCatalog("micronaut-aws")
     importMicronautCatalog("micronaut-cache")
+    importMicronautCatalog("micronaut-logging")
     importMicronautCatalog("micronaut-micrometer")
     importMicronautCatalog("micronaut-serde")
     importMicronautCatalog("micronaut-sql")

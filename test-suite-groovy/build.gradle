@@ -14,6 +14,6 @@ dependencies {
     testImplementation(mn.micronaut.http.client)
     testImplementation(projects.micronautMicrostream)
     testImplementation(projects.micronautMicrostreamCache)
-    testRuntimeOnly(mn.logback.classic)
+    testRuntimeOnly(mnLogging.logback.classic)
     testRuntimeOnly(mn.snakeyaml)
 }

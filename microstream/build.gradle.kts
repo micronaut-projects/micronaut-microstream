@@ -37,6 +37,8 @@ dependencies {
     testImplementation(libs.managed.microstream.sql)
     testImplementation(mnSql.micronaut.jdbc.hikari)
     testRuntimeOnly(mnSql.postgresql)
+
+    testRuntimeOnly(mnLogging.logback.classic)
 }
 
 micronaut {
