@@ -19,4 +19,5 @@ dependencies {
     testImplementation(mn.micronaut.http.server.netty)
     testImplementation(mn.micronaut.http.client)
     testImplementation(projects.micronautMicrostreamAnnotations)
+    testRuntimeOnly(mnLogging.logback.classic)
 }

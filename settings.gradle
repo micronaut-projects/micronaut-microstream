@@ -26,10 +26,10 @@ micronautBuild.useStandardizedProjectNames=true
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 micronautBuild {
-    addSnapshotRepository()
     useStandardizedProjectNames = true
     importMicronautCatalog()
     importMicronautCatalog("micronaut-cache")
+    importMicronautCatalog("micronaut-logging")
     importMicronautCatalog("micronaut-micrometer")
     importMicronautCatalog("micronaut-serde")
     importMicronautCatalog("micronaut-validation")
