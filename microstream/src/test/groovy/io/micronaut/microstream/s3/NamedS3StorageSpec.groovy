@@ -77,17 +77,10 @@ class NamedS3StorageSpec extends BaseStorageSpec {
     @Requires(property = "spec.name", value = "NamedS3StorageSpec")
     static class LocalStackClient {
 
-        S3Config s3Config
-
-        LocalStackClient(S3Config s3Config) {
-            this.s3Config = s3Config
-        }
-
-        @Bean
         @Singleton
         @Named(OTHER_CLIENT_NAME)
-        S3Client buildClient() {
-            def client = S3Client.builder()
+        S3Client buildClient(S3Config s3Config) {
+            S3Client client = S3Client.builder()
                     .endpointOverride(new URI(s3Config.s3.endpointOverride))
                     .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(s3Config.accessKeyId, s3Config.secretKey)))
                     .region(Region.of(s3Config.region))

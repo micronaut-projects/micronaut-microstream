@@ -18,15 +18,9 @@ import java.net.URISyntaxException;
 @Requires(property = "s3.test", value = StringUtils.TRUE)
 public class S3LocalstackClient {
 
-    private final S3LocalstackConfig s3Config;
-
-    S3LocalstackClient(S3LocalstackConfig s3Config) {
-        this.s3Config = s3Config;
-    }
-
     @Singleton
     @Replaces(S3Client.class)
-    S3Client buildClient() throws URISyntaxException, InterruptedException {
+    S3Client buildClient(S3LocalstackConfig s3Config) throws URISyntaxException, InterruptedException {
         S3Client client = S3Client.builder()
             .endpointOverride(new URI(s3Config.s3.endpointOverride))
             .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(s3Config.getAccessKeyId(), s3Config.getSecretKey())))
