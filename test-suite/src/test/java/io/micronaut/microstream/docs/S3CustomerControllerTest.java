@@ -4,6 +4,10 @@ import io.micronaut.core.util.StringUtils;
 
 import java.util.Map;
 
+import org.junit.jupiter.api.condition.EnabledIf;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
 class S3CustomerControllerTest extends BaseCustomerControllerTest {
 
     private static final String BUCKET_NAME = "microstreamcontroller";
@@ -18,5 +22,12 @@ class S3CustomerControllerTest extends BaseCustomerControllerTest {
             "micronaut.metrics.enabled", StringUtils.FALSE,
             "micronaut.http.client.read-timeout", "60s" // We need to increase this for the localstack object to be created and the image to be pulled
         );
+    }
+
+    @EnabledIf("dockerAvailable")
+    @ParameterizedTest
+    @MethodSource("provideCustomerRepositoryImplementations")
+    void testCrud(String customerRepositoryImplementation) throws Exception {
+        super.verifyCrudWithMicroStream(customerRepositoryImplementation);
     }
 }

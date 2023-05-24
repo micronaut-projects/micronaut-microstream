@@ -11,13 +11,19 @@ import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.microstream.rest.RootObject;
 import io.micronaut.runtime.server.EmbeddedServer;
+import org.junit.jupiter.api.condition.EnabledIf;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.testcontainers.DockerClientFactory;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,16 +35,17 @@ abstract class BaseCustomerControllerTest {
 
     protected abstract Map<String, Object> extraProperties();
 
-    @ParameterizedTest
-    @ValueSource(strings = {
-        "store",
-        "embedded-storage-manager",
-        "store-with-name",
-        "root-eager",
-        "store-root-eager",
-        "store-annotation"
-    })
-    void verifyCrudWithMicroStream(String customerRepositoryImplementation) throws Exception {
+    public static Stream<Arguments> provideCustomerRepositoryImplementations() {
+        return Stream.of(
+            Arguments.of("store"),
+            Arguments.of("embedded-storage-manager"),
+            Arguments.of("store-with-name"),
+            Arguments.of("root-eager"),
+            Arguments.of("store-root-eager"),
+            Arguments.of("store-annotation"));
+    }
+
+    protected void verifyCrudWithMicroStream(String customerRepositoryImplementation) throws Exception {
         // Given
         String storageDirectory = "build/microstream-" + UUID.randomUUID();
         Map<String, Object> properties = CollectionUtils.mapOf(
@@ -173,4 +180,9 @@ abstract class BaseCustomerControllerTest {
         HttpClientResponseException thrown = assertThrows(HttpClientResponseException.class, e);
         assertEquals(HttpStatus.NOT_FOUND, thrown.getStatus());
     }
+
+    public static boolean dockerAvailable() {
+        return DockerClientFactory.instance().isDockerAvailable();
+    }
+
 }

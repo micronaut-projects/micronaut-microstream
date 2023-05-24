@@ -9,9 +9,12 @@ import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation
 import one.microstream.storage.types.StorageManager
+import spock.lang.Requires
 
 import javax.sql.DataSource
+import org.testcontainers.DockerClientFactory
 
+@Requires({ DockerClientFactory.instance().isDockerAvailable() })
 @MicronautTest
 @Property(name = "microstream.postgres.storage.foo.datasource-name", value = "other")
 @Property(name = "microstream.postgres.storage.foo.table-name", value = NamedPostgresStorageSpec.TABLE_NAME)

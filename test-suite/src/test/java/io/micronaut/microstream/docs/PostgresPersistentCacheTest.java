@@ -4,13 +4,19 @@ import io.micronaut.context.ApplicationContext;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.runtime.server.EmbeddedServer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIf;
+import org.testcontainers.DockerClientFactory;
 
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PostgresPersistentCacheTest {
+    public static boolean dockerAvailable() {
+        return DockerClientFactory.instance().isDockerAvailable();
+    }
 
+    @EnabledIf("dockerAvailable")
     @Test
     void cachePersistsOverRestarts() {
         Map<String, Object> config = Map.of(

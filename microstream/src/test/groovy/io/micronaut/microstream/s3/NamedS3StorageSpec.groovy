@@ -17,7 +17,9 @@ import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3Client
 import spock.lang.Shared
+import org.testcontainers.DockerClientFactory
 
+@spock.lang.Requires({ DockerClientFactory.instance().isDockerAvailable() })
 @MicronautTest
 @Property(name = "microstream.s3.storage.foo.s3-client-name", value = NamedS3StorageSpec.OTHER_CLIENT_NAME)
 @Property(name = "microstream.s3.storage.foo.bucket-name", value = NamedS3StorageSpec.BUCKET_NAME)
