@@ -1,4 +1,4 @@
-Configuration of a Postgres storage target requires a https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc[Postgres JDBC datasource to be defined]
+Configuration of a https://docs.microstream.one/manual/storage/storage-targets/sql-databases/postgresql.html[Postgres storage target] requires a https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc[Postgres JDBC datasource to be defined]
 
 The following defines a datasource named `default` that connects to a Postgres database:
 
