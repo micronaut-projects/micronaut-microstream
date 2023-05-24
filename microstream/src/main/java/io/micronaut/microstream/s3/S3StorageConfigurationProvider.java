@@ -27,7 +27,7 @@ import java.util.Optional;
 public interface S3StorageConfigurationProvider extends RootClassConfigurationProvider {
 
     /**
-     * The name of the defined S3Client to use.  If unset, a client with the same name as the storage will be used.
+     * The name qualifier of the defined S3Client to use.  If unset, a client with the same name as the storage will be used.
      *
      * @return Returns the name of the S3Client to use.
      */
