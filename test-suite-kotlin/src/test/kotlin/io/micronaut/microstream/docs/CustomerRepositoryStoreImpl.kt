@@ -4,13 +4,12 @@ import io.micronaut.context.annotation.Requires
 import io.micronaut.core.annotation.NonNull
 import io.micronaut.core.annotation.Nullable
 import io.micronaut.microstream.RootProvider
-import io.micronaut.microstream.annotations.Store
 import io.micronaut.microstream.annotations.StoreParams
 import io.micronaut.microstream.annotations.StoreReturn
 import jakarta.inject.Singleton
-import java.util.*
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
+import java.util.UUID
 
 @Requires(property = "customer.repository", value = "store")
 //tag::clazz[]
