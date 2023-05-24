@@ -1,4 +1,4 @@
-package io.microstream.testutils;
+package io.micronaut.microstream.testutils;
 
 public abstract class S3ConfigurationProperties {
     public abstract S3Configuration getS3Configuration();

@@ -1,4 +1,4 @@
-package io.microstream.testutils;
+package io.micronaut.microstream.testutils;
 
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;

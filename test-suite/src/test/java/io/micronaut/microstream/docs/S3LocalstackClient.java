@@ -4,7 +4,7 @@ import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Replaces;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.util.StringUtils;
-import io.microstream.testutils.LocalStackUtils;
+import io.micronaut.microstream.testutils.LocalStackUtils;
 import jakarta.inject.Singleton;
 import software.amazon.awssdk.services.s3.S3Client;
 

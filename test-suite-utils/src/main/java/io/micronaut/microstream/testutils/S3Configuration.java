@@ -1,4 +1,4 @@
-package io.microstream.testutils;
+package io.micronaut.microstream.testutils;
 
 public class S3Configuration {
     private String endpointOverride;

@@ -4,8 +4,8 @@ import io.micronaut.context.annotation.ConfigurationBuilder;
 import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.util.StringUtils;
-import io.microstream.testutils.S3Configuration;
-import io.microstream.testutils.S3ConfigurationProperties;
+import io.micronaut.microstream.testutils.S3Configuration;
+import io.micronaut.microstream.testutils.S3ConfigurationProperties;
 
 @ConfigurationProperties("aws")
 @Requires(property = "s3.test", value = StringUtils.TRUE)

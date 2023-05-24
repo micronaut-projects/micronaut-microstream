@@ -10,9 +10,9 @@ import io.micronaut.core.util.StringUtils
 import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.microstream.BaseStorageSpec
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import io.microstream.testutils.LocalStackUtils
-import io.microstream.testutils.S3Configuration
-import io.microstream.testutils.S3ConfigurationProperties
+import io.micronaut.microstream.testutils.LocalStackUtils
+import io.micronaut.microstream.testutils.S3Configuration
+import io.micronaut.microstream.testutils.S3ConfigurationProperties
 import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.inject.Singleton
