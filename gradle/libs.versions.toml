@@ -15,6 +15,9 @@ micronaut-test = "4.0.0-M4"
 micronaut-validation = "4.0.0-M7"
 
 [libraries]
+# Core
+micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'micronaut' }
+
 micronaut-cache = { module = "io.micronaut.cache:micronaut-cache-bom", version.ref = "micronaut-cache" }
 micronaut-logging = { module = "io.micronaut.logging:micronaut-logging-bom", version.ref = "micronaut-logging" }
 micronaut-micrometer = { module = "io.micronaut.micrometer:micronaut-micrometer-bom", version.ref = "micronaut-micrometer" }
