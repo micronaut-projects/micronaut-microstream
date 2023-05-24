@@ -58,15 +58,17 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#storage"><strong>7</strong><span>Storage</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#cache"><strong>8</strong><span>Cache</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#storageTargets"><strong>8</strong><span>Storage Targets</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#microstreamMetrics"><strong>9</strong><span>Metrics</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#cache"><strong>9</strong><span>Cache</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#storageHealth"><strong>10</strong><span>Health</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#microstreamMetrics"><strong>10</strong><span>Metrics</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#rest"><strong>11</strong><span>REST API</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#storageHealth"><strong>11</strong><span>Health</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>12</strong><span>Repository</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#rest"><strong>12</strong><span>REST API</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>13</strong><span>Repository</span></a></div>
                                 
                             </div>
                         </div>
@@ -115,25 +117,31 @@
         
         <div class="toc-item" style="margin-left:10px" id="toc-item-storageWithStore"><a href="#storageWithStore"><strong>7.2</strong><span>Working with Annotations</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-cache"><a href="#cache"><strong>8</strong><span>Cache</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-storageTargets"><a href="#storageTargets"><strong>8</strong><span>Storage Targets</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-cacheConfiguration"><a href="#cacheConfiguration"><strong>8.1</strong><span>Cache Configuration</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-postgres"><a href="#postgres"><strong>8.1</strong><span>Postgres</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-cacheStorage"><a href="#cacheStorage"><strong>8.2</strong><span>Cache Storage</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-s3"><a href="#s3"><strong>8.2</strong><span>S3</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-microstreamMetrics"><a href="#microstreamMetrics"><strong>9</strong><span>Metrics</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-cache"><a href="#cache"><strong>9</strong><span>Cache</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-storageHealth"><a href="#storageHealth"><strong>10</strong><span>Health</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-cacheConfiguration"><a href="#cacheConfiguration"><strong>9.1</strong><span>Cache Configuration</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-rest"><a href="#rest"><strong>11</strong><span>REST API</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-cacheStorage"><a href="#cacheStorage"><strong>9.2</strong><span>Cache Storage</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-restSetup"><a href="#restSetup"><strong>11.1</strong><span>Enabling the REST API</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-microstreamMetrics"><a href="#microstreamMetrics"><strong>10</strong><span>Metrics</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-restConfiguration"><a href="#restConfiguration"><strong>11.2</strong><span>Configuration options</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-storageHealth"><a href="#storageHealth"><strong>11</strong><span>Health</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-restGui"><a href="#restGui"><strong>11.3</strong><span>GUI</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-rest"><a href="#rest"><strong>12</strong><span>REST API</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>12</strong><span>Repository</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-restSetup"><a href="#restSetup"><strong>12.1</strong><span>Enabling the REST API</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-restConfiguration"><a href="#restConfiguration"><strong>12.2</strong><span>Configuration options</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-restGui"><a href="#restGui"><strong>12.3</strong><span>GUI</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>13</strong><span>Repository</span></a></div>
         
         </div>
     </div>
@@ -1027,7 +1035,515 @@ open class CustomerRepositoryStoreImpl(private val rootProvider: RootProvider&lt
 </table>
 </div>
 
-<h1 id="cache"><a class="anchor" href="#cache"></a>8 Cache</h1>
+<h1 id="storageTargets"><a class="anchor" href="#storageTargets"></a>8 Storage Targets</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storageTargets.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="quoteblock">
+<div class="title"><a href="https://docs.microstream.one/manual/storage/storage-targets/index.html" class="bare">https://docs.microstream.one/manual/storage/storage-targets/index.html</a></div>
+<blockquote>
+<div class="paragraph">
+<p>MicroStream supports a variety of storage targets. Through an abstracted file system (AFS), it is possible to connect to a lot of different back ends. The AFS allows to use folders and files, like in all common file systems, but with different connectors it is possible to use different solutions as the actual storage</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>By default, the Micronaut Framework MicroStream integration will use a local directory as a backing store for the object graph.</p>
+</div>
+<div class="paragraph">
+<p>You can switch this to a different target via configuration.
+Currently supported targets are:</p>
+</div>
+
+<h2 id="postgres"><a class="anchor" href="#postgres"></a>8.1 Postgres</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storageTargets/postgres.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>Configuration of a <a href="https://docs.microstream.one/manual/storage/storage-targets/sql-databases/postgresql.html">Postgres storage target</a> requires a <a href="https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc">Postgres JDBC datasource to be defined</a></p>
+</div>
+<div class="paragraph">
+<p>The following defines a datasource named <code>default</code> that connects to a Postgres database:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">datasources.default.url=jdbc:postgresql://host:port/database
+datasources.default.username=«user»
+datasources.default.password=«password»
+datasources.default.driverClassName=org.postgresql.Driver</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">datasources:
+    default:
+        url: jdbc:postgresql://host:port/database
+        username: «user»
+        password: «password»
+        driverClassName: org.postgresql.Driver</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[datasources]
+  [datasources.default]
+    url="jdbc:postgresql://host:port/database"
+    username="\u00abuser\u00bb"
+    password="\u00abpassword\u00bb"
+    driverClassName="org.postgresql.Driver"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">datasources {
+  'default' {
+    url = "jdbc:postgresql://host:port/database"
+    username = "\u00ABuser\u00BB"
+    password = "\u00ABpassword\u00BB"
+    driverClassName = "org.postgresql.Driver"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  datasources {
+    default {
+      url = "jdbc:postgresql://host:port/database"
+      username = "«user»"
+      password = "«password»"
+      driverClassName = "org.postgresql.Driver"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "datasources": {
+    "default": {
+      "url": "jdbc:postgresql://host:port/database",
+      "username": "«user»",
+      "password": "«password»",
+      "driverClassName": "org.postgresql.Driver"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The Postgres Storage Target can then be configured as follows:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">microstream.postgres.storage.default.table-name=microstream
+microstream.postgres.storage.default.root-class=com.example.model.Root</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
+    postgres:
+        storage:
+            default:                               # <b class="conum">(1)</b>
+                table-name: microstream            # <b class="conum">(2)</b>
+                root-class: com.example.model.Root # <b class="conum">(3)</b></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[microstream]
+  [microstream.postgres]
+    [microstream.postgres.storage]
+      [microstream.postgres.storage.default]
+        table-name="microstream"
+        root-class="com.example.model.Root"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">microstream {
+  postgres {
+    storage {
+      'default' {
+        tableName = "microstream"
+        rootClass = "com.example.model.Root"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  microstream {
+    postgres {
+      storage {
+        default {
+          table-name = "microstream"
+          root-class = "com.example.model.Root"
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "microstream": {
+    "postgres": {
+      "storage": {
+        "default": {
+          "table-name": "microstream",
+          "root-class": "com.example.model.Root"
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The name for this Storage Manager</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The name of the table to use in the database</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The root class of the object graph to store</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The storage manager will first attempt to look up a DataSource with the same name as the Storage Manager, and if this is not found, it will attempt to look up an un-named DataSource.</p>
+</div>
+<div class="paragraph">
+<p>If you require to use a DataSource with a different name, this can be configured via the <code>datasource-name</code> property as below.</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">microstream.postgres.storage.backing.table-name=microstream
+microstream.postgres.storage.backing.root-class=com.example.model.Root
+microstream.postgres.storage.backing.datasource-name=default</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
+    postgres:
+        storage:
+            backing:
+                table-name: microstream
+                root-class: com.example.model.Root
+                datasource-name: default # <b class="conum">(1)</b></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[microstream]
+  [microstream.postgres]
+    [microstream.postgres.storage]
+      [microstream.postgres.storage.backing]
+        table-name="microstream"
+        root-class="com.example.model.Root"
+        datasource-name="default"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">microstream {
+  postgres {
+    storage {
+      backing {
+        tableName = "microstream"
+        rootClass = "com.example.model.Root"
+        datasourceName = "default"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  microstream {
+    postgres {
+      storage {
+        backing {
+          table-name = "microstream"
+          root-class = "com.example.model.Root"
+          datasource-name = "default"
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "microstream": {
+    "postgres": {
+      "storage": {
+        "backing": {
+          "table-name": "microstream",
+          "root-class": "com.example.model.Root",
+          "datasource-name": "default"
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The name of the DataSource to use</td>
+</tr>
+</table>
+</div>
+
+<h2 id="s3"><a class="anchor" href="#s3"></a>8.2 S3</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storageTargets/s3.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>Configuration of an <a href="https://docs.microstream.one/manual/storage/storage-targets/blob-stores/aws-s3.html">S3 storage target</a> requires a <a href="https://micronaut-projects.github.io/micronaut-aws/latest/guide/#s3">S3Client bean to be defined</a>.</p>
+</div>
+<div class="paragraph">
+<p>The configuration can then be defined as follows:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">microstream.s3.storage.default.bucket-name=microstream
+microstream.s3.storage.default.root-class=com.example.model.Root</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
+    s3:
+        storage:
+            default:                               # <b class="conum">(1)</b>
+                bucket-name: microstream           # <b class="conum">(2)</b>
+                root-class: com.example.model.Root # <b class="conum">(3)</b></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[microstream]
+  [microstream.s3]
+    [microstream.s3.storage]
+      [microstream.s3.storage.default]
+        bucket-name="microstream"
+        root-class="com.example.model.Root"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">microstream {
+  s3 {
+    storage {
+      'default' {
+        bucketName = "microstream"
+        rootClass = "com.example.model.Root"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  microstream {
+    s3 {
+      storage {
+        default {
+          bucket-name = "microstream"
+          root-class = "com.example.model.Root"
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "microstream": {
+    "s3": {
+      "storage": {
+        "default": {
+          "bucket-name": "microstream",
+          "root-class": "com.example.model.Root"
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The name for the created Storage Manager</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The name of the S3 bucket to use for storage</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The root class of the object graph to store</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The storage manager will first attempt to look up an S3Client with the same name as the Storage Manager, and if this is not found, it will attempt to look up an un-named S3Client bean.</p>
+</div>
+<div class="paragraph">
+<p>If you require to use an S3Client with a different name, this can be configured via the <code>s3-client-name</code> property as below.</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">microstream.s3.storage.default.s3-client-name=my-s3-client
+microstream.s3.storage.default.bucket-name=microstream
+microstream.s3.storage.default.root-class=com.example.model.Root</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">microstream:
+    s3:
+        storage:
+            default:
+                s3-client-name: my-s3-client       # <b class="conum">(1)</b>
+                bucket-name: microstream
+                root-class: com.example.model.Root</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[microstream]
+  [microstream.s3]
+    [microstream.s3.storage]
+      [microstream.s3.storage.default]
+        s3-client-name="my-s3-client"
+        bucket-name="microstream"
+        root-class="com.example.model.Root"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">microstream {
+  s3 {
+    storage {
+      'default' {
+        s3ClientName = "my-s3-client"
+        bucketName = "microstream"
+        rootClass = "com.example.model.Root"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  microstream {
+    s3 {
+      storage {
+        default {
+          s3-client-name = "my-s3-client"
+          bucket-name = "microstream"
+          root-class = "com.example.model.Root"
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "microstream": {
+    "s3": {
+      "storage": {
+        "default": {
+          "s3-client-name": "my-s3-client",
+          "bucket-name": "microstream",
+          "root-class": "com.example.model.Root"
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The name of the S3Client bean to use</td>
+</tr>
+</table>
+</div>
+
+<h1 id="cache"><a class="anchor" href="#cache"></a>9 Cache</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/cache.adoc"'>
@@ -1040,7 +1556,7 @@ open class CustomerRepositoryStoreImpl(private val rootProvider: RootProvider&lt
 <p>MicroStream can be used as a <a href="https://micronaut-projects.github.io/micronaut-cache/latest/guide/#cache-abstraction">cache abstraction</a> layer.</p>
 </div>
 
-<h2 id="cacheConfiguration"><a class="anchor" href="#cacheConfiguration"></a>8.1 Cache Configuration</h2>
+<h2 id="cacheConfiguration"><a class="anchor" href="#cacheConfiguration"></a>9.1 Cache Configuration</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/cache/cacheConfiguration.adoc"'>
@@ -1195,7 +1711,7 @@ open class CounterService {
 </table>
 </div>
 
-<h2 id="cacheStorage"><a class="anchor" href="#cacheStorage"></a>8.2 Cache Storage</h2>
+<h2 id="cacheStorage"><a class="anchor" href="#cacheStorage"></a>9.2 Cache Storage</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/cache/cacheStorage.adoc"'>
@@ -1242,7 +1758,7 @@ open class CounterService {
 <p>The above example will then persist across restarts.</p>
 </div>
 
-<h1 id="microstreamMetrics"><a class="anchor" href="#microstreamMetrics"></a>9 Metrics</h1>
+<h1 id="microstreamMetrics"><a class="anchor" href="#microstreamMetrics"></a>10 Metrics</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/microstreamMetrics.adoc"'>
@@ -1258,7 +1774,7 @@ open class CounterService {
 <p>If you do not wish to collect MicroStream metrics, you can set <code>micronaut.metrics.binders.microstream.enabled</code> to <code>false</code> in <code>application.yml</code>.</p>
 </div>
 
-<h1 id="storageHealth"><a class="anchor" href="#storageHealth"></a>10 Health</h1>
+<h1 id="storageHealth"><a class="anchor" href="#storageHealth"></a>11 Health</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/storageHealth.adoc"'>
@@ -1321,7 +1837,7 @@ By default, the details visible above are only shown to authenticated users. See
 </div>
 </div>
 
-<h1 id="rest"><a class="anchor" href="#rest"></a>11 REST API</h1>
+<h1 id="rest"><a class="anchor" href="#rest"></a>12 REST API</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest.adoc"'>
@@ -1338,7 +1854,7 @@ When developing a MicroStream application, it is useful to be able to inspect th
 <p>The <code>micronaut-microstream-rest</code> library exposes the <a href="https://docs.microstream.one/manual/storage/rest-interface/rest-api.html">MicroStream REST API</a> from inside your Micronaut application.</p>
 </div>
 
-<h2 id="restSetup"><a class="anchor" href="#restSetup"></a>11.1 Enabling the REST API</h2>
+<h2 id="restSetup"><a class="anchor" href="#restSetup"></a>12.1 Enabling the REST API</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest/restSetup.adoc"'>
@@ -1382,7 +1898,7 @@ When developing a MicroStream application, it is useful to be able to inspect th
 <p>It will output a warning each time your application is started if the REST endpoint is enabled that this should not be deployed to production.</p>
 </div>
 
-<h2 id="restConfiguration"><a class="anchor" href="#restConfiguration"></a>11.2 Configuration options</h2>
+<h2 id="restConfiguration"><a class="anchor" href="#restConfiguration"></a>12.2 Configuration options</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest/restConfiguration.adoc"'>
@@ -1421,7 +1937,7 @@ When multiple storage managers are defined, the URL must be suffixed by the mana
 <p>The above configuration would expose the REST API at <code>/custom-prefix</code>. (or <code>/custom-prefix/«storage-name»</code> if you have multiple storage managers defined).</p>
 </div>
 
-<h2 id="restGui"><a class="anchor" href="#restGui"></a>11.3 GUI</h2>
+<h2 id="restGui"><a class="anchor" href="#restGui"></a>12.3 GUI</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/rest/restGui.adoc"'>
@@ -1437,7 +1953,7 @@ When multiple storage managers are defined, the URL must be suffixed by the mana
 <p>Instructions on downloading and running this <a href="https://docs.microstream.one/manual/storage/rest-interface/client-gui.html">can be found here</a>.</p>
 </div>
 
-<h1 id="repository"><a class="anchor" href="#repository"></a>12 Repository</h1>
+<h1 id="repository"><a class="anchor" href="#repository"></a>13 Repository</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-microstream/edit/master/src/main/docs/guide/repository.adoc"'>

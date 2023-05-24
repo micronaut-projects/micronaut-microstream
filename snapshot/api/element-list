@@ -5,4 +5,6 @@ io.micronaut.microstream.conf
 io.micronaut.microstream.health
 io.micronaut.microstream.interceptors
 io.micronaut.microstream.metrics
+io.micronaut.microstream.postgres
 io.micronaut.microstream.rest
+io.micronaut.microstream.s3

@@ -105,8 +105,6 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:D">D</h2>
 <dl class="index">
-<dt><a href="io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html#DEFAULT_ENABLE_JDK17_TYPES" class="member-name-link">DEFAULT_ENABLE_JDK17_TYPES</a> - Static variable in interface io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html" title="interface in io.micronaut.microstream.conf">EmbeddedStorageConfigurationProvider</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="io/micronaut/microstream/cache/CacheConfigurationProperties.html#DEFAULT_ENABLED" class="member-name-link">DEFAULT_ENABLED</a> - Static variable in class io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/CacheConfigurationProperties.html" title="class in io.micronaut.microstream.cache">CacheConfigurationProperties</a></dt>
 <dd>
 <div class="block">Whether MicroStream Cache module is enabled.</div>
@@ -135,15 +133,23 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Default implementation of <a href="io/micronaut/microstream/rest/MicroStreamRestService.html" title="interface in io.micronaut.microstream.rest"><code>MicroStreamRestService</code></a>.</div>
 </dd>
-<dt><a href="io/micronaut/microstream/rest/DefaultMicroStreamRestService.html#%3Cinit%3E(io.micronaut.context.BeanContext,java.util.Collection)" class="member-name-link">DefaultMicroStreamRestService(BeanContext, Collection&lt;EmbeddedStorageConfigurationProvider&gt;)</a> - Constructor for class io.micronaut.microstream.rest.<a href="io/micronaut/microstream/rest/DefaultMicroStreamRestService.html" title="class in io.micronaut.microstream.rest">DefaultMicroStreamRestService</a></dt>
+<dt><a href="io/micronaut/microstream/rest/DefaultMicroStreamRestService.html#%3Cinit%3E(io.micronaut.context.BeanContext,java.util.Collection)" class="member-name-link">DefaultMicroStreamRestService(BeanContext, Collection&lt;RootClassConfigurationProvider&gt;)</a> - Constructor for class io.micronaut.microstream.rest.<a href="io/micronaut/microstream/rest/DefaultMicroStreamRestService.html" title="class in io.micronaut.microstream.rest">DefaultMicroStreamRestService</a></dt>
 <dd>
 <div class="block">Creates a service that allows us to query storage managers by name.</div>
 </dd>
+<dt><a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html" class="type-name-link" title="class in io.micronaut.microstream.postgres">DefaultPostgresStorageConfigurationProvider</a> - Class in <a href="io/micronaut/microstream/postgres/package-summary.html">io.micronaut.microstream.postgres</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html#%3Cinit%3E(java.lang.String)" class="member-name-link">DefaultPostgresStorageConfigurationProvider(String)</a> - Constructor for class io.micronaut.microstream.postgres.<a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html" title="class in io.micronaut.microstream.postgres">DefaultPostgresStorageConfigurationProvider</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/micronaut/microstream/DefaultRootProvider.html" class="type-name-link" title="class in io.micronaut.microstream">DefaultRootProvider</a>&lt;<a href="io/micronaut/microstream/DefaultRootProvider.html" title="type parameter in DefaultRootProvider">T</a>&gt; - Class in <a href="io/micronaut/microstream/package-summary.html">io.micronaut.microstream</a></dt>
 <dd>
 <div class="block">Creates a bean of type <a href="io/micronaut/microstream/RootProvider.html" title="interface in io.micronaut.microstream"><code>RootProvider</code></a> for each <code>StorageManager</code>.</div>
 </dd>
 <dt><a href="io/micronaut/microstream/DefaultRootProvider.html#%3Cinit%3E(one.microstream.storage.types.StorageManager)" class="member-name-link">DefaultRootProvider(StorageManager)</a> - Constructor for class io.micronaut.microstream.<a href="io/micronaut/microstream/DefaultRootProvider.html" title="class in io.micronaut.microstream">DefaultRootProvider</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html" class="type-name-link" title="class in io.micronaut.microstream.s3">DefaultS3StorageConfigurationProvider</a> - Class in <a href="io/micronaut/microstream/s3/package-summary.html">io.micronaut.microstream.s3</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html#%3Cinit%3E(java.lang.String)" class="member-name-link">DefaultS3StorageConfigurationProvider(String)</a> - Constructor for class io.micronaut.microstream.s3.<a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html" title="class in io.micronaut.microstream.s3">DefaultS3StorageConfigurationProvider</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:E">E</h2>
@@ -173,10 +179,20 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Get the single adapter for a given storage name.</div>
 </dd>
+<dt><a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html#getBucketName()" class="member-name-link">getBucketName()</a> - Method in class io.micronaut.microstream.s3.<a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html" title="class in io.micronaut.microstream.s3">DefaultS3StorageConfigurationProvider</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/s3/S3StorageConfigurationProvider.html#getBucketName()" class="member-name-link">getBucketName()</a> - Method in interface io.micronaut.microstream.s3.<a href="io/micronaut/microstream/s3/S3StorageConfigurationProvider.html" title="interface in io.micronaut.microstream.s3">S3StorageConfigurationProvider</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html#getBuilder()" class="member-name-link">getBuilder()</a> - Method in class io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html" title="class in io.micronaut.microstream.conf">DefaultEmbeddedStorageConfigurationProvider</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html#getBuilder()" class="member-name-link">getBuilder()</a> - Method in interface io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html" title="interface in io.micronaut.microstream.conf">EmbeddedStorageConfigurationProvider</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html#getDatasourceName()" class="member-name-link">getDatasourceName()</a> - Method in class io.micronaut.microstream.postgres.<a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html" title="class in io.micronaut.microstream.postgres">DefaultPostgresStorageConfigurationProvider</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/postgres/PostgresStorageConfigurationProvider.html#getDatasourceName()" class="member-name-link">getDatasourceName()</a> - Method in interface io.micronaut.microstream.postgres.<a href="io/micronaut/microstream/postgres/PostgresStorageConfigurationProvider.html" title="interface in io.micronaut.microstream.postgres">PostgresStorageConfigurationProvider</a></dt>
+<dd>
+<div class="block">The name qualifier of the defined postgres DataSource to use.</div>
+</dd>
 <dt><a href="io/micronaut/microstream/rest/MicroStreamRestController.html#getDictionary()" class="member-name-link">getDictionary()</a> - Method in class io.micronaut.microstream.rest.<a href="io/micronaut/microstream/rest/MicroStreamRestController.html" title="class in io.micronaut.microstream.rest">MicroStreamRestController</a></dt>
 <dd>
 <div class="block">Get storage type dictionary.</div>
@@ -203,7 +219,11 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html#getName()" class="member-name-link">getName()</a> - Method in class io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html" title="class in io.micronaut.microstream.conf">DefaultEmbeddedStorageConfigurationProvider</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html#getName()" class="member-name-link">getName()</a> - Method in class io.micronaut.microstream.postgres.<a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html" title="class in io.micronaut.microstream.postgres">DefaultPostgresStorageConfigurationProvider</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/micronaut/microstream/rest/RootObject.html#getName()" class="member-name-link">getName()</a> - Method in class io.micronaut.microstream.rest.<a href="io/micronaut/microstream/rest/RootObject.html" title="class in io.micronaut.microstream.rest">RootObject</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html#getName()" class="member-name-link">getName()</a> - Method in class io.micronaut.microstream.s3.<a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html" title="class in io.micronaut.microstream.s3">DefaultS3StorageConfigurationProvider</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/microstream/rest/MicroStreamRestController.html#getObject(java.lang.String,java.lang.Long,java.lang.Long,java.lang.Long,java.lang.Long,java.lang.Long,java.lang.Boolean)" class="member-name-link">getObject(String, Long, Long, Long, Long, Long, Boolean)</a> - Method in class io.micronaut.microstream.rest.<a href="io/micronaut/microstream/rest/MicroStreamRestController.html" title="class in io.micronaut.microstream.rest">MicroStreamRestController</a></dt>
 <dd>
@@ -231,13 +251,27 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html#getRootClass()" class="member-name-link">getRootClass()</a> - Method in class io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html" title="class in io.micronaut.microstream.conf">DefaultEmbeddedStorageConfigurationProvider</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html#getRootClass()" class="member-name-link">getRootClass()</a> - Method in interface io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html" title="interface in io.micronaut.microstream.conf">EmbeddedStorageConfigurationProvider</a></dt>
+<dt><a href="io/micronaut/microstream/conf/RootClassConfigurationProvider.html#getRootClass()" class="member-name-link">getRootClass()</a> - Method in interface io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/RootClassConfigurationProvider.html" title="interface in io.micronaut.microstream.conf">RootClassConfigurationProvider</a></dt>
 <dd>
 <div class="block">Returns the class of the Root Instance.</div>
+</dd>
+<dt><a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html#getRootClass()" class="member-name-link">getRootClass()</a> - Method in class io.micronaut.microstream.postgres.<a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html" title="class in io.micronaut.microstream.postgres">DefaultPostgresStorageConfigurationProvider</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html#getRootClass()" class="member-name-link">getRootClass()</a> - Method in class io.micronaut.microstream.s3.<a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html" title="class in io.micronaut.microstream.s3">DefaultS3StorageConfigurationProvider</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html#getS3ClientName()" class="member-name-link">getS3ClientName()</a> - Method in class io.micronaut.microstream.s3.<a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html" title="class in io.micronaut.microstream.s3">DefaultS3StorageConfigurationProvider</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/s3/S3StorageConfigurationProvider.html#getS3ClientName()" class="member-name-link">getS3ClientName()</a> - Method in interface io.micronaut.microstream.s3.<a href="io/micronaut/microstream/s3/S3StorageConfigurationProvider.html" title="interface in io.micronaut.microstream.s3">S3StorageConfigurationProvider</a></dt>
+<dd>
+<div class="block">The name qualifier of the defined S3Client to use.</div>
 </dd>
 <dt><a href="io/micronaut/microstream/cache/MicroStreamCacheConfiguration.html#getStorage()" class="member-name-link">getStorage()</a> - Method in interface io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/MicroStreamCacheConfiguration.html" title="interface in io.micronaut.microstream.cache">MicroStreamCacheConfiguration</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/microstream/cache/MicroStreamCacheConfigurationProperties.html#getStorage()" class="member-name-link">getStorage()</a> - Method in class io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/MicroStreamCacheConfigurationProperties.html" title="class in io.micronaut.microstream.cache">MicroStreamCacheConfigurationProperties</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html#getTableName()" class="member-name-link">getTableName()</a> - Method in class io.micronaut.microstream.postgres.<a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html" title="class in io.micronaut.microstream.postgres">DefaultPostgresStorageConfigurationProvider</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/postgres/PostgresStorageConfigurationProvider.html#getTableName()" class="member-name-link">getTableName()</a> - Method in interface io.micronaut.microstream.postgres.<a href="io/micronaut/microstream/postgres/PostgresStorageConfigurationProvider.html" title="interface in io.micronaut.microstream.postgres">PostgresStorageConfigurationProvider</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/microstream/cache/MicroStreamCacheConfiguration.html#getValueType()" class="member-name-link">getValueType()</a> - Method in interface io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/MicroStreamCacheConfiguration.html" title="interface in io.micronaut.microstream.cache">MicroStreamCacheConfiguration</a></dt>
 <dd>&nbsp;</dd>
@@ -276,9 +310,17 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">MicroStream classes related to Metrics.</div>
 </dd>
+<dt><a href="io/micronaut/microstream/postgres/package-summary.html">io.micronaut.microstream.postgres</a> - package io.micronaut.microstream.postgres</dt>
+<dd>
+<div class="block">MicroStream Storage Target support for Postgres.</div>
+</dd>
 <dt><a href="io/micronaut/microstream/rest/package-summary.html">io.micronaut.microstream.rest</a> - package io.micronaut.microstream.rest</dt>
 <dd>
 <div class="block">This provides a REST API for the microstream low-level client to connect to.</div>
+</dd>
+<dt><a href="io/micronaut/microstream/s3/package-summary.html">io.micronaut.microstream.s3</a> - package io.micronaut.microstream.s3</dt>
+<dd>
+<div class="block">MicroStream Storage Target support for S3.</div>
 </dd>
 <dt><a href="io/micronaut/microstream/health/MicroStreamHealth.html#isAcceptingTasks()" class="member-name-link">isAcceptingTasks()</a> - Method in class io.micronaut.microstream.health.<a href="io/micronaut/microstream/health/MicroStreamHealth.html" title="class in io.micronaut.microstream.health">MicroStreamHealth</a></dt>
 <dd>&nbsp;</dd>
@@ -292,12 +334,6 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/microstream/rest/MicroStreamRestControllerConfigurationProperties.html#isEnabled()" class="member-name-link">isEnabled()</a> - Method in class io.micronaut.microstream.rest.<a href="io/micronaut/microstream/rest/MicroStreamRestControllerConfigurationProperties.html" title="class in io.micronaut.microstream.rest">MicroStreamRestControllerConfigurationProperties</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html#isEnableJdk17Types()" class="member-name-link">isEnableJdk17Types()</a> - Method in class io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html" title="class in io.micronaut.microstream.conf">DefaultEmbeddedStorageConfigurationProvider</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html#isEnableJdk17Types()" class="member-name-link">isEnableJdk17Types()</a> - Method in interface io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/EmbeddedStorageConfigurationProvider.html" title="interface in io.micronaut.microstream.conf">EmbeddedStorageConfigurationProvider</a></dt>
-<dd>
-<div class="block">Configure whether JDK 17 type enhancements are enabled.</div>
-</dd>
 <dt><a href="io/micronaut/microstream/cache/MicroStreamCacheConfiguration.html#isManagementEnabled()" class="member-name-link">isManagementEnabled()</a> - Method in interface io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/MicroStreamCacheConfiguration.html" title="interface in io.micronaut.microstream.cache">MicroStreamCacheConfiguration</a></dt>
 <dd>
 <div class="block">Whether management is enabled on this cache.</div>
@@ -450,6 +486,14 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="io/micronaut/microstream/annotations/StoreParamsAnnotationMapper.html#PARAMETERS" class="member-name-link">PARAMETERS</a> - Static variable in class io.micronaut.microstream.annotations.<a href="io/micronaut/microstream/annotations/StoreParamsAnnotationMapper.html" title="class in io.micronaut.microstream.annotations">StoreParamsAnnotationMapper</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/postgres/PostgresStorageConfigurationProvider.html" class="type-name-link" title="interface in io.micronaut.microstream.postgres">PostgresStorageConfigurationProvider</a> - Interface in <a href="io/micronaut/microstream/postgres/package-summary.html">io.micronaut.microstream.postgres</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/postgres/PostgresStorageFoundationFactory.html" class="type-name-link" title="class in io.micronaut.microstream.postgres">PostgresStorageFoundationFactory</a> - Class in <a href="io/micronaut/microstream/postgres/package-summary.html">io.micronaut.microstream.postgres</a></dt>
+<dd>
+<div class="block">Factory for an S3 based EmbeddedStorageFoundation.</div>
+</dd>
+<dt><a href="io/micronaut/microstream/postgres/PostgresStorageFoundationFactory.html#%3Cinit%3E()" class="member-name-link">PostgresStorageFoundationFactory()</a> - Constructor for class io.micronaut.microstream.postgres.<a href="io/micronaut/microstream/postgres/PostgresStorageFoundationFactory.html" title="class in io.micronaut.microstream.postgres">PostgresStorageFoundationFactory</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/micronaut/microstream/cache/MicroStreamCacheConfigurationProperties.html#PREFIX" class="member-name-link">PREFIX</a> - Static variable in class io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/MicroStreamCacheConfigurationProperties.html" title="class in io.micronaut.microstream.cache">MicroStreamCacheConfigurationProperties</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/microstream/conf/MicroStreamConfigurationProperties.html#PREFIX" class="member-name-link">PREFIX</a> - Static variable in class io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/MicroStreamConfigurationProperties.html" title="class in io.micronaut.microstream.conf">MicroStreamConfigurationProperties</a></dt>
@@ -473,6 +517,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/microstream/RootProvider.html#root()" class="member-name-link">root()</a> - Method in interface io.micronaut.microstream.<a href="io/micronaut/microstream/RootProvider.html" title="interface in io.micronaut.microstream">RootProvider</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/conf/RootClassConfigurationProvider.html" class="type-name-link" title="interface in io.micronaut.microstream.conf">RootClassConfigurationProvider</a> - Interface in <a href="io/micronaut/microstream/conf/package-summary.html">io.micronaut.microstream.conf</a></dt>
+<dd>
+<div class="block">Provides the class of the Root Instance.</div>
+</dd>
 <dt><a href="io/micronaut/microstream/rest/RootObject.html" class="type-name-link" title="class in io.micronaut.microstream.rest">RootObject</a> - Class in <a href="io/micronaut/microstream/rest/package-summary.html">io.micronaut.microstream.rest</a></dt>
 <dd>
 <div class="block">This object represents a root object for the MicroStream REST api.</div>
@@ -492,6 +540,20 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
+<dt><a href="io/micronaut/microstream/s3/S3StorageConfigurationProvider.html" class="type-name-link" title="interface in io.micronaut.microstream.s3">S3StorageConfigurationProvider</a> - Interface in <a href="io/micronaut/microstream/s3/package-summary.html">io.micronaut.microstream.s3</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/s3/S3StorageFoundationFactory.html" class="type-name-link" title="class in io.micronaut.microstream.s3">S3StorageFoundationFactory</a> - Class in <a href="io/micronaut/microstream/s3/package-summary.html">io.micronaut.microstream.s3</a></dt>
+<dd>
+<div class="block">Factory for an S3 based EmbeddedStorageFoundation.</div>
+</dd>
+<dt><a href="io/micronaut/microstream/s3/S3StorageFoundationFactory.html#%3Cinit%3E()" class="member-name-link">S3StorageFoundationFactory()</a> - Constructor for class io.micronaut.microstream.s3.<a href="io/micronaut/microstream/s3/S3StorageFoundationFactory.html" title="class in io.micronaut.microstream.s3">S3StorageFoundationFactory</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html#setBucketName(java.lang.String)" class="member-name-link">setBucketName(String)</a> - Method in class io.micronaut.microstream.s3.<a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html" title="class in io.micronaut.microstream.s3">DefaultS3StorageConfigurationProvider</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html#setDatasourceName(java.lang.String)" class="member-name-link">setDatasourceName(String)</a> - Method in class io.micronaut.microstream.postgres.<a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html" title="class in io.micronaut.microstream.postgres">DefaultPostgresStorageConfigurationProvider</a></dt>
+<dd>
+<div class="block">The name qualifier of the defined postgres DataSource to use.</div>
+</dd>
 <dt><a href="io/micronaut/microstream/cache/CacheConfigurationProperties.html#setEnabled(boolean)" class="member-name-link">setEnabled(boolean)</a> - Method in class io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/CacheConfigurationProperties.html" title="class in io.micronaut.microstream.cache">CacheConfigurationProperties</a></dt>
 <dd>
 <div class="block">Whether MicroStream Cache module is enabled.</div>
@@ -507,10 +569,6 @@ loadScripts(document, 'script');</script>
 <dt><a href="io/micronaut/microstream/rest/MicroStreamRestControllerConfigurationProperties.html#setEnabled(boolean)" class="member-name-link">setEnabled(boolean)</a> - Method in class io.micronaut.microstream.rest.<a href="io/micronaut/microstream/rest/MicroStreamRestControllerConfigurationProperties.html" title="class in io.micronaut.microstream.rest">MicroStreamRestControllerConfigurationProperties</a></dt>
 <dd>
 <div class="block">Enables <a href="io/micronaut/microstream/rest/MicroStreamRestController.html" title="class in io.micronaut.microstream.rest"><code>MicroStreamRestController</code></a>.</div>
-</dd>
-<dt><a href="io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html#setEnableJdk17Types(boolean)" class="member-name-link">setEnableJdk17Types(boolean)</a> - Method in class io.micronaut.microstream.conf.<a href="io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html" title="class in io.micronaut.microstream.conf">DefaultEmbeddedStorageConfigurationProvider</a></dt>
-<dd>
-<div class="block">Configure whether JDK 17 type enhancements are enabled.</div>
 </dd>
 <dt><a href="io/micronaut/microstream/cache/MicroStreamCacheConfigurationProperties.html#setKeyType(java.lang.Class)" class="member-name-link">setKeyType(Class&lt;K&gt;)</a> - Method in class io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/MicroStreamCacheConfigurationProperties.html" title="class in io.micronaut.microstream.cache">MicroStreamCacheConfigurationProperties</a></dt>
 <dd>&nbsp;</dd>
@@ -530,6 +588,18 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Class of the Root Instance.</div>
 </dd>
+<dt><a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html#setRootClass(java.lang.Class)" class="member-name-link">setRootClass(Class&lt;?&gt;)</a> - Method in class io.micronaut.microstream.postgres.<a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html" title="class in io.micronaut.microstream.postgres">DefaultPostgresStorageConfigurationProvider</a></dt>
+<dd>
+<div class="block">Class of the Root Instance.</div>
+</dd>
+<dt><a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html#setRootClass(java.lang.Class)" class="member-name-link">setRootClass(Class&lt;?&gt;)</a> - Method in class io.micronaut.microstream.s3.<a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html" title="class in io.micronaut.microstream.s3">DefaultS3StorageConfigurationProvider</a></dt>
+<dd>
+<div class="block">Class of the Root Instance.</div>
+</dd>
+<dt><a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html#setS3ClientName(java.lang.String)" class="member-name-link">setS3ClientName(String)</a> - Method in class io.micronaut.microstream.s3.<a href="io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html" title="class in io.micronaut.microstream.s3">DefaultS3StorageConfigurationProvider</a></dt>
+<dd>
+<div class="block">The name qualifier of the defined S3Client to use.</div>
+</dd>
 <dt><a href="io/micronaut/microstream/cache/MicroStreamCacheConfigurationProperties.html#setStatisticsEnabled(java.lang.Boolean)" class="member-name-link">setStatisticsEnabled(Boolean)</a> - Method in class io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/MicroStreamCacheConfigurationProperties.html" title="class in io.micronaut.microstream.cache">MicroStreamCacheConfigurationProperties</a></dt>
 <dd>
 <div class="block">Whether statistics collection is enabled in this cache.</div>
@@ -540,6 +610,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">When a cache is storeByValue, any mutation to the key or value does not affect the key of value stored in the cache.</div>
 </dd>
+<dt><a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html#setTableName(java.lang.String)" class="member-name-link">setTableName(String)</a> - Method in class io.micronaut.microstream.postgres.<a href="io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html" title="class in io.micronaut.microstream.postgres">DefaultPostgresStorageConfigurationProvider</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/micronaut/microstream/cache/MicroStreamCacheConfigurationProperties.html#setValueType(java.lang.Class)" class="member-name-link">setValueType(Class&lt;V&gt;)</a> - Method in class io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/MicroStreamCacheConfigurationProperties.html" title="class in io.micronaut.microstream.cache">MicroStreamCacheConfigurationProperties</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/microstream/cache/MicroStreamCacheConfigurationProperties.html#setWriteThrough(java.lang.Boolean)" class="member-name-link">setWriteThrough(Boolean)</a> - Method in class io.micronaut.microstream.cache.<a href="io/micronaut/microstream/cache/MicroStreamCacheConfigurationProperties.html" title="class in io.micronaut.microstream.cache">MicroStreamCacheConfigurationProperties</a></dt>
