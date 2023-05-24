@@ -1,0 +1,44 @@
+Configuration of a https://docs.microstream.one/manual/storage/storage-targets/sql-databases/postgresql.html[Postgres storage target] requires a https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc[Postgres JDBC datasource to be defined]
+
+The following defines a datasource named `default` that connects to a Postgres database:
+
+[configuration]
+----
+datasources:
+    default:
+        url: jdbc:postgresql://host:port/database
+        username: «user»
+        password: «password»
+        driverClassName: org.postgresql.Driver
+----
+
+The Postgres Storage Target can then be configured as follows:
+
+[configuration]
+----
+microstream:
+    postgres:
+        storage:
+            default:                               # <1>
+                table-name: microstream            # <2>
+                root-class: com.example.model.Root # <3>
+----
+<1> The name for this Storage Manager
+<2> The name of the table to use in the database
+<3> The root class of the object graph to store
+
+The storage manager will first attempt to look up a DataSource with the same name as the Storage Manager, and if this is not found, it will attempt to look up an un-named DataSource.
+
+If you require to use a DataSource with a different name, this can be configured via the `datasource-name` property as below.
+
+[configuration]
+----
+microstream:
+    postgres:
+        storage:
+            backing:
+                table-name: microstream
+                root-class: com.example.model.Root
+                datasource-name: default # <1>
+----
+<1> The name of the DataSource to use

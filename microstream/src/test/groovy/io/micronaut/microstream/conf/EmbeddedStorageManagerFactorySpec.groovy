@@ -12,7 +12,7 @@ import spock.lang.Specification
 import spock.lang.TempDir
 
 @MicronautTest(startApplication = false)
-class StorageManagerFactorySpec extends Specification implements TestPropertyProvider {
+class EmbeddedStorageManagerFactorySpec extends Specification implements TestPropertyProvider {
 
     @Inject
     BeanContext beanContext

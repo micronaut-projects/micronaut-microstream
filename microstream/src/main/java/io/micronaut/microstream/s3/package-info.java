@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2022 original authors
+ * Copyright 2017-2023 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.conf;
-
-import io.micronaut.core.annotation.NonNull;
-import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfigurationBuilder;
-
 /**
- * @author Sergio del Amo
- * @since 1.0.0
+ * MicroStream Storage Target support for S3.
+ *
+ * @since 2.0.0
+ * @author Tim Yates
  */
-public interface EmbeddedStorageConfigurationProvider extends RootClassConfigurationProvider {
+@Requires(classes = S3Connector.class)
+@Requires(beans = S3Client.class)
+package io.micronaut.microstream.s3;
 
-    @NonNull
-    EmbeddedStorageConfigurationBuilder getBuilder();
-}
+import io.micronaut.context.annotation.Requires;
+import one.microstream.afs.aws.s3.types.S3Connector;
+import software.amazon.awssdk.services.s3.S3Client;
+

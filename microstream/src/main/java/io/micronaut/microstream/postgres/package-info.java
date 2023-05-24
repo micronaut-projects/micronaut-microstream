@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2022 original authors
+ * Copyright 2017-2023 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.conf;
-
-import io.micronaut.core.annotation.NonNull;
-import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfigurationBuilder;
-
 /**
- * @author Sergio del Amo
- * @since 1.0.0
+ * MicroStream Storage Target support for Postgres.
+ *
+ * @since 2.0.0
+ * @author Tim Yates
  */
-public interface EmbeddedStorageConfigurationProvider extends RootClassConfigurationProvider {
+@Requires(classes = {SqlProviderPostgres.class, SqlFileSystem.class})
+@Requires(beans = DataSource.class)
+package io.micronaut.microstream.postgres;
 
-    @NonNull
-    EmbeddedStorageConfigurationBuilder getBuilder();
-}
+import io.micronaut.context.annotation.Requires;
+import one.microstream.afs.sql.types.SqlFileSystem;
+import one.microstream.afs.sql.types.SqlProviderPostgres;
+
+import javax.sql.DataSource;

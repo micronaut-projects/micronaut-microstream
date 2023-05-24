@@ -18,6 +18,7 @@ include 'microstream-rest'
 include 'microstream-cache'
 
 include 'test-suite'
+include 'test-suite-utils'
 include 'test-suite-groovy'
 include 'test-suite-kotlin'
 
@@ -28,9 +29,11 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 micronautBuild {
     useStandardizedProjectNames = true
     importMicronautCatalog()
+    importMicronautCatalog("micronaut-aws")
     importMicronautCatalog("micronaut-cache")
     importMicronautCatalog("micronaut-logging")
     importMicronautCatalog("micronaut-micrometer")
     importMicronautCatalog("micronaut-serde")
+    importMicronautCatalog("micronaut-sql")
     importMicronautCatalog("micronaut-validation")
 }

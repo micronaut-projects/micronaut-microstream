@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2022 original authors
+ * Copyright 2017-2023 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,39 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.microstream.conf;
+package io.micronaut.microstream.postgres;
 
-import io.micronaut.context.annotation.ConfigurationBuilder;
 import io.micronaut.context.annotation.EachProperty;
 import io.micronaut.context.annotation.Parameter;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
-import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration;
-import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfigurationBuilder;
+
+import java.util.Optional;
 
 /**
- * @author Sergio del Amo
- * @since 1.0.0
+ * @author Tim Yates
+ * @since 2.0.0
  */
-@EachProperty("microstream.storage")
-public class DefaultEmbeddedStorageConfigurationProvider implements EmbeddedStorageConfigurationProvider {
+@EachProperty("microstream.postgres.storage")
+public class DefaultPostgresStorageConfigurationProvider implements PostgresStorageConfigurationProvider {
 
-    @ConfigurationBuilder
-    EmbeddedStorageConfigurationBuilder builder = EmbeddedStorageConfiguration.Builder();
-
-    @Nullable
+    @NonNull
     private Class<?> rootClass;
 
     private final String name;
 
-    public DefaultEmbeddedStorageConfigurationProvider(@Parameter String name) {
-        this.name = name;
-    }
+    @Nullable
+    private String datasourceName;
 
-    @Override
     @NonNull
-    public EmbeddedStorageConfigurationBuilder getBuilder() {
-        return builder;
+    private String tableName;
+
+    public DefaultPostgresStorageConfigurationProvider(@Parameter String name) {
+        this.name = name;
     }
 
     @Override
@@ -67,5 +63,35 @@ public class DefaultEmbeddedStorageConfigurationProvider implements EmbeddedStor
      */
     public void setRootClass(@NonNull Class<?> rootClass) {
         this.rootClass = rootClass;
+    }
+
+    @Override
+    @Nullable
+    public Optional<String> getDatasourceName() {
+        return Optional.ofNullable(datasourceName);
+    }
+
+    /**
+     * The name qualifier of the defined postgres DataSource to use.
+     * If unset, a datasource with the same name as the storage will be used.
+     * If there is no bean with a name qualifier matching the storage name, the default datasource will be used.
+     *
+     * @param datasourceName
+     */
+    public void setDatasourceName(@Nullable String datasourceName) {
+        this.datasourceName = datasourceName;
+    }
+
+    @Override
+    @NonNull
+    public String getTableName() {
+        return tableName;
+    }
+
+    /**
+     * @param tableName Name of the table to use.
+     */
+    public void setTableName(@NonNull String tableName) {
+        this.tableName = tableName;
     }
 }
