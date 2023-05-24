@@ -31,6 +31,8 @@ dependencies {
     testImplementation(mn.micronaut.http.client)
     testImplementation(projects.micronautMicrostreamAnnotations)
 
+    testImplementation(projects.testSuiteUtils)
+    
     // S3 connector tests
     testImplementation(libs.managed.microstream.aws.s3)
     testImplementation(mnAws.micronaut.aws.sdk.v2)

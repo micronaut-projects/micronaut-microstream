@@ -1,25 +1,30 @@
 package io.micronaut.microstream.s3
 
 import io.micronaut.context.BeanContext
-import io.micronaut.context.annotation.*
+import io.micronaut.context.annotation.ConfigurationBuilder
+import io.micronaut.context.annotation.ConfigurationProperties
+import io.micronaut.context.annotation.Factory
+import io.micronaut.context.annotation.Property
+import io.micronaut.context.annotation.Replaces
+import io.micronaut.context.annotation.Requires
 import io.micronaut.core.util.StringUtils
 import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.microstream.BaseStorageSpec
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
+import io.microstream.testutils.LocalStackUtils
+import io.microstream.testutils.S3Configuration
+import io.microstream.testutils.S3ConfigurationProperties
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation
 import one.microstream.storage.types.StorageManager
-import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
-import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider
-import software.amazon.awssdk.core.sync.RequestBody
-import software.amazon.awssdk.regions.Region
+import org.testcontainers.DockerClientFactory
 import software.amazon.awssdk.services.s3.S3Client
 import spock.lang.Shared
-import org.testcontainers.DockerClientFactory
 
 @spock.lang.Requires({ DockerClientFactory.instance().isDockerAvailable() })
 @MicronautTest
+@Property(name = "aws.bucket-name", value = S3StorageSpec.BUCKET_NAME)
 @Property(name = "microstream.s3.storage.foo.bucket-name", value = S3StorageSpec.BUCKET_NAME)
 @Property(name = "microstream.s3.storage.foo.root-class", value = 'io.micronaut.microstream.BaseStorageSpec$Root')
 @Property(name = "micronaut.metrics.enabled", value = StringUtils.FALSE)
@@ -68,42 +73,25 @@ class S3StorageSpec extends BaseStorageSpec {
     }
 
     // Use localstack config for the client
-
     @Factory
     @Requires(property = "spec.name", value = "S3StorageSpec")
     static class LocalStackClient {
-
         @Replaces(S3Client)
         @Singleton
         S3Client buildClient(S3Config s3Config) {
-            S3Client client = S3Client.builder()
-                    .endpointOverride(new URI(s3Config.s3.endpointOverride))
-                    .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(s3Config.accessKeyId, s3Config.secretKey)))
-                    .region(Region.of(s3Config.region))
-                    .build()
-            client.createBucket { it.bucket(BUCKET_NAME) }
-            try {
-                // localstack seems to require one of these that fails before the next one (from MicroStream) passes. I have no idea why.
-                client.putObject({ it.bucket(BUCKET_NAME).key("/") }, RequestBody.empty())
-            } catch (e) {
-                e.printStackTrace()
-            }
-            client
+            LocalStackUtils.s3Client(s3Config)
         }
     }
 
     @ConfigurationProperties("aws")
     @Requires(property = "spec.name", value = "S3StorageSpec")
-    static class S3Config {
-        String accessKeyId
-        String secretKey
-        String region
-
+    static class S3Config extends S3ConfigurationProperties {
         @ConfigurationBuilder(configurationPrefix = "services.s3")
-        final S3 s3 = new S3()
+        S3Configuration s3 = new S3Configuration()
 
-        static class S3 {
-            String endpointOverride
+        @Override
+        S3Configuration getS3Configuration() {
+            s3
         }
     }
 }

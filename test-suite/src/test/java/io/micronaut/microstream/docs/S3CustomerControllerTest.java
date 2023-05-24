@@ -16,7 +16,7 @@ class S3CustomerControllerTest extends BaseCustomerControllerTest {
     protected Map<String, Object> extraProperties() {
         return Map.of(
             "s3.test", StringUtils.TRUE,
-            "aws.test-bucket-name", BUCKET_NAME,
+            "aws.bucket-name", BUCKET_NAME,
             "microstream.s3.storage.main.bucket-name", BUCKET_NAME,
             "microstream.s3.storage.main.root-class", "io.micronaut.microstream.docs.Data",
             "micronaut.metrics.enabled", StringUtils.FALSE,

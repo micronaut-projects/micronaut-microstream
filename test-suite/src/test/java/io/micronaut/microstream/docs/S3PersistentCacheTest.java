@@ -25,7 +25,7 @@ class S3PersistentCacheTest {
         Map<String, Object> config = Map.of(
             "s3.test", StringUtils.TRUE,
             "micronaut.metrics.enabled", StringUtils.FALSE,
-            "aws.test-bucket-name", BUCKET_NAME,
+            "aws.bucket-name", BUCKET_NAME,
             "microstream.cache.counter.key-type", "java.lang.String",
             "microstream.cache.counter.value-type", "java.lang.Long",
             "microstream.cache.counter.storage", "cache",
