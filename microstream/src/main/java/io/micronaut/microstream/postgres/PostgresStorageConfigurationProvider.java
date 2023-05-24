@@ -27,9 +27,11 @@ import java.util.Optional;
 public interface PostgresStorageConfigurationProvider extends RootClassConfigurationProvider {
 
     /**
-     * The name of the defined datasource to use.  If unset, a datasource with the same name as the storage will be used.
+     * The name qualifier of the defined postgres DataSource to use.
+     * If unset, a datasource with the same name as the storage will be used.
+     * If there is no bean with a name qualifier matching the storage name, the default datasource will be used.
      *
-     * @return Returns the name of the datasource to use.
+     * @return Returns the name qualifier of the datasource to use.
      */
     @NonNull
     Optional<String> getDatasourceName();

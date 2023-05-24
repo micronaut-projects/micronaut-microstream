@@ -72,8 +72,11 @@ public class DefaultS3StorageConfigurationProvider implements S3StorageConfigura
     }
 
     /**
-     * Name of the s3 client to use.  If unset the client with the name of this storage will be used if available.
-     * @param s3ClientName the name of the S3 client to use
+     * The name qualifier of the defined S3Client to use.
+     * If unset, a client with the same name as the storage will be used.
+     * If there is no bean with a name qualifier matching the storage name, the default client will be used.
+     *
+     * @param s3ClientName the name qualifier of the S3Client to use
      */
     public void setS3ClientName(@Nullable String s3ClientName) {
         this.s3ClientName = s3ClientName;

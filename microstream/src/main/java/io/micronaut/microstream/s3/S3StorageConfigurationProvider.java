@@ -27,9 +27,11 @@ import java.util.Optional;
 public interface S3StorageConfigurationProvider extends RootClassConfigurationProvider {
 
     /**
-     * The name qualifier of the defined S3Client to use.  If unset, a client with the same name as the storage will be used.
+     * The name qualifier of the defined S3Client to use.
+     * If unset, a client with the same name as the storage will be used.
+     * If there is no bean with a name qualifier matching the storage name, the default client will be used.
      *
-     * @return Returns the name of the S3Client to use.
+     * @return Returns the name qualifier of the S3Client to use.
      */
     @NonNull
     Optional<String> getS3ClientName();
