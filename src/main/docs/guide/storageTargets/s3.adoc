@@ -1,4 +1,4 @@
-Configuration of an S3 storage target requires a https://micronaut-projects.github.io/micronaut-aws/latest/guide/#s3[S3Client bean to be defined].
+Configuration of an https://docs.microstream.one/manual/storage/storage-targets/blob-stores/aws-s3.html[S3 storage target] requires a https://micronaut-projects.github.io/micronaut-aws/latest/guide/#s3[S3Client bean to be defined].
 
 The configuration can then be defined as follows:
 
