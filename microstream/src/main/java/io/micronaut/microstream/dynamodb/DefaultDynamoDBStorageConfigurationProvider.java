@@ -23,7 +23,8 @@ import io.micronaut.core.annotation.Nullable;
 import java.util.Optional;
 
 /**
- * @author Tim Yates
+ * {@link EachProperty} implementation of {@link DynamoDbStorageConfigurationProvider}.
+ * @author Sergio del Amo
  * @since 2.0.0
  */
 @EachProperty("microstream.dynamodb.storage")
