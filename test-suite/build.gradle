@@ -38,7 +38,10 @@ dependencies {
     testImplementation(libs.managed.microstream.aws.s3)
     testImplementation(mnAws.micronaut.aws.sdk.v2)
 
+    testRuntimeOnly(libs.managed.microstream.aws.dynamodb)
+
     testImplementation(libs.testcontainers)
+    testImplementation(libs.testcontainers.junit.jupiter)
     testImplementation(projects.testSuiteUtils)
 }
 

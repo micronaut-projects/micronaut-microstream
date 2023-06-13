@@ -21,13 +21,13 @@ micronaut-aws = { module = "io.micronaut.aws:micronaut-aws-bom", version.ref = "
 # Required to get dependabot updates for micronaut-core
 micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'micronaut' }
 micronaut-cache = { module = "io.micronaut.cache:micronaut-cache-bom", version.ref = "micronaut-cache" }
-micronaut-logging = { module = "io.micronaut.logging:micronaut-logging-bom", version.ref = "micronaut-logging" }
 micronaut-micrometer = { module = "io.micronaut.micrometer:micronaut-micrometer-bom", version.ref = "micronaut-micrometer" }
 micronaut-serde = { module = "io.micronaut.serde:micronaut-serde-bom", version.ref = "micronaut-serde" }
 micronaut-sql = { module = "io.micronaut.sql:micronaut-sql-bom", version.ref = "micronaut-sql" }
 micronaut-validation = { module = "io.micronaut.validation:micronaut-validation-bom", version.ref = "micronaut-validation" }
 
 managed-microstream-aws-s3 = { module = 'one.microstream:microstream-afs-aws-s3', version.ref = 'managed-microstream' }
+managed-microstream-aws-dynamodb = { module = 'one.microstream:microstream-afs-aws-dynamodb', version.ref = 'managed-microstream' }
 managed-microstream-sql = { module = 'one.microstream:microstream-afs-sql', version.ref = 'managed-microstream' }
 managed-microstream-storage-embedded-configuration = { module = 'one.microstream:microstream-storage-embedded-configuration', version.ref = 'managed-microstream' }
 managed-microstream-cache = { module = 'one.microstream:microstream-cache', version.ref = 'managed-microstream' }
@@ -38,6 +38,7 @@ microstream-persistence-binary-jdk8 = { module = 'one.microstream:microstream-pe
 microstream-persistence-binary-jdk17 = { module = 'one.microstream:microstream-persistence-binary-jdk17', version.ref = 'managed-microstream' }
 
 testcontainers = { module = "org.testcontainers:testcontainers", version.ref = "testcontainers" }
+testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter", version.ref = "testcontainers" }
 jupiter-jupiter-params = { module = 'org.junit.jupiter:junit-jupiter-params' }
 jupiter-api = { module = 'org.junit.jupiter:junit-jupiter-api' }
 junit-jupiter-engine = { module = 'org.junit.jupiter:junit-jupiter-engine' }

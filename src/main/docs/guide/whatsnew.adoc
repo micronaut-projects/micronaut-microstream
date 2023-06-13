@@ -1,0 +1,1 @@
+Since Micronaut MicroStream 2, you can use <<storageTargets, Storage Targets>> such as PostgreSQL, Amazon S3 and DynamoDB.

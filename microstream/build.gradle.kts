@@ -10,6 +10,7 @@ dependencies {
     compileOnly(mnMicrometer.micronaut.micrometer.core)
     compileOnly(projects.micronautMicrostreamAnnotations)
     compileOnly(libs.managed.microstream.aws.s3)
+    compileOnly(libs.managed.microstream.aws.dynamodb)
     compileOnly(libs.managed.microstream.sql)
     compileOnly(mnAws.micronaut.aws.sdk.v2)
     compileOnly(mn.micronaut.management)
@@ -32,7 +33,7 @@ dependencies {
     testImplementation(projects.micronautMicrostreamAnnotations)
 
     testImplementation(projects.testSuiteUtils)
-    
+
     // S3 connector tests
     testImplementation(libs.managed.microstream.aws.s3)
     testImplementation(mnAws.micronaut.aws.sdk.v2)
@@ -41,6 +42,9 @@ dependencies {
     testImplementation(libs.managed.microstream.sql)
     testImplementation(mnSql.micronaut.jdbc.hikari)
     testRuntimeOnly(mnSql.postgresql)
+
+    // DynamoDB tests
+    testImplementation(libs.managed.microstream.aws.dynamodb)
 
     testRuntimeOnly(mnLogging.logback.classic)
 }
