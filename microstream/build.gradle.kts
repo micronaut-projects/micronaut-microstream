@@ -36,13 +36,15 @@ dependencies {
 
     // S3 connector tests
     testImplementation(libs.managed.microstream.aws.s3)
-    testImplementation(libs.managed.microstream.aws.dynamodb)
     testImplementation(mnAws.micronaut.aws.sdk.v2)
 
     // Postgres connector tests
     testImplementation(libs.managed.microstream.sql)
     testImplementation(mnSql.micronaut.jdbc.hikari)
     testRuntimeOnly(mnSql.postgresql)
+
+    // DynamoDB tests
+    testImplementation(libs.managed.microstream.aws.dynamodb)
 
     testRuntimeOnly(mnLogging.logback.classic)
 }
