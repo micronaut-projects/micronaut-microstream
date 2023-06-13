@@ -28,6 +28,7 @@ micronaut-sql = { module = "io.micronaut.sql:micronaut-sql-bom", version.ref = "
 micronaut-validation = { module = "io.micronaut.validation:micronaut-validation-bom", version.ref = "micronaut-validation" }
 
 managed-microstream-aws-s3 = { module = 'one.microstream:microstream-afs-aws-s3', version.ref = 'managed-microstream' }
+managed-microstream-aws-dynamodb = { module = 'one.microstream:microstream-afs-aws-dynamodb', version.ref = 'managed-microstream' }
 managed-microstream-sql = { module = 'one.microstream:microstream-afs-sql', version.ref = 'managed-microstream' }
 managed-microstream-storage-embedded-configuration = { module = 'one.microstream:microstream-storage-embedded-configuration', version.ref = 'managed-microstream' }
 managed-microstream-cache = { module = 'one.microstream:microstream-cache', version.ref = 'managed-microstream' }
