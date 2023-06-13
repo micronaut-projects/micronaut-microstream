@@ -4,7 +4,6 @@ import io.micronaut.context.annotation.Requires
 import io.micronaut.context.annotation.Value
 import io.micronaut.context.event.BeanCreatedEvent
 import io.micronaut.context.event.BeanCreatedEventListener
-import io.micronaut.context.exceptions.ConfigurationException
 import jakarta.inject.Singleton
 import software.amazon.awssdk.auth.credentials.AwsCredentials
 import software.amazon.awssdk.services.dynamodb.DynamoDbClientBuilder
@@ -14,17 +13,14 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClientBuilder
 @Singleton
 class DynamoDbClientBuilderListener
         implements BeanCreatedEventListener<DynamoDbClientBuilder> {
+
     private final URI endpoint
     private final String accessKeyId
     private final String secretAccessKey
 
     DynamoDbClientBuilderListener(@Value('${dynamodb-local.host}') String host,
                                   @Value('${dynamodb-local.port}') String port) {
-        try {
-            this.endpoint = new URI("http://${host}:${port}".toString())
-        } catch (URISyntaxException e) {
-            throw new ConfigurationException("dynamodb.endpoint not a valid URI")
-        }
+        this.endpoint = "http://${host}:${port}".toURI()
         this.accessKeyId = "fakeMyKeyId"
         this.secretAccessKey = "fakeSecretAccessKey"
     }
