@@ -1,6 +1,7 @@
 introduction:
   title: Introduction
 releaseHistory: Release History
+whatsnew: What's New
 dependency: Dependency
 configuration: Configuration
 rootInstance: Root Instance
@@ -13,6 +14,7 @@ storageTargets:
   title: Storage Targets
   postgres: Postgres
   s3: S3
+  dynamodb: DynamoDB
 cache:
   title: Cache
   cacheConfiguration: Cache Configuration
