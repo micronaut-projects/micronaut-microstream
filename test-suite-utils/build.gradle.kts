@@ -4,4 +4,5 @@ plugins {
 }
 dependencies {
     implementation(libs.managed.microstream.aws.s3)
+    implementation(libs.testcontainers)
 }

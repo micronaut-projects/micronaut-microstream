@@ -6,7 +6,7 @@ import io.micronaut.core.annotation.NonNull
 import io.micronaut.core.util.StringUtils
 import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.microstream.BaseStorageSpec
-import io.micronaut.microstream.s3.S3StorageConfigurationProvider
+import io.micronaut.microstream.testutils.DynamoDbLocal
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
 import jakarta.inject.Inject
@@ -14,9 +14,11 @@ import one.microstream.storage.embedded.types.EmbeddedStorageFoundation
 import one.microstream.storage.types.StorageManager
 import org.testcontainers.DockerClientFactory
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient
-import software.amazon.awssdk.services.s3.S3Client
+import spock.lang.AutoCleanup
+import spock.lang.Requires
+import spock.lang.Shared
 
-@spock.lang.Requires({ DockerClientFactory.instance().isDockerAvailable() })
+@Requires({ DockerClientFactory.instance().isDockerAvailable() })
 @Property(name = "micronaut.metrics.enabled", value = StringUtils.FALSE)
 @Property(name = "microstream.dynamodb.storage.foobar.table-name", value = "foobartable")
 @Property(name = "microstream.dynamodb.storage.foobar.root-class", value = 'io.micronaut.microstream.BaseStorageSpec$Root')
@@ -24,17 +26,22 @@ import software.amazon.awssdk.services.s3.S3Client
 @Property(name = "spec.name", value = "DynamoDbStorageSpec")
 @MicronautTest
 class DynamoDbStorageSpec extends BaseStorageSpec implements TestPropertyProvider {
-    @NonNull
-    @Override
-    Map<String, String> getProperties() {
-        return DynamoDbLocal.getProperties();
-    }
+
+    @Shared
+    @AutoCleanup
+    DynamoDbLocal dynamoDbLocal = new DynamoDbLocal()
 
     @Inject
     BeanContext beanContext
 
     @Inject
     CustomerRepository customerRepository
+
+    @NonNull
+    @Override
+    Map<String, String> getProperties() {
+        return dynamoDbLocal.getProperties();
+    }
 
     void "expected beans are created"() {
         expect:
