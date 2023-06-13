@@ -18,4 +18,11 @@
  * @author Sergio del Amo
  * @since 2.0.0
  */
+@Requires(classes = {DynamoDbConnector.class, BlobStoreFileSystem.class})
+@Requires(beans = {DynamoDbClient.class})
 package io.micronaut.microstream.dynamodb;
+
+import io.micronaut.context.annotation.Requires;
+import one.microstream.afs.aws.dynamodb.types.DynamoDbConnector;
+import one.microstream.afs.blobstore.types.BlobStoreFileSystem;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
