@@ -24,7 +24,8 @@ class DynamoDbCustomerControllerTest extends BaseCustomerControllerTest {
         properties.putAll(Map.of(
             "microstream.dynamodb.storage.main.table-name", "foobartable",
             "microstream.dynamodb.storage.main.root-class", "io.micronaut.microstream.docs.Data",
-            "micronaut.metrics.enabled", StringUtils.FALSE
+            "micronaut.metrics.enabled", StringUtils.FALSE,
+            "micronaut.http.client.read-timeout", "60s" // We need to increase this for the dynamodb image to be pulled
         ));
         return properties;
     }
