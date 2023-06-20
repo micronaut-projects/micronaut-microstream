@@ -1,6 +1,6 @@
 To use the MicroStream cache abstraction, you must declare a dependency on
 
-dependency:micronaut-microstream-cache[group="io.micronaut.microstream"]
+dependency:micronaut-microstream-cache[groupId="io.micronaut.microstream"]
 
 You can then define a cache by adding the following configuration to your application:
 
