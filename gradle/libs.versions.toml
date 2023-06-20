@@ -7,7 +7,7 @@ spock = "2.3-groovy-4.0"
 testcontainers = "1.18.1"
 managed-microstream='08.01.00-MS-GA'
 
-micronaut-aws = "4.0.0-M10"
+micronaut-aws = "4.0.0-M11"
 micronaut-cache = "4.0.0-M5"
 micronaut-logging = "1.0.0-M2"
 micronaut-micrometer = "5.0.0-M4"
