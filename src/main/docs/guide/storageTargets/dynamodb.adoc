@@ -1,5 +1,13 @@
 Configuration of an https://docs.microstream.one/manual/storage/storage-targets/blob-stores/aws-dynamodb.html[DynamoDB storage target] requires a https://micronaut-projects.github.io/micronaut-aws/latest/guide/#dynamodb[DynamoDbClient bean to be defined].
 
+To get started, add the following dependencies:
+
+dependency:dynamodb[groupId=software.amazon.awssdk,scope=runtime]
+
+dependency:micronaut-aws-sdk-v2[groupId=io.micronaut.aws,scope=runtime]
+
+dependency:microstream-afs-aws-dynamodb[groupId=one.microstream,scope=runtime]
+
 The configuration can then be defined as follows:
 
 [configuration]
