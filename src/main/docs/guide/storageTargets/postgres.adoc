@@ -1,5 +1,13 @@
 Configuration of a https://docs.microstream.one/manual/storage/storage-targets/sql-databases/postgresql.html[Postgres storage target] requires a https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc[Postgres JDBC datasource to be defined]
 
+To get started, add the following dependencies:
+
+dependency:micronaut-jdbc-hikari[groupId=io.micronaut.sql,scope=runtime]
+
+dependency:postgresql[groupId=org.postgresql,scope=runtime]
+
+dependency:microstream-afs-sql[groupId=one.microstream,scope=runtime]
+
 The following defines a datasource named `default` that connects to a Postgres database:
 
 [configuration]
