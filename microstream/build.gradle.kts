@@ -3,7 +3,7 @@ import io.micronaut.testresources.buildtools.KnownModules.LOCALSTACK_S3
 
 plugins {
     id("io.micronaut.internal.build.microstream-module")
-    id("io.micronaut.test-resources") version "4.0.0-M4"
+    id("io.micronaut.test-resources") version "4.0.0-M6"
 }
 
 dependencies {
