@@ -1,6 +1,6 @@
 [versions]
 micronaut-docs = "2.0.0"
-micronaut = "4.0.0-RC4"
+micronaut = "4.0.0-RC5"
 groovy = "4.0.12"
 kotlin = "1.8.22"
 spock = "2.3-groovy-4.0"
@@ -8,13 +8,13 @@ testcontainers = "1.18.3"
 managed-microstream='08.01.01-MS-GA'
 
 micronaut-aws = "4.0.0-M11"
-micronaut-cache = "4.0.0-M5"
+micronaut-cache = "4.0.0-M6"
 micronaut-logging = "1.0.0-M5"
-micronaut-micrometer = "5.0.0-M5"
-micronaut-serde = "2.0.0-M12"
+micronaut-micrometer = "5.0.0-M6"
+micronaut-serde = "2.0.0-M13"
 micronaut-sql = "5.0.0-M12"
-micronaut-test = "4.0.0-M8"
-micronaut-validation = "4.0.0-M11"
+micronaut-test = "4.0.0-M9"
+micronaut-validation = "4.0.0-M12"
 
 [libraries]
 micronaut-aws = { module = "io.micronaut.aws:micronaut-aws-bom", version.ref = "micronaut-aws" }
