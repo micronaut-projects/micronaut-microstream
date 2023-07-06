@@ -142,46 +142,9 @@
 </div>
 <div class="sect2">
 <h3 id="_micronaut_microstream_config_properties">Micronaut Microstream Config Properties</h3>
-<a id="io.micronaut.microstream.postgres.DefaultPostgresStorageConfigurationProvider" href="#io.micronaut.microstream.postgres.DefaultPostgresStorageConfigurationProvider">&#128279;</a>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Configuration Properties for <a href="../api/io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html">DefaultPostgresStorageConfigurationProvider</a></caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.postgres.storage.*.root-class</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Class</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Class of the Root Instance.
- &lt;a href="https://docs.microstream.one/manual/storage/root-instances.html"&gt;Root Instances&lt;/a&gt;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.postgres.storage.*.datasource-name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The name qualifier of the defined postgres DataSource to use.
- If unset, a datasource with the same name as the storage will be used.
- If there is no bean with a name qualifier matching the storage name, the default datasource will be used.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.postgres.storage.*.table-name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the table to use.</p></td>
-</tr>
-</tbody>
-</table>
-<div style="page-break-after: always;"></div>
 <a id="io.micronaut.microstream.conf.MicroStreamConfigurationProperties" href="#io.micronaut.microstream.conf.MicroStreamConfigurationProperties">&#128279;</a>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Configuration Properties for <a href="../api/io/micronaut/microstream/conf/MicroStreamConfigurationProperties.html">MicroStreamConfigurationProperties</a></caption>
+<caption class="title">Table 3. Configuration Properties for <a href="../api/io/micronaut/microstream/conf/MicroStreamConfigurationProperties.html">MicroStreamConfigurationProperties</a></caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -203,9 +166,9 @@
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
-<a id="io.micronaut.microstream.dynamodb.DefaultDynamoDBStorageConfigurationProvider" href="#io.micronaut.microstream.dynamodb.DefaultDynamoDBStorageConfigurationProvider">&#128279;</a>
+<a id="io.micronaut.microstream.s3.DefaultS3StorageConfigurationProvider" href="#io.micronaut.microstream.s3.DefaultS3StorageConfigurationProvider">&#128279;</a>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. Configuration Properties for <a href="../api/io/micronaut/microstream/dynamodb/DefaultDynamoDBStorageConfigurationProvider.html">DefaultDynamoDBStorageConfigurationProvider</a></caption>
+<caption class="title">Table 4. Configuration Properties for <a href="../api/io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html">DefaultS3StorageConfigurationProvider</a></caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -220,29 +183,29 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.dynamodb.storage.*.root-class</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.s3.storage.*.root-class</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Class</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Class of the Root Instance.
  &lt;a href="https://docs.microstream.one/manual/storage/root-instances.html"&gt;Root Instances&lt;/a&gt;</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.dynamodb.storage.*.dynamo-db-client-name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.s3.storage.*.s3-client-name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The name qualifier of the defined DynamoDB Client to use.
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name qualifier of the defined S3Client to use.
  If unset, a client with the same name as the storage will be used.
  If there is no bean with a name qualifier matching the storage name, the default client will be used.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.dynamodb.storage.*.table-name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.s3.storage.*.bucket-name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the DynamoDB table to use.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the bucket to use.</p></td>
 </tr>
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
 <a id="io.micronaut.microstream.conf.DefaultEmbeddedStorageConfigurationProvider" href="#io.micronaut.microstream.conf.DefaultEmbeddedStorageConfigurationProvider">&#128279;</a>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. Configuration Properties for <a href="../api/io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html">DefaultEmbeddedStorageConfigurationProvider</a></caption>
+<caption class="title">Table 5. Configuration Properties for <a href="../api/io/micronaut/microstream/conf/DefaultEmbeddedStorageConfigurationProvider.html">DefaultEmbeddedStorageConfigurationProvider</a></caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -385,9 +348,9 @@
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
-<a id="io.micronaut.microstream.s3.DefaultS3StorageConfigurationProvider" href="#io.micronaut.microstream.s3.DefaultS3StorageConfigurationProvider">&#128279;</a>
+<a id="io.micronaut.microstream.postgres.DefaultPostgresStorageConfigurationProvider" href="#io.micronaut.microstream.postgres.DefaultPostgresStorageConfigurationProvider">&#128279;</a>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. Configuration Properties for <a href="../api/io/micronaut/microstream/s3/DefaultS3StorageConfigurationProvider.html">DefaultS3StorageConfigurationProvider</a></caption>
+<caption class="title">Table 6. Configuration Properties for <a href="../api/io/micronaut/microstream/postgres/DefaultPostgresStorageConfigurationProvider.html">DefaultPostgresStorageConfigurationProvider</a></caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -402,22 +365,59 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.s3.storage.*.root-class</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.postgres.storage.*.root-class</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Class</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Class of the Root Instance.
  &lt;a href="https://docs.microstream.one/manual/storage/root-instances.html"&gt;Root Instances&lt;/a&gt;</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.s3.storage.*.s3-client-name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.postgres.storage.*.datasource-name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The name qualifier of the defined S3Client to use.
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name qualifier of the defined postgres DataSource to use.
+ If unset, a datasource with the same name as the storage will be used.
+ If there is no bean with a name qualifier matching the storage name, the default datasource will be used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.postgres.storage.*.table-name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the table to use.</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<a id="io.micronaut.microstream.dynamodb.DefaultDynamoDBStorageConfigurationProvider" href="#io.micronaut.microstream.dynamodb.DefaultDynamoDBStorageConfigurationProvider">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. Configuration Properties for <a href="../api/io/micronaut/microstream/dynamodb/DefaultDynamoDBStorageConfigurationProvider.html">DefaultDynamoDBStorageConfigurationProvider</a></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.dynamodb.storage.*.root-class</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Class</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Class of the Root Instance.
+ &lt;a href="https://docs.microstream.one/manual/storage/root-instances.html"&gt;Root Instances&lt;/a&gt;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.dynamodb.storage.*.dynamo-db-client-name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name qualifier of the defined DynamoDB Client to use.
  If unset, a client with the same name as the storage will be used.
  If there is no bean with a name qualifier matching the storage name, the default client will be used.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.s3.storage.*.bucket-name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microstream.dynamodb.storage.*.table-name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the bucket to use.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the DynamoDB table to use.</p></td>
 </tr>
 </tbody>
 </table>
