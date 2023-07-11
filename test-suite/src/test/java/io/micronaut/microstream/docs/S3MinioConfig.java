@@ -9,7 +9,7 @@ import io.micronaut.microstream.testutils.S3ConfigurationProperties;
 
 @ConfigurationProperties("aws")
 @Requires(property = "s3.test", value = StringUtils.TRUE)
-class S3LocalstackConfig extends S3ConfigurationProperties {
+class S3MinioConfig extends S3ConfigurationProperties {
     @ConfigurationBuilder(configurationPrefix = "services.s3")
     S3Configuration s3 = new S3Configuration();
 

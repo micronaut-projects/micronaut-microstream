@@ -50,6 +50,5 @@ micronaut {
     testResources {
         enabled.set(true)
         additionalModules.add("jdbc-postgresql")
-        additionalModules.add("localstack-s3")
     }
 }
