@@ -13,8 +13,10 @@ public class DynamoDbLocal extends GenericContainer<DynamoDbLocal> {
 
     public Map<String, Object> getProperties() {
         this.start();
-        return Map.of("dynamodb-local.host", "localhost",
-                "dynamodb-local.port", getFirstMappedPort()
+        return Map.of(
+            "dynamodb-local.host", "localhost",
+            "dynamodb-local.port", getFirstMappedPort(),
+            "aws.region", "us-east-1"
         );
     }
 }
