@@ -35,7 +35,7 @@ public final class LocalStackUtils {
         // Localstack needs some time to sort the bucket out it seems especially on CI
         LOG.info("buckets {}", client.listBuckets().buckets());
         try {
-            Thread.sleep(1000);
+            Thread.sleep(5000);
         } catch (InterruptedException ignored) {
         }
         try {
