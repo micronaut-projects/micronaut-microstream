@@ -20,22 +20,16 @@ public final class LocalStackUtils {
 
     @SuppressWarnings("java:S2142")
     public static S3Client s3Client(S3ConfigurationProperties s3Config) throws URISyntaxException {
-        LOG.info("creating s3 client with endpoint {}, accessKey {} and secret {} for region {}",
-                s3Config.getS3Configuration().getEndpointOverride(),
-                s3Config.getAccessKeyId(),
-                s3Config.getSecretKey(),
-                s3Config.getRegion()
-        );
+        LOG.info("creating s3 client with config {}", s3Config);
         S3Client client = S3Client.builder()
             .endpointOverride(new URI(s3Config.getS3Configuration().getEndpointOverride()))
             .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(s3Config.getAccessKeyId(), s3Config.getSecretKey())))
             .region(Region.of(s3Config.getRegion()))
             .build();
         client.createBucket(b -> b.bucket(s3Config.getBucketName()));
-        // Localstack needs some time to sort the bucket out it seems especially on CI
-        LOG.info("buckets {}", client.listBuckets().buckets());
+        // Localstack needs some time to sort the bucket out it seems
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException ignored) {
         }
         try {
@@ -43,7 +37,7 @@ public final class LocalStackUtils {
             PutObjectResponse putObjectResponse = client.putObject(b -> b.bucket(s3Config.getBucketName()).key("/"), RequestBody.empty());
             LOG.info("put object response {}", putObjectResponse);
         } catch (Exception e) {
-            LOG.error("caught error putting object at /");
+            LOG.error("exception creating a dummy bucket", e);
         }
         return client;
     }
