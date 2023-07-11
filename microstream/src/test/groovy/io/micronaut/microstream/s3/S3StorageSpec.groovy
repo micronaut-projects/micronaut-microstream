@@ -7,19 +7,23 @@ import io.micronaut.context.annotation.Factory
 import io.micronaut.context.annotation.Property
 import io.micronaut.context.annotation.Replaces
 import io.micronaut.context.annotation.Requires
+import io.micronaut.core.annotation.NonNull
 import io.micronaut.core.util.StringUtils
 import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.microstream.BaseStorageSpec
+import io.micronaut.microstream.testutils.MinioLocal
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import io.micronaut.microstream.testutils.LocalStackUtils
+import io.micronaut.microstream.testutils.MinioUtils
 import io.micronaut.microstream.testutils.S3Configuration
 import io.micronaut.microstream.testutils.S3ConfigurationProperties
+import io.micronaut.test.support.TestPropertyProvider
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation
 import one.microstream.storage.types.StorageManager
 import org.testcontainers.DockerClientFactory
 import software.amazon.awssdk.services.s3.S3Client
+import spock.lang.AutoCleanup
 import spock.lang.Shared
 
 @spock.lang.Requires({ DockerClientFactory.instance().isDockerAvailable() })
@@ -30,9 +34,13 @@ import spock.lang.Shared
 @Property(name = "micronaut.metrics.enabled", value = StringUtils.FALSE)
 @Property(name = "spec.type", value = "storage")
 @Property(name = "spec.name", value = "S3StorageSpec")
-class S3StorageSpec extends BaseStorageSpec {
+class S3StorageSpec extends BaseStorageSpec implements TestPropertyProvider {
 
     static final String BUCKET_NAME = "microstreamfoo"
+
+    @Shared
+    @AutoCleanup
+    MinioLocal minioLocal = new MinioLocal()
 
     @Inject
     BeanContext beanContext
@@ -49,6 +57,12 @@ class S3StorageSpec extends BaseStorageSpec {
             println "Deleting ${o.key()}"
             client.deleteObject { it.bucket(BUCKET_NAME).key(o.key()) }
         }
+    }
+
+    @NonNull
+    @Override
+    Map<String, String> getProperties() {
+        return minioLocal.getProperties();
     }
 
     void "expected beans are created"() {
@@ -72,14 +86,14 @@ class S3StorageSpec extends BaseStorageSpec {
         noExceptionThrown()
     }
 
-    // Use localstack config for the client
+    // Use Minio config for the client
     @Factory
     @Requires(property = "spec.name", value = "S3StorageSpec")
-    static class LocalStackClient {
+    static class MinioClient {
         @Replaces(S3Client)
         @Singleton
         S3Client buildClient(S3Config s3Config) {
-            LocalStackUtils.s3Client(s3Config)
+            MinioUtils.s3Client(s3Config)
         }
     }
 

@@ -6,13 +6,16 @@ import io.micronaut.context.annotation.ConfigurationProperties
 import io.micronaut.context.annotation.Factory
 import io.micronaut.context.annotation.Property
 import io.micronaut.context.annotation.Requires
+import io.micronaut.core.annotation.NonNull
 import io.micronaut.core.util.StringUtils
 import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.microstream.BaseStorageSpec
+import io.micronaut.microstream.testutils.MinioLocal
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import io.micronaut.microstream.testutils.LocalStackUtils
+import io.micronaut.microstream.testutils.MinioUtils
 import io.micronaut.microstream.testutils.S3Configuration
 import io.micronaut.microstream.testutils.S3ConfigurationProperties
+import io.micronaut.test.support.TestPropertyProvider
 import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.inject.Singleton
@@ -20,6 +23,7 @@ import one.microstream.storage.embedded.types.EmbeddedStorageFoundation
 import one.microstream.storage.types.StorageManager
 import org.testcontainers.DockerClientFactory
 import software.amazon.awssdk.services.s3.S3Client
+import spock.lang.AutoCleanup
 import spock.lang.Shared
 
 @spock.lang.Requires({ DockerClientFactory.instance().isDockerAvailable() })
@@ -31,10 +35,14 @@ import spock.lang.Shared
 @Property(name = "micronaut.metrics.enabled", value = StringUtils.FALSE)
 @Property(name = "spec.type", value = "storage")
 @Property(name = "spec.name", value = "NamedS3StorageSpec")
-class NamedS3StorageSpec extends BaseStorageSpec {
+class NamedS3StorageSpec extends BaseStorageSpec implements TestPropertyProvider {
 
     static final String BUCKET_NAME = "microstreamfoo"
     static final String OTHER_CLIENT_NAME = "other"
+
+    @Shared
+    @AutoCleanup
+    MinioLocal minioLocal = new MinioLocal()
 
     @Inject
     BeanContext beanContext
@@ -46,6 +54,12 @@ class NamedS3StorageSpec extends BaseStorageSpec {
 
     @Inject
     CustomerRepository customerRepository
+
+    @NonNull
+    @Override
+    Map<String, String> getProperties() {
+        return minioLocal.getProperties();
+    }
 
     def cleanup() {
         client.listObjectsV2 { it.bucket(BUCKET_NAME) }.contents().each { o ->
@@ -75,15 +89,15 @@ class NamedS3StorageSpec extends BaseStorageSpec {
         noExceptionThrown()
     }
 
-    // Use localstack config for the client
+    // Use minio config for the client
     @Factory
     @Requires(property = "spec.name", value = "NamedS3StorageSpec")
-    static class LocalStackClient {
+    static class MinioClient {
 
         @Singleton
         @Named(OTHER_CLIENT_NAME)
         S3Client buildClient(S3Config s3Config) {
-            LocalStackUtils.s3Client(s3Config)
+            MinioUtils.s3Client(s3Config)
         }
     }
 

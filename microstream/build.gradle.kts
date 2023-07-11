@@ -1,9 +1,8 @@
 import io.micronaut.testresources.buildtools.KnownModules.JDBC_POSTGRESQL
-import io.micronaut.testresources.buildtools.KnownModules.LOCALSTACK_S3
 
 plugins {
     id("io.micronaut.internal.build.microstream-module")
-    id("io.micronaut.test-resources") version "4.0.0-M7"
+    id("io.micronaut.test-resources") version "4.0.0-M8"
 }
 
 dependencies {
@@ -53,7 +52,6 @@ micronaut {
     importMicronautPlatform.set(false)
     testResources {
         enabled.set(true)
-        additionalModules.add(LOCALSTACK_S3)
         additionalModules.add(JDBC_POSTGRESQL)
     }
 }
