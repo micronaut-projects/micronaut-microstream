@@ -13,6 +13,7 @@ import spock.lang.Specification
 @Property(name = "microstream.dynamodb.storage.red.root-class", value = 'io.micronaut.microstream.BaseStorageSpec$Root')
 @Property(name = "microstream.dynamodb.storage.blue.table-name", value = "bluetable")
 @Property(name = "microstream.dynamodb.storage.blue.root-class", value = 'io.micronaut.microstream.BaseStorageSpec$Root')
+@Property(name = "aws.region", value = "us-east-1")
 @MicronautTest(startApplication = false)
 class DynamoDbStorageConfigurationProviderSpec extends Specification {
 
