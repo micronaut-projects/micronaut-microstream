@@ -8,7 +8,7 @@ testcontainers = "1.18.3"
 managed-microstream='08.01.01-MS-GA'
 
 micronaut-aws = "4.0.2"
-micronaut-cache = "4.0.0"
+micronaut-cache = "4.0.2"
 micronaut-logging = "1.0.0"
 micronaut-micrometer = "5.0.0"
 micronaut-serde = "2.0.0"
