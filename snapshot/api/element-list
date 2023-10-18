@@ -9,3 +9,4 @@ io.micronaut.microstream.metrics
 io.micronaut.microstream.postgres
 io.micronaut.microstream.rest
 io.micronaut.microstream.s3
+io.micronaut.microstream.testutils
