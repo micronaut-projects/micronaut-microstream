@@ -2,7 +2,7 @@ import io.micronaut.testresources.buildtools.KnownModules.JDBC_POSTGRESQL
 
 plugins {
     id("io.micronaut.internal.build.microstream-module")
-    id("io.micronaut.test-resources") version "4.1.1"
+    id("io.micronaut.test-resources") version "4.1.2"
 }
 
 dependencies {
