@@ -4,8 +4,6 @@ import io.micronaut.core.util.StringUtils;
 import org.junit.jupiter.api.condition.EnabledIf;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.testcontainers.DockerClientFactory;
-
 import java.util.Map;
 import java.util.UUID;
 
