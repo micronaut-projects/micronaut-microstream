@@ -1,11 +1,13 @@
 plugins {
     id("java-library")
     id("io.micronaut.build.internal.common")
-    id("io.micronaut.internal.build.microstream-base")
+    id("io.micronaut.internal.build.eclipsestore-base")
 }
 
 dependencies {
-    implementation(libs.managed.microstream.aws.s3)
+    implementation(libs.managed.eclipsestore.aws.s3)
+    implementation(platform(mnAws.micronaut.aws.bom))
+    implementation(libs.awssdk.s3)
     implementation(libs.testcontainers)
 }
 

@@ -1,0 +1,3 @@
+io.micronaut.eclipsestore.annotations.StoreRootAnnotationMapper
+io.micronaut.eclipsestore.annotations.StoreReturnAnnotationMapper
+io.micronaut.eclipsestore.annotations.StoreParamsAnnotationMapper

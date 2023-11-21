@@ -1,3 +1,3 @@
-The simplest way of interacting with this REST API is to use the MicroStream client GUI.
+The simplest way of interacting with this REST API is to use the EclipseStore client GUI.
 
-Instructions on downloading and running this https://docs.microstream.one/manual/storage/rest-interface/client-gui.html[can be found here].
+Instructions on downloading and running this https://docs.eclipsestore.io/manual/storage/rest-interface/client-gui.html[can be found here].

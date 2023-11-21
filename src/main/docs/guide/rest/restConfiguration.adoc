@@ -1,13 +1,13 @@
-The API path is `/microstream` by default.
+The API path is `/eclipsestore` by default.
 
-NOTE: When multiple storage managers are defined, the URL must be suffixed by the manager name `/microstream/«storage-name»`.
+NOTE: When multiple storage managers are defined, the URL must be suffixed by the manager name `/eclipsestore/«storage-name»`.
 
 This prefix can be configured via the configuration.
 
 [source,yaml]
 .src/main/resources/application.yml
 ----
-microstream:
+eclipsestore:
   rest:
     path: custom-prefix
 ----

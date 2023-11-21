@@ -1,7 +1,7 @@
-https://docs.micronaut.io/latest/guide/#healthEndpoint[Health Endpoint] exposes the status of the MicroStream Instances in your Micronaut Application.
+https://docs.micronaut.io/latest/guide/#healthEndpoint[Health Endpoint] exposes the status of the EclipseStore Instances in your Micronaut Application.
 
 After you add the https://docs.micronaut.io/latest/guide/#management[`management`] dependency,
-the `/health` endpoint of a Micronaut application with one MicroStream instance named `blue` will return:
+the `/health` endpoint of a Micronaut application with one EclipseStore instance named `blue` will return:
 
 [source,json]
 ----
@@ -9,7 +9,7 @@ the `/health` endpoint of a Micronaut application with one MicroStream instance 
   "name": "application",
   "status": "UP",
   "details": {
-    "microstream.blue": {
+    "eclipsestore.blue": {
       "name": "application",
       "status": "UP",
       "details": {
@@ -28,12 +28,12 @@ the `/health` endpoint of a Micronaut application with one MicroStream instance 
 
 NOTE: By default, the details visible above are only shown to authenticated users. See the https://docs.micronaut.io/latest/guide/#healthEndpoint[Health Endpoint] documentation for how to configure that setting.
 
-If you wish to disable the MicroStream health check while still using the `management` dependency you can set the property `endpoints.health.microstream.enabled` to `false` in your application configuration.
+If you wish to disable the EclipseStore health check while still using the `management` dependency you can set the property `endpoints.health.eclipsestore.enabled` to `false` in your application configuration.
 
 [source,yaml]
 ----
 endpoints:
   health:
-    microstream:
+    eclipsestore:
       enabled: false
 ----

@@ -1,4 +1,4 @@
-microstream:
+eclipsestore:
   cache:
     counter: # <1>
       key-type: java.lang.String

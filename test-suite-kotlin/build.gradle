@@ -1,16 +1,16 @@
 plugins {
     id("org.jetbrains.kotlin.jvm")
     id("org.jetbrains.kotlin.kapt")
-    id("io.micronaut.internal.build.microstream-testsuite")
+    id("io.micronaut.internal.build.eclipsestore-testsuite")
 }
 
 dependencies {
     kaptTest(platform(mn.micronaut.core.bom))
-    kaptTest(projects.micronautMicrostreamAnnotations)
+    kaptTest(projects.micronautEclipsestoreAnnotations)
     kaptTest(mnSerde.micronaut.serde.processor)
 
     testImplementation(platform(mn.micronaut.core.bom))
-    testImplementation(projects.micronautMicrostreamAnnotations)
+    testImplementation(projects.micronautEclipsestoreAnnotations)
 
     testImplementation(mnValidation.micronaut.validation)
     testImplementation(mnSerde.micronaut.serde.jackson)
@@ -25,9 +25,8 @@ dependencies {
 
     testImplementation(mn.micronaut.http.server.netty)
     testImplementation(mn.micronaut.http.client)
-    testImplementation(projects.micronautMicrostream)
+    testImplementation(projects.micronautEclipsestore)
     testImplementation(libs.jupiter.jupiter.params)
-    testImplementation(projects.micronautMicrostreamCache)
 }
 
 kotlin {

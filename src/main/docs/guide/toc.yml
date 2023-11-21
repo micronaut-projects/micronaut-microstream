@@ -1,7 +1,6 @@
 introduction:
   title: Introduction
 releaseHistory: Release History
-whatsnew: What's New
 dependency: Dependency
 configuration: Configuration
 rootInstance: Root Instance
@@ -15,11 +14,7 @@ storageTargets:
   postgres: Postgres
   s3: S3
   dynamodb: DynamoDB
-cache:
-  title: Cache
-  cacheConfiguration: Cache Configuration
-  cacheStorage: Cache Storage
-microstreamMetrics: Metrics
+eclipsestoreMetrics: Metrics
 storageHealth: Health
 rest:
   title: REST API

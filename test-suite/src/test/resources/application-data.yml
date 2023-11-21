@@ -1,5 +1,5 @@
-microstream:
+eclipsestore:
   storage:
     main: # <1>
-      root-class: 'io.micronaut.microstream.docs.Data' # <2>
-      storage-directory: '/Users/sdelamo/Documents/MicroStreamData'
+      root-class: 'io.micronaut.eclipsestore.docs.Data' # <2>
+      storage-directory: '/Users/sdelamo/Documents/EclipseStoreData'

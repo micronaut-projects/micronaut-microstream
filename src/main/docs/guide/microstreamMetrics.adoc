@@ -1,3 +1,0 @@
-You can enable MicroStream Metrics collection by enabling https://micronaut-projects.github.io/micronaut-micrometer/latest/guide[Micrometer Metrics].
-
-If you do not wish to collect MicroStream metrics, you can set `micronaut.metrics.binders.microstream.enabled` to `false` in `application.yml`.

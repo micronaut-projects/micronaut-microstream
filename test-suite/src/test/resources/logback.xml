@@ -13,7 +13,7 @@
     </root>
     <logger name="io.micronaut.http.client" level="TRACE"/>
     <logger name="io.micronaut.http.server" level="TRACE"/>
-    <logger name="io.micronaut.microstream" level="TRACE"/>
+    <logger name="io.micronaut.eclipsestore" level="TRACE"/>
     <logger name="com.zaxxer.hikari" level="TRACE"/>
     <logger name="software.amazon" level="TRACE"/>
 </configuration>

@@ -1,4 +1,4 @@
-Configuration of a https://docs.microstream.one/manual/storage/storage-targets/sql-databases/postgresql.html[Postgres storage target] requires a https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc[Postgres JDBC datasource to be defined]
+Configuration of a https://docs.eclipsestore.io/manual/storage/storage-targets/sql-databases/postgresql.html[Postgres storage target] requires a https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc[Postgres JDBC datasource to be defined]
 
 To get started, add the following dependencies:
 
@@ -6,7 +6,7 @@ dependency:micronaut-jdbc-hikari[groupId=io.micronaut.sql,scope=runtime]
 
 dependency:postgresql[groupId=org.postgresql,scope=runtime]
 
-dependency:microstream-afs-sql[groupId=one.microstream,scope=runtime]
+dependency:afs-sql[groupId=org.eclipse.store,scope=runtime]
 
 The following defines a datasource named `default` that connects to a Postgres database:
 
@@ -24,11 +24,11 @@ The Postgres Storage Target can then be configured as follows:
 
 [configuration]
 ----
-microstream:
+eclipsestore:
     postgres:
         storage:
             default:                               # <1>
-                table-name: microstream            # <2>
+                table-name: eclipsestore            # <2>
                 root-class: com.example.model.Root # <3>
 ----
 <1> The name for this Storage Manager
@@ -41,11 +41,11 @@ If you require to use a DataSource with a different name, this can be configured
 
 [configuration]
 ----
-microstream:
+eclipsestore:
     postgres:
         storage:
             backing:
-                table-name: microstream
+                table-name: eclipsestore
                 root-class: com.example.model.Root
                 datasource-name: default # <1>
 ----

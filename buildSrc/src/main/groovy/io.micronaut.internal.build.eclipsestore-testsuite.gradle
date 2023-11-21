@@ -1,0 +1,7 @@
+plugins {
+    id "io.micronaut.internal.build.eclipsestore-base"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

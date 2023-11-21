@@ -1,4 +1,4 @@
-Configuration of an https://docs.microstream.one/manual/storage/storage-targets/blob-stores/aws-s3.html[S3 storage target] requires a bean of type `S3Client` and configuration.
+Configuration of an https://docs.eclipsestore.io/manual/storage/storage-targets/blob-stores/aws-s3.html[S3 storage target] requires a bean of type `S3Client` and configuration.
 
 To get started, add the following dependencies:
 
@@ -6,17 +6,17 @@ dependency:s3[groupId=software.amazon.awssdk,scope=runtime]
 
 dependency:micronaut-aws-sdk-v2[groupId=io.micronaut.aws,scope=runtime]
 
-dependency:microstream-afs-aws-s3[groupId=one.microstream,scope=runtime]
+dependency:afs-aws-s3[groupId=org.eclipse.store,scope=runtime]
 
 The configuration can then be defined as follows:
 
 [configuration]
 ----
-microstream:
+eclipsestore:
     s3:
         storage:
             default:                               # <1>
-                bucket-name: microstream           # <2>
+                bucket-name: eclipsestore          # <2>
                 root-class: com.example.model.Root # <3>
 ----
 <1> The name for the created Storage Manager
@@ -29,12 +29,12 @@ If you require to use an S3Client with a different name, this can be configured 
 
 [configuration]
 ----
-microstream:
+eclipsestore:
     s3:
         storage:
             default:
                 s3-client-name: my-s3-client       # <1>
-                bucket-name: microstream
+                bucket-name: eclipsestore
                 root-class: com.example.model.Root
 ----
 <1> The name of the S3Client bean to use

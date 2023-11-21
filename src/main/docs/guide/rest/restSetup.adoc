@@ -1,13 +1,13 @@
 To enable it, add the following dependency to your application.
 
-dependency:micronaut-microstream-rest[groupId="{projectGroup}",scope="developmentOnly"]
+dependency:micronaut-eclipsestore-rest[groupId="{projectGroup}",scope="developmentOnly"]
 
 You also need to enable it in your configuration, as for security it is disabled by default.
 
 [source,yaml]
 .src/main/resources/application.yml
 ----
-microstream:
+eclipsestore:
   rest:
     enabled: true
 ----

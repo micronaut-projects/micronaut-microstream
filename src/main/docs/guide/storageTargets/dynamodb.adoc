@@ -1,4 +1,4 @@
-Configuration of an https://docs.microstream.one/manual/storage/storage-targets/blob-stores/aws-dynamodb.html[DynamoDB storage target] requires a https://micronaut-projects.github.io/micronaut-aws/latest/guide/#dynamodb[DynamoDbClient bean to be defined].
+Configuration of an https://docs.eclipsestore.io/manual/storage/storage-targets/blob-stores/aws-dynamodb.html[DynamoDB storage target] requires a https://micronaut-projects.github.io/micronaut-aws/latest/guide/#dynamodb[DynamoDbClient bean to be defined].
 
 To get started, add the following dependencies:
 
@@ -6,24 +6,24 @@ dependency:dynamodb[groupId=software.amazon.awssdk,scope=runtime]
 
 dependency:micronaut-aws-sdk-v2[groupId=io.micronaut.aws,scope=runtime]
 
-dependency:microstream-afs-aws-dynamodb[groupId=one.microstream,scope=runtime]
+dependency:afs-aws-dynamodb[groupId=org.eclipse.store,scope=runtime]
 
 The configuration can then be defined as follows:
 
 [configuration]
 ----
-microstream:
+eclipsestore:
     dynamodb:
         storage:
             default:                               # <1>
-                table-name: microstream            # <2>
+                table-name: eclipsestore           # <2>
                 root-class: com.example.model.Root # <3>
 ----
 <1> The name for the created Storage Manager
 <2> The name of the DynamoDB table to use for storage
 <3> The root class of the object graph to store
 
-NOTE: If the DynamoDB table does not exist, MicroStream creates it.
+NOTE: If the DynamoDB table does not exist, EclipseStore creates it.
 
 The storage manager will first attempt to look up an `DynamoDbClient` with the same name as the Storage Manager, and if this is not found, it will attempt to look up an un-named `DynamoDbClient` bean.
 
@@ -31,12 +31,12 @@ If you require to use an `DynamoDbClient` with a different name, this can be con
 
 [configuration]
 ----
-microstream:
+eclipsestore:
     dynamodb:
         storage:
             default:
                 dynamo-db-client-name: my-dynamo-client       # <1>
-                table-name: microstream
+                table-name: eclipsestore
                 root-class: com.example.model.Root
 ----
 <1> The name of the `DynamoDbClient` bean to use

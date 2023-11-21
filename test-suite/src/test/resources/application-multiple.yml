@@ -1,12 +1,12 @@
-microstream:
+eclipsestore:
   storage:
     orange: # <1>
-      root-class: 'io.micronaut.microstream.docs.OneData' # <2>
-      storage-directory: build/microstream${random.shortuuid}
+      root-class: 'io.micronaut.eclipsestore.docs.OneData' # <2>
+      storage-directory: build/eclipsestore{random.shortuuid}
       channel-count: 4
     blue: # <2>
-      root-class: 'io.micronaut.microstream.docs.AnotherData' # <2>
-      storage-directory: build/microstream${random.shortuuid}
+      root-class: 'io.micronaut.eclipsestore.docs.AnotherData' # <2>
+      storage-directory: build/eclipsestore{random.shortuuid}
       channel-count: 4
       channel-directory-prefix: 'channel_'
       data-file-prefix: 'channel_'

@@ -1,7 +1,0 @@
-plugins {
-    id "io.micronaut.internal.build.microstream-base"
-}
-
-tasks.named('test') {
-    useJUnitPlatform()
-}

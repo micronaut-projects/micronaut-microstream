@@ -1,1 +1,1 @@
-Integration with https://microstream.one[MicroStream].
+Integration with https://eclipsestore.io[EclipseStore].

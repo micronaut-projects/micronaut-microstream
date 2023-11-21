@@ -9,13 +9,12 @@ plugins {
     id 'io.micronaut.build.shared.settings' version '6.6.1'
 }
 
-rootProject.name = 'microstream-parent'
+rootProject.name = 'eclipsestore-parent'
 
-include 'microstream-bom'
-include 'microstream'
-include 'microstream-annotations'
-include 'microstream-rest'
-include 'microstream-cache'
+include 'eclipsestore-bom'
+include 'eclipsestore'
+include 'eclipsestore-annotations'
+include 'eclipsestore-rest'
 
 include 'test-suite'
 include 'test-suite-utils'

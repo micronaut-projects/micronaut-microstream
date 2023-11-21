@@ -1,4 +1,4 @@
-microstream:
+eclipsestore:
   storage:
     backing: # <1>
       storage-directory: "${storageDirectory}"

@@ -1,9 +1,9 @@
 The following example shows how to create a repository which injects the `StorageManager` and retrieves the Root Instance:
 
-snippet::io.micronaut.microstream.docs.CustomerRepositoryImpl[tags=clazz]
+snippet::io.micronaut.eclipsestore.docs.CustomerRepositoryImpl[tags=clazz]
 
-<1> If your Micronaut application has only a single MicroStream Instance, you don't need to specify a name qualifier to inject `StorageManager`.
-<2> When you are https://docs.microstream.one/manual/storage/root-instances.html#_shared_mutable_data[working with MicroStream technology in a multi-threaded environment],
+<1> If your Micronaut application has only a single EclipseStore Instance, you don't need to specify a name qualifier to inject `StorageManager`.
+<2> When you are https://docs.eclipsestore.io/manual/storage/root-instances.html#_shared_mutable_data[working with EclipseStore technology in a multi-threaded environment],
 reading and writing to this shared object graph must be synchronized.
-<3> https://docs.microstream.one/manual/storage/storing-data/index.html[To store a newly created object, store the "owner" of the object].
+<3> https://docs.eclipsestore.io/manual/storage/storing-data/index.html[To store a newly created object, store the "owner" of the object].
 

@@ -1,2 +1,0 @@
-MicroStream can be used as a https://micronaut-projects.github.io/micronaut-cache/latest/guide/#cache-abstraction[cache abstraction] layer.
-

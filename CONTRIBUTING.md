@@ -1,22 +1,22 @@
 # Contributing Code or Documentation to Micronaut
 
-Sign the [Contributor License Agreement (CLA)](https://cla-assistant.io/micronaut-projects/micronaut-microstream). This is required before any of your code or pull-requests are accepted.
+Sign the [Contributor License Agreement (CLA)](https://cla-assistant.io/micronaut-projects/micronaut-eclipsestore). This is required before any of your code or pull-requests are accepted.
 
 ## Finding Issues to Work on
 
-If you are interested in contributing to Micronaut and are looking for issues to work on, take a look at the issues tagged with [help wanted](https://github.com/micronaut-projects/micronaut-microstream/issues?q=is%3Aopen+is%3Aissue+label%3A%22status%3A+help+wanted%22).
+If you are interested in contributing to Micronaut and are looking for issues to work on, take a look at the issues tagged with [help wanted](https://github.com/micronaut-projects/micronaut-eclipsestore/issues?q=is%3Aopen+is%3Aissue+label%3A%22status%3A+help+wanted%22).
 
 ## JDK Setup
 
-Micronaut MicroStream currently requires JDK 8.
+Micronaut EclipseStore currently requires JDK 8.
 
 ## IDE Setup
 
-Micronaut MicroStream can be imported into IntelliJ IDEA by opening the `build.gradle` file.
+Micronaut EclipseStore can be imported into IntelliJ IDEA by opening the `build.gradle` file.
 
 ## Docker Setup
 
-Micronaut MicroStream tests currently require Docker to be installed.
+Micronaut EclipseStore tests currently require Docker to be installed.
 
 ## Running Tests
 
