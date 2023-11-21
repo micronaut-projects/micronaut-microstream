@@ -4,7 +4,7 @@ micronaut = "4.2.0"
 groovy = "4.0.14"
 kotlin = '1.9.20'
 spock = "2.3-groovy-4.0"
-testcontainers = "1.19.1"
+testcontainers = "1.19.3"
 managed-microstream='08.01.01-MS-GA'
 
 micronaut-aws = "4.1.1"
