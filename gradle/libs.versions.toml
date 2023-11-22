@@ -8,7 +8,6 @@ testcontainers = "1.19.1"
 managed-eclipsestore='1.0.0'
 
 micronaut-aws = "4.1.1"
-micronaut-cache = "4.1.1"
 micronaut-logging = "1.0.0"
 micronaut-micrometer = "5.1.2"
 micronaut-serde = "2.4.0"
@@ -20,7 +19,6 @@ micronaut-validation = "4.2.0"
 micronaut-aws = { module = "io.micronaut.aws:micronaut-aws-bom", version.ref = "micronaut-aws" }
 # Required to get dependabot updates for micronaut-core
 micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'micronaut' }
-micronaut-cache = { module = "io.micronaut.cache:micronaut-cache-bom", version.ref = "micronaut-cache" }
 micronaut-micrometer = { module = "io.micronaut.micrometer:micronaut-micrometer-bom", version.ref = "micronaut-micrometer" }
 micronaut-serde = { module = "io.micronaut.serde:micronaut-serde-bom", version.ref = "micronaut-serde" }
 micronaut-sql = { module = "io.micronaut.sql:micronaut-sql-bom", version.ref = "micronaut-sql" }
@@ -30,7 +28,6 @@ managed-eclipsestore-aws-s3 = { module = 'org.eclipse.store:afs-aws-s3', version
 managed-eclipsestore-aws-dynamodb = { module = 'org.eclipse.store:afs-aws-dynamodb', version.ref = 'managed-eclipsestore' }
 managed-eclipsestore-sql = { module = 'org.eclipse.store:afs-sql', version.ref = 'managed-eclipsestore' }
 managed-eclipsestore-storage-embedded-configuration = { module = 'org.eclipse.store:storage-embedded-configuration', version.ref = 'managed-eclipsestore' }
-managed-eclipsestore-cache = { module = 'org.eclipse.store:cache', version.ref = 'managed-eclipsestore' }
 managed-eclipsestore-storage-restservice = { module = 'org.eclipse.store:storage-restservice', version.ref = 'managed-eclipsestore' }
 
 eclipsestore-rest-gui = { module = 'org.eclipse.store:storage-restclient-app', version.ref = 'managed-eclipsestore' }
