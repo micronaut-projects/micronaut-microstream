@@ -19,7 +19,9 @@ public final class MinioUtils {
             .endpointOverride(new URI(s3Config.getS3Configuration().getEndpointOverride()))
             .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(s3Config.getAccessKeyId(), s3Config.getSecretKey())))
             .region(Region.of(s3Config.getRegion()))
-            .serviceConfiguration(b -> b.pathStyleAccessEnabled(true)) // Required for minio
+            .serviceConfiguration(b -> b // Required for minio
+                .checksumValidationEnabled(false)
+                .pathStyleAccessEnabled(true))
             .build();
         if (client.listBuckets().buckets().stream().map(Bucket::name).noneMatch(s3Config.getBucketName()::equals)) {
             client.createBucket(b -> b.bucket(s3Config.getBucketName()));
