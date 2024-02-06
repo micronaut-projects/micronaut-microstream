@@ -21,7 +21,7 @@ dependencies {
     implementation(libs.microstream.persistence.binary.jdk8)
     implementation(libs.microstream.persistence.binary.jdk17)
 
-    testImplementation(libs.testcontainers)
+    testImplementation(mnTestResources.testcontainers.core)
 
     testImplementation(mnSerde.micronaut.serde.jackson)
     testImplementation(mn.reactor.test)

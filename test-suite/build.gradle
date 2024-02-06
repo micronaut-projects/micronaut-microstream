@@ -40,7 +40,7 @@ dependencies {
 
     testRuntimeOnly(libs.managed.microstream.aws.dynamodb)
 
-    testImplementation(libs.testcontainers)
+    testImplementation(platform(mnTestResources.boms.testcontainers))
     testImplementation(libs.testcontainers.junit.jupiter)
     testImplementation(projects.testSuiteUtils)
 }
