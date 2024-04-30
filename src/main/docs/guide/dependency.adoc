@@ -2,6 +2,8 @@ To start, add the following dependencies to your classpath.
 
 dependency:micronaut-microstream-annotations[groupId="io.micronaut.microstream",scope=annotationProcessor]
 
+NOTE: For Kotlin, add the `micronaut-microstream-annotations` dependency in https://docs.micronaut.io/4.4.3/guide/#kaptOrKsp[kapt or ksp scope]. For Groovy annotation processing, the following implementation scope is adequate.
+
 dependency:micronaut-microstream-annotations[groupId="io.micronaut.microstream"]
 
 dependency:micronaut-microstream[groupId="io.micronaut.microstream"]
