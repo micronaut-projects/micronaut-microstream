@@ -2,11 +2,16 @@ package io.micronaut.microstream.dynamodb
 
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
+import io.micronaut.core.annotation.NonNull
 import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.microstream.BaseStorageSpec
+import io.micronaut.microstream.testutils.DynamoDbLocal
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
+import io.micronaut.test.support.TestPropertyProvider
 import jakarta.inject.Inject
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation
+import spock.lang.AutoCleanup
+import spock.lang.Shared
 import spock.lang.Specification
 
 @Property(name = "microstream.dynamodb.storage.red.table-name", value = "redtable")
@@ -15,7 +20,16 @@ import spock.lang.Specification
 @Property(name = "microstream.dynamodb.storage.blue.root-class", value = 'io.micronaut.microstream.BaseStorageSpec$Root')
 @Property(name = "aws.region", value = "us-east-1")
 @MicronautTest(startApplication = false)
-class DynamoDbStorageConfigurationProviderSpec extends Specification {
+class DynamoDbStorageConfigurationProviderSpec extends Specification implements TestPropertyProvider {
+    @Shared
+    @AutoCleanup
+    DynamoDbLocal dynamoDbLocal = new DynamoDbLocal()
+
+    @NonNull
+    @Override
+    Map<String, String> getProperties() {
+        dynamoDbLocal.getProperties() as Map<String, String>
+    }
 
     @Inject
     BeanContext beanContext
