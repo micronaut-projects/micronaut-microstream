@@ -2,7 +2,7 @@
 micronaut-docs = "2.0.0"
 micronaut = "4.6.2"
 groovy = "4.0.14"
-kotlin = '2.0.10'
+kotlin = '2.0.20'
 spock = "2.3-groovy-4.0"
 managed-microstream='08.01.02-MS-GA'
 
