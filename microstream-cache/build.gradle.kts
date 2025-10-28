@@ -7,5 +7,5 @@ dependencies {
     api(libs.managed.microstream.cache)
     api(mnCache.micronaut.cache.core)
     testImplementation(mnCache.micronaut.cache.tck)
-    testImplementation(libs.jupiter.api)
+    testImplementation(mnTest.junit.jupiter.api)
 }
