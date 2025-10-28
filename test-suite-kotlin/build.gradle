@@ -30,8 +30,3 @@ dependencies {
     testImplementation(projects.micronautMicrostreamCache)
 }
 
-kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
-}
