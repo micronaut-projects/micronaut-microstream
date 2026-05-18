@@ -6,7 +6,7 @@ kotlin = '2.1.21'
 spock = "2.3-groovy-4.0"
 managed-microstream='08.01.02-MS-GA'
 
-micronaut-aws = "4.10.0"
+micronaut-aws = "4.11.0"
 micronaut-cache = "5.2.0"
 micronaut-logging = "1.6.1"
 micronaut-micrometer = "5.11.0"
