@@ -2,3 +2,9 @@ repositories {
     mavenCentral()
 }
 
+// micronaut-build 8 targets Java 25 by default; this branch keeps the Java 17 baseline of Micronaut 4
+pluginManager.withPlugin("io.micronaut.build.internal.base") {
+    micronautBuild {
+        javaVersion = 17
+    }
+}
