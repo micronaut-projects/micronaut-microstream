@@ -1,3 +1,6 @@
+[.lang-python]
+WARNING: The root instance and the entities it references must be `@Introspected` (or `@Serdeable`) Python classes: only the property fields of the Java class generated for an introspected class are persistent. MicroStream instantiates the root through the no-arg constructor of that class, which with the current Python compiler release creates an all-default `@dataclass` root in Python, so the collections Python reads from `RootProvider.root()` / `StorageManager.root()` are converted copies and the entries added to them are not stored yet. The Python samples in this guide show the intended API (`RootProvider`, `StorageManager`, `@StoreParams`, `@StoreReturn`); until the Python compiler creates such a root as a Java-owned object, declare the root instance as a Java class (the generated class of a Python class has no `io.` prefix, for example `micronaut.microstream.docs.Data`). Note also that the Python runtime requires JDK 25, on which MicroStream 08.01.02 cannot create a `StorageManager` (`sun.misc.Unsafe.ensureClassInitialized` was removed in JDK 22).
+
 The following example creates a https://docs.microstream.one/manual/storage/root-instances.html[Root Instance] to store ``Customer``s:
 
 snippet::io.micronaut.microstream.docs.Data[]
