@@ -3,4 +3,4 @@ The following example shows how to create implementations for this repository:
 snippet::io.micronaut.microstream.docs.CustomerRepository[]
 
 [.lang-python]
-NOTE: MicroStream cannot persist Python objects yet, see the <<rootInstance, Root Instance>> section; the Python repository implementations in the following sections show the intended API.
+NOTE: A root instance declared in Python is not stored correctly yet, see the <<rootInstance, Root Instance>> section; the Python repository implementations in the following sections show the intended API.
