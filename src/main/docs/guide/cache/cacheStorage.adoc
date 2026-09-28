@@ -1,7 +1,7 @@
 If caching that persists across restarts is required, you can back a MicroStream cache with a Storage Manager.
 
-[source,yaml]
 .src/main/resources/application.yml
+[configuration]
 ----
 include::test-suite/src/test/resources/application-cachepersist.yml[]
 ----
