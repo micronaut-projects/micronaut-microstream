@@ -4,8 +4,8 @@ dependency:micronaut-microstream-cache[groupId="io.micronaut.microstream"]
 
 You can then define a cache by adding the following configuration to your application:
 
-[source,yaml]
 .src/main/resources/application.yml
+[configuration]
 ----
 include::test-suite/src/test/resources/application-cache.yml[]
 ----

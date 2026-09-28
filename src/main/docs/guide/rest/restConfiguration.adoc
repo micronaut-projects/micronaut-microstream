@@ -4,8 +4,8 @@ NOTE: When multiple storage managers are defined, the URL must be suffixed by th
 
 This prefix can be configured via the configuration.
 
-[source,yaml]
 .src/main/resources/application.yml
+[configuration]
 ----
 microstream:
   rest:

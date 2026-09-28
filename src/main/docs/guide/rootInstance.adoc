@@ -10,8 +10,8 @@ snippet::io.micronaut.microstream.docs.Customer[]
 
 You specify the Root class via configuration:
 
-[source,yaml]
 .src/main/resources/application.yml
+[configuration]
 ----
 include::test-suite/src/test/resources/application-data.yml[]
 ----
