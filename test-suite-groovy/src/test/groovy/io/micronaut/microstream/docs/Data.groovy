@@ -2,7 +2,7 @@ package io.micronaut.microstream.docs
 
 import io.micronaut.core.annotation.Introspected
 
-@Introspected // <1>
+@Introspected
 class Data {
     Map<String, Customer> customers = [:]
 }

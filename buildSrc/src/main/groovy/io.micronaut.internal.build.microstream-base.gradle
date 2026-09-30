@@ -2,3 +2,26 @@ repositories {
     mavenCentral()
 }
 
+// micronaut-build 8 targets Java 25 by default; this branch keeps the Java 17 baseline of Micronaut 4
+pluginManager.withPlugin("io.micronaut.build.internal.base") {
+    micronautBuild {
+        javaVersion = 17
+    }
+}
+
+// micronaut-build 8 needs a JDK 25 to *run* Gradle, but MicroStream 08.01.02 calls
+// sun.misc.Unsafe.ensureClassInitialized, which JDK 22 removed, so creating a StorageManager on a JDK 25 fails
+// with "NoSuchMethodError: 'void sun.misc.Unsafe.ensureClassInitialized(java.lang.Class)'". Keep compiling and
+// running the code with the Java 21 toolchain this branch used to build with, as the Kotlin test suite already
+// did with `jvmToolchain(17)`; settings.gradle adds the foojay resolver so CI can provision it (the runners
+// remove their system JDKs). test-suite-python overrides this: the Python runtime needs the JDK 25 of core 5.2.
+// The root project only aggregates javadoc, which micronaut-build renders with the Gradle JVM.
+if (project != rootProject) {
+    pluginManager.withPlugin("java-base") {
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(21)
+            }
+        }
+    }
+}

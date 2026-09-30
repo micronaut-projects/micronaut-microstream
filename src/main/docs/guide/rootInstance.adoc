@@ -1,3 +1,6 @@
+[.lang-python]
+WARNING: The root instance and the entities it references must be `@Introspected` (or `@Serdeable`) Python classes: only the property fields of the Java class generated for an introspected class are persistent, the GraalPy object itself is transient. Note also that the Python runtime requires JDK 25, on which MicroStream 08.01.02 cannot create a `StorageManager` at all (`sun.misc.Unsafe.ensureClassInitialized` was removed in JDK 22), so a Python application of this module cannot currently be run.
+
 The following example creates a https://docs.microstream.one/manual/storage/root-instances.html[Root Instance] to store ``Customer``s:
 
 snippet::io.micronaut.microstream.docs.Data[]

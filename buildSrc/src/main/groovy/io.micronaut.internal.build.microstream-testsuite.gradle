@@ -2,6 +2,12 @@ plugins {
     id "io.micronaut.internal.build.microstream-base"
 }
 
+dependencies {
+    // Gradle 9 requires the JUnit Platform launcher on the test runtime classpath
+    testRuntimeOnly(platform(mnTest.boms.junit))
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }
