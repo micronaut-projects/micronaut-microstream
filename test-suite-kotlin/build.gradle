@@ -29,9 +29,3 @@ dependencies {
     testImplementation(libs.jupiter.jupiter.params)
     testImplementation(projects.micronautMicrostreamCache)
 }
-
-kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
-}

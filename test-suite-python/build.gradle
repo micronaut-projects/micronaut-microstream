@@ -6,8 +6,15 @@ plugins {
 
 // The Python compiler (micronaut-inject-python) ships with Micronaut core 5.2+, which this branch does not use: only this
 // suite resolves that core version and the matching cache, serde, validation and test modules (see gradle/libs.versions.toml).
+// The Python runtime (Micronaut core 5.2) requires Java 25, unlike the rest of this branch, which builds and
+// tests with a Java 21 toolchain because MicroStream 08.01.02 does not run on JDK 22+ (see microstream-base).
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
 micronautBuild {
-    // the Python runtime (Micronaut core 5.2) requires Java 25, unlike the rest of this branch (Java 17)
     javaVersion = 25
     python {
         compilerVersion.set(libs.versions.micronaut.python)
@@ -40,7 +47,6 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
     testRuntimeOnly(mnLogging.logback.classic)
-    testRuntimeOnly("io.micronaut:micronaut-http-server-netty")
     testImplementation("io.micronaut:micronaut-http-server-netty")
     testImplementation("io.micronaut:micronaut-http-client")
     testRuntimeOnly(mn.snakeyaml)
@@ -48,5 +54,4 @@ dependencies {
 
 tasks.withType(Test).configureEach {
     useJUnitPlatform()
-    systemProperty "micronaut.python.pool.enabled", "false"
 }

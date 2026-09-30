@@ -6,7 +6,9 @@ pluginManagement {
 }
 
 plugins {
-    id 'io.micronaut.build.shared.settings' version '8.1.2'
+    // lets Gradle provision the Java 21 toolchain the MicroStream tests need (see microstream-base)
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+    id 'io.micronaut.build.shared.settings' version '8.1.3'
 }
 
 rootProject.name = 'microstream-parent'

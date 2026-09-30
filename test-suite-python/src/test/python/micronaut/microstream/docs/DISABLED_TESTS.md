@@ -9,7 +9,8 @@ bug-fixing task list for the final migration wave.
 - Last generated active `@Disabled` count: 2.
 - Last generated command: `rg -n "@Disabled\(" test-suite-python/src/test/python`.
 - Last full-suite command: `./gradlew :test-suite-python:test -Ppython-ci`.
-- Last full-suite result: build successful, 3 tests executed (3 test classes), 2 skipped (core 5.2.3 / micronaut-build 8.1.2 for the Python suite).
+- Last full-suite result: build successful, 3 tests executed (3 test classes), 2 skipped (core 5.2.9 /
+  micronaut-build 8.1.3 for the Python suite).
 
 ## Migration Rules
 
@@ -23,19 +24,22 @@ bug-fixing task list for the final migration wave.
   `getBean(CounterService)`, `client.exchange(request, Customer)`); `getBean` of a Python class returns the Python object.
 - The root instance is `@Introspected` so that the generated Java class is persistable (only its property fields are
   persistent, the GraalPy object is transient).
-- `CacheTest` is a `@MicronautTest(environments=["cache"])` with the storage directory supplied through `@Property`
-  instead of a manual `ApplicationContext.run(...)`; `PersistentCacheTest` has to restart the application and keeps the
-  nested `ApplicationContext.run(EmbeddedServer, config, "cachepersist")` calls of the Java test.
-- This branch builds on Micronaut 4.9 (Java 17 baseline) while the Python compiler and runtime ship with Micronaut core
-  5.2+ (Java 25): only `test-suite-python` resolves the Micronaut 5 versions of core, cache, serde, validation and test
-  (`micronautBuild.python.compilerVersion` and the `*-python` entries of `gradle/libs.versions.toml`) and targets Java 25.
+- `CacheTest` is a `@MicronautTest(environments=["cache"])` instead of the manual `ApplicationContext.run(...)` of the
+  Java, Kotlin and Groovy tests. The `cache` environment has no storage backing, so the unique storage directory those
+  tests pass is not needed (an annotation member has to be a compile-time constant and cannot hold a fresh UUID).
+  `PersistentCacheTest` does restart the application and keeps the nested
+  `ApplicationContext.run(EmbeddedServer, config, "cachepersist")` calls of the Java test.
+- This branch builds on Micronaut 4.9 (Java 17 baseline, Java 21 toolchain) while the Python compiler and runtime ship
+  with Micronaut core 5.2+ (Java 25): only `test-suite-python` resolves the Micronaut 5 versions of core, cache, serde,
+  validation and test (`micronautBuild.python.compilerVersion` and the `*-python` entries of
+  `gradle/libs.versions.toml`) and overrides the toolchain to 25.
 
 ## Active `@Disabled` Tests
 
 | Test | Reason |
 | --- | --- |
-| `PersistentCacheTest.cache_persists_over_restarts` | Not a Python compiler gap: MicroStream 08.01.02 calls `sun.misc.Unsafe.ensureClassInitialized`, which was removed in JDK 22, so creating a `StorageManager` fails with `NoSuchMethodError: 'void sun.misc.Unsafe.ensureClassInitialized(java.lang.Class)'` on the JDK 25 the Python runtime requires (the Java, Kotlin and Groovy storage tests of this branch fail the same way on JDK 25). |
-| `CustomerControllerTest.test_crud` | On this branch the `StorageManager` cannot be created on JDK 25 (see above). Beyond that, observed with the identical EclipseStore port (micronaut-projects/micronaut-eclipsestore#329, core 5.2.3): the store instantiates the root class reflectively through the generated no-arg constructor, which for an all-default `@dataclass` creates the object *in Python* (so that the dataclass defaults apply) and copies the fields to Java. The root is therefore Python-owned and Python code that receives it as a Java object (`StorageManager.root()`, `RootProvider.root()`) gets a fresh converted `HashMap` copy of `customers` on every access, so the entries added from Python are neither stored nor found (`HttpClientResponseException: Not Found` on the first `GET` after the `POST`, both repository implementations). Objects created through the field-assigning constructors of the generated class are Java-owned and persist as documented for core 5.2.3. The test is a faithful port and runs as soon as both are fixed. |
+| `PersistentCacheTest.cache_persists_over_restarts` | Not a Python compiler gap: MicroStream 08.01.02 calls `sun.misc.Unsafe.ensureClassInitialized`, which was removed in JDK 22, so creating a `StorageManager` fails on the JDK 25 the Python runtime requires. Re-checked on core 5.2.9: `BeanInstantiationException: Error instantiating bean of type [one.microstream.storage.types.StorageManager] … Caused by: java.lang.NoSuchMethodError: 'void sun.misc.Unsafe.ensureClassInitialized(java.lang.Class)'`. The rest of this branch now builds and tests with a Java 21 toolchain, where the Java, Kotlin and Groovy ports of this test pass; only the Python suite has to run on JDK 25. |
+| `CustomerControllerTest.test_crud` | Same root cause: the `StorageManager` cannot be created on JDK 25, so every request fails. Re-checked on core 5.2.9: `HttpClientResponseException: Internal Server Error`, `Caused by: java.lang.NoSuchMethodError: 'void sun.misc.Unsafe.ensureClassInitialized(java.lang.Class)'`. Beyond that, and not observable here, the identical EclipseStore port (micronaut-projects/micronaut-eclipsestore#329) showed that the store instantiates the root class reflectively through the generated no-arg constructor, which for an all-default `@dataclass` creates the object *in Python* so that the dataclass defaults apply; the root is then Python-owned and Python code that receives it as a Java object (`StorageManager.root()`, `RootProvider.root()`) gets a converted copy of `customers` on every access. Objects created through the field-assigning constructors of the generated class are Java-owned and persist as documented. The test is a faithful port and runs as soon as MicroStream works on JDK 25 (and, if it then resurfaces, the root ownership is fixed). |
 
 ## Commented Unsupported Snippet Ports
 
